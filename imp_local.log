@@ -1,0 +1,380 @@
+
+Conectado a: Oracle Database 11g Release 11.2.0.1.0 - Production
+
+Archivo de exportación creado por EXPORT:V11.02.00 a través de la ruta de acceso convencional
+importación realizada en el juego de caracteres WE8MSWIN1252 y el juego de caracteres NCHAR AL16UTF16
+el servidor de importación utiliza el juego de caracteres AL32UTF8 (posible conversión de juego de caracteres)
+el cliente de exportación utiliza el juego de caracteres WE8ISO8859P1 (posible conversión de juego de caracteres)
+. importando la tabla                  "AN_ANULADOS"
+                                                            0 filas importadas
+. importando la tabla                   "AN_COMPRAS"
+                                                            0 filas importadas
+. importando la tabla                    "AN_RETAIR"
+                                                            4 filas importadas
+. importando la tabla                    "AN_TIPCOM"
+                                                            7 filas importadas
+. importando la tabla                    "AN_VENTAS"
+                                                          168 filas importadas
+. importando la tabla                   "CB_CABCOBT"
+                                                            0 filas importadas
+. importando la tabla                     "CB_CRUCE"
+                                                            0 filas importadas
+. importando la tabla                    "CB_CTAINS"
+                                                            3 filas importadas
+. importando la tabla                  "CB_CUENTIPO"
+                                                            0 filas importadas
+. importando la tabla                   "CB_DETCOBT"
+                                                            0 filas importadas
+. importando la tabla                    "CB_DETEGR"
+..
+                                                         2199 filas importadas
+. importando la tabla                    "CB_DETING"
+..
+                                                         2389 filas importadas
+. importando la tabla                    "CB_DETTAR"
+                                                            0 filas importadas
+. importando la tabla                    "CB_EGRESO"
+.
+                                                         1042 filas importadas
+. importando la tabla                   "CB_INGRESO"
+.
+                                                         1193 filas importadas
+. importando la tabla                  "CB_TARJETAS"
+                                                            0 filas importadas
+. importando la tabla                      "CB_TIPO"
+                                                           17 filas importadas
+. importando la tabla                    "CC_CHEQUE"
+..
+                                                         2153 filas importadas
+. importando la tabla                "CC_COMISIONES"
+                                                           26 filas importadas
+. importando la tabla                     "CC_CRUCE"
+..
+                                                         2563 filas importadas
+. importando la tabla                     "CC_MOVIM"
+...
+                                                         3573 filas importadas
+. importando la tabla                     "CC_RETEN"
+                                                           23 filas importadas
+. importando la tabla                      "CC_TIPO"
+                                                           13 filas importadas
+. importando la tabla                    "CO_CABAUT"
+                                                            2 filas importadas
+. importando la tabla                    "CO_CABCOM"
+....
+                                                         4288 filas importadas
+. importando la tabla                   "CO_CABNIFF"
+                                                            0 filas importadas
+. importando la tabla                    "CO_CABREP"
+                                                            0 filas importadas
+. importando la tabla                    "CO_CENCOS"
+                                                            2 filas importadas
+. importando la tabla                    "CO_COMAUT"
+                                                            4 filas importadas
+. importando la tabla                    "CO_DETCOM"
+............
+                                                        12002 filas importadas
+. importando la tabla                   "CO_DETNIFF"
+                                                            0 filas importadas
+. importando la tabla                    "CO_DETREP"
+                                                            0 filas importadas
+. importando la tabla                    "CO_ESTCTA"
+                                                            6 filas importadas
+. importando la tabla                    "CO_PLACTA"
+                                                          479 filas importadas
+. importando la tabla                   "CO_PLANIFF"
+                                                            0 filas importadas
+. importando la tabla                   "CO_PLANSUC"
+                                                          956 filas importadas
+. importando la tabla                    "CO_SALCTA"
+                                                            0 filas importadas
+. importando la tabla                    "CO_TIPCOM"
+                                                           20 filas importadas
+. importando la tabla                    "CP_CABDEB"
+                                                            0 filas importadas
+. importando la tabla                     "CP_CRUCE"
+...
+                                                         3286 filas importadas
+. importando la tabla                    "CP_DETDEB"
+                                                            0 filas importadas
+. importando la tabla                     "CP_MOVIM"
+....
+                                                         4682 filas importadas
+. importando la tabla                      "CP_PAGO"
+..
+                                                         2760 filas importadas
+. importando la tabla                    "CP_TIPMOV"
+                                                           26 filas importadas
+. importando la tabla                      "FA_CAJA"
+                                                            6 filas importadas
+. importando la tabla                   "FA_CIECAJA"
+                                                            0 filas importadas
+. importando la tabla                    "FA_CIERRE"
+                                                          441 filas importadas
+. importando la tabla                    "FA_CLACLI"
+                                                           15 filas importadas
+. importando la tabla                     "FA_CLIEN"
+..
+                                                         2254 filas importadas
+. importando la tabla                    "FA_CTACLI"
+                                                           79 filas importadas
+. importando la tabla                   "FA_DCTOCLI"
+                                                            3 filas importadas
+. importando la tabla                  "FA_DETDEVOL"
+                                                            0 filas importadas
+. importando la tabla                     "FA_DETVE"
+...........................
+                                                        27186 filas importadas
+. importando la tabla                   "FA_ENTREGA"
+                                                            0 filas importadas
+. importando la tabla                    "FA_ESTADO"
+                                                           12 filas importadas
+. importando la tabla                   "FA_FORMPAG"
+                                                          100 filas importadas
+. importando la tabla                      "FA_GUIA"
+                                                            0 filas importadas
+. importando la tabla                   "FA_MOVCAJA"
+                                                            9 filas importadas
+. importando la tabla                    "FA_RECPAG"
+.........
+                                                         9575 filas importadas
+. importando la tabla                "FA_REFERENCIA"
+                                                            0 filas importadas
+. importando la tabla                 "FA_SRIVENTAS"
+                                                            0 filas importadas
+. importando la tabla                    "FA_TIPCLI"
+                                                            7 filas importadas
+. importando la tabla                  "FA_TIPMOVCA"
+                                                            9 filas importadas
+. importando la tabla                     "FA_VENTA"
+.........
+                                                         9670 filas importadas
+. importando la tabla                    "IN_AJUSTE"
+...
+                                                         3823 filas importadas
+. importando la tabla                      "IN_BODE"
+                                                            5 filas importadas
+. importando la tabla                   "IN_CABAJUS"
+..
+                                                         2069 filas importadas
+. importando la tabla                   "IN_CABPREP"
+                                                          111 filas importadas
+. importando la tabla                     "IN_CLASE"
+                                                           20 filas importadas
+. importando la tabla                  "IN_COESTADO"
+                                                            6 filas importadas
+. importando la tabla                    "IN_COMPRA"
+...
+                                                         3567 filas importadas
+. importando la tabla                     "IN_COSTO"
+...................
+                                                        19980 filas importadas
+. importando la tabla                  "IN_DESCITEM"
+.
+                                                         1221 filas importadas
+. importando la tabla                     "IN_DETCO"
+............
+                                                        12266 filas importadas
+. importando la tabla                   "IN_DETTOMA"
+.
+                                                         1852 filas importadas
+. importando la tabla                  "IN_DETTRANS"
+                                                            2 filas importadas
+. importando la tabla                    "IN_DOCPRO"
+                                                           10 filas importadas
+. importando la tabla              "IN_EQUIVALENCIA"
+                                                            3 filas importadas
+. importando la tabla                "IN_FABRICANTE"
+                                                           44 filas importadas
+. importando la tabla                  "IN_FORMULAS"
+......
+                                                         6927 filas importadas
+. importando la tabla                  "IN_FORPARAM"
+                                                            0 filas importadas
+. importando la tabla                  "IN_FORTINTE"
+................
+                                                        16235 filas importadas
+. importando la tabla                    "IN_HOJTEC"
+                                                            0 filas importadas
+. importando la tabla                    "IN_HTITEM"
+                                                            0 filas importadas
+. importando la tabla                  "IN_HTLABELS"
+                                                            0 filas importadas
+. importando la tabla                    "IN_ITEBOD"
+...........
+                                                        11420 filas importadas
+. importando la tabla                    "IN_ITEDET"
+                                                            0 filas importadas
+. importando la tabla                    "IN_ITEEMP"
+                                                            0 filas importadas
+. importando la tabla                      "IN_ITEM"
+..
+                                                         2855 filas importadas
+. importando la tabla                   "IN_ITEMRES"
+                                                            0 filas importadas
+. importando la tabla                    "IN_ITEPRO"
+                                                            0 filas importadas
+. importando la tabla                  "IN_ITESUCUR"
+...........
+                                                        11420 filas importadas
+. importando la tabla                    "IN_ITETAR"
+                                                            0 filas importadas
+. importando la tabla                     "IN_MARCA"
+                                                            9 filas importadas
+. importando la tabla                     "IN_MOVIM"
+......................................
+                                                        38753 filas importadas
+. importando la tabla                 "IN_PREPARADO"
+                                                          478 filas importadas
+. importando la tabla                     "IN_PROVE"
+                                                          387 filas importadas
+. importando la tabla                    "IN_RECPAG"
+                                                            0 filas importadas
+. importando la tabla                   "IN_RELITEM"
+                                                          272 filas importadas
+. importando la tabla                     "IN_TIMOV"
+                                                           23 filas importadas
+. importando la tabla                     "IN_TINTE"
+                                                           12 filas importadas
+. importando la tabla                    "IN_TIPPRE"
+                                                            6 filas importadas
+. importando la tabla                "IN_TIPRELITEM"
+                                                            1 filas importadas
+. importando la tabla                    "IN_TOMFIS"
+                                                           12 filas importadas
+. importando la tabla                  "IN_TRANSFER"
+                                                            1 filas importadas
+. importando la tabla                     "IN_UBICA"
+                                                            0 filas importadas
+. importando la tabla                    "IN_UNIBAS"
+                                                           18 filas importadas
+. importando la tabla                    "IN_VENPRO"
+                                                            5 filas importadas
+. importando la tabla                         "KITS"
+                                                          279 filas importadas
+. importando la tabla                "NO_ASISTENCIA"
+                                                            8 filas importadas
+. importando la tabla                    "NO_CABROL"
+                                                            0 filas importadas
+. importando la tabla                    "NO_CARFAM"
+                                                            0 filas importadas
+. importando la tabla                     "NO_CARGO"
+                                                           73 filas importadas
+. importando la tabla                     "NO_CURSO"
+                                                            0 filas importadas
+. importando la tabla                   "NO_DEPARTA"
+                                                           18 filas importadas
+. importando la tabla                    "NO_DETPAG"
+                                                            0 filas importadas
+. importando la tabla                     "NO_EMPLE"
+                                                            7 filas importadas
+. importando la tabla                     "NO_FALTA"
+                                                            0 filas importadas
+. importando la tabla                    "NO_PARENT"
+                                                            9 filas importadas
+. importando la tabla                  "NO_PRESTAMO"
+                                                            0 filas importadas
+. importando la tabla                   "NO_ROLPAGO"
+                                                            0 filas importadas
+. importando la tabla                    "NO_RUBCAL"
+                                                            0 filas importadas
+. importando la tabla                     "NO_RUBRO"
+                                                           36 filas importadas
+. importando la tabla                    "NO_SUBRUB"
+                                                           12 filas importadas
+. importando la tabla                   "NO_TIPPRES"
+                                                            1 filas importadas
+. importando la tabla                  "NO_VACACION"
+                                                            0 filas importadas
+. importando la tabla                    "PD_CTRPRD"
+                                                            0 filas importadas
+. importando la tabla                    "PD_DETPED"
+                                                            0 filas importadas
+. importando la tabla                    "PD_DETREQ"
+                                                            0 filas importadas
+. importando la tabla                    "PD_DETRTA"
+                                                            0 filas importadas
+. importando la tabla                    "PD_ORDCIF"
+                                                            0 filas importadas
+. importando la tabla                    "PD_ORDMOD"
+                                                            0 filas importadas
+. importando la tabla                    "PD_ORDMPD"
+                                                            0 filas importadas
+. importando la tabla                    "PD_ORDPRD"
+                                                            0 filas importadas
+. importando la tabla                    "PD_PEDIDO"
+                                                            0 filas importadas
+. importando la tabla                    "PD_RECETA"
+                                                            0 filas importadas
+. importando la tabla                    "PD_REQMAT"
+                                                            0 filas importadas
+. importando la tabla                    "PR_CANTON"
+                                                          219 filas importadas
+. importando la tabla                    "PR_CIUDAD"
+                                                           10 filas importadas
+. importando la tabla                     "PR_COLOR"
+                                                            4 filas importadas
+. importando la tabla                     "PR_EMPRE"
+                                                            1 filas importadas
+. importando la tabla                  "PR_GRUPCONT"
+                                                           28 filas importadas
+. importando la tabla                   "PR_INSTFIN"
+                                                           54 filas importadas
+. importando la tabla                    "PR_MODSYS"
+                                                            6 filas importadas
+. importando la tabla                   "PR_NUMEROS"
+                                                          999 filas importadas
+. importando la tabla                    "PR_NUMSUC"
+                                                          217 filas importadas
+. importando la tabla                  "PR_NUMTRANS"
+                                                            6 filas importadas
+. importando la tabla                      "PR_PAIS"
+                                                            4 filas importadas
+. importando la tabla                     "PR_PARAM"
+                                                          124 filas importadas
+. importando la tabla                   "PR_PREMIOS"
+                                                            0 filas importadas
+. importando la tabla                      "PR_PROV"
+                                                           23 filas importadas
+. importando la tabla                     "PR_SUCUR"
+                                                            4 filas importadas
+. importando la tabla                          "RES"
+                                                            9 filas importadas
+. importando la tabla                   "RP_MAX_MIN"
+                                                            0 filas importadas
+. importando la tabla                    "SG_ACCESO"
+                                                           17 filas importadas
+. importando la tabla                     "SG_AUDIT"
+                                                            0 filas importadas
+. importando la tabla                      "SG_MENU"
+                                                          754 filas importadas
+. importando la tabla                       "SG_ROL"
+                                                            9 filas importadas
+. importando la tabla                   "SG_ROLMENU"
+......
+                                                         6786 filas importadas
+. importando la tabla                      "TMP_CLI"
+                                                           36 filas importadas
+. importando la tabla                "TMP_CONDORMIX"
+...
+                                                         3288 filas importadas
+. importando la tabla                      "TMP_CXC"
+                                                           71 filas importadas
+. importando la tabla                    "TMP_ITEMS"
+..
+                                                         2170 filas importadas
+. importando la tabla                     "TMP_KITS"
+                                                          279 filas importadas
+. importando la tabla                      "TMP_REL"
+                                                           64 filas importadas
+. importando la tabla                  "TMP_RELITEM"
+                                                          245 filas importadas
+. importando la tabla                    "TS_DETING"
+                                                            0 filas importadas
+. importando la tabla                   "TS_INGRESO"
+                                                            0 filas importadas
+. importando la tabla                       "X_ITEM"
+.
+                                                         1481 filas importadas
+Activando las restricciones...
+La importación ha terminado correctamente y sin advertencias.

@@ -1,0 +1,6 @@
+FILE="F:\libiak_tintes\libiakcode\local.DMP"
+LOG="F:\libiak_tintes\libiakcode\imp_local.log"
+FROMUSER=DINAMIC
+TOUSER=DINAMIC
+IGNORE=Y
+FEEDBACK=1000
