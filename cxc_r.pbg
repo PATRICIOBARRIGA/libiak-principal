@@ -1,0 +1,7 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cxc_r.pbl" "";
+@end;
+@begin Objects
+ "w_rep_facturas_vencidas.srw" "cxc_r.pbl";
+@end;
