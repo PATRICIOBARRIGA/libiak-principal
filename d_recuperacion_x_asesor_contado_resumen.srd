@@ -1,0 +1,111 @@
+HA$PBExportHeader$d_recuperacion_x_asesor_contado_resumen.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=128 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=datetime updatewhereclause=yes name=cc_movim_mt_fecha dbname="cc_movim.mt_fecha" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cruce_mt_codigo dbname="cc_cruce.mt_codigo" )
+ column=(type=number updatewhereclause=yes name=fa_venta_ve_numero dbname="fa_venta.ve_numero" )
+ column=(type=number updatewhereclause=yes name=neto dbname="neto" )
+ column=(type=datetime updatewhereclause=yes name=fecefectivizacion dbname="fecefectivizacion" )
+ column=(type=number updatewhereclause=yes name=comision dbname="comision" )
+ column=(type=char(7) updatewhereclause=yes name=rango dbname="rango" )
+ column=(type=char(20) updatewhereclause=yes name=no_emple_ep_codigo dbname="no_emple.ep_codigo" )
+ column=(type=char(51) updatewhereclause=yes name=empleado dbname="empleado" )
+ retrieve="SELECT D.MT_FECHA,
+Z.MT_CODIGO,
+V.VE_NUMERO,
+Z.CR_VALDEB/1.12 - V.VE_CARGO neto,
+MAX(Y.CH_FECEFEC) fecefectivizacion,
+decode( max(y.ch_fecefec) - trunc(D.mt_fecha),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),4),(Z.CR_VALDEB/1.12-V.VE_CARGO),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),8),(Z.CR_VALDEB/1.12- V.VE_CARGO),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),10),(Z.CR_VALDEB/1.12- V.VE_CARGO),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),15),(Z.CR_VALDEB/1.12-V.VE_CARGO),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),29),(Z.CR_VALDEB/1.12-V.VE_CARGO),(Z.CR_VALDEB/1.12-V.VE_CARGO)) comision,
+decode( MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),4),' 1 - 4',
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),8),' 5 - 8',
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),10),' 9 - 10',
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),15),'11 - 15',
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),29),'16 - 29','m$$HEX1$$e100$$ENDHEX$$s 30') rango,
+e.ep_codigo,
+e.ep_apepat||' '||e.ep_nombre empleado
+FROM  CC_MOVIM X, CC_CRUCE Z, CC_CHEQUE Y ,CC_MOVIM D,FA_VENTA V,NO_EMPLE E,FA_RECPAG P
+WHERE V.EM_CODIGO = P.EM_CODIGO
+AND V.SU_CODIGO = P.SU_CODIGO
+AND V.BO_CODIGO = P.BO_CODIGO
+AND V.ES_CODIGO = P.ES_CODIGO
+AND V.VE_NUMERO = P.VE_NUMERO
+AND V.EM_CODIGO = D.EM_CODIGO
+AND V.SU_CODIGO = D.SU_CODIGO
+AND V.BO_CODIGO = D.BO_CODIGO
+AND V.ES_CODIGO = D.ES_CODIGO
+AND V.VE_NUMERO = D.VE_NUMERO
+AND V.EM_CODIGO = E.EM_CODIGO
+AND V.EP_CODIGO = E.EP_CODIGO
+AND Z.TT_CODIGO = Y.TT_CODIGO
+AND Z.TT_IOE = Y.TT_IOE
+AND Z.EM_CODIGO = Y.EM_CODIGO
+AND Z.SU_CODIGO = Y.SU_CODIGO
+AND Z.MT_CODIGO = Y.MT_CODIGO
+AND Z.TT_CODDEB = X.TT_CODIGO
+AND Z.TT_IOEDEB = X.TT_IOE
+AND Z.EM_CODIGO = X.EM_CODIGO
+AND Z.SU_CODIGO = X.SU_CODIGO
+AND Z.MT_CODDEB = X.MT_CODIGO
+AND Z.TT_CODDEB = D.TT_CODIGO
+AND Z.TT_IOEDEB = D.TT_IOE
+AND Z.EM_CODIGO = D.EM_CODIGO
+AND Z.SU_CODIGO = D.SU_CODIGO
+AND Z.MT_CODDEB = D.MT_CODIGO
+AND Z.TT_CODDEB  =  '1'
+AND Z.TT_IOEDEB    = 'D'
+AND to_char(D.MT_FECHA,'MM/YYYY') = :mesa$$HEX1$$f100$$ENDHEX$$o
+AND trunc(Y.CH_FECHA) BETWEEN :fec_ini AND :fec_fin
+AND NVL(V.VE_MOTIVO,'X') <> 'M'
+AND P.FP_CODIGO = 24
+AND Y.FP_CODIGO IN (0,1,6,8,13,18,37,53,73,74,81)
+GROUP BY D.MT_FECHA,Z.MT_CODIGO,V.VE_NUMERO,Z.CR_VALDEB,V.VE_CARGO,e.ep_codigo,e.ep_apepat,e.ep_nombre
+" arguments=(("mesa$$HEX1$$f100$$ENDHEX$$o", string),("fec_ini", date),("fec_fin", date))  sort="rango A no_emple_ep_codigo A " )
+group(level=1 header.height=0 trailer.height=76 by=("rango" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=4 trailer.height=72 by=("no_emple_ep_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="Cc Movim
+Mt Fecha" border="0" color="33554432" x="9" y="8" height="112" width="343" html.valueishtml="0"  name=cc_movim_mt_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cc Cruce
+Mt Codigo" border="0" color="33554432" x="361" y="8" height="112" width="229" html.valueishtml="0"  name=cc_cruce_mt_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fa Venta
+Ve Numero" border="0" color="33554432" x="599" y="8" height="112" width="274" html.valueishtml="0"  name=fa_venta_ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Neto" border="0" color="33554432" x="882" y="8" height="56" width="343" html.valueishtml="0"  name=neto_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecefectivizacion" border="0" color="33554432" x="1234" y="8" height="56" width="466" html.valueishtml="0"  name=fecefectivizacion_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Comision" border="0" color="33554432" x="1710" y="8" height="56" width="251" html.valueishtml="0"  name=comision_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Rango" border="0" color="33554432" x="1970" y="8" height="56" width="293" html.valueishtml="0"  name=rango_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="No Emple
+Ep Codigo" border="0" color="33554432" x="2272" y="8" height="112" width="137" html.valueishtml="0"  name=no_emple_ep_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Empleado" border="0" color="33554432" x="2418" y="8" height="56" width="645" html.valueishtml="0"  name=empleado_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="68" width="343" format="[shortdate]" html.valueishtml="0"  name=cc_movim_mt_fecha visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="361" y="8" height="68" width="229" format="[general]" html.valueishtml="0"  name=cc_cruce_mt_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="599" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=fa_venta_ve_numero visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="33554432" x="1234" y="8" height="68" width="466" format="[shortdate]" html.valueishtml="0"  name=fecefectivizacion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="33554432" x="1970" y="8" height="68" width="293" format="[general]" html.valueishtml="0"  name=rango visible="1" edit.limit=7 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="2272" y="8" height="68" width="137" format="[general]" html.valueishtml="0"  name=no_emple_ep_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="2418" y="8" height="68" width="645" format="[general]" html.valueishtml="0"  name=empleado visible="1" edit.limit=51 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="882" y="8" height="68" width="343" format="#,##0.00" html.valueishtml="0"  name=neto visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="1710" y="8" height="68" width="251" format="#,##0.00" html.valueishtml="0"  name=comision visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression="sum(neto for group 2)"border="0" color="128" x="882" y="8" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression="sum(comision for group 2)"border="0" color="128" x="1710" y="4" height="56" width="251" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(neto for group 1)"border="0" color="33554432" x="882" y="12" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(comision for group 1)"border="0" color="33554432" x="1710" y="12" height="56" width="251" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

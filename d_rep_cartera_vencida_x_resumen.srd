@@ -1,0 +1,94 @@
+HA$PBExportHeader$d_rep_cartera_vencida_x_resumen.srd
+$PBExportComments$si
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=380 color="536870912" )
+header[2](height=72 color="536870912" )
+summary(height=92 color="536870912" )
+footer(height=56 color="536870912" )
+detail(height=0 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cc_movim_ce_codigo dbname="cc_movim_ce_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cliente dbname="cliente" )
+ column=(type=number updatewhereclause=yes name=importe dbname="importe" )
+ column=(type=number updatewhereclause=yes name=saldo_pendiente dbname="saldo_pendiente" )
+ column=(type=number updatewhereclause=yes name=saldo dbname="saldo" )
+ retrieve="   SELECT ~"CC_TIPO~".~"TT_DESCRI~",   
+         ~"CC_TIPO~".~"TT_CODIGO~",   
+         ~"CC_MOVIM~".~"MT_CODIGO~",  
+        ~"CC_MOVIM~".~"VE_NUMERO~",  
+         ~"CC_MOVIM~".~"MT_FECHA~",   
+         ~"CC_MOVIM~".~"MT_FECVEN~",   
+         TRUNC(SYSDATE) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~") DIAS,   
+		decode(trunc(sysdate) -TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*1),~"CC_MOVIM~".~"MT_SALDO~",
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*2),~"CC_MOVIM~".~"MT_SALDO~",
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*3),~"CC_MOVIM~".~"MT_SALDO~",
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*4),~"CC_MOVIM~".~"MT_SALDO~",
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*5),~"CC_MOVIM~".~"MT_SALDO~",
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*6),~"CC_MOVIM~".~"MT_SALDO~" ,~"CC_MOVIM~".~"MT_SALDO~") SALDO,
+		decode(trunc(sysdate) -TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*1),'     '||:x*1,
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*2),'    '||:x*2,
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*3),'   '||:x*3,
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*4),'  '||:x*4,
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*5),' '||:x*5,
+		least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*6),''||:x*6, '>'||:x*6) rango,
+         ~"CC_MOVIM~".~"MT_VALOR~",   
+         ~"CC_MOVIM~".~"MT_SALDO~",
+         ~"CC_MOVIM~".~"CE_CODIGO~",
+         ~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_APELLI~"||' '||~"FA_CLIEN~".~"CE_NOMBRE~" Cliente
+      FROM ~"CC_MOVIM~",   
+         ~"CC_TIPO~",   
+         ~"FA_CLIEN~"  
+   WHERE ( ~"CC_MOVIM~".~"TT_CODIGO~" = ~"CC_TIPO~".~"TT_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and  
+         ( ~"CC_TIPO~".~"EM_CODIGO~" = ~"FA_CLIEN~".~"EM_CODIGO~" ) and    
+         ( (~"CC_MOVIM~".~"TT_IOE~" = 'D') and
+           (~"CC_MOVIM~".~"EM_CODIGO~" = :empresa) and 
+           ( ~"CC_MOVIM~".~"MT_SALDO~" > 0 )  )  " arguments=(("x", number),("empresa", string),("fcorte", date))  sort="cc_movim_ce_codigo A cliente A importe A saldo_pendiente A " )
+group(level=1 header.height=0 trailer.height=68 by=("cc_movim_ce_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="33554432" x="9" y="8" height="56" width="457" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="CARTERA VENCIDA(Resumen)" border="0" color="33554432" x="9" y="84" height="132" width="462" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="Cortado al:" border="0" color="33554432" x="9" y="232" height="56" width="462" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression=" fcorte "border="0" color="33554432" x="9" y="300" height="56" width="462" format="[SHORTDATE]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="'Pag  ' + page() + ' de ' + pageCount()"border="0" color="33554432" x="2944" y="16" height="56" width="389" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="1" text="Impreso:" border="0" color="33554432" x="2944" y="88" height="56" width="389" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="33554432" x="2944" y="164" height="124" width="389" format="dd/mm/yy hh:mm:ss" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Cod.Cliente." border="4" color="33554432" x="9" y="4" height="56" width="457" html.valueishtml="0"  name=cc_movim_ce_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Cliente" border="4" color="33554432" x="475" y="4" height="56" width="1344" html.valueishtml="0"  name=cliente_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Importe Original" border="4" color="33554432" x="1829" y="4" height="56" width="416" html.valueishtml="0"  name=importe_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Importe pendiente" border="4" color="33554432" x="2254" y="4" height="56" width="411" html.valueishtml="0"  name=saldo_pendiente_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@rango" border="4" color="128" x="2674" y="4" height="56" width="261" html.valueishtml="0"  name=saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Gran Total " border="4" color="33554432" x="2944" y="4" height="56" width="389" html.valueishtml="0"  name=grand_sum_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="68" width="457" format="[general]" html.valueishtml="0"  name=cc_movim_ce_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="475" y="4" height="68" width="1344" format="[general]" html.valueishtml="0"  name=cliente visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2674" y="4" height="68" width="261" format="#,##0.00" html.valueishtml="0"  name=saldo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="1829" y="4" height="68" width="416" format="[general]" html.valueishtml="0"  name=importe visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="2254" y="4" height="68" width="411" format="[general]" html.valueishtml="0"  name=saldo_pendiente visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="2944" y="4" height="68" width="389" format="#,##0.00" html.valueishtml="0"  name=grand_sum_saldo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="0" expression="cc_movim_ce_codigo "border="0" color="33554432" x="9" y="4" height="68" width="457" format="[general]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="0" expression=" cliente "border="0" color="0" x="475" y="4" height="56" width="1344" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(importe for group 1)"border="0" color="33554432" x="1829" y="4" height="56" width="416" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(saldo_pendiente for group 1)"border="0" color="33554432" x="2254" y="4" height="56" width="411" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(saldo for group 1)"border="0" color="33554432" x="2674" y="4" height="56" width="261" format="#,##0.00" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(grand_sum_saldo for group 1)"border="0" color="33554432" x="2944" y="4" height="56" width="389" format="#,##0.00" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="~"Total~""border="0" color="33554432" x="9" y="16" height="68" width="457" format="[general]" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(saldo for all )"border="0" color="33554432" x="2674" y="20" height="68" width="261" format="#,##0.00" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_saldo for all )"border="0" color="33554432" x="2944" y="20" height="68" width="389" format="#,##0.00" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(importe for all)"border="0" color="33554432" x="1829" y="24" height="56" width="416" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(saldo_pendiente for all)"border="0" color="33554432" x="2254" y="20" height="56" width="411" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1838" y1="4" x2="3337" y2="4"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=footer alignment="0" text="d_rep_cartera_vencida_x_resumen" border="0" color="0" x="5" y="8" height="44" width="462" html.valueishtml="0"  name=t_4 visible="1"  font.face="Tahoma" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "rango" rows = "cc_movim_ce_codigo, cliente, cc_movim_mt_valor, cc_movim_mt_saldo" values = "sum(saldo for crosstab)" sourcenames = "cc_tipo_tt_descri, cc_tipo_tt_codigo, cc_movim_mt_codigo, cc_movim_ve_numero, cc_movim_mt_fecha, cc_movim_mt_fecven, dias, saldo, rango, cc_movim_mt_valor, cc_movim_mt_saldo, cc_movim_ce_codigo, cliente")
+sparse(names="cc_movim_ce_codigo	cliente	importe")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

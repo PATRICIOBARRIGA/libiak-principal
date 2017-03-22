@@ -1,0 +1,140 @@
+HA$PBExportHeader$d_rep_cartera_x_plazos.srd
+$PBExportComments$Si .Incluye d$$HEX1$$e900$$ENDHEX$$bitos y cheques postfechados
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=420 color="536870912" )
+header[2](height=132 color="536870912" )
+summary(height=72 color="536870912" )
+footer(height=60 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur_su_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=cliente dbname="cliente" )
+ column=(type=char(20) updatewhereclause=yes name=cc_tipo_doc dbname="cc_tipo_doc" )
+ column=(type=number updatewhereclause=yes name=cc_movim_nrodoc dbname="cc_movim_nrodoc" )
+ column=(type=datetime updatewhereclause=yes name=fecha dbname="fecha" )
+ column=(type=datetime updatewhereclause=yes name=efectivizacion dbname="efectivizacion" )
+ column=(type=number updatewhereclause=yes name=cc_movim_importe dbname="cc_movim_importe" )
+ column=(type=number updatewhereclause=yes name=cc_movim_importepend dbname="cc_movim_importepend" )
+ column=(type=number updatewhereclause=yes name=dias dbname="dias" )
+ column=(type=number updatewhereclause=yes name=cc_tipo_tt_descri dbname="cc_tipo_tt_descri" )
+ retrieve="SELECT ~"CC_TIPO~".~"TT_DESCRI~" DOC,   
+~"CC_TIPO~".~"TT_CODIGO~", 
+~"PR_SUCUR~".~"SU_NOMBRE~",  
+~"CC_MOVIM~".~"MT_CODIGO~" MOV,  
+~"CC_MOVIM~".~"VE_NUMERO~" NRODOC, 
+TRUNC(~"CC_MOVIM~".~"MT_FECHA~") FECHA,   
+TRUNC(~"CC_MOVIM~".~"MT_FECVEN~") EFECTIVIZACION,   
+TRUNC(SYSDATE) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~") DIAS,   
+decode(trunc(sysdate) -TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*1),~"CC_MOVIM~".~"MT_SALDO~",
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*2),~"CC_MOVIM~".~"MT_SALDO~",
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*3),~"CC_MOVIM~".~"MT_SALDO~",
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*4),~"CC_MOVIM~".~"MT_SALDO~",
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*5),~"CC_MOVIM~".~"MT_SALDO~",
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*6),~"CC_MOVIM~".~"MT_SALDO~" ,~"CC_MOVIM~".~"MT_SALDO~") SALDO,
+decode(trunc(sysdate) -TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*1),'     '||:x*1,
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*2),'    '||:x*2,
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*3),'   '||:x*3,
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*4),'  '||:x*4,
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*5),' '||:x*5,
+least(trunc(sysdate) - TRUNC(~"CC_MOVIM~".~"MT_FECVEN~"),:x*6),''||:x*6, '>'||:x*6) rango,
+~"CC_MOVIM~".~"MT_VALOR~" IMPORTE,   
+~"CC_MOVIM~".~"MT_SALDO~" IMPORTEPEND,
+~"FA_CLIEN~".~"CE_CODIGO~"||'/ RUC:'||~"FA_CLIEN~".~"CE_RUCIC~"||' '||~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_NOMBRE~"||' ' ||~"FA_CLIEN~".~"CE_APELLI~"||'/ UBI: '||~"CE_SECOFI~"  Cliente
+FROM ~"CC_MOVIM~",   
+~"CC_TIPO~",   
+~"FA_CLIEN~",
+~"PR_SUCUR~"  
+WHERE ( ~"CC_MOVIM~".~"TT_CODIGO~" = ~"CC_TIPO~".~"TT_CODIGO~" ) and  
+( ~"CC_MOVIM~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and  
+( ~"CC_MOVIM~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+( ~"CC_TIPO~".~"EM_CODIGO~" = ~"FA_CLIEN~".~"EM_CODIGO~" ) and    
+( (~"CC_MOVIM~".~"TT_IOE~" = 'D') and
+(~"CC_MOVIM~".~"EM_CODIGO~" = :empresa) and 
+( ~"CC_MOVIM~".~"MT_SALDO~" > 0 )  )  
+UNION ALL
+SELECT   ~"FA_FORMPAG~".~"FP_DESCRI~" DOC,   
+~"CC_TIPO~".~"TT_CODIGO~", 
+~"PR_SUCUR~".~"SU_NOMBRE~",  
+~"CC_CHEQUE~".~"MT_CODIGO~" MOV,  
+to_number(~"CC_CHEQUE~".~"CH_NUMERO~") NRODOC,  
+TRUNC(~"CC_CHEQUE~".~"CH_FECHA~") FECHA,   
+TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~") EFECTIVIZACION,   
+TRUNC(SYSDATE) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~") DIAS,   
+decode(trunc(sysdate) -TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*1),~"CC_CHEQUE~".~"CH_VALOR~",
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*2),~"CC_CHEQUE~".~"CH_VALOR~",
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*3),~"CC_CHEQUE~".~"CH_VALOR~",
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*4),~"CC_CHEQUE~".~"CH_VALOR~",
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*5),~"CC_CHEQUE~".~"CH_VALOR~",
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*6),~"CC_CHEQUE~".~"CH_VALOR~" ,~"CC_CHEQUE~".~"CH_VALOR~") SALDO,
+decode(trunc(sysdate) -TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*1),'     '||:x*1,
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*2),'    '||:x*2,
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*3),'   '||:x*3,
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*4),'  '||:x*4,
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*5),' '||:x*5,
+least(trunc(sysdate) - TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~"),:x*6),''||:x*6, '>'||:x*6) rango,
+~"CC_CHEQUE~".~"CH_VALOR~" IMPORTE,   
+~"CC_CHEQUE~".~"CH_VALOR~" IMPORTEPEND,
+~"FA_CLIEN~".~"CE_CODIGO~"||'/ RUC:'||~"FA_CLIEN~".~"CE_RUCIC~"||' '||~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_NOMBRE~"||' ' ||~"FA_CLIEN~".~"CE_APELLI~"||'/ UBI: '||~"CE_SECOFI~"  Cliente
+FROM ~"CC_MOVIM~", ~"CC_CHEQUE~" ,  ~"FA_FORMPAG~" , ~"FA_CLIEN~" ,~"PR_SUCUR~", ~"CC_TIPO~"
+WHERE  ~"CC_MOVIM~".~"TT_CODIGO~" = ~"CC_TIPO~".~"TT_CODIGO~" 
+AND ~"CC_MOVIM~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" 
+AND ~"CC_MOVIM~".~"TT_CODIGO~" = ~"CC_CHEQUE~".~"TT_CODIGO~"
+AND ~"CC_MOVIM~".~"TT_IOE~" = ~"CC_CHEQUE~".~"TT_IOE~"
+AND ~"CC_MOVIM~".~"EM_CODIGO~" = ~"CC_CHEQUE~".~"EM_CODIGO~"
+AND ~"CC_MOVIM~".~"SU_CODIGO~" = ~"CC_CHEQUE~".~"SU_CODIGO~"
+AND ~"CC_MOVIM~".~"MT_CODIGO~" = ~"CC_CHEQUE~".~"MT_CODIGO~"
+AND ~"CC_CHEQUE~".~"FP_CODIGO~" = ~"FA_FORMPAG~".~"FP_CODIGO~"
+AND ~"CC_CHEQUE~".~"TT_IOE~"  = 'C'
+AND ~"CC_MOVIM~".~"EM_CODIGO~" = :empresa
+AND ~"CC_CHEQUE~".~"FP_CODIGO~" = '1'
+AND ~"CC_MOVIM~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~"
+AND TRUNC(~"CC_CHEQUE~".~"CH_FECHA~") >= :ad_ini" arguments=(("empresa", string),("ad_ini", date),("x", number))  sort="pr_sucur_su_nombre A cliente A efectivizacion A " )
+text(band=header[1] alignment="0" text="RESUMEN DE CARTERA" border="0" color="33554432" x="9" y="84" height="120" width="512" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="33554432" x="9" y="16" height="56" width="517" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression="'Desde : '+ ad_ini + 'Hasta : '+ ad_fin "border="0" color="33554432" x="9" y="216" height="196" width="517" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="33554432" x="3200" y="16" height="56" width="329" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="33554432" x="3200" y="168" height="56" width="329" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="1" text="Impreso:" border="0" color="33554432" x="3200" y="92" height="56" width="329" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Sucursal" border="0" color="33554432" x="9" y="72" height="56" width="512" html.valueishtml="0"  name=pr_sucur_su_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Importe Original" border="0" color="33554432" x="2862" y="0" height="128" width="329" html.valueishtml="0"  name=cc_movim_importe_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text=" Importe Pendiente" border="0" color="33554432" x="3200" y="4" height="124" width="329" html.valueishtml="0"  name=cc_movim_importepend_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Cliente" border="0" color="33554432" x="530" y="68" height="60" width="773" html.valueishtml="0"  name=cliente_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Documento" border="0" color="33554432" x="1312" y="72" height="56" width="457" html.valueishtml="0"  name=cc_tipo_doc_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$Doc." border="0" color="33554432" x="1778" y="72" height="56" width="375" html.valueishtml="0"  name=cc_movim_nrodoc_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Fecha" border="0" color="33554432" x="2162" y="68" height="60" width="352" html.valueishtml="0"  name=fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Efectivizacion" border="0" color="33554432" x="2523" y="68" height="60" width="329" html.valueishtml="0"  name=efectivizacion_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="N$$HEX2$$ba002000$$ENDHEX$$d$$HEX1$$ed00$$ENDHEX$$as" border="0" color="33554432" x="3538" y="72" height="56" width="192" html.valueishtml="0"  name=dias_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@rango" border="0" color="128" x="3739" y="68" height="60" width="343" html.valueishtml="0"  name=cc_tipo_tt_descri_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Gran Total " border="0" color="33554432" x="4091" y="72" height="56" width="361" html.valueishtml="0"  name=grand_sum_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="68" width="512" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="530" y="4" height="68" width="773" format="[general]" html.valueishtml="0"  name=cliente visible="1" edit.limit=199 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1312" y="4" height="68" width="457" format="[general]" html.valueishtml="0"  name=cc_tipo_doc visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1778" y="4" height="68" width="375" format="[general]" html.valueishtml="0"  name=cc_movim_nrodoc visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="33554432" x="2162" y="4" height="68" width="352" format="DD/MM/YY" html.valueishtml="0"  name=fecha visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="33554432" x="2523" y="4" height="68" width="329" format="DD/MM/YY" html.valueishtml="0"  name=efectivizacion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="2" tabsequence=32766 border="0" color="33554432" x="3538" y="4" height="68" width="192" format="[general]" html.valueishtml="0"  name=dias visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="3739" y="4" height="68" width="343" format="#,##0.00" html.valueishtml="0"  name=cc_tipo_tt_descri visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="4091" y="4" height="68" width="361" format="#,##0.00" html.valueishtml="0"  name=grand_sum_saldo visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="2862" y="4" height="68" width="329" format="[general]" html.valueishtml="0"  name=cc_movim_importe visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="3200" y="4" height="68" width="329" format="[general]" html.valueishtml="0"  name=cc_movim_importepend visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"Gran Total~""border="0" color="33554432" x="9" y="4" height="56" width="512" format="[general]" html.valueishtml="0"  name=compute_25 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(cc_tipo_tt_descri for all )"border="0" color="33554432" x="3739" y="4" height="60" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_26 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_saldo for all )"border="0" color="33554432" x="4091" y="4" height="60" width="361" format="#,##0.00" html.valueishtml="0"  name=compute_27 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="0" text="d_rep_cartera_x_plazos" border="0" color="0" x="9" y="8" height="44" width="512" html.valueishtml="0"  name=t_3 visible="1"  font.face="Tahoma" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "rango" rows = "pr_sucur_su_nombre, cliente, cc_tipo_doc, cc_movim_nrodoc, fecha, efectivizacion, cc_movim_importe, cc_movim_importepend, dias" values = "sum(saldo for crosstab)" sourcenames = "cc_tipo_doc, cc_tipo_tt_codigo, pr_sucur_su_nombre, cc_movim_mov, cc_movim_nrodoc, fecha, efectivizacion, dias, saldo, rango, cc_movim_importe, cc_movim_importepend, cliente")
+sparse(names="pr_sucur_su_nombre	cliente	cc_tipo_doc	cc_movim_nrodoc	fecha	efectivizacion	cc_movim_importe	cc_movim_importepend")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

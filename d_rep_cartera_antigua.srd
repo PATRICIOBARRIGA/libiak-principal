@@ -1,0 +1,59 @@
+HA$PBExportHeader$d_rep_cartera_antigua.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=400 color="536870912" )
+header[2](height=80 color="536870912" )
+summary(height=72 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=su_nombre dbname="su_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=tt_descri dbname="tt_descri" )
+ column=(type=number updatewhereclause=yes name=mt_saldo dbname="mt_saldo" )
+ retrieve="  SELECT ~"CC_TIPO~".~"TT_CODIGO~",   
+         ~"CC_TIPO~".~"TT_DESCRI~",   
+         ~"CC_MOVIM~".~"MT_FECHA~",   
+         ~"CC_MOVIM~".~"MT_SALDO~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~"
+    FROM ~"CC_MOVIM~",   
+         ~"CC_TIPO~",   
+         ~"PR_SUCUR~"  
+   WHERE ( ~"CC_TIPO~".~"TT_CODIGO~" = ~"CC_MOVIM~".~"TT_CODIGO~" ) and  
+         ( ~"CC_TIPO~".~"TT_IOE~" = ~"CC_MOVIM~".~"TT_IOE~" ) and  
+         ( ~"PR_SUCUR~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"CC_MOVIM~".~"SU_CODIGO~" ) and  
+         ( ( ~"CC_MOVIM~".~"TT_IOE~" = 'D' ) AND  
+         ( ~"CC_MOVIM~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"CC_MOVIM~".~"MT_SALDO~" > 0 ) AND  
+         ( ~"CC_MOVIM~".~"MT_FECHA~" <= :ad_fcorte ) )" arguments=(("empresa", string),("ad_fcorte", date))  sort="su_nombre A tt_descri A " )
+group(level=1 header.height=0 trailer.height=80 by=("su_nombre" ) header.color="536870912" trailer.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="33554432" x="9" y="4" height="56" width="457" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="ANTIGUEDAD DE CARTERA" border="0" color="33554432" x="9" y="72" height="140" width="462" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression="'FECHA DE CORTE : '+ ad_fcorte "border="0" color="0" x="9" y="232" height="144" width="462" format="[GENERAL]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g ' + page() + ' de ' + pageCount()"border="0" color="0" x="1294" y="16" height="56" width="402" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="'Impreso : '+today()"border="0" color="0" x="1294" y="92" height="192" width="402" format="[GENERAL]" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="0" text="Sucursal " border="0" color="33554432" x="9" y="4" height="56" width="457" html.valueishtml="0"  name=su_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Mov.D$$HEX1$$e900$$ENDHEX$$bito" border="0" color="33554432" x="475" y="4" height="56" width="457" html.valueishtml="0"  name=tt_descri_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@col" border="0" color="128" x="942" y="4" height="56" width="343" html.valueishtml="0"  name=mt_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Total " border="0" color="33554432" x="1294" y="4" height="56" width="402" html.valueishtml="0"  name=grand_sum_mt_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="68" width="457" format="[general]" html.valueishtml="0"  name=su_nombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="475" y="4" height="68" width="457" format="[general]" html.valueishtml="0"  name=tt_descri visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="942" y="4" height="68" width="343" format="#,##0.00" html.valueishtml="0"  name=mt_saldo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="1294" y="4" height="68" width="402" format="#,##0.00" html.valueishtml="0"  name=grand_sum_mt_saldo visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(mt_saldo for group 1)"border="0" color="33554432" x="942" y="4" height="64" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(grand_sum_mt_saldo for group 1)"border="0" color="33554432" x="1294" y="4" height="64" width="402" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"Gran Total~""border="0" color="33554432" x="9" y="4" height="60" width="457" format="[general]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(mt_saldo for all )"border="0" color="33554432" x="942" y="4" height="68" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_mt_saldo for all )"border="0" color="33554432" x="1294" y="4" height="68" width="402" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "if(daysafter(mt_fecha,ad_fcorte)<=30,' .30',if(daysafter(mt_fecha,ad_fcorte)>30 and daysafter(mt_fecha,ad_fcorte)<=60,' .60',if(daysafter(mt_fecha,ad_fcorte)>60 and daysafter(mt_fecha,ad_fcorte)<=90,' .90',if(daysafter(mt_fecha,ad_fcorte)>90 and daysafter(mt_fecha,ad_fcorte)<=120,' 120',if(daysafter(mt_fecha,ad_fcorte)>120 and daysafter(mt_fecha,ad_fcorte)<=150,' 150',if(daysafter(mt_fecha,ad_fcorte)>150 and daysafter(mt_fecha,ad_fcorte)<=180,' 180','>180'))))))" rows = "su_nombre, tt_descri" values = "sum(mt_saldo for crosstab)" sourcenames = "tt_codigo, tt_descri, mt_fecha, mt_saldo, su_nombre")
+sparse(names="su_nombre")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

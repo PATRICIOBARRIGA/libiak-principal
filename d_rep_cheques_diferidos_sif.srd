@@ -1,0 +1,108 @@
+HA$PBExportHeader$d_rep_cheques_diferidos_sif.srd
+$PBExportComments$Cheque vencidos de registros ingresados por el SIF.Draft 20cpi
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=436 color="536870912" )
+summary(height=92 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912"  height.autosize=yes)
+table(column=(type=char(20) updatewhereclause=yes name=tt_codigo dbname="cc_cheque.tt_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=tt_ioe dbname="cc_cheque.tt_ioe" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="cc_cheque.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=mt_codigo dbname="cc_cheque.mt_codigo" )
+ column=(type=decimal(0) updatewhereclause=yes name=ch_secue dbname="cc_cheque.ch_secue" )
+ column=(type=char(20) updatewhereclause=yes name=if_codigo dbname="cc_cheque.if_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=ch_cuenta dbname="cc_cheque.ch_cuenta" )
+ column=(type=char(20) updatewhereclause=yes name=ch_numero dbname="cc_cheque.ch_numero" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ch_fecha dbname="cc_cheque.ch_fecha" initial="today" )
+ column=(type=datetime updatewhereclause=yes name=ch_fecefec dbname="cc_cheque.ch_fecefec" )
+ column=(type=decimal(2) updatewhereclause=yes name=ch_valor dbname="cc_cheque.ch_valor" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ch_interes dbname="cc_cheque.ch_interes" initial="0" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ch_fecinte dbname="cc_cheque.ch_fecinte" )
+ column=(type=char(1) updatewhereclause=yes name=ch_pendiente dbname="cc_cheque.ch_pendiente" initial="S" )
+ column=(type=char(20) updatewhereclause=yes name=fp_codigo dbname="cc_cheque.fp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=em_codigo dbname="cc_cheque.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=mt_codigo dbname="cc_movim.mt_codigo" )
+ column=(type=char(123) updatewhereclause=yes name=ccc_cliente dbname="cc_cliente" )
+ column=(type=char(50) updatewhereclause=yes name=pr_instfin_if_nombre dbname="pr_instfin.if_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=pr_empre_em_nombre dbname="pr_empre.em_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ retrieve="  SELECT ~"CC_CHEQUE~".~"TT_CODIGO~",   
+         ~"CC_CHEQUE~".~"TT_IOE~",   
+         ~"CC_CHEQUE~".~"SU_CODIGO~",   
+         ~"CC_CHEQUE~".~"MT_CODIGO~",   
+         ~"CC_CHEQUE~".~"CH_SECUE~",   
+         ~"CC_CHEQUE~".~"IF_CODIGO~",   
+         ~"CC_CHEQUE~".~"CH_CUENTA~",   
+         ~"CC_CHEQUE~".~"CH_NUMERO~",   
+         ~"CC_CHEQUE~".~"CH_FECHA~",
+         ~"CC_CHEQUE~".~"CH_FECEFEC~",      
+         ~"CC_CHEQUE~".~"CH_VALOR~",   
+         ~"CC_CHEQUE~".~"CH_INTERES~",   
+         ~"CC_CHEQUE~".~"CH_FECINTE~",   
+         ~"CC_CHEQUE~".~"CH_PENDIENTE~",
+         ~"CC_CHEQUE~".~"FP_CODIGO~",   
+         ~"CC_CHEQUE~".~"EM_CODIGO~",   
+         ~"CC_MOVIM~".~"MT_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~"||' '||~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_NOMBRE~"||' ' ||~"FA_CLIEN~".~"CE_APELLI~"  ~"cc_cliente~",   
+         ~"PR_INSTFIN~".~"IF_NOMBRE~",   
+         ~"PR_EMPRE~".~"EM_NOMBRE~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~"  
+    FROM  ~"PR_EMPRE~",   
+         ~"PR_SUCUR~",
+	    ~"PR_INSTFIN~",   
+         ~"FA_CLIEN~",   
+         ~"CC_MOVIM~",   
+		~"CC_CHEQUE~"
+   WHERE ( ~"CC_CHEQUE~".~"TT_IOE~" = ~"CC_MOVIM~".~"TT_IOE~" ) and  
+         ( ~"CC_CHEQUE~".~"TT_CODIGO~" = ~"CC_MOVIM~".~"TT_CODIGO~" ) and  
+		( ~"CC_CHEQUE~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"CC_CHEQUE~".~"SU_CODIGO~" = ~"CC_MOVIM~".~"SU_CODIGO~" ) and  
+         ( ~"CC_CHEQUE~".~"MT_CODIGO~" = ~"CC_MOVIM~".~"MT_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"EM_CODIGO~" = ~"FA_CLIEN~".~"EM_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and  
+         ( ~"PR_INSTFIN~".~"EM_CODIGO~" = ~"CC_CHEQUE~".~"EM_CODIGO~" ) and  
+         ( ~"PR_INSTFIN~".~"IF_CODIGO~" = ~"CC_CHEQUE~".~"IF_CODIGO~" ) and  
+         ( ~"PR_EMPRE~".~"EM_CODIGO~" = ~"CC_CHEQUE~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"EM_CODIGO~" = ~"CC_CHEQUE~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"CC_CHEQUE~".~"SU_CODIGO~" ) and  
+         ( ( ~"CC_CHEQUE~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"CC_CHEQUE~".~"SU_CODIGO~" = :sucursal ) AND  
+          ( TRUNC( ~"CC_CHEQUE~".~"CH_FECEFEC~" ) >= :fec_fin ) AND
+          ( ~"CC_CHEQUE~".~"FP_CODIGO~" = :fpcodigo ) )    
+" arguments=(("empresa", string),("sucursal", string),("fec_fin", date),("fpcodigo", string))  sort="ccc_cliente A ch_fecha A fp_codigo A " )
+group(level=1 header.height=64 trailer.height=0 by=("ccc_cliente" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=0 trailer.height=84 by=("fp_codigo" ) header.color="536870912" trailer.color="536870912" )
+compute(band=header alignment="0" expression="'Sucursal: ' + pr_sucur_su_nombre "border="0" color="0" x="14" y="104" height="68" width="2386" format="[general]"  name=compute_1  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Reporte de Cheques Postfechados. (Facturaci$$HEX1$$f300$$ENDHEX$$n al por mayor)" border="0" color="0" x="14" y="184" height="64" width="2185"  name=t_8  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="pr_empre_em_nombre "border="0" color="0" x="14" y="16" height="76" width="1458" format="[general]"  name=compute_4  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Movimiento" border="0" color="0" x="14" y="360" height="56" width="242"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Forma de pago" border="0" color="0" x="293" y="360" height="56" width="329"  name=t_11  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="0" y1="428" x2="3438" y2="428"  name=l_1 pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Cuenta No." border="0" color="0" x="2181" y="360" height="56" width="247"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Inst.Financiera" border="0" color="0" x="919" y="360" height="56" width="320"  name=t_7  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Valor" border="0" color="0" x="1998" y="360" height="56" width="119"  name=t_4  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Dcto No." border="0" color="0" x="2446" y="360" height="56" width="197"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Total" border="0" color="0" x="3186" y="360" height="56" width="251"  name=t_5  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Vencimiento" border="0" color="0" x="2702" y="356" height="56" width="315"  name=t_6  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="276" height="72" width="672"  name=st_fecha  font.face="Bookman Old Style" font.height="-10" font.weight="400"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2258" y="16" height="56" width="1125" format="[general]"  name=compute_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2848" y="84" height="56" width="535" format="[general]"  name=compute_7  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header.1 alignment="0" text="Cliente:" border="0" color="0" x="14" y="4" height="56" width="160"  name=t_9  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=18 alignment="0" tabsequence=32766 border="0" color="0" x="187" y="4" height="56" width="2222" format="[general]"  name=ccc_cliente edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="14" y="8" height="56" width="238" format="[general]"  name=mt_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="0" x="306" y="8" height="56" width="599" format="[general]"  name=fp_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="0" x="919" y="8" height="56" width="805" format="[general]"  name=pr_instfin_if_nombre edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="2139" y="8" height="56" width="297" format="[general]"  name=ch_cuenta edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="0" x="1737" y="8" height="56" width="389" format="[general]"  name=ch_valor edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="2455" y="8" height="56" width="229" format="[general]"  name=ch_numero edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="cumulativeSum( ch_valor for all)"border="0" color="0" x="3040" y="8" height="56" width="398" format="#,##0.00"  name=compute_5  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="2697" y="8" height="52" width="325" format="[shortdate] [time]"  name=ch_fecefec edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=trailer.2 alignment="0" text="Subtotal:" border="0" color="0" x="1531" y="20" height="52" width="192"  name=t_12  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=trailer.2 x1="1733" y1="4" x2="2121" y2="4"  name=l_2 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=trailer.2 alignment="1" expression="sum(   ch_valor   for group 2 )"border="0" color="0" x="1742" y="20" height="56" width="379" format="#,##0.00"  name=compute_8  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="1687" y1="8" x2="2121" y2="8"  name=l_3 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=summary alignment="1" text="Total:" border="0" color="0" x="1294" y="24" height="60" width="384"  name=t_10  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="SUM( ch_valor for all)"border="0" color="0" x="1696" y="24" height="56" width="425" format="#,##0.00"  name=compute_6  font.face="Draft 20cpi" font.height="-9" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

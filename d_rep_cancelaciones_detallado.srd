@@ -1,0 +1,41 @@
+HA$PBExportHeader$d_rep_cancelaciones_detallado.srd
+$PBExportComments$No.
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=416 color="536870912" )
+summary(height=88 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=datetime updatewhereclause=yes name=fecha dbname="compute_0001" )
+ column=(type=char(20) updatewhereclause=yes name=fp_codigo dbname="cp_pago.fp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=pm_numdoc dbname="cp_pago.pm_numdoc" )
+ column=(type=decimal(2) updatewhereclause=yes name=pm_valor dbname="cp_pago.pm_valor" )
+ retrieve="select trunc(pm_fecha),fp_codigo,pm_numdoc,pm_valor
+from cp_pago 
+where em_codigo = :empresa
+and su_codigo = :sucursal
+and trunc(pm_fecha) between :ad_fini and :ad_ffin" arguments=(("empresa", string),("sucursal", string),("ad_fini", date),("ad_ffin", date))  sort="fecha A fp_codigo A " )
+group(level=1 header.height=0 trailer.height=76 by=("fecha" , "fp_codigo" ) header.color="536870912" trailer.color="536870912" )
+compute(band=header alignment="0" expression="'Desde : '+ ad_fini + ' Hasta: ' +  ad_ffin "border="0" color="0" x="14" y="220" height="56" width="1211" format="[GENERAL]"  name=compute_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="today()"border="0" color="0" x="2528" y="88" height="64" width="247" format="dd/mm/yyyy"  name=date_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="2318" y="88" height="56" width="187"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="0" x="2528" y="12" height="64" width="562" format="[general]"  name=page_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Fecha" border="0" color="0" x="14" y="340" height="56" width="603"  name=compute_0001_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Forma de Pago" border="0" color="0" x="622" y="340" height="56" width="576"  name=fp_codigo_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="DETALLE DE CANCELACIONES CXP" border="0" color="0" x="18" y="152" height="56" width="859"  name=t_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="16" height="56" width="1015"  name=st_empresa  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="9" y="84" height="56" width="1211"  name=st_sucursal  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="14" y="4" height="56" width="603" format="dd/mm/yyyy"  name=fecha edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="622" y="4" height="56" width="818" format="[general]"  name=fp_codigo dddw.name=d_dddw_forma_pago dddw.displaycolumn=fp_descri dddw.datacolumn=fp_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="9" y1="408" x2="2107" y2="408"  name=l_1 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=0 border="0" color="0" x="1454" y="4" height="56" width="315"  name=pm_numdoc  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Valor" border="0" color="0" x="1774" y="340" height="56" width="329"  name=pm_valor_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="1783" y="4" height="56" width="329" format="#,##0.00"  name=pm_valor edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(pm_valor for group 1)"border="0" color="0" x="1755" y="16" height="56" width="357" format="#,##0.00"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.1 x1="1765" y1="4" x2="2112" y2="4"  name=l_3 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="Total General:" border="0" color="0" x="1367" y="28" height="56" width="334"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(pm_valor for all)"border="0" color="0" x="1719" y="28" height="56" width="393" format="#,##0.00"  name=compute_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1710" y1="8" x2="2112" y2="8"  name=l_2 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Doc.N$$HEX1$$ba00$$ENDHEX$$" border="0" color="0" x="1449" y="340" height="56" width="155"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
