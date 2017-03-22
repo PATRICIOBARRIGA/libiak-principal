@@ -1,0 +1,40 @@
+HA$PBExportHeader$d_src_quincena.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=ep_codigo dbname="no_emple.ep_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=rr_codigo dbname="rr_codigo" )
+ column=(type=datetime updatewhereclause=yes name=rr_fecha dbname="no_emple.rr_fecha" )
+ column=(type=number updatewhereclause=yes name=rr_horas dbname="rr_horas" )
+ column=(type=number updatewhereclause=yes name=rr_totingr dbname="rr_totingr" )
+ column=(type=char(1) updatewhereclause=yes name=rr_tipo dbname="rr_tipo" )
+ column=(type=char(1) updatewhereclause=yes name=rr_pagado dbname="rr_pagado" )
+ column=(type=char(2) updatewhereclause=yes name=quincena dbname="quincena" )
+ retrieve="SELECT X.EP_CODIGO,to_char(max(nvl(to_number(Y.RR_CODIGO),0)) + 1) ~"rr_codigo~",SYSDATE ~"rr_fecha~",0 ~"rr_horas~",X.EP_VALQUI*:ac_porcen ~"rr_totingr~",'Q' ~"rr_tipo~",'N' ~"rr_pagado~",'24' ~"quincena~"
+FROM NO_EMPLE X, NO_CABROL Y
+WHERE X.EP_CODIGO = Y.EP_CODIGO(+)
+and X.EM_CODIGO = :empresa
+AND X.EP_FECSAL IS NULL
+AND X.EP_NONOM  = 'S'
+GROUP BY X.EP_CODIGO,X.EP_VALQUI
+" arguments=(("empresa", string),("ac_porcen", number))  sort="number(ep_codigo) A " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="14" y="4" height="60" width="192" format="[general]" html.valueishtml="0"  name=ep_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="274" y="4" height="60" width="270" format="[general]" html.valueishtml="0"  name=rr_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="594" y="4" height="60" width="256" format="[shortdate] [time]" html.valueishtml="0"  name=rr_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="869" y="4" height="60" width="201" format="#,##0" html.valueishtml="0"  name=rr_horas visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1102" y="4" height="60" width="233" format="#,##0.00" html.valueishtml="0"  name=rr_totingr visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="1353" y="4" height="60" width="41" format="[general]" html.valueishtml="0"  name=rr_tipo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="1422" y="4" height="60" width="23" format="[general]" html.valueishtml="0"  name=rr_pagado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="1518" y="4" height="56" width="46" format="[general]" html.valueishtml="0"  name=quincena visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()

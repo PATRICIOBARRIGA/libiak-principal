@@ -1,0 +1,69 @@
+HA$PBExportHeader$d_transferencia_otros_roles.srd
+$PBExportComments$Para generar el archivo de transferencia al banco de los roles (Incentivos,Utilidades)
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=156 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apepat dbname="no_emple.ep_apepat" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_nombre dbname="no_emple.ep_nombre" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apemat dbname="no_emple.ep_apemat" )
+ column=(type=char(20) updatewhereclause=yes name=no_emple_su_codigo dbname="no_emple.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=no_cabrol_rr_codigo dbname="no_cabrol.rr_codigo" )
+ column=(type=datetime updatewhereclause=yes name=no_cabrol_rr_fecha dbname="no_cabrol.rr_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_liquido dbname="no_cabrol.rr_liquido" )
+ column=(type=char(1) updatewhereclause=yes name=no_cabrol_rr_tipo dbname="no_cabrol.rr_tipo" )
+ column=(type=char(50) updatewhereclause=yes name=no_cabrol_rr_observ dbname="no_cabrol.rr_observ" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=rr_envio dbname="no_cabrol.rr_envio" values="	S/	N" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=no_cabrol_ep_codigo dbname="no_cabrol.ep_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=rr_nroguia dbname="no_cabrol.rr_nroguia" )
+ column=(type=datetime update=yes updatewhereclause=yes name=rr_fecenvio dbname="no_cabrol.rr_fecenvio" )
+ retrieve="  SELECT ~"NO_EMPLE~".~"EP_APEPAT~",   
+         ~"NO_EMPLE~".~"EP_NOMBRE~",   
+         ~"NO_EMPLE~".~"EP_APEMAT~", 
+         ~"NO_EMPLE~".~"SU_CODIGO~", 
+         ~"NO_CABROL~".~"RR_CODIGO~",   
+         ~"NO_CABROL~".~"RR_FECHA~",   
+         ~"NO_CABROL~".~"RR_LIQUIDO~",   
+         ~"NO_CABROL~".~"RR_TIPO~",   
+         ~"NO_CABROL~".~"RR_OBSERV~",   
+         ~"NO_CABROL~".~"RR_ENVIO~",   
+         ~"NO_CABROL~".~"EP_CODIGO~",   
+         ~"NO_CABROL~".~"RR_NROGUIA~",   
+         ~"NO_CABROL~".~"RR_FECENVIO~"  
+    FROM ~"NO_CABROL~",   
+               ~"NO_EMPLE~"   
+   WHERE ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and   
+                ( ~"NO_CABROL~".~"RR_TIPO~" = :ls_tipo) and
+         ( ( ~"NO_CABROL~".~"RR_FECHA~" between :ad_ini and :ad_fin ) )    " update="NO_CABROL" updatewhere=0 updatekeyinplace=no arguments=(("ls_tipo", string),("ad_ini", date),("ad_fin", date))  sort="compute_1 A " )
+text(band=header alignment="2" text="Rol N$$HEX1$$ba00$$ENDHEX$$" border="0" color="33554432" x="1870" y="80" height="56" width="261" html.valueishtml="0"  name=no_cabrol_rr_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha" border="0" color="33554432" x="2139" y="80" height="56" width="384" html.valueishtml="0"  name=no_cabrol_rr_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Valor" border="0" color="33554432" x="2533" y="80" height="56" width="302" html.valueishtml="0"  name=no_cabrol_rr_liquido_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tipo" border="0" color="33554432" x="2843" y="80" height="56" width="242" html.valueishtml="0"  name=no_cabrol_rr_tipo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Observaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="33554432" x="3095" y="80" height="56" width="1111" html.valueishtml="0"  name=no_cabrol_rr_observ_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Enviar" border="0" color="33554432" x="110" y="80" height="56" width="215" html.valueishtml="0"  name=no_cabrol_rr_envio_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nro Env$$HEX1$$ed00$$ENDHEX$$o" border="0" color="33554432" x="334" y="80" height="56" width="297" html.valueishtml="0"  name=no_cabrol_rr_nroguia_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Fecha de env$$HEX1$$ed00$$ENDHEX$$o" border="0" color="33554432" x="640" y="80" height="56" width="402" html.valueishtml="0"  name=no_cabrol_rr_fecenvio_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Empleado" border="0" color="33554432" x="1051" y="80" height="56" width="809" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="2" tabsequence=10 border="0" color="33554432" x="110" y="4" height="56" width="215" format="[general]" html.valueishtml="0" protect="0~tif(not isNull(  rr_nroguia ),1,0 )"  name=rr_envio visible="1" checkbox.text="" checkbox.on="S" checkbox.off="N" checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=40 border="0" color="33554432" x="1870" y="4" height="56" width="261" format="[general]" html.valueishtml="0"  name=no_cabrol_rr_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=50 border="0" color="33554432" x="2139" y="4" height="56" width="384" format="[shortdate]" html.valueishtml="0"  name=no_cabrol_rr_fecha visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=60 border="0" color="33554432" x="2533" y="4" height="56" width="302" format="#,##0.00" html.valueishtml="0"  name=no_cabrol_rr_liquido visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=70 border="0" color="33554432" x="2843" y="4" height="56" width="242" format="[general]" html.valueishtml="0"  name=no_cabrol_rr_tipo visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=80 border="0" color="33554432" x="3095" y="4" height="60" width="1111" format="[general]" html.valueishtml="0"  name=no_cabrol_rr_observ visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=20 border="0" color="33554432" x="334" y="4" height="56" width="297" format="[general]" html.valueishtml="0"  name=rr_nroguia visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="2" tabsequence=30 border="0" color="33554432" x="640" y="8" height="56" width="402" format="dd/mm/yyyy" html.valueishtml="0"  name=rr_fecenvio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" no_emple_ep_apepat +' '+ no_emple_ep_apemat +' '+ no_emple_ep_nombre "border="0" color="33554432" x="1051" y="4" height="56" width="809" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if( rr_envio  = 'S',no_cabrol_rr_liquido,0) "border="0" color="33554432" x="4215" y="4" height="56" width="233" format="[GENERAL]" html.valueishtml="0"  name=cc_valorenviado visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="33554432" x="9" y="4" height="56" width="91" format="[GENERAL]" html.valueishtml="0"  name=cc_row visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=footer x1="2528" y1="0" x2="2825" y2="0"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(cc_valorenviado for all)"border="0" color="255" x="2533" y="20" height="56" width="302" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="Total enviado:" border="0" color="255" x="2139" y="20" height="56" width="384" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(no_cabrol_rr_liquido for all)"border="0" color="33554432" x="2533" y="96" height="56" width="302" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="Total Roles:" border="0" color="0" x="2139" y="96" height="56" width="384" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
