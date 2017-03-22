@@ -1,0 +1,32 @@
+HA$PBExportHeader$d_ing_egr_x_item.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=64 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=0 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=tm_ioe dbname="in_movim.tm_ioe" )
+ column=(type=char(20) updatewhereclause=yes name=it_codigo dbname="in_movim.it_codigo" )
+ column=(type=decimal(3) updatewhereclause=yes name=mv_cantid dbname="in_movim.mv_cantid" )
+ retrieve="SELECT  TM_IOE,IT_CODIGO,MV_CANTID 
+FROM      IN_MOVIM
+WHERE  TRUNC(MV_FECHA,'YYYY')  =  '01-JAN-03' 
+"  sort="it_codigo A tm_ioe A " )
+group(level=1 header.height=0 trailer.height=60 by=("it_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="CODIGO" border="0" color="33554432" x="283" y="4" height="56" width="480" html.valueishtml="0"  name=it_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="178" y="4" height="56" width="46" format="[general]" html.valueishtml="0"  name=tm_ioe visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="773" y="4" height="56" width="274" format="[general]" html.valueishtml="0"  name=mv_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tm_ioe = 'I',  mv_cantid ,0 )"border="0" color="33554432" x="1147" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tm_ioe = 'E',  mv_cantid ,0 )"border="0" color="33554432" x="1362" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=trailer.1 id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="293" y="4" height="48" width="480" format="[general]" html.valueishtml="0"  name=it_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="TOTAL" border="0" color="33554432" x="1623" y="4" height="56" width="192" html.valueishtml="0"  name=mv_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression=" cc_ing  -  cc_egr "border="0" color="33554432" x="1627" y="4" height="48" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_total visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="EGRESOS" border="0" color="33554432" x="1376" y="4" height="56" width="233" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(if(  tm_ioe = 'E',  mv_cantid ,0 ) for group 1)"border="0" color="33554432" x="1426" y="4" height="48" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_egr visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="INGRESOS" border="0" color="33554432" x="1088" y="4" height="56" width="242" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(if(  tm_ioe = 'I',  mv_cantid ,0 ) for group 1)"border="0" color="33554432" x="1147" y="4" height="48" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_ing visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
