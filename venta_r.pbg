@@ -1,0 +1,44 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "venta_r.pbl" "";
+@end;
+@begin Objects
+ "w_rep_cierre_caja.srw" "venta_r.pbl";
+ "w_rep_cierre_x_cajero.srw" "venta_r.pbl";
+ "w_rep_ventas_fecha.srw" "venta_r.pbl";
+ "w_rep_desc_x_item_fp.srw" "venta_r.pbl";
+ "w_rep_desc_x_fact.srw" "venta_r.pbl";
+ "w_rep_lista_de_precios.srw" "venta_r.pbl";
+ "w_rep_tickets_cajero.srw" "venta_r.pbl";
+ "w_ingreso_recibido_caja.srw" "venta_r.pbl";
+ "w_rep_ventas_x_item.srw" "venta_r.pbl";
+ "w_rep_vta1.srw" "venta_r.pbl";
+ "w_rep_vta2.srw" "venta_r.pbl";
+ "w_rep_vta3.srw" "venta_r.pbl";
+ "w_rep_vta4.srw" "venta_r.pbl";
+ "w_rep_vta5.srw" "venta_r.pbl";
+ "w_rep_ventas_vehiculos.srw" "venta_r.pbl";
+ "w_rep_vta6.srw" "venta_r.pbl";
+ "w_ingreso_recibido_x_caja.srw" "venta_r.pbl";
+ "w_res_cierre_caja_diario.srw" "venta_r.pbl";
+ "w_rep_fp_posxempresa.srw" "venta_r.pbl";
+ "w_rep_clientes_2080.srw" "venta_r.pbl";
+ "w_rep_movcaja.srw" "venta_r.pbl";
+ "w_rep_ger_ventas_empleado.srw" "venta_r.pbl";
+ "w_rep_ventas_detalladas.srw" "venta_r.pbl";
+ "w_rep_cheques_recibidos_pos.srw" "venta_r.pbl";
+ "w_rep_ventas_prod_x_fabri.srw" "venta_r.pbl";
+ "w_rep_resumen_de_ventas.srw" "venta_r.pbl";
+ "w_rep_vtas_mensuales_detalladas.srw" "venta_r.pbl";
+ "w_rep_clientes.srw" "venta_r.pbl";
+ "w_rep_cheques_vencidos_pos.srw" "venta_r.pbl";
+ "w_rep_demanda_insatisfecha.srw" "venta_r.pbl";
+ "w_fp_cliente_pos_pendientes.srw" "venta_r.pbl";
+ "w_graph_ventas_mensuales.srw" "venta_r.pbl";
+ "w_rep_ventas_agrupadas_resumido_new.srw" "venta_r.pbl";
+ "w_rep_ventas_empresarial.srw" "venta_r.pbl";
+ "w_lb_ventas.srw" "venta_r.pbl";
+ "w_rep_ventas_netas_empresa.srw" "venta_r.pbl";
+ "w_rep_diferencias_caja.srw" "venta_r.pbl";
+ "w_graph_type.srw" "venta_r.pbl";
+@end;
