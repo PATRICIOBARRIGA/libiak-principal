@@ -1,0 +1,139 @@
+HA$PBExportHeader$d_prn_autoriza_pago_proveedores.srd
+$PBExportComments$Si.
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=500 color="536870912" )
+summary(height=88 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=tv_codigo dbname="cp_movim.tv_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=cp_movim_tv_tipo dbname="cp_movim.tv_tipo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_movim_em_codigo dbname="cp_movim.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_movim_su_codigo dbname="cp_movim.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_movim_mp_codigo dbname="cp_movim.mp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_movim_pv_codigo dbname="cp_movim.pv_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=cp_movim_ec_codigo dbname="cp_movim.ec_codigo" )
+ column=(type=datetime updatewhereclause=yes name=cp_movim_mp_fecha dbname="cp_movim.mp_fecha" )
+ column=(type=number updatewhereclause=yes name=cp_movim_mp_valor dbname="mp_valor" )
+ column=(type=number updatewhereclause=yes name=cp_movim_mp_valret dbname="mp_valret" )
+ column=(type=number updatewhereclause=yes name=cp_movim_mp_baseimp dbname="mp_baseimp" )
+ column=(type=number updatewhereclause=yes name=cp_movim_mp_reten dbname="mp_reten" )
+ column=(type=number updatewhereclause=yes name=cp_movim_mp_retiva dbname="mp_retiva" )
+ column=(type=number updatewhereclause=yes name=cp_movim_mp_saldo dbname="mp_saldo" )
+ column=(type=number updatewhereclause=yes name=cp_movim_co_numero dbname="cp_movim.co_numero" )
+ column=(type=char(25) updatewhereclause=yes name=in_compra_co_facpro dbname="in_compra.co_facpro" )
+ column=(type=number updatewhereclause=yes name=fa_formpag_fp_plazo dbname="fa_formpag.fp_plazo" )
+ column=(type=number updatewhereclause=yes name=fa_formpag_fp_numpag dbname="fa_formpag.fp_numpag" )
+ column=(type=char(50) updatewhereclause=yes name=fa_formpag_fp_descri dbname="fa_formpag.fp_descri" )
+ column=(type=datetime updatewhereclause=yes name=in_compra_co_fecha dbname="in_compra.co_fecha" )
+ column=(type=datetime updatewhereclause=yes name=cc_fvence dbname="compute_0021" )
+ column=(type=char(1) updatewhereclause=yes name=cp_movim_mp_contab dbname="cp_movim.mp_contab" values="Pagar	A/Pagar	N" )
+ column=(type=number updatewhereclause=yes name=abono dbname="abono" validation="number(gettext()) <=  cp_movim_mp_saldo " validationmsg="'El valor del abono no puede ser mayor que el saldo'" )
+ column=(type=char(1) updatewhereclause=yes name=cp_movim_estado dbname="cp_movim.estado" )
+ retrieve="  SELECT ~"CP_MOVIM~".~"TV_CODIGO~",   
+         ~"CP_MOVIM~".~"TV_TIPO~",   
+         ~"CP_MOVIM~".~"EM_CODIGO~",   
+         ~"CP_MOVIM~".~"SU_CODIGO~",   
+         ~"CP_MOVIM~".~"MP_CODIGO~",   
+         ~"CP_MOVIM~".~"PV_CODIGO~",   
+         ~"CP_MOVIM~".~"EC_CODIGO~",   
+         ~"CP_MOVIM~".~"MP_FECHA~",   
+         nvl(~"CP_MOVIM~".~"MP_VALOR~",0) mp_valor,   
+         nvl(~"CP_MOVIM~".~"MP_VALRET~",0) mp_valret,
+			nvl(~"CP_MOVIM~".~"MP_BASEIMP~",0) mp_baseimp,
+			nvl(~"CP_MOVIM~".~"MP_RETEN~",0) mp_reten,
+			nvl(~"CP_MOVIM~".~"MP_RETIVA~",0) mp_retiva,
+         nvl(~"CP_MOVIM~".~"MP_SALDO~",0) mp_saldo,
+         ~"CP_MOVIM~".~"CO_NUMERO~",    
+         ~"IN_COMPRA~".~"CO_FACPRO~",   
+         ~"FA_FORMPAG~".~"FP_PLAZO~",   
+         ~"FA_FORMPAG~".~"FP_NUMPAG~",   
+         ~"FA_FORMPAG~".~"FP_DESCRI~",   
+         ~"IN_COMPRA~".~"CO_FECHA~",   
+         trunc(~"IN_COMPRA~".~"CO_FECHA~"+~"FA_FORMPAG~".~"FP_PLAZO~"),   
+         ~"CP_MOVIM~".~"MP_CONTAB~",
+         0 ~"ABONO~",
+        ~"CP_MOVIM~".~"ESTADO~"   
+    FROM ~"CP_MOVIM~",   
+         ~"IN_COMPRA~",   
+         ~"FA_FORMPAG~"  
+   WHERE ( ~"CP_MOVIM~".~"EM_CODIGO~" = ~"IN_COMPRA~".~"EM_CODIGO~") and  
+         ( ~"CP_MOVIM~".~"SU_CODIGO~" = ~"IN_COMPRA~".~"CO_RUCSUC~") and  
+         ( ~"CP_MOVIM~".~"EC_CODIGO~" = ~"IN_COMPRA~".~"EC_CODIGO~") and  
+         ( ~"CP_MOVIM~".~"PV_CODIGO~" = ~"IN_COMPRA~".~"PV_CODIGO~" ) and  
+         ( ~"CP_MOVIM~".~"CO_NUMERO~" = ~"IN_COMPRA~".~"CO_NUMERO~") and 
+         ( ~"CP_MOVIM~".~"CO_FACPRO~" = ~"IN_COMPRA~".~"CO_FACPRO~") and 
+         ( ~"FA_FORMPAG~".~"FP_CODIGO~" = ~"IN_COMPRA~".~"FP_CODIGO~" ) and  
+         ( ~"FA_FORMPAG~".~"EM_CODIGO~" = ~"IN_COMPRA~".~"EM_CODIGO~" ) and  
+         ( ( ~"IN_COMPRA~".~"EC_CODIGO~" = '3' ) AND  
+         ( ~"IN_COMPRA~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_COMPRA~".~"CO_RUCSUC~" = :sucursal)  AND  
+         ( ~"IN_COMPRA~".~"PV_CODIGO~" = :proveedor ) AND  
+			( ~"CP_MOVIM~".~"TV_TIPO~" = 'C' ) AND  
+		   ( ~"CP_MOVIM~".~"MP_SALDO~" > 0) AND
+         trunc(~"IN_COMPRA~".~"CO_FECHA~"+~"FA_FORMPAG~".~"FP_PLAZO~")  between :fec_inicial and :fec_final ) 
+
+UNION SELECT ~"CP_MOVIM~".~"TV_CODIGO~",   
+         ~"CP_MOVIM~".~"TV_TIPO~",   
+         ~"CP_MOVIM~".~"EM_CODIGO~",   
+         ~"CP_MOVIM~".~"SU_CODIGO~",   
+         ~"CP_MOVIM~".~"MP_CODIGO~",   
+         ~"CP_MOVIM~".~"PV_CODIGO~",   
+         ~"CP_MOVIM~".~"EC_CODIGO~",   
+         ~"CP_MOVIM~".~"MP_FECHA~",   
+         nvl(~"CP_MOVIM~".~"MP_VALOR~",0) mp_valor,   
+         nvl(~"CP_MOVIM~".~"MP_VALRET~",0) mp_valret,
+			nvl(~"CP_MOVIM~".~"MP_BASEIMP~",0) mp_baseimp,
+			nvl(~"CP_MOVIM~".~"MP_RETEN~",0) mp_reten,
+			nvl(~"CP_MOVIM~".~"MP_RETIVA~",0) mp_retiva,
+         nvl(~"CP_MOVIM~".~"MP_SALDO~",0) mp_saldo,
+         ~"CP_MOVIM~".~"CO_NUMERO~",    
+         ~"CP_MOVIM~".~"CO_FACPRO~",   
+         0,   
+         0,   
+         '',   
+         SYSDATE,   
+         SYSDATE,   
+         '',
+         0,
+       ~"CP_MOVIM~".~"ESTADO~"  
+FROM ~"CP_MOVIM~"
+WHERE ( (~"CP_MOVIM~".~"TV_TIPO~" = 'C' ) AND  
+		nvl(~"CP_MOVIM~".~"EC_CODIGO~",'0') <> '3' AND 
+		( ~"CP_MOVIM~".~"EM_CODIGO~" = :empresa ) AND  
+      (~"CP_MOVIM~".~"SU_CODIGO~" = :sucursal ) AND  
+      (~"CP_MOVIM~".~"PV_CODIGO~" = :proveedor ) AND  
+		(~"CP_MOVIM~".~"MP_SALDO~" > 0) AND
+      trunc(~"CP_MOVIM~".~"MP_FECHA~")  between :fec_inicial and :fec_final )
+" arguments=(("empresa", string),("sucursal", string),("proveedor", string),("fec_inicial", date),("fec_final", date))  sort="cp_movim_mp_fecha A number(in_compra_co_facpro) A " )
+column(band=header id=6 alignment="0" tabsequence=32766 border="0" color="0" x="320" y="164" height="56" width="1541" format="[general]" html.valueishtml="0"  name=cp_movim_pv_codigo visible="1" dddw.name=d_dddw_proveedor dddw.displaycolumn=pv_razons dddw.datacolumn=pv_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Impreso:" border="0" color="0" x="1861" y="96" height="56" width="411" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="0" x="2263" y="16" height="64" width="562" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2290" y="96" height="56" width="535" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="23" y="24" height="56" width="1307" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="FACTURAS POR PAGAR" border="0" color="0" x="23" y="92" height="56" width="567" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Proveedor:" border="0" color="0" x="23" y="164" height="56" width="279" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Desde : ' +  fec_inicial + ' Hasta : '+ fec_final "border="0" color="0" x="23" y="236" height="56" width="1198" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Cred #." border="0" color="0" x="23" y="428" height="56" width="192" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="0" y1="496" x2="2807" y2="496"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Factura #" border="0" color="0" x="288" y="424" height="56" width="224" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fec. Compra" border="0" color="0" x="754" y="424" height="56" width="329" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Vence" border="0" color="0" x="1138" y="424" height="56" width="169" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Valor fact." border="0" color="0" x="1367" y="424" height="56" width="251" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Saldo" border="0" color="0" x="1723" y="424" height="56" width="137" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Forma de pago" border="0" color="0" x="1888" y="424" height="56" width="375" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="23" y="8" height="56" width="247" format="[general]" html.valueishtml="0"  name=cp_movim_mp_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="0" x="288" y="4" height="56" width="439" format="[general]" html.valueishtml="0"  name=in_compra_co_facpro visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="0" color="0" x="750" y="4" height="56" width="293" format="dd/mm/yyyy" html.valueishtml="0"  name=cp_movim_mp_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="0" x="1358" y="4" height="56" width="242" format="#,##0.00" html.valueishtml="0"  name=cp_movim_mp_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="0" x="1618" y="4" height="56" width="238" format="#,##0.00" html.valueishtml="0"  name=cp_movim_mp_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="0" x="1061" y="4" height="56" width="279" format="dd/mm/yyyy" html.valueishtml="0"  name=cc_fvence visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="1" tabsequence=32766 border="0" color="0" x="1874" y="4" height="56" width="389" format="[general]" html.valueishtml="0"  name=fa_formpag_fp_descri visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="1115" y1="0" x2="1861" y2="0"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(cp_movim_mp_valor for all)"border="0" color="0" x="1138" y="16" height="56" width="375" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(cp_movim_mp_saldo for all)"border="0" color="0" x="1541" y="16" height="56" width="320" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

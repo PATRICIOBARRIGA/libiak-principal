@@ -1,0 +1,46 @@
+HA$PBExportHeader$d_nr_debitos_cxp.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=68 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=fp_codigo dbname="fp_codigo" )
+ column=(type=decimal(2) updatewhereclause=yes name=cx_valcre dbname="cx_valcre" )
+ retrieve="SELECT~"CP_PAGO~".~"FP_CODIGO~",
+             ~"CP_CRUCE~".~"CX_VALCRE~"
+        FROM ~"CP_CRUCE~",
+         ~"CP_MOVIM~",
+         ~"CP_PAGO~"  
+        WHERE  ( ~"CP_MOVIM~".~"TV_CODIGO~" = ~"CP_CRUCE~".~"TV_CODIGO~" ) and  
+         ( ~"CP_MOVIM~".~"TV_TIPO~" = ~"CP_CRUCE~".~"TV_TIPO~" ) and  
+         ( ~"CP_MOVIM~".~"EM_CODIGO~" = ~"CP_CRUCE~".~"EM_CODIGO~" ) and  
+         ( ~"CP_MOVIM~".~"SU_CODIGO~" = ~"CP_CRUCE~".~"SU_CODIGO~" ) and  
+         ( ~"CP_MOVIM~".~"MP_CODIGO~" = ~"CP_CRUCE~".~"MP_CODIGO~" ) and  
+         ( ~"CP_PAGO~".~"TV_CODIGO~" = ~"CP_CRUCE~".~"TV_CODDEB~" ) and  
+         ( ~"CP_PAGO~".~"TV_TIPO~" = ~"CP_CRUCE~".~"TV_TIPODEB~" ) and  
+         ( ~"CP_PAGO~".~"MP_CODIGO~" = ~"CP_CRUCE~".~"MP_CODDEB~" ) and  
+         ( ~"CP_PAGO~".~"EM_CODIGO~" = ~"CP_CRUCE~".~"EM_CODIGO~" ) and  
+         ( ~"CP_PAGO~".~"SU_CODIGO~" = ~"CP_CRUCE~".~"SU_CODIGO~" ) and  
+         ( ( ~"CP_CRUCE~".~"EM_CODIGO~" = :empresa ) and  
+         ( ~"CP_CRUCE~".~"SU_CODIGO~" = :sucursal ) and 
+         ( ~"CP_CRUCE~".~"TV_CODIGO~" = :tvcodigo ) and 
+         ( ~"CP_CRUCE~".~"TV_TIPO~" = 'C' ) and
+         ( ~"CP_MOVIM~".~"MP_CODIGO~"= :nrocred) and
+         (~"CP_PAGO~".~"FP_CODIGO~" IN (6,7,111)))" arguments=(("empresa", string),("sucursal", string),("tvcodigo", string),("nrocred", string)) )
+text(band=header alignment="2" text="Fp Codigo" border="0" color="33554432" x="5" y="4" height="56" width="480" html.valueishtml="0"  name=fp_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cx Valcre" border="0" color="33554432" x="489" y="4" height="56" width="274" html.valueishtml="0"  name=cx_valcre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="56" width="480" format="[general]" html.valueishtml="0"  name=fp_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="489" y="4" height="56" width="274" format="[general]" html.valueishtml="0"  name=cx_valcre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,60 @@
+HA$PBExportHeader$d_rep_cancelaciones_resumido_cxp.srd
+$PBExportComments$Si.
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=388 color="536870912" )
+summary(height=84 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(2) updatewhereclause=yes name=cc_tipoiva dbname="compute_0001" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_fp_codigo dbname="cp_pago.fp_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=fa_formpag_fp_descri dbname="fa_formpag.fp_descri" )
+ column=(type=number updatewhereclause=yes name=cc_valorcruce dbname="compute_0004" )
+ retrieve="  SELECT NVL(~"CP_MOVIM~".~"MP_TIPOIVA~",0),
+         ~"CP_PAGO~".~"FP_CODIGO~",   
+          ~"FA_FORMPAG~".~"FP_DESCRI~", 
+         sum(~"CP_CRUCE~".~"CX_VALCRE~")  
+    FROM ~"CP_MOVIM~",
+         ~"CP_PAGO~",
+         ~"CP_CRUCE~",   
+          ~"FA_FORMPAG~"
+   WHERE ( ~"CP_CRUCE~".~"TV_CODDEB~" = ~"CP_PAGO~".~"TV_CODIGO~" ) and  
+         ( ~"CP_CRUCE~".~"TV_TIPODEB~" = ~"CP_PAGO~".~"TV_TIPO~" ) and  
+         ( ~"CP_CRUCE~".~"MP_CODDEB~" = ~"CP_PAGO~".~"MP_CODIGO~" ) and  
+         ( ~"CP_CRUCE~".~"EM_CODIGO~" = ~"CP_PAGO~".~"EM_CODIGO~" ) and  
+         ( ~"CP_CRUCE~".~"SU_CODIGO~" = ~"CP_PAGO~".~"SU_CODIGO~" ) and 
+         (~"CP_CRUCE~".~"MP_CODIGO~" = ~"CP_MOVIM~".~"MP_CODIGO~" )and  
+         (~"CP_CRUCE~".~"TV_CODIGO~" = ~"CP_MOVIM~".~"TV_CODIGO~" )and  
+         (~"CP_CRUCE~".~"TV_TIPO~" = ~"CP_MOVIM~".~"TV_TIPO~" ) and  
+         ( ~"FA_FORMPAG~".~"FP_CODIGO~" = ~"CP_PAGO~".~"FP_CODIGO~" ) and  
+         ( (~"CP_CRUCE~".~"EM_CODIGO~" = :empresa)and 
+           (~"CP_CRUCE~".~"SU_CODIGO~" = :sucursal) and
+       ( ~"CP_CRUCE~".~"CX_FECHA~" between :ad_ini and :ad_fin ) ) 
+GROUP BY NVL(~"CP_MOVIM~".~"MP_TIPOIVA~",0),
+ ~"CP_PAGO~".~"FP_CODIGO~",   
+          ~"FA_FORMPAG~".~"FP_DESCRI~"   
+" arguments=(("empresa", string),("sucursal", string),("ad_ini", date),("ad_fin", date)) )
+group(level=1 header.height=68 trailer.height=76 by=("cc_tipoiva" ) header.color="536870912" trailer.color="536870912"  sort="count(cc_tipoiva for group 1) A " )
+text(band=header alignment="1" text="Total" border="0" color="0" x="1307" y="308" height="56" width="123" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="41" y1="380" x2="1435" y2="380"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Forma de pago" border="0" color="0" x="46" y="308" height="56" width="375" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="46" y="12" height="56" width="1033" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="RESUMEN DE CANCELACIONES CXP" border="0" color="0" x="46" y="88" height="56" width="846" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Desde : '+ string(ad_ini) +' Hasta : '+string( ad_fin ) "border="0" color="33554432" x="46" y="152" height="56" width="1042" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="2821" y="100" height="56" width="229" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="33554432" x="2889" y="20" height="64" width="599" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="today()"border="0" color="33554432" x="3067" y="100" height="52" width="416" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="0" expression="case( cc_tipoiva when '0' then 'Mercader$$HEX1$$ed00$$ENDHEX$$a' when '1' then 'Bienes' when '2' then 'Servicios')"border="0" color="128" x="50" y="8" height="56" width="494" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="37" y="4" height="60" width="78" format="[general]" html.valueishtml="0"  name=cp_pago_fp_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="133" y="4" height="60" width="965" format="[general]" html.valueishtml="0"  name=fa_formpag_fp_descri visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1138" y="4" height="60" width="283" format="[general]" html.valueishtml="0"  name=cc_valorcruce visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="1" text="Total Cancelaci$$HEX1$$f300$$ENDHEX$$n:" border="0" color="0" x="393" y="20" height="56" width="480" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(cc_valorcruce for group 1)"border="0" color="128" x="969" y="16" height="56" width="453" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression=" sum(cc_valorcruce for all) "border="0" color="33554432" x="969" y="16" height="56" width="453" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.1 x1="974" y1="4" x2="1417" y2="4"  name=l_3 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=summary x1="974" y1="4" x2="1422" y2="4"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
