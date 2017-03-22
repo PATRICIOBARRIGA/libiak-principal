@@ -1,0 +1,10 @@
+HA$PBExportHeader$d_rep_nr_items.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=505 color="536870912" )
+table(column=(type=char(32759) update=yes updatewhereclause=no name=hi_texto dbname="in_htitem.hi_texto" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_htitem~" ) COLUMN(NAME=~"in_htitem.hi_texto~")WHERE(    EXP1 =~"~~~"IN_HTITEM~~~".~~~"HT_CODHOJA~~~"~"   OP =~"=~"    EXP2 =~":ht_codhoja~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_HTITEM~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":em_codigo~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_HTITEM~~~".~~~"LH_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":lh_codigo~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_HTITEM~~~".~~~"HI_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":hi_codigo~" ) ) ARG(NAME = ~"ht_codhoja~" TYPE = string)  ARG(NAME = ~"em_codigo~" TYPE = string)  ARG(NAME = ~"lh_codigo~" TYPE = string)  ARG(NAME = ~"hi_codigo~" TYPE = string) " arguments=(("ht_codhoja", string),("em_codigo", string),("lh_codigo", string),("hi_codigo", string)) )
+column(band=detail id=1 alignment="3" tabsequence=10 border="0" color="0" x="5" y="4" height="485" width="2195" format="[general]"  name=hi_texto height.autosize=yes edit.limit=32000 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

@@ -1,0 +1,105 @@
+HA$PBExportHeader$d_rep_tipos_movim_inv.srd
+$PBExportComments$Ajuste de inventario
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=460 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=0 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cod_mov_inv dbname="in_movim.tm_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=es_codigo dbname="in_movim.es_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=tipo_movimiento dbname="in_timov.tm_descri" )
+ column=(type=number updatewhereclause=yes name=cantidad dbname="cantidad" )
+ column=(type=number updatewhereclause=yes name=costo dbname="costo" )
+ column=(type=number updatewhereclause=yes name=costo_tot dbname="costo_tot" )
+ column=(type=number updatewhereclause=yes name=costoprom dbname="costoprom" )
+ column=(type=number updatewhereclause=yes name=costo_totprom dbname="costo_totprom" )
+ column=(type=number updatewhereclause=yes name=costotrans dbname="costotrans" )
+ column=(type=number updatewhereclause=yes name=costo_tottrans dbname="costo_tottrans" )
+ column=(type=char(1) updatewhereclause=yes name=ing_o_egr dbname="in_movim.tm_ioe" )
+ retrieve="SELECT ~"IN_MOVIM~".~"TM_CODIGO~",   
+       ~"IN_MOVIM~".~"ES_CODIGO~",   
+       ~"IN_TIMOV~".~"TM_DESCRI~",
+       sum(~"IN_MOVIM~".~"MV_CANTID~") cantidad,
+       sum(~"IN_MOVIM~".~"MV_COSTO~") costo,
+       sum(~"IN_MOVIM~".~"MV_CANTID~" * ~"IN_MOVIM~".~"MV_COSTO~") costo_tot,
+       sum(~"IN_MOVIM~".~"MV_COSTPROM~") costoprom,
+       sum(~"IN_MOVIM~".~"MV_CANTID~" * ~"IN_MOVIM~".~"MV_COSTPROM~") costo_totprom,
+       sum(~"IN_MOVIM~".~"MV_COSTTRANS~") costotrans,
+       sum(~"IN_MOVIM~".~"MV_CANTID~" * ~"IN_MOVIM~".~"MV_COSTTRANS~") costo_tottrans,
+       ~"IN_MOVIM~".~"TM_IOE~"
+  FROM ~"IN_MOVIM~",
+			~"IN_TIMOV~",
+         ~"IN_ITEM~" 
+  WHERE ( ~"IN_MOVIM~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) AND  
+      ( ~"IN_MOVIM~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) AND
+		(~"IN_MOVIM~".~"EM_CODIGO~" = ~"IN_TIMOV~".~"EM_CODIGO~") AND
+		(~"IN_MOVIM~".~"TM_CODIGO~" = ~"IN_TIMOV~".~"TM_CODIGO~") AND
+		(~"IN_MOVIM~".~"TM_IOE~" = ~"IN_TIMOV~".~"TM_IOE~") AND
+		(( ~"IN_MOVIM~".~"EM_CODIGO~" = '1' ) AND  
+         ( ~"IN_MOVIM~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_MOVIM~".~"IT_CODIGO~" like '%' ) AND  
+         ( ~"IN_MOVIM~".~"MV_FECHA~" between :fecha_ini and :fecha_fin + 1)) AND
+         ( ~"IN_MOVIM~".~"BO_CODIGO~" = :seccion ) AND  
+			(~"IN_ITEM~".~"IT_KIT~" <> 'S') 
+group by ~"IN_MOVIM~".~"TM_CODIGO~",   
+         ~"IN_MOVIM~".~"TM_IOE~",
+         ~"IN_MOVIM~".~"ES_CODIGO~",   
+         ~"IN_TIMOV~".~"TM_DESCRI~"" arguments=(("sucursal", string),("seccion", string),("fecha_ini", date),("fecha_fin", date))  sort="ing_o_egr A es_codigo A number(cod_mov_inv) A " )
+group(level=1 header.height=68 trailer.height=0 by=("ing_o_egr" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=64 trailer.height=0 by=("cod_mov_inv" ) header.color="536870912" trailer.color="536870912" )
+group(level=3 header.height=68 trailer.height=4 by=("es_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="69" y="372" height="60" width="178" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Movimiento" border="0" color="0" x="567" y="372" height="60" width="343" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="9" y="20" height="72" width="1326" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Sucursal:" border="0" color="0" x="9" y="104" height="60" width="270" html.valueishtml="0"  name=cc_venpro_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Reporte Resumido de Movimientos de Inventario" border="0" color="33554432" x="9" y="252" height="64" width="1440" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Desde:" border="0" color="0" x="1605" y="252" height="64" width="197" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" fecha_ini "border="0" color="0" x="1819" y="252" height="64" width="343" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" fecha_fin "border="0" color="0" x="2391" y="252" height="64" width="343" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Hasta:" border="0" color="0" x="2181" y="252" height="64" width="192" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="2359" y="92" height="56" width="192" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2263" y="20" height="60" width="562" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2565" y="92" height="56" width="261" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Secci$$HEX1$$f300$$ENDHEX$$n:" border="0" color="0" x="9" y="176" height="60" width="251" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="293" y="104" height="60" width="1289" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="293" y="176" height="60" width="1289" html.valueishtml="0"  name=st_seccion visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cantidad" border="0" color="0" x="1472" y="372" height="60" width="247" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="23" y1="452" x2="2825" y2="452"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="Costo total Prom." border="0" color="0" x="1801" y="372" height="60" width="448" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Costo Transaccion" border="0" color="0" x="2322" y="372" height="60" width="489" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header.1 alignment="0" expression="If(  ing_o_egr  = 'E','EGRESOS','INGRESOS') "border="0" color="0" x="110" y="8" height="56" width="320" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="1" expression="sum(cantidad for group 1)"border="0" color="0" x="1371" y="8" height="56" width="366" format="#,##0" html.valueishtml="0"  name=compute_15 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="1" expression="sum(costo_totprom for group 1)"border="0" color="0" x="1824" y="8" height="56" width="443" format="#,##0.0000" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="1" expression="sum(if ( cod_mov_inv IN ('1','6'), costo_tottrans , costo_totprom ) for group 1)"border="0" color="0" x="2336" y="8" height="56" width="494" format="#,##0.00" html.valueishtml="0"  name=compute_18 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.2 id=1 alignment="1" tabsequence=32766 border="0" color="0" x="174" y="4" height="52" width="119" format="[general]" html.valueishtml="0"  name=cod_mov_inv visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.2 id=3 alignment="0" tabsequence=32766 border="0" color="0" x="311" y="4" height="52" width="1070" format="[general]" html.valueishtml="0"  name=tipo_movimiento visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.2 alignment="1" expression="sum(cantidad for group 2)"border="0" color="0" x="1408" y="4" height="52" width="329" format="#,##0" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.2 alignment="1" expression="sum(costo_totprom for group 2)"border="0" color="0" x="1806" y="4" height="56" width="453" format="#,##0.0000" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.2 alignment="1" expression="sum(if ( cod_mov_inv IN ('1','6'), costo_tottrans , costo_totprom ) for group 2)"border="0" color="0" x="2345" y="4" height="56" width="485" format="#,##0.00" html.valueishtml="0"  name=compute_17 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="0" expression="If(es_codigo= '1' or  es_codigo ='9','1','2')"border="0" color="0" x="773" y="8" height="60" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_12 visible="1~tif( es_codigo = '2' or es_codigo = '5' or es_codigo = '9' or es_codigo = '10', 1,0)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="1" expression="sum(cantidad for group 3)"border="0" color="0" x="1445" y="4" height="56" width="293" format="#,##0" html.valueishtml="0"  name=compute_6 visible="1~tif( es_codigo = '2' or es_codigo = '5' or es_codigo = '9' or es_codigo = '10', 1,0)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="1" expression="sum(costo_tot for group 3)"border="0" color="0" x="3470" y="8" height="56" width="411" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="1" expression="sum(costo_totprom for group 3)"border="0" color="0" x="1810" y="8" height="56" width="448" format="#,##0.0000" html.valueishtml="0"  name=compute_13 visible="1~tif( es_codigo = '2' or es_codigo = '5' or es_codigo = '9' or es_codigo = '10', 1,0)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="1" expression="sum(if ( cod_mov_inv IN ('1','6'), costo_tottrans , costo_totprom ) for group 3)"border="0" color="0" x="2336" y="4" height="56" width="494" format="#,##0.00" html.valueishtml="0"  name=compute_16 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="887" y="8" height="56" width="270" format="[general]" html.valueishtml="0"  name=costo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="1285" y="8" height="56" width="448" format="[general]" html.valueishtml="0"  name=costo_tot visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="535" y="12" height="56" width="261" format="[general]" html.valueishtml="0"  name=cantidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="3648" y="12" height="60" width="229" format="[general]" html.valueishtml="0"  name=costoprom visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="1838" y="4" height="56" width="434" format="#,##0.00" html.valueishtml="0"  name=costo_totprom visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="3296" y="12" height="56" width="315" format="#,##0.00" html.valueishtml="0"  name=costo_tottrans visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if ( cod_mov_inv IN ('1','6'), costo_tottrans , costo_totprom )"border="0" color="0" x="2336" y="8" height="56" width="494" format="#,##0.00" html.valueishtml="0"  name=compute_14 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Costo Total" border="0" color="0" x="2967" y="360" height="60" width="306" html.valueishtml="0"  name=t_8 visible="0"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header.1 alignment="1" expression="sum(costo_tot for group 1)"border="0" color="0" x="2866" y="12" height="56" width="407" format="#,##0.00" html.valueishtml="0"  name=compute_7 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.2 alignment="1" expression="sum(costo_tot for group 2)"border="0" color="0" x="2866" y="8" height="52" width="407" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

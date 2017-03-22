@@ -1,0 +1,64 @@
+HA$PBExportHeader$d_rep_transferencias_costeadas_resumidas.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=76 color="536870912" )
+summary(height=72 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_dettrans_su_destino dbname="in_dettrans.su_destino" )
+ column=(type=char(20) updatewhereclause=yes name=in_dettrans_bo_destino dbname="in_dettrans.bo_destino" )
+ column=(type=char(20) updatewhereclause=yes name=in_dettrans_tf_ticket dbname="in_dettrans.tf_ticket" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=in_bode_bo_nombre dbname="in_bode.bo_nombre" )
+ column=(type=number updatewhereclause=yes name=compute_0006 dbname="compute_0006" )
+ column=(type=datetime updatewhereclause=yes name=in_movim_mv_fecha dbname="in_movim.mv_fecha" )
+ retrieve=" SELECT ~"IN_DETTRANS~".~"SU_CODIGO~" SU_DESTINO,
+        ~"IN_DETTRANS~".~"BO_CODIGO~" BO_DESTINO,
+        ~"IN_DETTRANS~".~"TF_TICKET~",  
+        ~"PR_SUCUR~".~"SU_NOMBRE~",
+        ~"IN_BODE~".~"BO_NOMBRE~",
+        SUM(~"IN_MOVIM~".~"MV_CANTID~"*~"IN_MOVIM~".~"MV_COSTO~"),
+        ~"IN_MOVIM~".~"MV_FECHA~"
+ FROM   ~"IN_MOVIM~",~"IN_DETTRANS~",~"PR_SUCUR~",~"IN_BODE~"
+ WHERE   (~"PR_SUCUR~".~"EM_CODIGO~" = ~"IN_DETTRANS~".~"EM_CODIGO~") AND
+         (~"PR_SUCUR~".~"SU_CODIGO~" = ~"IN_DETTRANS~".~"SU_CODIGO~") AND
+         (~"IN_BODE~".~"EM_CODIGO~" = ~"IN_DETTRANS~".~"EM_CODIGO~") AND
+         (~"IN_BODE~".~"SU_CODIGO~" = ~"IN_DETTRANS~".~"SU_CODIGO~") AND
+         (~"IN_BODE~".~"BO_CODIGO~" = ~"IN_DETTRANS~".~"BO_CODIGO~") AND
+         (~"IN_MOVIM~".~"IT_CODIGO~" = ~"IN_DETTRANS~".~"IT_CODIGO~") AND
+         (~"IN_MOVIM~".~"SU_CODIGO~" = ~"IN_DETTRANS~".~"SU_CODENV~") AND
+         (~"IN_MOVIM~".~"BO_CODIGO~" = ~"IN_DETTRANS~".~"BO_CODENV~") AND
+         ( SUBSTR(~"IN_MOVIM~".~"MV_OBSERV~",INSTR(~"IN_MOVIM~".~"MV_OBSERV~",'.',-1,1) +2) = ~"IN_DETTRANS~".~"TF_TICKET~" ) AND
+         (( ~"IN_MOVIM~".~"TM_CODIGO~" = '7' ) AND  
+         ( ~"IN_MOVIM~".~"TM_IOE~" = 'E') AND  
+         ( ~"IN_MOVIM~".~"EM_CODIGO~" = 1 ) AND  
+         ( ~"IN_MOVIM~".~"SU_CODIGO~" = 1 ) AND  
+         ( ~"IN_MOVIM~".~"BO_CODIGO~" = 1 ) AND  
+         (~"IN_MOVIM~".~"MV_FECHA~" BETWEEN '01-JAN-04' AND '01-APR-04'))
+GROUP BY ~"IN_DETTRANS~".~"SU_CODIGO~",
+        ~"IN_DETTRANS~".~"BO_CODIGO~",
+        ~"IN_DETTRANS~".~"TF_TICKET~",  
+        ~"PR_SUCUR~".~"SU_NOMBRE~",
+        ~"IN_BODE~".~"BO_NOMBRE~",
+        ~"IN_MOVIM~".~"MV_FECHA~"" arguments=(("empresa", number),("sucursal", number),("seccion", number),("fecini", datetime),("fecfin", datetime))  sort="in_movim_mv_fecha A " )
+text(band=header alignment="2" text="Su Destino" border="0" color="33554432" x="5" y="4" height="56" width="480" html.valueishtml="0"  name=in_dettrans_su_destino_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Bo Destino" border="0" color="33554432" x="489" y="4" height="56" width="480" html.valueishtml="0"  name=in_dettrans_bo_destino_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tf Ticket" border="0" color="33554432" x="974" y="4" height="56" width="480" html.valueishtml="0"  name=in_dettrans_tf_ticket_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Su Nombre" border="0" color="33554432" x="1458" y="4" height="56" width="1166" html.valueishtml="0"  name=pr_sucur_su_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Bo Nombre" border="0" color="33554432" x="2633" y="4" height="56" width="1166" html.valueishtml="0"  name=in_bode_bo_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mv Cantid" border="0" color="33554432" x="3803" y="4" height="56" width="274" html.valueishtml="0"  name=in_movim_mv_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mv Costo" border="0" color="33554432" x="4082" y="4" height="56" width="274" html.valueishtml="0"  name=in_movim_mv_costo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text=" Fecha" border="0" color="33554432" x="4393" y="12" height="56" width="503" html.valueishtml="0"  name=in_movim_mv_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="33554432" x="9" y="0" height="56" width="462" html.valueishtml="0"  name=in_dettrans_su_destino visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="33554432" x="503" y="0" height="56" width="462" html.valueishtml="0"  name=in_dettrans_bo_destino visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=0 border="0" color="33554432" x="978" y="4" height="56" width="462" html.valueishtml="0"  name=in_dettrans_tf_ticket visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=0 border="0" color="33554432" x="1449" y="8" height="56" width="1152" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=0 border="0" color="33554432" x="2629" y="4" height="56" width="1152" html.valueishtml="0"  name=in_bode_bo_nombre visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=0 border="0" color="33554432" x="3822" y="4" height="56" width="558" format="#,##0.00" html.valueishtml="0"  name=compute_0006 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="sum(compute_0006 for all)"border="0" color="33554432" x="3822" y="8" height="56" width="558" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=0 border="0" color="33554432" x="4402" y="8" height="56" width="503" html.valueishtml="0"  name=in_movim_mv_fecha visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
