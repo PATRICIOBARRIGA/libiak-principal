@@ -1,0 +1,101 @@
+HA$PBExportHeader$d_rep_com_x_asesor_contado_motos.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=424 color="536870912" )
+header[2](height=68 color="536870912" )
+summary(height=80 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=empleado dbname="empleado" )
+ column=(type=number updatewhereclause=yes name=ve_numero dbname="ve_numero" )
+ column=(type=datetime updatewhereclause=yes name=mt_fecha dbname="mt_fecha" )
+ column=(type=datetime updatewhereclause=yes name=fecefectivizacion dbname="fecefectivizacion" )
+ column=(type=number updatewhereclause=yes name=comision dbname="comision" )
+ retrieve="SELECT D.MT_FECHA,
+Z.MT_CODIGO,
+V.VE_NUMERO,
+Z.CR_VALDEB/1.12 - V.VE_CARGO neto,
+MAX(Y.CH_FECEFEC) fecefectivizacion,
+decode( max(y.ch_fecefec) - trunc(D.mt_fecha),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),4),(Z.CR_VALDEB/1.12-V.VE_CARGO)*(:com1_4/100),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),10),(Z.CR_VALDEB/1.12- V.VE_CARGO)*(:com5_10/100),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),15),(Z.CR_VALDEB/1.12-V.VE_CARGO)*(:com11_15/100),
+least(max(y.ch_fecefec) - trunc(D.mt_fecha),29),(Z.CR_VALDEB/1.12-V.VE_CARGO)*(:com16_29/100),(Z.CR_VALDEB/1.12-V.VE_CARGO)*(:com_M30/100)) comision,
+decode( MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),4),' 1 - 4  ['||:com1_4||'%]',
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),10),' 5 - 10  ['||:com5_10||'%]',
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),15),'11 - 15  ['||:com11_15||'%]',
+least(MAX(Y.CH_FECEFEC) - trunc(D.MT_FECHA),29),'16 - 29 ['||:com16_29||'%]','m$$HEX1$$e100$$ENDHEX$$s 30['||:com_M30||' %]') rango,
+e.ep_codigo,
+e.ep_apepat||' '||e.ep_nombre empleado
+FROM  CC_MOVIM X, CC_CRUCE Z, CC_CHEQUE Y ,CC_MOVIM D,FA_VENTA V, FA_DETVE T,NO_EMPLE E,FA_RECPAG P
+WHERE  V.EM_CODIGO = T.EM_CODIGO
+AND V.SU_CODIGO = T.SU_CODIGO
+AND V.BO_CODIGO = T.BO_CODIGO
+AND V.ES_CODIGO = T.ES_CODIGO
+AND V.VE_NUMERO = T.VE_NUMERO
+AND  V.EM_CODIGO = P.EM_CODIGO
+AND V.SU_CODIGO = P.SU_CODIGO
+AND V.BO_CODIGO = P.BO_CODIGO
+AND V.ES_CODIGO = P.ES_CODIGO
+AND V.VE_NUMERO = P.VE_NUMERO
+AND V.EM_CODIGO = D.EM_CODIGO
+AND V.SU_CODIGO = D.SU_CODIGO
+AND V.BO_CODIGO = D.BO_CODIGO
+AND V.ES_CODIGO = D.ES_CODIGO
+AND V.VE_NUMERO = D.VE_NUMERO
+AND V.EM_CODIGO = E.EM_CODIGO
+AND V.EP_CODIGO = E.EP_CODIGO
+AND Z.TT_CODIGO = Y.TT_CODIGO
+AND Z.TT_IOE = Y.TT_IOE
+AND Z.EM_CODIGO = Y.EM_CODIGO
+AND Z.SU_CODIGO = Y.SU_CODIGO
+AND Z.MT_CODIGO = Y.MT_CODIGO
+AND Z.TT_CODDEB = X.TT_CODIGO
+AND Z.TT_IOEDEB = X.TT_IOE
+AND Z.EM_CODIGO = X.EM_CODIGO
+AND Z.SU_CODIGO = X.SU_CODIGO
+AND Z.MT_CODDEB = X.MT_CODIGO
+AND Z.TT_CODDEB = D.TT_CODIGO
+AND Z.TT_IOEDEB = D.TT_IOE
+AND Z.EM_CODIGO = D.EM_CODIGO
+AND Z.SU_CODIGO = D.SU_CODIGO
+AND Z.MT_CODDEB = D.MT_CODIGO
+AND Z.TT_CODDEB  =  '1'
+AND Z.TT_IOEDEB    = 'D'
+AND to_char(D.MT_FECHA,'MM/YYYY') = :mesa$$HEX1$$f100$$ENDHEX$$o
+AND trunc(Y.CH_FECHA) BETWEEN :fec_ini AND :fec_fin
+AND P.FP_CODIGO = 24
+AND Y.FP_CODIGO IN (0,1,6,8,13,18,37,53,73,74,81)
+AND T.DV_MOTOR IS NOT NULL
+and e.ep_codigo = :cod_empleado
+GROUP BY D.MT_FECHA,Z.MT_CODIGO,V.VE_NUMERO,Z.CR_VALDEB,V.VE_CARGO,e.ep_codigo,e.ep_apepat,e.ep_nombre" arguments=(("mesa$$HEX1$$f100$$ENDHEX$$o", string),("fec_ini", date),("fec_fin", date),("com1_4", number),("com5_10", number),("com11_15", number),("com16_29", number),("com_M30", number),("cod_empleado", number))  sort="empleado A ve_numero A mt_fecha A fecefectivizacion A " )
+text(band=header[1] alignment="0" text="COMISIONES DE CONTADO" border="0" color="33554432" x="9" y="12" height="56" width="882" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression="'CARTERA DE: ' +mesa$$HEX1$$f100$$ENDHEX$$o "border="0" color="0" x="9" y="148" height="56" width="960" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="0" expression="'CARTERA DOCUMENTADA ENTRE: ' +string(fec_ini)+' Y EL : '+string(fec_fin)"border="0" color="0" x="9" y="224" height="188" width="960" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="0" x="2555" y="24" height="56" width="311" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[1] alignment="1" text="Impreso:" border="0" color="33554432" x="2555" y="92" height="56" width="311" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="0" x="2555" y="164" height="56" width="311" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[1] alignment="0" text="FACTURAS DE VEHICULOS" border="0" color="33554432" x="9" y="76" height="56" width="960" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Asesor" border="0" color="33554432" x="9" y="4" height="56" width="955" html.valueishtml="0"  name=empleado_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$Factura" border="0" color="33554432" x="974" y="4" height="56" width="343" html.valueishtml="0"  name=ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Fecha Emisi$$HEX1$$f300$$ENDHEX$$n" border="0" color="33554432" x="1326" y="4" height="56" width="457" html.valueishtml="0"  name=mt_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Fecha Efectivizaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="33554432" x="1792" y="4" height="56" width="457" html.valueishtml="0"  name=fecefectivizacion_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@rango" border="0" color="128" x="2258" y="4" height="56" width="288" html.valueishtml="0"  name=comision_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Gran Total " border="0" color="33554432" x="2555" y="4" height="56" width="311" html.valueishtml="0"  name=grand_sum_comision_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="68" width="955" format="[general]" html.valueishtml="0"  name=empleado visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="974" y="4" height="68" width="343" format="[general]" html.valueishtml="0"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="33554432" x="1326" y="4" height="68" width="457" format="[shortdate]" html.valueishtml="0"  name=mt_fecha visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1792" y="4" height="68" width="457" format="[shortdate]" html.valueishtml="0"  name=fecefectivizacion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2258" y="4" height="68" width="288" format="#,##0.00" html.valueishtml="0"  name=comision visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0 crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="2555" y="4" height="68" width="311" format="#,##0.00" html.valueishtml="0"  name=grand_sum_comision visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="~"Total Comisi$$HEX1$$f300$$ENDHEX$$n~""border="0" color="33554432" x="9" y="4" height="68" width="955" format="[general]" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(comision for all )"border="0" color="33554432" x="2258" y="4" height="68" width="288" format="#,##0.00" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_comision for all )"border="0" color="33554432" x="2555" y="4" height="68" width="311" format="#,##0.00" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "rango" rows = "empleado, ve_numero, mt_fecha, fecefectivizacion" values = "sum(comision for crosstab)" sourcenames = "mt_fecha, mt_codigo, ve_numero, neto, fecefectivizacion, comision, rango, ep_codigo, empleado")
+sparse(names="empleado	ve_numero	mt_fecha")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

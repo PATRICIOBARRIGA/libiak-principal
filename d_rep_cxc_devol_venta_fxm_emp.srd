@@ -1,0 +1,78 @@
+HA$PBExportHeader$d_rep_cxc_devol_venta_fxm_emp.srd
+$PBExportComments$Devoluciones de ventas.
+release 9;
+datawindow(units=0 timer_interval=60000 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=344 color="536870912" )
+summary(height=84 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=cc_movim_ve_numero dbname="cc_movim.ve_numero" )
+ column=(type=datetime updatewhereclause=yes name=cc_movim_mt_fecha dbname="cc_movim.mt_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=cc_movim_mt_valor dbname="cc_movim.mt_valor" )
+ column=(type=decimal(2) updatewhereclause=yes name=cc_movim_mt_saldo dbname="cc_movim.mt_saldo" )
+ column=(type=char(20) updatewhereclause=yes name=cc_movim_mt_codigo dbname="cc_movim.mt_codigo" )
+ column=(type=char(125) updatewhereclause=yes name=ccliente dbname="cliente" )
+ column=(type=char(13) updatewhereclause=yes name=fa_clien_ce_rucic dbname="fa_clien.ce_rucic" )
+ column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_codigo dbname="pr_sucur.su_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ retrieve=" SELECT  ~"CC_MOVIM~".~"VE_NUMERO~",   
+		   ~"CC_MOVIM~".~"MT_FECHA~",   
+         ~"CC_MOVIM~".~"MT_VALOR~",   
+         ~"CC_MOVIM~".~"MT_SALDO~",   
+         ~"CC_MOVIM~".~"MT_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~"||' '||NVL(~"FA_CLIEN~".~"CE_RAZONS~",'')||' / '||DECODE(~"FA_CLIEN~".~"CE_TIPO~",'N',~"FA_CLIEN~".~"CE_NOMBRE~"||' '||~"FA_CLIEN~".~"CE_APELLI~",~"FA_CLIEN~".~"CE_NOMREP~"||' '||~"FA_CLIEN~".~"CE_APEREP~") ~"cliente~",   
+         ~"FA_CLIEN~".~"CE_RUCIC~",
+         ~"PR_SUCUR~".~"SU_CODIGO~",
+         ~"PR_SUCUR~".~"SU_NOMBRE~"
+    FROM ~"CC_MOVIM~",
+         ~"CC_CHEQUE~",
+         ~"FA_CLIEN~",
+         ~"PR_SUCUR~"		  
+   WHERE ( ~"FA_CLIEN~".~"CE_CODIGO~" = ~"CC_MOVIM~".~"CE_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"TT_CODIGO~" = ~"CC_CHEQUE~".~"TT_CODIGO~") and  
+         ( ~"CC_MOVIM~".~"TT_IOE~" = ~"CC_CHEQUE~".~"TT_IOE~") and  
+         ( ~"CC_MOVIM~".~"EM_CODIGO~" = ~"CC_CHEQUE~".~"EM_CODIGO~") and  
+         ( ~"CC_MOVIM~".~"SU_CODIGO~" = ~"CC_CHEQUE~".~"SU_CODIGO~") and  
+         ( ~"CC_MOVIM~".~"MT_CODIGO~" = ~"CC_CHEQUE~".~"MT_CODIGO~") and  
+         ( ~"CC_MOVIM~".~"EM_CODIGO~" = ~"PR_SUCUR~".~"EM_CODIGO~") and  
+         ( ~"CC_MOVIM~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~") and  
+         (( ~"CC_MOVIM~".~"EM_CODIGO~" = :empresa ) AND  
+			( ~"CC_MOVIM~".~"TT_CODIGO~" = '5' ) AND  
+         ( ~"CC_MOVIM~".~"TT_IOE~" = 'C' ) AND  
+         ( ~"CC_MOVIM~".~"MT_SALDO~" > 0 ) AND  
+         (trunc( ~"CC_MOVIM~".~"MT_FECHA~") between :fec_ini and :fec_fin) AND
+			( ~"CC_CHEQUE~".~"FP_CODIGO~" = 2))
+" arguments=(("empresa", string),("fec_ini", date),("fec_fin", date))  sort="pr_sucur_su_codigo A " )
+group(level=1 header.height=96 trailer.height=92 by=("pr_sucur_su_codigo" ) header.color="536870912" trailer.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=0 border="0" color="0" x="384" y="4" height="56" width="379" html.valueishtml="0"  name=cc_movim_ve_numero visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="782" y="4" height="56" width="256" html.valueishtml="0"  name=cc_movim_mt_fecha visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="1056" y="4" height="56" width="1586" format="[general]" html.valueishtml="0"  name=ccliente visible="1" edit.limit=101 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="32" y="12" height="76" width="1298" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Impreso el: ' + string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2674" y="28" height="56" width="658" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2811" y="104" height="56" width="521" format="[general]" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Reporte de Notas de Cr$$HEX1$$e900$$ENDHEX$$dito Pendientes Facturaci$$HEX1$$f300$$ENDHEX$$n x Mayor" border="0" color="0" x="32" y="104" height="80" width="2144" html.valueishtml="0"  name=st_titulo visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="'Desde: ' + string( fec_ini ,'dd/mm/yyyy') + ' Hasta: ' +  string( fec_fin ,'dd/mm/yyyy')"border="0" color="0" x="32" y="196" height="56" width="1170" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="27" y1="336" x2="3360" y2="336"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Movimiento" border="0" color="0" x="32" y="268" height="56" width="242" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Factura" border="0" color="0" x="439" y="268" height="56" width="169" html.valueishtml="0"  name=fa_venta_ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Fecha" border="0" color="0" x="841" y="268" height="56" width="142" html.valueishtml="0"  name=fa_venta_ve_numpre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cliente" border="0" color="0" x="1056" y="268" height="56" width="146" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="A devolver" border="0" color="0" x="2697" y="272" height="56" width="242" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Saldo" border="0" color="0" x="3163" y="268" height="56" width="123" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=0 border="0" color="0" x="32" y="4" height="56" width="334" html.valueishtml="0"  name=cc_movim_mt_codigo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=9 alignment="0" tabsequence=0 border="0" color="0" x="215" y="20" height="56" width="1152" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=8 alignment="0" tabsequence=0 border="0" color="0" x="32" y="20" height="56" width="160" html.valueishtml="0"  name=pr_sucur_su_codigo visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(cc_movim_mt_valor for all)"border="0" color="0" x="2661" y="20" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(cc_movim_mt_saldo for all)"border="0" color="0" x="3022" y="20" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=0 border="0" color="0" x="2661" y="4" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=cc_movim_mt_valor visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=0 border="0" color="0" x="3022" y="4" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=cc_movim_mt_saldo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(cc_movim_mt_valor for group 1)"border="0" color="0" x="2661" y="20" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(cc_movim_mt_saldo for group 1)"border="0" color="0" x="3022" y="20" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="'Total '+ pr_sucur_su_nombre "border="0" color="0" x="2149" y="20" height="56" width="466" format="[GENERAL]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="1" text="Total:" border="0" color="0" x="2478" y="20" height="56" width="137" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
