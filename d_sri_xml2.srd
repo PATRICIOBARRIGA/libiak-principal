@@ -1,0 +1,90 @@
+HA$PBExportHeader$d_sri_xml2.srd
+$PBExportComments$con formato xml para envio de ventas de vehiculos al sri
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(255) updatewhereclause=yes name=ri_calle dbname="fa_sriventas.ri_calle" )
+ column=(type=char(20) updatewhereclause=yes name=ri_codmatriculacion dbname="fa_sriventas.ri_codcanton" )
+ column=(type=char(10) updatewhereclause=yes name=fventa dbname="fventa" )
+ column=(type=char(255) updatewhereclause=yes name=ri_intersec dbname="fa_sriventas.ri_intersec" )
+ column=(type=char(255) updatewhereclause=yes name=ri_propietario dbname="fa_sriventas.ri_propietario" )
+ column=(type=decimal(0) updatewhereclause=yes name=ri_tipocomprobante dbname="fa_sriventas.ri_tipocomprobante" )
+ column=(type=char(255) updatewhereclause=yes name=ri_numero dbname="fa_sriventas.ri_numero" )
+ column=(type=char(255) updatewhereclause=yes name=ri_numdoc dbname="fa_sriventas.ri_numdoc" )
+ column=(type=char(255) updatewhereclause=yes name=ri_camvcpn dbname="fa_sriventas.ri_camvcpn" )
+ column=(type=char(13) updatewhereclause=yes name=ri_ruc dbname="fa_sriventas.ri_ruc" )
+ column=(type=char(25) updatewhereclause=yes name=ri_pventa dbname="fa_sriventas.ri_pventa" )
+ column=(type=char(20) updatewhereclause=yes name=ri_telefono dbname="fa_sriventas.ri_telefono" )
+ column=(type=char(1) updatewhereclause=yes name=ri_tipoidentificacion dbname="fa_sriventas.ri_tipoidentificacion" )
+ column=(type=char(25) updatewhereclause=yes name=ri_serialvin dbname="fa_sriventas.ri_serialvin" )
+ column=(type=char(20) updatewhereclause=yes name=ri_codprovincia dbname="fa_sriventas.ri_codprovincia" )
+ column=(type=char(255) updatewhereclause=yes name=ri_tipodireccion dbname="fa_sriventas.ri_tipodireccion" )
+ column=(type=decimal(0) updatewhereclause=yes name=ri_autorizacion dbname="fa_sriventas.ri_autorizacion" )
+ column=(type=decimal(0) updatewhereclause=yes name=ri_nrofactura dbname="fa_sriventas.ri_nrofactura" )
+ column=(type=char(10) updatewhereclause=yes name=ri_tipotelefono dbname="fa_sriventas.ri_tipotelefono" )
+ column=(type=char(13) updatewhereclause=yes name=ri_rucregistrador dbname="fa_sriventas.ri_rucregistrador" )
+ column=(type=char(3) updatewhereclause=yes name=ri_establecimiento dbname="fa_sriventas.ri_establecimiento" )
+ column=(type=char(3) updatewhereclause=yes name=ri_ptoemiscompte dbname="fa_sriventas.ri_ptoemiscompte" )
+ column=(type=char(1) updatewhereclause=yes name=ri_estado dbname="fa_sriventas.ri_estado" )
+ retrieve="SELECT  ~"FA_SRIVENTAS~".~"RI_CALLE~" ,
+           ~"FA_SRIVENTAS~".~"RI_CODCANTON~" ,
+           TO_CHAR(~"FA_SRIVENTAS~".~"RI_FVENTA~" ,'DD-MM-YYYY') FVENTA,
+           ~"FA_SRIVENTAS~".~"RI_INTERSEC~" ,
+           ~"FA_SRIVENTAS~".~"RI_PROPIETARIO~" ,
+           ~"FA_SRIVENTAS~".~"RI_TIPOCOMPROBANTE~" ,
+           ~"FA_SRIVENTAS~".~"RI_NUMERO~" ,
+           ~"FA_SRIVENTAS~".~"RI_NUMDOC~" ,
+           ~"FA_SRIVENTAS~".~"RI_CAMVCPN~" ,
+           ~"FA_SRIVENTAS~".~"RI_RUC~" ,
+           ~"FA_SRIVENTAS~".~"RI_PVENTA~" ,
+           ~"FA_SRIVENTAS~".~"RI_TELEFONO~" ,
+           ~"FA_SRIVENTAS~".~"RI_TIPOIDENTIFICACION~" ,
+           ~"FA_SRIVENTAS~".~"RI_SERIALVIN~" ,
+           ~"FA_SRIVENTAS~".~"RI_CODPROVINCIA~" ,
+           ~"FA_SRIVENTAS~".~"RI_TIPODIRECCION~" ,
+           ~"FA_SRIVENTAS~".~"RI_AUTORIZACION~" ,
+           ~"FA_SRIVENTAS~".~"RI_NROFACTURA~" ,
+           ~"FA_SRIVENTAS~".~"RI_TIPOTELEFONO~" ,
+           ~"FA_SRIVENTAS~".~"RI_RUCREGISTRADOR~" ,
+           ~"FA_SRIVENTAS~".~"RI_ESTABLECIMIENTO~" ,
+           ~"FA_SRIVENTAS~".~"RI_PTOEMISCOMPTE~",
+           ~"FA_SRIVENTAS~".~"RI_ESTADO~" 
+FROM ~"FA_SRIVENTAS~"    
+WHERE      ~"FA_SRIVENTAS~".~"RI_ESTADO~" = 'N' 
+AND     ~"FA_SRIVENTAS~".~"SU_CODIGO~" = :sucursal" arguments=(("sucursal", string)) )
+column(band=detail id=3 alignment="0" tabsequence=230 border="5" color="33554432" x="3145" y="696" height="56" width="233" format="[general]" html.valueishtml="0"  name=fventa visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=240 border="0" color="33554432" x="14" y="4" height="56" width="2949" format="[general]" html.valueishtml="0"  name=ri_calle visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=250 border="0" color="33554432" x="3525" y="4" height="60" width="837" format="[general]" html.valueishtml="0"  name=ri_codmatriculacion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=260 border="0" color="33554432" x="4361" y="4" height="56" width="3511" format="[general]" html.valueishtml="0"  name=ri_intersec visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=270 border="0" color="33554432" x="7872" y="4" height="56" width="3511" format="[general]" html.valueishtml="0"  name=ri_propietario visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="0" tabsequence=280 border="0" color="33554432" x="11383" y="4" height="56" width="992" format="[general]" html.valueishtml="0"  name=ri_tipocomprobante visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=290 border="0" color="33554432" x="12375" y="4" height="56" width="3511" format="[general]" html.valueishtml="0"  name=ri_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="0" tabsequence=300 border="0" color="33554432" x="15886" y="4" height="56" width="3511" format="[general]" html.valueishtml="0"  name=ri_numdoc visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="0" tabsequence=310 border="0" color="33554432" x="19397" y="4" height="56" width="3511" format="[general]" html.valueishtml="0"  name=ri_camvcpn visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="0" tabsequence=320 border="0" color="33554432" x="22907" y="4" height="56" width="302" format="[general]" html.valueishtml="0"  name=ri_ruc visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="0" tabsequence=330 border="0" color="33554432" x="23209" y="4" height="56" width="576" format="[general]" html.valueishtml="0"  name=ri_pventa visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="0" tabsequence=340 border="0" color="33554432" x="23785" y="4" height="56" width="462" format="[general]" html.valueishtml="0"  name=ri_telefono visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=350 border="0" color="33554432" x="24247" y="4" height="56" width="23" format="[general]" html.valueishtml="0"  name=ri_tipoidentificacion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="0" tabsequence=360 border="0" color="33554432" x="24270" y="4" height="56" width="576" format="[general]" html.valueishtml="0"  name=ri_serialvin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="0" tabsequence=370 border="0" color="33554432" x="24846" y="4" height="60" width="462" format="[general]" html.valueishtml="0"  name=ri_codprovincia visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=16 alignment="0" tabsequence=380 border="0" color="33554432" x="25307" y="4" height="56" width="3511" format="[general]" html.valueishtml="0"  name=ri_tipodireccion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=17 alignment="0" tabsequence=390 border="0" color="33554432" x="28818" y="4" height="56" width="992" format="[general]" html.valueishtml="0"  name=ri_autorizacion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=18 alignment="0" tabsequence=400 border="0" color="33554432" x="29810" y="4" height="56" width="992" format="[general]" html.valueishtml="0"  name=ri_nrofactura visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="0" tabsequence=410 border="0" color="33554432" x="30802" y="4" height="56" width="233" format="[general]" html.valueishtml="0"  name=ri_tipotelefono visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=20 alignment="0" tabsequence=420 border="0" color="33554432" x="31035" y="4" height="56" width="302" format="[general]" html.valueishtml="0"  name=ri_rucregistrador visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="0" tabsequence=430 border="0" color="33554432" x="31337" y="4" height="56" width="69" format="[general]" html.valueishtml="0"  name=ri_establecimiento visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=22 alignment="0" tabsequence=440 border="0" color="33554432" x="31406" y="4" height="56" width="69" format="[general]" html.valueishtml="0"  name=ri_ptoemiscompte visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=23 alignment="0" tabsequence=450 border="0" color="33554432" x="31474" y="4" height="56" width="23" format="[general]" html.valueishtml="0"  name=ri_estado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(usetemplate="t_sri" headgroups="1" includewhitespace="0" metadatatype=1 savemetadata=1  template=(comment="" encoding="windows-1252" name="t_sri" xml="<?xml version=~"1.0~" encoding=~"UTF-8~" standalone=~"no~"?><ventas><datosRegistrador><numeroRUC>ri_rucregistrador</numeroRUC></datosRegistrador><datosVentas><venta __pbband=~"detail~"><rucComercializador>ri_ruc</rucComercializador><CAMVCpn>ri_camvcpn</CAMVCpn><serialVin>ri_serialvin</serialVin><nombrePropietario>ri_propietario</nombrePropietario><tipoIdentificacionPropietario>ri_tipoidentificacion</tipoIdentificacionPropietario><numeroDocumentoPropietario>ri_numdoc</numeroDocumentoPropietario><tipoComprobante>ri_tipocomprobante</tipoComprobante><establecimientoComprobante>ri_establecimiento</establecimientoComprobante><puntoEmisionComprobante>ri_ptoemiscompte</puntoEmisionComprobante><numeroComprobante>ri_nrofactura</numeroComprobante><numeroAutorizacion>ri_autorizacion</numeroAutorizacion><fechaVenta>fventa</fechaVenta><precioVenta>ri_pventa</precioVenta><codigoCantonMatriculacion>ri_codmatriculacion</codigoCantonMatriculacion><datosDireccion><tipo>ri_tipodireccion</tipo><calle>ri_calle</calle><numero>ri_numero</numero><interseccion>ri_intersec</interseccion></datosDireccion><datosTelefono><provincia>ri_codprovincia</provincia><numero>ri_telefono</numero></datosTelefono></venta></datosVentas></ventas>"))
+import.xml(usetemplate="" )
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
