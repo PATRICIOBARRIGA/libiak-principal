@@ -1,0 +1,64 @@
+HA$PBExportHeader$f_dw_print.srf
+global type f_dw_print from function_object
+end type
+
+forward prototypes
+global function integer f_dw_print (ref datawindow adw_dw, integer ai_copies, string as_filename)
+end prototypes
+
+global function integer f_dw_print (ref datawindow adw_dw, integer ai_copies, string as_filename);///////////////////////////////////////////////////////////////////////
+//
+//    Function: F_dw_print
+//
+//     Purpose: prints a DataWindow. If copies and or filename are supplied,
+//	 the datawindow will be printed with those supplied parameters. If no
+//     parameters are supplied (copies =0 and filename ="") then a print setup
+//     dialog will be open allowing the user to change the print options.
+//
+//        Date: October 11, 1994
+//
+//       Scope: Public
+//
+//   Arguments:  int      ai_copies the number of copies to print of the datawindow
+//				string as_filename - the name of the text file the datawindow will be 
+//						printed to.
+//
+//     Returns:  1 for successful print , -1 for error during print or user cancel
+//
+// Log : 
+//
+//   DATE         WHO        WHAT
+//  --------     -----      -------------------------------------------
+//   Powersoft Company		  initial version
+//
+////////////////////////////////////////////////////////////////////////
+
+
+int  li_printed, li_rc
+
+//test if parameters were supplied
+If ai_copies = 0 and as_filename = "" Then
+	//open window with  print options
+	 openwithparm(w_dw_print_options,adw_dw)
+	li_rc = message.doubleparm
+	//print the datawindow if they didn't hit cancel
+	If li_rc = 1 Then 
+		li_printed = adw_dw.Print( )
+	Else
+		li_printed = -1
+	End If
+Else  //Parameters supplied in arguments
+	if ai_copies >= 0 Then adw_dw.modify('datawindow.print.copies=' + string(ai_copies) + ')')
+	adw_dw.modify("datawindow.print.filename='" + string(as_filename) + "')")
+	li_printed = adw_dw.Print( )
+End If
+
+//return condition code of the print function or -1 if user hit cancel in setup dialog
+Return(li_printed)
+
+
+
+
+
+end function
+

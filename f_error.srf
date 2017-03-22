@@ -1,0 +1,53 @@
+HA$PBExportHeader$f_error.srf
+global type f_error from function_object
+end type
+
+forward prototypes
+global function integer f_error (string as_title, string as_text, string as_type, string as_severity, string as_extra)
+end prototypes
+
+global function integer f_error (string as_title, string as_text, string as_type, string as_severity, string as_extra);string ls_severity
+icon licon_aux
+button lbutton_aux
+string ls_type
+string ls_title
+string ls_text
+int li_res
+
+ls_severity = lower(left(as_severity, 5))
+
+choose case ls_severity
+	case "infor"
+		licon_aux = Information!
+		lbutton_aux = OK!
+	case "warni"
+		licon_aux = Exclamation!
+		lbutton_aux = OK!
+	case "error"
+		licon_aux = StopSign!
+		lbutton_aux = OK!
+	case "fatal"
+		licon_aux = StopSign!
+		lbutton_aux = OK!
+	case else
+		licon_aux = StopSign!
+		lbutton_aux = OK!
+end choose
+
+choose case lower(left(ls_type, 5))
+	case "datab"
+		ls_title = "Error de base de datos: " + as_title
+		ls_text = as_text
+	case "dataw"
+		ls_title = "Error de DataWindow: " + as_title
+		ls_text = as_text
+	case else
+		ls_title = "Error: " + as_title
+		ls_text = as_text
+end choose
+
+li_res = messageBox(ls_title, ls_text, licon_aux, lbutton_aux)
+
+return li_res
+end function
+

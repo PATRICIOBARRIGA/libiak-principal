@@ -1,0 +1,17 @@
+HA$PBExportHeader$s_arginformation.srs
+global type s_arginformation from structure
+	integer		nrargs
+	string		argtype[6]
+	string		stringvalue[6]
+	long		numbervalue[6]
+	date		datevalue[6]
+	time		timevalue[6]
+	string		title
+	string		dataobject
+	string		dataobject_rep
+	integer		height
+	integer		width
+	string		tag
+	datetime		datetimevalue[6]
+end type
+

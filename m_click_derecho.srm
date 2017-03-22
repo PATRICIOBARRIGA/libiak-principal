@@ -1,0 +1,238 @@
+HA$PBExportHeader$m_click_derecho.srm
+forward
+global type m_click_derecho from menu
+end type
+type m_edicion from menu within m_click_derecho
+end type
+type m_recuperar from menu within m_edicion
+end type
+type m_guardar from menu within m_edicion
+end type
+type m_insertar from menu within m_edicion
+end type
+type m_borrar from menu within m_edicion
+end type
+type m_edicion from menu within m_click_derecho
+m_recuperar m_recuperar
+m_guardar m_guardar
+m_insertar m_insertar
+m_borrar m_borrar
+end type
+type m_impresion from menu within m_click_derecho
+end type
+type m_imprimir from menu within m_impresion
+end type
+type m_acercar from menu within m_impresion
+end type
+type m_alejar from menu within m_impresion
+end type
+type m_impresion from menu within m_click_derecho
+m_imprimir m_imprimir
+m_acercar m_acercar
+m_alejar m_alejar
+end type
+global type m_click_derecho from menu
+m_edicion m_edicion
+m_impresion m_impresion
+end type
+end forward
+
+global type m_click_derecho from menu
+m_edicion m_edicion
+m_impresion m_impresion
+end type
+global m_click_derecho m_click_derecho
+
+on m_click_derecho.create
+m_click_derecho=this
+call super::create
+this.m_edicion=create m_edicion
+this.m_impresion=create m_impresion
+this.Item[UpperBound(this.Item)+1]=this.m_edicion
+this.Item[UpperBound(this.Item)+1]=this.m_impresion
+end on
+
+on m_click_derecho.destroy
+call super::destroy
+destroy(this.m_edicion)
+destroy(this.m_impresion)
+end on
+
+type m_edicion from menu within m_click_derecho
+m_recuperar m_recuperar
+m_guardar m_guardar
+m_insertar m_insertar
+m_borrar m_borrar
+end type
+
+on m_edicion.create
+call super::create
+this.text = "&Edici$$HEX1$$f300$$ENDHEX$$n"
+this.m_recuperar=create m_recuperar
+this.m_guardar=create m_guardar
+this.m_insertar=create m_insertar
+this.m_borrar=create m_borrar
+this.Item[UpperBound(this.Item)+1]=this.m_recuperar
+this.Item[UpperBound(this.Item)+1]=this.m_guardar
+this.Item[UpperBound(this.Item)+1]=this.m_insertar
+this.Item[UpperBound(this.Item)+1]=this.m_borrar
+end on
+
+on m_edicion.destroy
+call super::destroy
+destroy(this.m_recuperar)
+destroy(this.m_guardar)
+destroy(this.m_insertar)
+destroy(this.m_borrar)
+end on
+
+type m_recuperar from menu within m_edicion
+end type
+
+event clicked;window lw_aux
+
+lw_aux = parentWindow.getActiveSheet()
+if isValid(lw_aux) then lw_aux.postEvent("ue_retrieve")
+end event
+
+on m_recuperar.create
+call super::create
+this.text = "&Recuperar"
+end on
+
+on m_recuperar.destroy
+call super::destroy
+end on
+
+type m_guardar from menu within m_edicion
+end type
+
+event clicked;window lw_aux
+
+lw_aux = parentWindow.getActiveSheet()
+if isValid(lw_aux) then lw_aux.postEvent("ue_update")
+end event
+
+on m_guardar.create
+call super::create
+this.text = "&Guardar"
+end on
+
+on m_guardar.destroy
+call super::destroy
+end on
+
+type m_insertar from menu within m_edicion
+end type
+
+event clicked;window lw_aux
+
+lw_aux = parentWindow.getActiveSheet()
+if isValid(lw_aux) then lw_aux.postEvent("ue_insert")
+end event
+
+on m_insertar.create
+call super::create
+this.text = "&Insertar"
+end on
+
+on m_insertar.destroy
+call super::destroy
+end on
+
+type m_borrar from menu within m_edicion
+end type
+
+event clicked;window lw_aux
+
+lw_aux = parentWindow.getActiveSheet()
+if isValid(lw_aux) then lw_aux.postEvent("ue_delete")
+end event
+
+on m_borrar.create
+call super::create
+this.text = "&Borrar"
+end on
+
+on m_borrar.destroy
+call super::destroy
+end on
+
+type m_impresion from menu within m_click_derecho
+m_imprimir m_imprimir
+m_acercar m_acercar
+m_alejar m_alejar
+end type
+
+on m_impresion.create
+call super::create
+this.text = "&Impresi$$HEX1$$f300$$ENDHEX$$n"
+this.m_imprimir=create m_imprimir
+this.m_acercar=create m_acercar
+this.m_alejar=create m_alejar
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir
+this.Item[UpperBound(this.Item)+1]=this.m_acercar
+this.Item[UpperBound(this.Item)+1]=this.m_alejar
+end on
+
+on m_impresion.destroy
+call super::destroy
+destroy(this.m_imprimir)
+destroy(this.m_acercar)
+destroy(this.m_alejar)
+end on
+
+type m_imprimir from menu within m_impresion
+end type
+
+event clicked;window lw_aux
+
+lw_aux = parentwindow.getActiveSheet()
+if isValid(lw_aux) then lw_aux.postEvent("ue_print")
+end event
+
+on m_imprimir.create
+call super::create
+this.text = "&Imprimir"
+end on
+
+on m_imprimir.destroy
+call super::destroy
+end on
+
+type m_acercar from menu within m_impresion
+end type
+
+event clicked;window lw_aux
+
+lw_aux = parentWindow.getActiveSheet()
+if isValid(lw_aux) then lw_aux.postEvent("ue_zoomin")
+end event
+
+on m_acercar.create
+call super::create
+this.text = "Ace&rcar"
+end on
+
+on m_acercar.destroy
+call super::destroy
+end on
+
+type m_alejar from menu within m_impresion
+end type
+
+event clicked;window lw_aux
+
+lw_aux = parentWindow.getActiveSheet()
+if isValid(lw_aux) then lw_aux.postEvent("ue_zoomout")
+end event
+
+on m_alejar.create
+call super::create
+this.text = "Ale&jar"
+end on
+
+on m_alejar.destroy
+call super::destroy
+end on
+

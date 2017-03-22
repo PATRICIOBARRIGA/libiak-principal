@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_replacestring.srf
+global type f_replacestring from function_object
+end type
+
+forward prototypes
+global function integer f_replacestring (ref string as_work, string as_original, string as_new)
+end prototypes
+
+global function integer f_replacestring (ref string as_work, string as_original, string as_new);int li_start_pos
+
+// Find the first occurrence of as_original.
+li_start_pos = Pos(as_work, as_original)
+
+// Only enter the loop if you find as_original.
+DO WHILE li_start_pos > 0
+
+// Replace as_original with as_new.
+	as_work = replace(as_work, li_start_pos, len(as_original), as_new)
+
+// Find the next occurrence of as_original.
+	li_start_pos = Pos(as_work, as_original, li_start_pos + Len(as_new))
+LOOP
+
+return 1
+
+end function
+

@@ -1,0 +1,18 @@
+HA$PBExportHeader$s_appgeninfo.srs
+global type s_appgeninfo from structure
+	string		ini_file
+	string		username
+	string		password
+	string		dbms
+	string		servername
+	string		databasename
+	boolean		db_connected
+	string		empresa
+	string		sucursal
+	string		departamento
+	string		seccion
+	string		caja
+	string		rol
+	string		rescontesp
+end type
+
