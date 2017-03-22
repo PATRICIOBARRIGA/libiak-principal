@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_busca_cxc_clientes.srd
+$PBExportComments$Buscar en cxc
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=104 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cliente dbname="cliente" )
+ column=(type=char(20) updatewhereclause=yes name=factura dbname="factura" )
+ column=(type=char(1) updatewhereclause=yes name=tipo dbname="tipo" initial="B" values="&Filtrar	F/&Buscar	B/" )
+ )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="37" y="16" height="64" width="494" format="[general]"  name=tipo radiobuttons.columns=2 radiobuttons.scale=yes radiobuttons.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=detail alignment="0" text="N$$HEX1$$fa00$$ENDHEX$$mero:" border="0" color="0" x="649" y="24" height="52" width="215"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0" x="887" y="24" height="56" width="443" format="[general]"  name=factura edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Cod. Cliente:" border="0" color="0" x="1358" y="24" height="52" width="274"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=1 alignment="0" tabsequence=20 border="5" color="0" x="1655" y="24" height="56" width="421" format="[general]"  name=cliente edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
