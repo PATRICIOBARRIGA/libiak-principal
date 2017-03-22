@@ -1,0 +1,56 @@
+HA$PBExportHeader$d_cpcruce.srd
+$PBExportComments$Si.
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=tv_coddeb dbname="cp_cruce.tv_coddeb" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=tv_tipodeb dbname="cp_cruce.tv_tipodeb" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=mp_coddeb dbname="cp_cruce.mp_coddeb" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=tv_codigo dbname="cp_cruce.tv_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=tv_tipo dbname="cp_cruce.tv_tipo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="cp_cruce.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="cp_cruce.su_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=mp_codigo dbname="cp_cruce.mp_codigo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cx_fecha dbname="cp_cruce.cx_fecha" initial="today" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cx_valcre dbname="cp_cruce.cx_valcre" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cx_valdeb dbname="cp_cruce.cx_valdeb" initial="0" )
+ retrieve="  SELECT ~"CP_CRUCE~".~"TV_CODDEB~",   
+         ~"CP_CRUCE~".~"TV_TIPODEB~",   
+         ~"CP_CRUCE~".~"MP_CODDEB~",   
+         ~"CP_CRUCE~".~"TV_CODIGO~",   
+         ~"CP_CRUCE~".~"TV_TIPO~",   
+         ~"CP_CRUCE~".~"EM_CODIGO~",   
+         ~"CP_CRUCE~".~"SU_CODIGO~",   
+         ~"CP_CRUCE~".~"MP_CODIGO~",   
+         ~"CP_CRUCE~".~"CX_FECHA~",   
+         ~"CP_CRUCE~".~"CX_VALCRE~",   
+         ~"CP_CRUCE~".~"CX_VALDEB~"  
+    FROM ~"CP_CRUCE~"   
+" update="CP_CRUCE" updatewhere=1 updatekeyinplace=yes )
+text(band=header alignment="2" text="Tv Coddeb" border="0" color="0" x="5" y="4" height="56" width="576"  name=tv_coddeb_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tv Tipodeb" border="0" color="0" x="585" y="4" height="56" width="279"  name=tv_tipodeb_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mp Coddeb" border="0" color="0" x="869" y="4" height="56" width="576"  name=mp_coddeb_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tv Codigo" border="0" color="0" x="1449" y="4" height="56" width="576"  name=tv_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tv Tipo" border="0" color="0" x="2034" y="4" height="56" width="183"  name=tv_tipo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Em Codigo" border="0" color="0" x="2222" y="4" height="56" width="576"  name=em_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Su Codigo" border="0" color="0" x="2802" y="4" height="56" width="576"  name=su_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mp Codigo" border="0" color="0" x="3383" y="4" height="56" width="576"  name=mp_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cx Fecha" border="0" color="0" x="3963" y="4" height="56" width="603"  name=cx_fecha_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cx Valcre" border="0" color="0" x="4571" y="4" height="56" width="329"  name=cx_valcre_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cx Valdeb" border="0" color="0" x="4905" y="4" height="56" width="329"  name=cx_valdeb_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="2" color="0" x="5" y="4" height="56" width="581" format="[general]"  name=tv_coddeb edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="2" color="0" x="585" y="4" height="56" width="55" format="[general]"  name=tv_tipodeb edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="2" color="0" x="869" y="4" height="56" width="576" format="[general]"  name=mp_coddeb edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="2" color="0" x="1449" y="4" height="56" width="576" format="[general]"  name=tv_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="2" color="0" x="2034" y="4" height="56" width="55" format="[general]"  name=tv_tipo edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="2" color="0" x="2222" y="4" height="56" width="576" format="[general]"  name=em_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="2" color="0" x="2802" y="4" height="56" width="576" format="[general]"  name=su_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="2" color="0" x="3383" y="4" height="56" width="576" format="[general]"  name=mp_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=90 border="2" color="0" x="3963" y="4" height="56" width="603" format="[shortdate] [time]"  name=cx_fecha edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=100 border="2" color="0" x="4571" y="4" height="56" width="329" format="[general]"  name=cx_valcre edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=110 border="2" color="0" x="4905" y="4" height="56" width="329" format="[general]"  name=cx_valdeb edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

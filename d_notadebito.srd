@@ -1,0 +1,97 @@
+HA$PBExportHeader$d_notadebito.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=72 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=decimal(2) updatewhereclause=yes name=cp_cruce_cx_valcre dbname="cp_cruce.cx_valcre" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_cruce_cx_valdeb dbname="cp_cruce.cx_valdeb" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=cp_pago_pm_naut dbname="cp_pago.pm_naut" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cp_pago_fp_codigo dbname="cp_pago.fp_codigo" initial="6" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cp_pago_pm_emision dbname="cp_pago.pm_emision" )
+ column=(type=char(13) update=yes updatewhereclause=yes name=cp_pago_pm_preimp dbname="cp_pago.pm_preimp" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=cp_pago_pm_secuencia dbname="cp_pago.pm_secuencia" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cp_pago_pm_fecha dbname="cp_pago.pm_fecha" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cp_pago_pm_bseimp dbname="cp_pago.pm_bseimp" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cp_pago_pm_porctje dbname="cp_pago.pm_porctje" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cp_pago_pm_valor dbname="cp_pago.pm_valor" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cp_pago_pm_codpct dbname="cp_pago.pm_codpct" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=cp_pago_pm_nroest dbname="cp_pago.pm_nroest" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=cp_pago_pm_nropto dbname="cp_pago.pm_nropto" )
+ column=(type=char(7) update=yes updatewhereclause=yes name=cp_pago_pm_nrosec dbname="cp_pago.pm_nrosec" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cp_pago_tv_codigo dbname="cp_pago.tv_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=cp_pago_tv_tipo dbname="cp_pago.tv_tipo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cp_pago_em_codigo dbname="cp_pago.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cp_pago_su_codigo dbname="cp_pago.su_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cp_pago_mp_codigo dbname="cp_pago.mp_codigo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cp_pago_pm_fecpa dbname="cp_pago.pm_fecpa" )
+ retrieve=" SELECT ~"CP_CRUCE~".~"CX_VALCRE~",   
+         ~"CP_CRUCE~".~"CX_VALDEB~",   
+         ~"CP_PAGO~".~"PM_NAUT~",   
+         ~"CP_PAGO~".~"FP_CODIGO~",   
+         ~"CP_PAGO~".~"PM_EMISION~",   
+         ~"CP_PAGO~".~"PM_PREIMP~",   
+         ~"CP_PAGO~".~"PM_SECUENCIA~",   
+         ~"CP_PAGO~".~"PM_FECHA~",   
+         ~"CP_PAGO~".~"PM_BSEIMP~",   
+         ~"CP_PAGO~".~"PM_PORCTJE~",   
+         ~"CP_PAGO~".~"PM_VALOR~",   
+         ~"CP_PAGO~".~"PM_CODPCT~",
+         ~"CP_PAGO~".~"PM_NROEST~",   
+         ~"CP_PAGO~".~"PM_NROPTO~",   
+         ~"CP_PAGO~".~"PM_NROSEC~" ,
+     ~"CP_PAGO~".~"TV_CODIGO~",
+        ~"CP_PAGO~".~"TV_TIPO~", 
+~"CP_PAGO~".~"EM_CODIGO~",
+~"CP_PAGO~".~"SU_CODIGO~",
+~"CP_PAGO~".~"MP_CODIGO~", 
+~"CP_PAGO~".~"PM_FECPA~"
+    FROM ~"CP_CRUCE~",   
+         ~"CP_PAGO~"  
+  WHERE ( ~"CP_CRUCE~".~"TV_CODDEB~" = ~"CP_PAGO~".~"TV_CODIGO~" ) AND
+         ( ~"CP_CRUCE~".~"TV_TIPODEB~" = ~"CP_PAGO~".~"TV_TIPO~" ) AND
+         ( ~"CP_CRUCE~".~"EM_CODIGO~" = ~"CP_PAGO~".~"EM_CODIGO~" ) AND
+         ( ~"CP_CRUCE~".~"SU_CODIGO~" = ~"CP_PAGO~".~"SU_CODIGO~" ) AND
+         ( ~"CP_CRUCE~".~"MP_CODDEB~" = ~"CP_PAGO~".~"MP_CODIGO~" ) AND
+         ( ( ~"CP_CRUCE~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"CP_CRUCE~".~"SU_CODIGO~" = :sucursal )   AND  
+         ( ~"CP_CRUCE~".~"MP_CODIGO~" = :nrocredito) AND
+         ( ~"CP_PAGO~".~"FP_CODIGO~" = 6 ) )
+
+
+ " update="CP_PAGO" updatewhere=1 updatekeyinplace=yes arguments=(("empresa", string),("sucursal", string),("nrocredito", string)) )
+text(band=header alignment="0" text="Cod.Ret." border="4" color="33554432" x="133" y="12" height="56" width="210" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Base IMP." border="4" color="33554432" x="352" y="12" height="56" width="224" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Porcentaje" border="4" color="33554432" x="585" y="12" height="56" width="283" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Val.Retenido" border="4" color="33554432" x="896" y="12" height="56" width="315" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=20 border="0" color="33554432" x="352" y="4" height="68" width="224" format="[general]" html.valueishtml="0"  name=cp_pago_pm_bseimp visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=30 border="0" color="33554432" x="585" y="4" height="68" width="283" format="0.00" html.valueishtml="0"  name=cp_pago_pm_porctje visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=10 border="0" color="33554432" x="133" y="4" height="56" width="210" format="[general]" html.valueishtml="0"  name=cp_pago_pm_codpct visible="1" dddw.name=d_dddw_concepto_retenciones dddw.displaycolumn=rf_codigo dddw.datacolumn=rf_codigo dddw.percentwidth=1200 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="128" x="9" y="4" height="56" width="114" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=140 border="0" color="255" x="1253" y="4" height="56" width="151" format="[general]" html.valueishtml="0"  name=cp_pago_fp_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="1" tabsequence=40 border="0" color="33554432" x="896" y="0" height="68" width="315" format="[general]" html.valueishtml="0"  name=cp_pago_pm_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=100 border="0" color="128" x="2414" y="8" height="56" width="96" format="[general]" html.valueishtml="0"  name=cp_pago_pm_nroest visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="0" tabsequence=110 border="0" color="128" x="2519" y="8" height="56" width="96" format="[general]" html.valueishtml="0"  name=cp_pago_pm_nropto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="0" tabsequence=120 border="0" color="128" x="2642" y="8" height="56" width="224" format="[general]" html.valueishtml="0"  name=cp_pago_pm_nrosec visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=130 border="0" color="128" x="2898" y="4" height="56" width="229" format="[general]" html.valueishtml="0"  name=cp_pago_pm_naut visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="round((cp_pago_pm_bseimp * cp_pago_pm_porctje)/100,2)"border="0" color="33554432" x="3186" y="4" height="68" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="0" tabsequence=150 border="0" color="33554432" x="3415" y="4" height="56" width="256" format="[shortdate] [time]" html.valueishtml="0"  name=cp_pago_pm_fecpa visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=50 border="0" color="128" x="1449" y="4" height="56" width="206" format="[general]" html.valueishtml="0"  name=cp_pago_mp_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=60 border="0" color="128" x="1687" y="8" height="56" width="210" format="[general]" html.valueishtml="0"  name=cp_pago_tv_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=70 border="0" color="128" x="1911" y="8" height="56" width="123" format="[general]" html.valueishtml="0"  name=cp_pago_tv_tipo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=80 border="0" color="128" x="2053" y="8" height="56" width="229" format="[general]" html.valueishtml="0"  name=cp_pago_su_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=90 border="0" color="128" x="2290" y="8" height="56" width="110" format="[general]" html.valueishtml="0"  name=cp_pago_pm_secuencia visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(round((cp_pago_pm_bseimp * cp_pago_pm_porctje)/100,2) for all)"border="0" color="33554432" x="3182" y="8" height="48" width="183" format="#,##0.00" html.valueishtml="0"  name=compute_x visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(cp_pago_pm_valor for all)"border="0" color="33554432" x="891" y="4" height="48" width="315" format="#,##0.00" html.valueishtml="0"  name=cc_pago visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+button(band=footer text="A$$HEX1$$f100$$ENDHEX$$adir" enabled=yes action="11" border="0" color="0" x="2245" y="4" height="64" width="238" vtextalign="0" htextalign="0"  name=b_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=footer alignment="1" text="Total retenido:" border="0" color="0" x="389" y="12" height="56" width="498" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=footer x1="882" y1="0" x2="1207" y2="0"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(cp_pago_pm_valor for all)"border="0" color="33554432" x="891" y="12" height="48" width="315" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+button(band=footer text="Borrar" enabled=yes action="10" border="0" color="0" x="2487" y="4" height="64" width="242" vtextalign="0" htextalign="0"  name=b_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+button(band=footer text="Guardar cambios" enabled=yes action="0" border="0" color="0" x="2729" y="4" height="64" width="485" vtextalign="0" htextalign="0"  name=b_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
