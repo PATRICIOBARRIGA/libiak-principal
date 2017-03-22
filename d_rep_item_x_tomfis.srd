@@ -1,0 +1,72 @@
+HA$PBExportHeader$d_rep_item_x_tomfis.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=388 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_dettoma_ts_numero dbname="in_dettoma.ts_numero" )
+ column=(type=char(20) updatewhereclause=yes name=in_dettoma_su_codigo dbname="in_dettoma.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_dettoma_bo_codigo dbname="in_dettoma.bo_codigo" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_dettoma_ds_cantid dbname="in_dettoma.ds_cantid" )
+ column=(type=datetime updatewhereclause=yes name=in_tomfis_ts_fecha dbname="in_tomfis.ts_fecha" )
+ column=(type=char(30) updatewhereclause=yes name=in_tomfis_ts_observ dbname="in_tomfis.ts_observ" )
+ column=(type=char(1) updatewhereclause=yes name=in_tomfis_ts_proceso dbname="in_tomfis.ts_proceso" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=in_dettoma_it_codigo dbname="in_dettoma.it_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=in_bode_bo_nombre dbname="in_bode.bo_nombre" )
+ retrieve="  SELECT ~"IN_DETTOMA~".~"TS_NUMERO~",   
+         ~"IN_DETTOMA~".~"SU_CODIGO~",   
+         ~"IN_DETTOMA~".~"BO_CODIGO~",   
+         ~"IN_DETTOMA~".~"DS_CANTID~",   
+         ~"IN_TOMFIS~".~"TS_FECHA~",   
+         ~"IN_TOMFIS~".~"TS_OBSERV~",   
+         ~"IN_TOMFIS~".~"TS_PROCESO~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_DETTOMA~".~"IT_CODIGO~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~" ,
+         ~"IN_BODE~".~"BO_NOMBRE~" 
+    FROM ~"IN_TOMFIS~",   
+         ~"IN_DETTOMA~",   
+         ~"IN_ITEM~",   
+         ~"PR_SUCUR~" ,
+         ~"IN_BODE~" 
+   WHERE ( ~"IN_DETTOMA~".~"EM_CODIGO~" = ~"IN_TOMFIS~".~"EM_CODIGO~" ) and  
+         ( ~"IN_DETTOMA~".~"SU_CODIGO~" = ~"IN_TOMFIS~".~"SU_CODIGO~" ) and  
+         ( ~"IN_DETTOMA~".~"BO_CODIGO~" = ~"IN_TOMFIS~".~"BO_CODIGO~" ) and  
+         ( ~"IN_DETTOMA~".~"TS_NUMERO~" = ~"IN_TOMFIS~".~"TS_NUMERO~" ) and  
+         ( ~"IN_DETTOMA~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_TOMFIS~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+         ( ~"IN_DETTOMA~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+         ( ~"IN_BODE~".~"BO_CODIGO~" = ~"IN_TOMFIS~".~"BO_CODIGO~")and 
+         ( ~"IN_BODE~".~"BO_CODIGO~" = ~"IN_DETTOMA~".~"BO_CODIGO~")and 
+         ( ~"IN_BODE~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~")and 
+         ( ( ~"IN_ITEM~".~"IT_CODANT~" = :as_item ) )    
+" arguments=(("as_item", string))  sort="in_dettoma_su_codigo A in_tomfis_ts_fecha A " )
+group(level=1 header.height=148 trailer.height=0 by=("in_dettoma_su_codigo" , "in_dettoma_bo_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="TRECX CIA. LTDA." border="0" color="0" x="18" y="8" height="56" width="466" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="ITEM POR TOMA FISICA" border="0" color="0" x="27" y="80" height="56" width="571" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="27" y="320" height="56" width="297" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="370" y="320" height="56" width="1152" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="0" x="2501" y="16" height="64" width="599" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2766" y="92" height="60" width="338" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Impreso:" border="0" color="0" x="2455" y="92" height="56" width="293" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header.1 x1="0" y1="136" x2="3109" y2="136"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="0" text="Ticket N$$HEX1$$ba00$$ENDHEX$$" border="0" color="0" x="27" y="76" height="56" width="197" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="0" text="Cantidad" border="0" color="0" x="599" y="76" height="56" width="192" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="0" text="Fecha" border="0" color="0" x="905" y="76" height="56" width="137" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="0" text="Observaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="1422" y="76" height="56" width="283" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="27" y="4" height="56" width="270" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="325" y="4" height="56" width="805" format="[general]" html.valueishtml="0"  name=in_bode_bo_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="27" y="4" height="52" width="480" format="[general]" html.valueishtml="0"  name=in_dettoma_ts_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="526" y="4" height="52" width="274" format="[general]" html.valueishtml="0"  name=in_dettoma_ds_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="905" y="4" height="52" width="539" format="[shortdate] [time]" html.valueishtml="0"  name=in_tomfis_ts_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="1623" y="4" height="52" width="1472" format="[general]" html.valueishtml="0"  name=in_tomfis_ts_observ visible="1" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

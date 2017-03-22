@@ -1,0 +1,82 @@
+HA$PBExportHeader$d_rep_lista_precios_draft.srd
+release 10;
+datawindow(units=0 timer_interval=60000 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=268 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="in_item.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=it_codigo dbname="in_item.it_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cl_codigo dbname="in_item.cl_codigo" )
+ column=(type=char(13) update=yes updatewhereclause=yes name=it_codbar dbname="in_item.it_codbar" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=codigo_producto dbname="in_item.it_codant" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=producto dbname="in_item.it_nombre" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=precio dbname="in_item.it_precio" )
+ column=(type=char(20) updatewhereclause=yes name=codigo_clase dbname="in_clase.cl_codpad" )
+ column=(type=char(50) updatewhereclause=yes name=clase dbname="in_clase.cl_descri" )
+ column=(type=char(50) updatewhereclause=yes name=pr_empre_em_nombre dbname="pr_empre.em_nombre" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_itebod_ib_stock dbname="in_itebod.ib_stock" )
+ column=(type=char(20) updatewhereclause=yes name=fb_codigo dbname="in_item.fb_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=tipo dbname="in_item.ma_codigo" )
+ retrieve="  SELECT ~"IN_ITEM~".~"EM_CODIGO~",   
+         ~"IN_ITEM~".~"IT_CODIGO~",   
+         ~"IN_ITEM~".~"CL_CODIGO~",   
+         ~"IN_ITEM~".~"IT_CODBAR~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITEM~".~"IT_PRECIO~",   
+         ~"IN_CLASE_A~".~"CL_CODPAD~",   
+         ~"IN_CLASE_B~".~"CL_DESCRI~",   
+         ~"PR_EMPRE~".~"EM_NOMBRE~",   
+         ~"IN_ITEBOD~".~"IB_STOCK~",   
+         ~"IN_ITEM~".~"FB_CODIGO~",   
+         ~"IN_ITEM~".~"MA_CODIGO~"
+    FROM ~"IN_ITEM~",   
+         ~"IN_CLASE~" ~"IN_CLASE_A~",   
+         ~"IN_CLASE~" ~"IN_CLASE_B~",   
+         ~"PR_EMPRE~",   
+         ~"IN_ITEBOD~"  
+   WHERE ( ~"IN_ITEM~".~"EM_CODIGO~" = ~"IN_CLASE_A~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"CL_CODIGO~" = ~"IN_CLASE_A~".~"CL_CODIGO~" ) and  
+         ( ~"IN_CLASE_A~".~"CL_CODPAD~" = ~"IN_CLASE_B~".~"CL_CODIGO~" ) and  
+         ( ~"IN_CLASE_A~".~"EM_CODIGO~" = ~"IN_CLASE_B~".~"EM_CODIGO~" ) and  
+         ( ~"IN_CLASE_B~".~"EM_CODIGO~" = ~"PR_EMPRE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEBOD~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_ITEBOD~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ( ~"IN_ITEM~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_ITEM~".~"IT_IMPRIMIR~" = 'S' ) AND  
+         ( ~"IN_ITEBOD~".~"SU_CODIGO~" = :SUCURSAL ) AND  
+         ( ~"IN_ITEBOD~".~"BO_CODIGO~" = :BODEGA ) )    
+" arguments=(("EMPRESA", string),("SUCURSAL", string),("BODEGA", string))  sort="codigo_clase A producto A " )
+group(level=1 header.height=72 trailer.height=0 by=("codigo_clase" ) header.color="536870912" trailer.color="536870912"  sort="5297488 A " )
+line(band=header x1="37" y1="260" x2="3383" y2="260"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Lista de Precios" border="0" color="0" x="37" y="104" height="64" width="846" html.valueishtml="0"  name=t_1 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=10 alignment="0" tabsequence=32766 border="0" color="0" x="37" y="8" height="84" width="2098" format="[general]" html.valueishtml="0"  name=pr_empre_em_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-14" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2912" y="28" height="64" width="466" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Departamento : '+codigo_clase +', P$$HEX1$$e100$$ENDHEX$$g. : ' + page() + ' de ' + pagecount()"border="0" color="0" x="1467" y="104" height="64" width="1911" format="[general]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header.1 id=9 alignment="0" tabsequence=32766 border="0" color="0" x="270" y="4" height="64" width="1650" format="[general]" html.valueishtml="0"  name=clase visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Courier New" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=8 alignment="0" tabsequence=32766 border="0" color="0" x="37" y="4" height="64" width="201" format="[general]" html.valueishtml="0"  name=codigo_clase visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Courier New" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="page()"border="0" color="0" x="750" y="96" height="56" width="261" format="[general]" html.valueishtml="0"  name=pagina visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression=" codigo_producto "border="0" color="0" x="37" y="4" height="56" width="640" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression=" producto "border="0" color="0" x="695" y="4" height="56" width="1426" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="1" expression=" precio "border="0" color="0" x="2245" y="4" height="56" width="366" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="1" expression="round( round( precio * 0.95,2) * 1.12,2)"border="0" color="0" x="2629" y="4" height="56" width="366" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="1" expression="round( precio * 1.12,2)"border="0" color="0" x="3013" y="4" height="56" width="366" format="#,##0.00" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=13 alignment="2" tabsequence=0 border="0" color="0" x="2162" y="4" height="56" width="55" html.valueishtml="0"  name=tipo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Draft 10cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="37" y="180" height="64" width="219" html.valueishtml="0"  name=it_codant_t visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Producto" border="0" color="0" x="946" y="180" height="64" width="293" html.valueishtml="0"  name=it_nombre_t visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Tipo" border="0" color="0" x="2126" y="180" height="64" width="142" html.valueishtml="0"  name=t_4 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Sin IVA" border="0" color="0" x="2354" y="180" height="64" width="256" html.valueishtml="0"  name=t_2 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Efec." border="0" color="0" x="2738" y="180" height="64" width="256" html.valueishtml="0"  name=t_5 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tarje." border="0" color="0" x="3159" y="180" height="64" width="219" html.valueishtml="0"  name=t_3 visible="1"  font.face="Draft 10cpi" font.height="-10" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

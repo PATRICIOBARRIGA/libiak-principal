@@ -1,0 +1,107 @@
+HA$PBExportHeader$d_rep_movim_inv.srd
+$PBExportComments$Ajuste de inventario
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=508 color="536870912" )
+summary(height=92 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_item_it_codigo dbname="in_item.it_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=decimal(2) updatewhereclause=yes name=in_item_it_precio dbname="in_item.it_precio" )
+ column=(type=decimal(4) updatewhereclause=yes name=mv_costo dbname="in_movim.mv_costo" )
+ column=(type=char(20) updatewhereclause=yes name=in_cabajus_bo_codigo dbname="in_cabajus.bo_codigo" )
+ column=(type=datetime updatewhereclause=yes name=in_cabajus_aj_fecha dbname="in_cabajus.aj_fecha" )
+ column=(type=char(80) updatewhereclause=yes name=in_cabajus_aj_observ dbname="in_cabajus.aj_observ" )
+ column=(type=char(20) updatewhereclause=yes name=in_cabajus_aj_numero dbname="in_cabajus.aj_numero" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_ajuste_da_cantidad dbname="in_ajuste.da_cantidad" )
+ column=(type=char(20) updatewhereclause=yes name=in_ajuste_tm_codigo dbname="in_ajuste.tm_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=in_ajuste_tm_ioe dbname="in_ajuste.tm_ioe" )
+ retrieve=" SELECT ~"IN_ITEM~".~"IT_CODIGO~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",
+         ~"IN_ITEM~".~"IT_PRECIO~",
+         ~"IN_MOVIM~".~"MV_COSTO~",   
+         ~"IN_CABAJUS~".~"BO_CODIGO~",   
+         ~"IN_CABAJUS~".~"AJ_FECHA~",   
+         ~"IN_CABAJUS~".~"AJ_OBSERV~",   
+         ~"IN_CABAJUS~".~"AJ_NUMERO~",
+         ~"IN_AJUSTE~".~"DA_CANTIDAD~",   
+         ~"IN_AJUSTE~".~"TM_CODIGO~",   
+         ~"IN_AJUSTE~".~"TM_IOE~"
+    FROM ~"IN_MOVIM~",
+           ~"IN_ITEM~",
+            ~"IN_CABAJUS~" ,
+         ~"IN_AJUSTE~"  
+   WHERE ( ~"IN_CABAJUS~".~"TM_CODIGO~" = ~"IN_AJUSTE~".~"TM_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"TM_IOE~" = ~"IN_AJUSTE~".~"TM_IOE~" ) and  
+         ( ~"IN_CABAJUS~".~"EM_CODIGO~" = ~"IN_AJUSTE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"SU_CODIGO~" = ~"IN_AJUSTE~".~"SU_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"BO_CODIGO~" = ~"IN_AJUSTE~".~"BO_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"AJ_NUMERO~" = ~"IN_AJUSTE~".~"AJ_NUMERO~" ) and  
+		( ~"IN_MOVIM~".~"TM_CODIGO~" = ~"IN_AJUSTE~".~"TM_CODIGO~" ) and  
+         ( ~"IN_MOVIM~".~"TM_IOE~" = ~"IN_AJUSTE~".~"TM_IOE~" ) and  
+         ( ~"IN_MOVIM~".~"IT_CODIGO~" = ~"IN_AJUSTE~".~"IT_CODIGO~" ) and  
+         ( ~"IN_MOVIM~".~"EM_CODIGO~" = ~"IN_AJUSTE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_MOVIM~".~"SU_CODIGO~" = ~"IN_AJUSTE~".~"SU_CODIGO~" ) and  
+         ( ~"IN_MOVIM~".~"BO_CODIGO~" = ~"IN_AJUSTE~".~"BO_CODIGO~" ) and  
+         ( ~"IN_MOVIM~".~"VE_NUMERO~" = ~"IN_AJUSTE~".~"AJ_NUMERO~" ) and  
+         (TRUNC( ~"IN_MOVIM~".~"MV_FECHA~") = TRUNC( ~"IN_CABAJUS~".~"AJ_FECHA~" )) and  
+         ( ~"IN_ITEM~".~"EM_CODIGO~" = ~"IN_AJUSTE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"IT_CODIGO~" = ~"IN_AJUSTE~".~"IT_CODIGO~" ) and  
+         ( ( ~"IN_CABAJUS~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_CABAJUS~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( trunc(~"IN_CABAJUS~".~"AJ_FECHA~") between :fecha_ini and :fecha_fin ) )
+  
+" arguments=(("empresa", string),("sucursal", string),("fecha_ini", date),("fecha_fin", date))  sort="number(in_cabajus_aj_numero) A " )
+group(level=1 header.height=144 trailer.height=88 by=("in_cabajus_aj_numero" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="9" y="12" height="72" width="1326"  name=st_empresa  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="9" y="320" height="68" width="1765"  name=st_movimiento  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="197" y="424" height="60" width="178"  name=t_2  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Reporte de Ajustes de Inventario" border="0" color="33554432" x="9" y="244" height="64" width="946"  name=t_7  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Nombre" border="0" color="0" x="608" y="424" height="60" width="206"  name=t_3  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="2139" y="84" height="56" width="192"  name=t_9  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2043" y="12" height="60" width="562" format="[general]"  name=compute_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2345" y="84" height="52" width="261" format="[general]"  name=date_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression=" fecha_ini "border="0" color="0" x="1216" y="244" height="64" width="343" format="dd/mm/yyyy"  name=compute_10  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" fecha_fin "border="0" color="0" x="1787" y="244" height="64" width="343" format="dd/mm/yyyy"  name=compute_11  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Desde:" border="0" color="0" x="1001" y="244" height="64" width="197"  name=t_11  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Hasta:" border="0" color="0" x="1577" y="244" height="64" width="192"  name=t_12  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="293" y="96" height="60" width="1289"  name=st_sucursal  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Sucursal:" border="0" color="0" x="9" y="96" height="60" width="270"  name=cc_venpro_t  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="9" y="168" height="60" width="1563"  name=st_seccion  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Cant." border="0" color="0" x="1943" y="424" height="60" width="133"  name=t_1  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Fecha:" border="0" color="0" x="827" y="4" height="56" width="169"  name=in_compra_co_fecha_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="0" text="N$$HEX1$$fa00$$ENDHEX$$mero:" border="0" color="0" x="23" y="4" height="56" width="219"  name=in_compra_co_numero_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=8 alignment="0" tabsequence=32766 border="0" color="0" x="261" y="4" height="56" width="462" format="[general]"  name=in_cabajus_aj_numero edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=7 alignment="0" tabsequence=32766 border="0" color="0" x="297" y="84" height="56" width="1842" format="[general]"  name=in_cabajus_aj_observ edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="0" text="Concepto:" border="0" color="0" x="23" y="84" height="56" width="256"  name=t_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="0" expression=" if(  in_ajuste_tm_ioe  = 'I','Ingreso','Egreso')"border="0" color="0~tif( tm_ioe = 'I', rgb(0,0,0) , rgb(255,0,0))" x="1417" y="4" height="60" width="279" format="[GENERAL]"  name=compute_4  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=6 alignment="0" tabsequence=32766 border="0" color="0" x="1015" y="4" height="56" width="334" format="dd/mm/yyyy"  name=in_cabajus_aj_fecha edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="0" x="1778" y="4" height="60" width="297" format="#,##0"  name=in_ajuste_da_cantidad edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="18" y="8" height="56" width="448" format="[general]"  name=in_item_it_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="480" y="8" height="56" width="1230" format="[general]"  name=in_item_it_nombre edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.1 x1="1760" y1="4" x2="3479" y2="4"  name=l_3 pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="1" expression="sum( in_ajuste_da_cantidad  for group 1)"border="0" color="0" x="1774" y="20" height="60" width="297" format="#,##0"  name=cc_cantid  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="1" text="No. Productos" border="0" color="0" x="1353" y="20" height="56" width="379"  name=t_5  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(   in_ajuste_da_cantidad   for all)"border="0" color="0" x="1778" y="20" height="64" width="297" format="#,##0"  name=compute_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1760" y1="4" x2="3483" y2="4"  name=l_4 pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="23" y1="408" x2="3465" y2="408"  name=l_1 pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="23" y1="504" x2="3470" y2="504"  name=l_2 pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(mv_costo for all)"border="0" color="0" x="2094" y="20" height="64" width="306" format="#,##0.00"  name=cc_costoall visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Costo" border="0" color="0" x="2249" y="424" height="60" width="151"  name=t_6  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Costo Total" border="0" color="0" x="2455" y="424" height="60" width="306"  name=t_8  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="2094" y="4" height="60" width="306" format="#,##0.00"  name=mv_costo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=0 border="0" color="0" x="2802" y="4" height="60" width="306" format="#,##0.00"  name=in_item_it_precio  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="P.V.P." border="0" color="0" x="2958" y="424" height="60" width="151"  name=t_10  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="in_ajuste_da_cantidad * mv_costo"border="0" color="0" x="2418" y="4" height="60" width="343" format="#,##0.00"  name=cc_cantxcosto visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(in_item_it_precio for group 1)"border="0" color="0" x="2802" y="20" height="60" width="306" format="#,##0.00"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(in_ajuste_da_cantidad * mv_costo for all)"border="0" color="0" x="2418" y="24" height="64" width="343" format="#,##0.00"  name=cc_cantxcossum visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(in_item_it_precio for all)"border="0" color="0" x="2802" y="20" height="64" width="306" format="#,##0.00"  name=compute_12  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="P.V.P. Total" border="0" color="0" x="3159" y="424" height="60" width="311"  name=t_13  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(in_ajuste_da_cantidad * mv_costo for group 1)"border="0" color="0" x="2414" y="20" height="60" width="343" format="#,##0.00"  name=cc_cantxcosgroup visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(mv_costo for group 1)"border="0" color="0" x="2094" y="20" height="60" width="306" format="#,##0.00"  name=cc_costogroup visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" in_ajuste_da_cantidad  *  in_item_it_precio "border="0" color="0" x="3127" y="4" height="60" width="343" format="#,##0.00"  name=compute_8  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum( in_ajuste_da_cantidad  *  in_item_it_precio  for group 1)"border="0" color="0" x="3127" y="20" height="60" width="343" format="#,##0.00"  name=compute_9  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum( in_ajuste_da_cantidad  *  in_item_it_precio  for all)"border="0" color="0" x="3127" y="20" height="64" width="343" format="#,##0.00"  name=compute_13  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
