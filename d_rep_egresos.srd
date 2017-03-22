@@ -1,0 +1,98 @@
+HA$PBExportHeader$d_rep_egresos.srd
+$PBExportComments$Si.
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=400 color="536870912" )
+summary(height=76 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=compute_0001 dbname="compute_0001" )
+ column=(type=char(1) updatewhereclause=yes name=cc_transaccion dbname="compute_0002" )
+ column=(type=char(1) updatewhereclause=yes name=compute_0003 dbname="compute_0003" )
+ column=(type=char(14) updatewhereclause=yes name=compute_0004 dbname="compute_0004" )
+ column=(type=char(40) updatewhereclause=yes name=compute_0005 dbname="compute_0005" )
+ column=(type=char(2) updatewhereclause=yes name=in_prove_pv_tipcta dbname="in_prove.pv_tipcta" )
+ column=(type=char(15) updatewhereclause=yes name=nrocta dbname="in_prove.nrocta" )
+ column=(type=char(6) updatewhereclause=yes name=compute_0008 dbname="compute_0008" )
+ column=(type=char(12) updatewhereclause=yes name=nropago dbname="nropago" )
+ column=(type=char(12) updatewhereclause=yes name=nrocontable dbname="nrocontable" )
+ column=(type=char(12) updatewhereclause=yes name=compute_0011 dbname="compute_0011" )
+ column=(type=char(80) updatewhereclause=yes name=compute_0012 dbname="compute_0012" )
+ column=(type=number updatewhereclause=yes name=vbr dbname="vbr" )
+ column=(type=decimal(2) updatewhereclause=yes name=vneto dbname="cb_egreso.vneto" )
+ column=(type=char(3) updatewhereclause=yes name=compute_0015 dbname="compute_0015" )
+ column=(type=char(3) updatewhereclause=yes name=compute_0016 dbname="compute_0016" )
+ column=(type=char(20) updatewhereclause=yes name=cb_egreso_if_codigo dbname="cb_egreso.if_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cb_tipo_tn_codigo dbname="cb_tipo.tn_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cc_tipopago dbname="cb_tipo.tn_descri" )
+ retrieve="select 4,
+       decode(i.pv_tipcan,null,'C',i.pv_tipcan),
+       decode(i.pv_tipo,'J','R','C'),
+       lpad(y.eg_rucci,14,'0'),
+       rpad(y.eg_ordende,40,' '), 
+       i.pv_tipcta,
+       i.pv_numcta NroCta,
+       'MATRIZ',
+       lpad(y.eg_numero,12) NroPago,
+       lpad(y.cp_numero,12) NroContable,
+       rpad(y.eg_observ,12),
+       rpad(y.eg_observ,80),
+       round(y.eg_debito,2)vbr,
+       y.eg_debito vneto,
+       '051',
+       '060' ,
+       y.if_codigo,
+       t.tn_codigo,
+       t.tn_descri
+from   cb_egreso y,
+       in_prove i,
+       cb_tipo t
+where  t.tn_codigo = y.tn_codigo
+and    y.em_codigo = i.em_codigo(+) 
+and    y.eg_rucci = i.pv_rucci(+) 
+and    y.eg_debito <> 0
+and    nvl(y.eg_nd,'N') <> 'S'
+and    nvl(y.eg_anulado,'N')<>'S'
+and    i.pv_codigo <> '6'
+and    nvl(y.estado,'N') <> 'P'
+and    trunc(y.eg_fecegr) between :ad_fini and :ad_ffin" arguments=(("ad_fini", datetime),("ad_ffin", datetime)) )
+text(band=header alignment="0" text="Hasta:" border="0" color="0" x="590" y="160" height="56" width="151" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression=" ad_fini "border="0" color="0" x="229" y="160" height="56" width="325" format="[SHORTDATE]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" ad_ffin "border="0" color="0" x="768" y="160" height="56" width="279" format="[SHORTDATE]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Trans." border="0" color="0" x="133" y="320" height="56" width="160" html.valueishtml="0"  name=compute_0002_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Tipo" border="0" color="0" x="325" y="320" height="56" width="114" html.valueishtml="0"  name=compute_0003_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="EGRESOS POR FECHA" border="0" color="0" x="9" y="88" height="56" width="590" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="TRECX. CIA. LTDA." border="0" color="0" x="9" y="20" height="56" width="448" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Desde :" border="0" color="0" x="9" y="160" height="56" width="187" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="133" y="4" height="56" width="101" format="[general]" html.valueishtml="0"  name=cc_transaccion visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="325" y="4" height="56" width="87" format="[general]" html.valueishtml="0"  name=compute_0003 visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="0" x="14" y="4" height="56" width="91" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="RUC/CI" border="0" color="0" x="471" y="324" height="56" width="338" html.valueishtml="0"  name=compute_0004_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="BENEFICIARIO" border="0" color="0" x="882" y="324" height="56" width="937" html.valueishtml="0"  name=compute_0005_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cta" border="0" color="0" x="1842" y="324" height="56" width="114" html.valueishtml="0"  name=in_prove_pv_tipcta_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nro Cta" border="0" color="0" x="1975" y="324" height="56" width="251" html.valueishtml="0"  name=nrocta_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$Pago" border="0" color="0" x="2373" y="324" height="56" width="297" html.valueishtml="0"  name=nropago_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="N$$HEX1$$ba00$$ENDHEX$$Contable" border="0" color="0" x="2693" y="324" height="56" width="288" html.valueishtml="0"  name=nrocontable_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="VBruto" border="0" color="0" x="3026" y="320" height="56" width="274" html.valueishtml="0"  name=vbr_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Inst.Financiera" border="0" color="0" x="3360" y="320" height="56" width="416" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Tipo de pago" border="0" color="0" x="3831" y="320" height="56" width="325" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="471" y="4" height="56" width="384" format="[general]" html.valueishtml="0"  name=compute_0004 visible="1" edit.limit=14 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="882" y="4" height="56" width="937" format="[general]" html.valueishtml="0"  name=compute_0005 visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="1842" y="4" height="56" width="119" format="[general]" html.valueishtml="0"  name=in_prove_pv_tipcta visible="1" edit.limit=2 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="1970" y="4" height="56" width="384" format="[general]" html.valueishtml="0"  name=nrocta visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="2373" y="4" height="56" width="279" format="[general]" html.valueishtml="0"  name=nropago visible="1" edit.limit=12 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="2688" y="4" height="56" width="274" format="[general]" html.valueishtml="0"  name=nrocontable visible="1" edit.limit=12 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="0" x="3045" y="4" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=vbr visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="0" x="3360" y="8" height="48" width="439" format="[general]" html.valueishtml="0"  name=cb_egreso_if_codigo visible="1" dddw.name=d_dddw_ent_financiera dddw.displaycolumn=if_nombre dddw.datacolumn=if_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="23" y1="384" x2="4503" y2="384"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="0" x="3831" y="8" height="56" width="672" format="[general]" html.valueishtml="0"  name=cc_tipopago visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="3520" y="100" height="56" width="229" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g ' + page() + ' de ' + pageCount()"border="0" color="0" x="3813" y="24" height="64" width="411" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="3771" y="104" height="52" width="453" format="dd/mm/yyyy h:mm" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(vbr for all)"border="0" color="0" x="3045" y="16" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="3031" y1="4" x2="3323" y2="4"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

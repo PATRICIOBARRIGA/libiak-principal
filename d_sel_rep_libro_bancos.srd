@@ -1,0 +1,23 @@
+HA$PBExportHeader$d_sel_rep_libro_bancos.srd
+$PBExportComments$Si.
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=52 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) updatewhereclause=no name=cn_codigo dbname="cn_codigo" )
+ column=(type=date updatewhereclause=no name=fec_ini dbname="fec_ini" )
+ column=(type=date updatewhereclause=no name=fec_fin dbname="fec_fin" initial="today" )
+ column=(type=char(1) updatewhereclause=no name=tn_ioe dbname="tn_ioe" initial="T" values="Ingresos	I/Egresos	E/Todos	T/" )
+ )
+text(band=detail alignment="0" text="Desde:" border="0" color="0" x="91" y="12" height="56" width="155"  name=fecha_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Hasta:" border="0" color="0" x="608" y="12" height="56" width="142"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="5" color="0" x="270" y="12" height="56" width="315" format="[general]"  name=fec_ini editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="2" tabsequence=20 border="5" color="0" x="763" y="12" height="56" width="315" format="[general]"  name=fec_fin editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Inst. Financiera:" border="0" color="0" x="1111" y="12" height="56" width="347"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Tipo:" border="0" color="0" x="2226" y="12" height="56" width="105"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="5" color="0" x="2350" y="8" height="64" width="462" format=""  name=tn_ioe ddlb.limit=0 ddlb.sorted=yes ddlb.allowedit=yes ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=30 border="5" color="0" x="1481" y="8" height="64" width="699" format="[general]"  name=cn_codigo dddw.name=d_dddw_ent_financieras_empresa dddw.displaycolumn=cc_cuenta dddw.datacolumn=cn_codigo dddw.percentwidth=200 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.nilisnull=yes dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

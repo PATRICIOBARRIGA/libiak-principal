@@ -1,0 +1,107 @@
+HA$PBExportHeader$d_rep_crucerecaps2.srd
+$PBExportComments$Si.
+release 9;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=140 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=304 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cb_dettar_su_codigo dbname="cb_dettar.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_dt_numdoc dbname="cb_dettar.dt_numdoc" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_fp_codigo dbname="cb_dettar.fp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_rp_numero dbname="cb_dettar.rp_numero" )
+ column=(type=number updatewhereclause=yes name=cb_dettar_ve_numero dbname="cb_dettar.ve_numero" )
+ column=(type=decimal(2) updatewhereclause=yes name=cb_dettar_dt_valor dbname="cb_dettar.dt_valor" )
+ column=(type=decimal(2) updatewhereclause=yes name=cb_dettar_dt_saldo dbname="cb_dettar.dt_saldo" )
+ column=(type=decimal(2) updatewhereclause=yes name=cb_dettar_dt_comision dbname="cb_dettar.dt_comision" )
+ column=(type=decimal(2) updatewhereclause=yes name=cb_dettar_dt_interes dbname="cb_dettar.dt_interes" )
+ column=(type=decimal(2) updatewhereclause=yes name=cb_cruce_cb_valcre dbname="cb_cruce.cb_valcre" )
+ column=(type=char(20) updatewhereclause=yes name=cb_cruce_bt_codigo dbname="cb_cruce.bt_codigo" )
+ column=(type=datetime updatewhereclause=yes name=cb_cruce_cb_fecha dbname="cb_cruce.cb_fecha" )
+ column=(type=char(50) updatewhereclause=yes name=fa_formpag_fp_descri dbname="fa_formpag.fp_descri" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=datetime updatewhereclause=yes name=cb_cabcobt_bt_fecha dbname="cb_cabcobt.bt_fecha" )
+ column=(type=char(20) updatewhereclause=yes name=cb_cruce_ct_codigo dbname="cb_cruce.ct_codigo" )
+ retrieve="
+  SELECT ~"CB_DETTAR~".~"SU_CODIGO~",   
+         ~"CB_DETTAR~".~"DT_NUMDOC~",   
+         ~"CB_DETTAR~".~"FP_CODIGO~",   
+         ~"CB_DETTAR~".~"RP_NUMERO~",   
+         ~"CB_DETTAR~".~"VE_NUMERO~",   
+         ~"CB_DETTAR~".~"DT_VALOR~",   
+         ~"CB_DETTAR~".~"DT_SALDO~",   
+         ~"CB_DETTAR~".~"DT_COMISION~",   
+         ~"CB_DETTAR~".~"DT_INTERES~",   
+         ~"CB_CRUCE~".~"CB_VALCRE~",   
+         ~"CB_CRUCE~".~"BT_CODIGO~",   
+         ~"CB_CRUCE~".~"CB_FECHA~",   
+         ~"FA_FORMPAG~".~"FP_DESCRI~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~",   
+         ~"CB_CABCOBT~".~"BT_FECHA~",   
+         ~"CB_CRUCE~".~"CT_CODIGO~"  
+    FROM ~"CB_CRUCE~",   
+         ~"CB_DETTAR~",   
+         ~"FA_FORMPAG~",   
+         ~"PR_SUCUR~",   
+         ~"CB_TARJETAS~",   
+         ~"CB_CABCOBT~"  
+   WHERE ( ~"CB_DETTAR~".~"CT_CODIGO~" = ~"CB_CRUCE~".~"CT_CODIGO~" ) and  
+         ( ~"CB_DETTAR~".~"EM_CODIGO~" = ~"CB_CRUCE~".~"EM_CODIGO~" ) and  
+         ( ~"CB_DETTAR~".~"DT_SECUE~" = ~"CB_CRUCE~".~"DT_SECUE~" ) and  
+         ( ~"CB_DETTAR~".~"EM_CODIGO~" = ~"FA_FORMPAG~".~"EM_CODIGO~" ) and  
+         ( ~"CB_DETTAR~".~"FP_CODIGO~" = ~"FA_FORMPAG~".~"FP_CODIGO~" ) and  
+         ( ~"CB_DETTAR~".~"EM_CODIGO~" = ~"PR_SUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"CB_DETTAR~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+         ( ~"CB_TARJETAS~".~"CT_CODIGO~" = ~"CB_DETTAR~".~"CT_CODIGO~" ) and  
+         ( ~"CB_TARJETAS~".~"EM_CODIGO~" = ~"CB_DETTAR~".~"EM_CODIGO~" ) and  
+         ( ~"CB_CABCOBT~".~"EM_CODIGO~" = ~"CB_CRUCE~".~"EM_CODIGO~" ) and  
+         ( ~"CB_CABCOBT~".~"BT_CODIGO~" = ~"CB_CRUCE~".~"BT_CODIGO~" ) and  
+         ( ( trunc(~"CB_CABCOBT~".~"BT_FECHA~") between :ad_ini and :ad_fin ) )    
+" arguments=(("ad_ini", date),("ad_fin", date))  sort="cb_cabcobt_bt_fecha A cb_cruce_cb_fecha A " )
+text(band=header alignment="0" text="Cobro" border="0" color="128" x="23" y="40" height="56" width="165" html.valueishtml="0"  name=cb_cruce_bt_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=10 border="5" color="0" x="23" y="8" height="60" width="270" format="[general]" html.valueishtml="0"  name=cb_cruce_bt_codigo visible="1" dddw.name=d_dddw_cobrorcaps dddw.displaycolumn=cb_detcobt_bt_codigo dddw.datacolumn=cb_detcobt_bt_codigo dddw.percentwidth=1500 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.imemode=0 dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="18" y1="132" x2="3666" y2="128"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fec.Cobro" border="0" color="128" x="603" y="44" height="56" width="229" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Fec.Cruce" border="0" color="128" x="928" y="40" height="56" width="265" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sucursal" border="0" color="128" x="1216" y="40" height="56" width="233" html.valueishtml="0"  name=cb_dettar_su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nro Doc" border="0" color="128" x="1504" y="40" height="56" width="197" html.valueishtml="0"  name=cb_dettar_dt_numdoc_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Forma de pago" border="0" color="128" x="1787" y="40" height="56" width="389" html.valueishtml="0"  name=cb_dettar_fp_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="N$$HEX1$$ba00$$ENDHEX$$" border="0" color="128" x="2322" y="40" height="56" width="64" html.valueishtml="0"  name=cb_dettar_rp_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Ticket" border="0" color="128" x="2450" y="40" height="56" width="178" html.valueishtml="0"  name=cb_dettar_ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Valor" border="0" color="128" x="2711" y="40" height="56" width="187" html.valueishtml="0"  name=cb_dettar_dt_valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Com." border="0" color="128" x="2926" y="40" height="56" width="197" html.valueishtml="0"  name=cb_dettar_dt_comision_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Int." border="0" color="128" x="3136" y="40" height="56" width="142" html.valueishtml="0"  name=cb_dettar_dt_interes_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Saldo" border="0" color="128" x="3291" y="40" height="56" width="137" html.valueishtml="0"  name=cb_dettar_dt_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Cruce" border="0" color="128" x="3502" y="40" height="56" width="160" html.valueishtml="0"  name=cb_cruce_cb_valcre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Lote" border="0" color="128" x="329" y="44" height="56" width="96" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="5" color="0" x="599" y="8" height="56" width="297" format="dd/mm/yyyy" html.valueishtml="0"  name=cb_cabcobt_bt_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="(cb_cruce_cb_valcre  + cb_dettar_dt_interes  +  cb_dettar_dt_saldo  +  cb_dettar_dt_comision )"border="0" color="0" x="3685" y="4" height="60" width="160" format="#,##0.00" html.valueishtml="0"  name=cc_vneto visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=12 alignment="2" tabsequence=32766 border="5" color="0" x="919" y="8" height="60" width="274" format="dd/mm/yyyy" html.valueishtml="0"  name=cb_cruce_cb_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="5" color="0" x="1216" y="8" height="60" width="270" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="1504" y="8" height="60" width="265" format="[general]" html.valueishtml="0"  name=cb_dettar_dt_numdoc visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="5" color="0" x="1787" y="8" height="60" width="512" format="[general]" html.valueishtml="0"  name=fa_formpag_fp_descri visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="2322" y="8" height="60" width="110" format="[general]" html.valueishtml="0"  name=cb_dettar_rp_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="2455" y="8" height="60" width="238" format="[general]" html.valueishtml="0"  name=cb_dettar_ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="5" color="0" x="2711" y="8" height="60" width="197" format="#,##0.00" html.valueishtml="0"  name=cb_dettar_dt_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="5" color="0" x="2926" y="8" height="60" width="201" format="#,##0.00" html.valueishtml="0"  name=cb_dettar_dt_comision visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="5" color="0" x="3136" y="8" height="60" width="137" format="#,##0.00" html.valueishtml="0"  name=cb_dettar_dt_interes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="5" color="0" x="3291" y="8" height="60" width="123" format="#,##0.00" html.valueishtml="0"  name=cb_dettar_dt_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="5" color="0~tif( round(cc_vneto,2) <>  round(cb_dettar_dt_valor,2) ,rgb(255,0,0),rgb(0,0,0))" x="3429" y="8" height="60" width="233" format="0.00" html.valueishtml="0"  name=cb_cruce_cb_valcre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="5" color="0" x="325" y="8" height="56" width="247" format="[general]" html.valueishtml="0"  name=cb_cruce_ct_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="1" expression="sum(cb_dettar_dt_saldo for all)"border="5" color="0" x="3067" y="80" height="60" width="279" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=footer alignment="1" expression="sum(cb_dettar_dt_interes for all)"border="5" color="0" x="2784" y="80" height="60" width="265" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=footer alignment="1" expression="sum(cb_dettar_dt_comision for all)"border="5" color="0" x="2496" y="80" height="60" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Comisi$$HEX1$$f300$$ENDHEX$$n" border="6" color="128" x="2505" y="4" height="56" width="265" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Inter$$HEX1$$e900$$ENDHEX$$s" border="6" color="128" x="2789" y="4" height="56" width="265" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Saldo" border="6" color="128" x="3081" y="4" height="56" width="265" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Valor" border="0" color="128" x="3063" y="156" height="56" width="274" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="C.Neto" border="0" color="128" x="3191" y="236" height="56" width="146" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=footer alignment="1" expression="sum(cb_dettar_dt_valor for all)"border="5" color="0" x="3355" y="156" height="60" width="302" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=footer alignment="1" expression=" sum(cb_cruce_cb_valcre  + cb_dettar_dt_interes  +  cb_dettar_dt_saldo  +  cb_dettar_dt_comision for all)"border="5" color="0" x="3355" y="236" height="56" width="302" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=footer alignment="1" expression="sum(cb_cruce_cb_valcre for all)"border="5" color="0" x="3360" y="80" height="60" width="302" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Cruce" border="6" color="128" x="3374" y="4" height="56" width="288" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
