@@ -1,0 +1,75 @@
+HA$PBExportHeader$d_rep_detalle_rol_pago_new2.srd
+$PBExportComments$Detalle de los roles de pago.
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=228 color="536870912" )
+summary(height=452 color="536870912" )
+footer(height=528 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=decimal(2) update=yes updatewhereclause=yes name=lq_valor dbname="no_rolpago.lq_valor" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=lq_numhor dbname="no_rolpago.lq_numhor" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=rr_codigo dbname="no_rolpago.rr_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=lq_total dbname="no_rolpago.lq_total" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ru_codigo dbname="no_rolpago.ru_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ep_codigo dbname="no_rolpago.ep_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=no_rubro_ru_nombre dbname="no_rubro.ru_nombre" )
+ column=(type=decimal(0) updatewhereclause=yes name=no_rubro_ru_sec dbname="no_rubro.ru_sec" )
+ column=(type=char(1) updatewhereclause=yes name=no_rubro_ru_ioe dbname="no_rubro.ru_ioe" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_totingr dbname="no_cabrol.rr_totingr" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_totegre dbname="no_cabrol.rr_totegre" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_liquido dbname="no_cabrol.rr_liquido" )
+ retrieve=" SELECT ~"NO_ROLPAGO~".~"LQ_VALOR~",   
+         ~"NO_ROLPAGO~".~"LQ_NUMHOR~",   
+         ~"NO_ROLPAGO~".~"RR_CODIGO~",   
+         ~"NO_ROLPAGO~".~"LQ_TOTAL~",   
+         ~"NO_ROLPAGO~".~"RU_CODIGO~",   
+         ~"NO_ROLPAGO~".~"EP_CODIGO~",   
+         ~"NO_RUBRO~".~"RU_NOMBRE~",   
+         ~"NO_RUBRO~".~"RU_SEC~",   
+         ~"NO_RUBRO~".~"RU_IOE~",   
+         ~"NO_CABROL~".~"RR_TOTINGR~",   
+         ~"NO_CABROL~".~"RR_TOTEGRE~",   
+         ~"NO_CABROL~".~"RR_LIQUIDO~"  
+    FROM ~"NO_ROLPAGO~",   
+         ~"NO_RUBRO~",   
+         ~"NO_EMPLE~",   
+         ~"NO_CABROL~"  
+   WHERE ( ~"NO_ROLPAGO~".~"RU_CODIGO~" = ~"NO_RUBRO~".~"RU_CODIGO~" ) and  
+         ( ~"NO_RUBRO~".~"EM_CODIGO~" = ~"NO_EMPLE~".~"EM_CODIGO~" ) and  
+         ( ~"NO_ROLPAGO~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+         ( ~"NO_ROLPAGO~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and  
+         ( ~"NO_ROLPAGO~".~"RR_CODIGO~" = ~"NO_CABROL~".~"RR_CODIGO~" ) and  
+         ( ( ~"NO_EMPLE~".~"EM_CODIGO~" = :empresa  ) AND  
+         (~"NO_EMPLE~".~"EP_CODIGO~" = :ep_codigo ) AND  
+         (~"NO_ROLPAGO~".~"RR_CODIGO~" = :rr_codigo )  AND 
+        (~"NO_CABROL~".~"RR_TIPO~" ='R')and 
+         ( ~"NO_RUBRO~".~"RU_IOE~" = 'I' ) AND
+         ~"NO_ROLPAGO~".~"LQ_TOTAL~" <> 0 )    
+" arguments=(("empresa", string),("ep_codigo", string),("rr_codigo", string))  sort="no_rubro_ru_ioe D no_rubro_ru_sec A " )
+text(band=header alignment="0" text="INGRESOS" border="0" color="0" x="9" y="36" height="108" width="594" html.valueishtml="0"  name=t_11 visible="1"  font.face="Draft 10cpi" font.height="-18" font.weight="700"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Descripci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="9" y="160" height="56" width="375" html.valueishtml="0"  name=t_2 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="# Horas" border="0" color="0" x="1317" y="160" height="56" width="224" html.valueishtml="0"  name=t_1 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Total" border="0" color="0" x="1646" y="160" height="56" width="160" html.valueishtml="0"  name=t_4 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Valor Hora" border="0" color="0" x="974" y="160" height="56" width="320" html.valueishtml="0"  name=t_3 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  lq_valor <> 0, string(lq_total / lq_numhor ,'#,##0.0000') ,'')"border="0" color="0" x="1038" y="4" height="56" width="229" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  lq_numhor <> 0, string(lq_numhor,'#,##0.00') ,'')"border="0" color="0" x="1317" y="4" height="56" width="197" format="[GENERAL]" html.valueishtml="0"  name=cc_numh visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1504" y1="4" x2="1801" y2="4"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=summary alignment="2" text="Elaborado" border="0" color="0" x="160" y="392" height="56" width="288" html.valueishtml="0"  name=t_6 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="2" text="Autorizado" border="0" color="0" x="1390" y="392" height="56" width="320" html.valueishtml="0"  name=t_8 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="2" text="Recib$$HEX2$$ed002000$$ENDHEX$$Conforme" border="0" color="0" x="677" y="392" height="56" width="480" html.valueishtml="0"  name=t_5 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="27" y1="380" x2="571" y2="380"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="12105912" )
+line(band=summary x1="645" y1="380" x2="1189" y2="380"  name=l_3 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="12105912" )
+line(band=summary x1="1271" y1="380" x2="1815" y2="380"  name=l_4 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="12105912" )
+compute(band=detail alignment="1" expression="if(  lq_total <> 0, string(lq_total,'#,##0.00') ,'')"border="0" color="0" x="1554" y="4" height="56" width="251" format="[GENERAL]" html.valueishtml="0"  name=cc_total visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(lq_total for all)"border="0" color="0" x="1463" y="16" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="56" width="1010" format="[general]" html.valueishtml="0"  name=no_rubro_ru_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="0" text="Declaro que en esta liquidaci$$HEX1$$f300$$ENDHEX$$n constan todos mis ingresos y egresos" border="0" color="0" x="9" y="16" height="48" width="1367" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="que por Ley me corresponden as$$HEX2$$ed002000$$ENDHEX$$como mis egresos voluntarios con los" border="0" color="0" x="9" y="76" height="48" width="1399" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="cuales estoy de acuerdo, no teniendo nada que reclamar en el presente ni en el futuro." border="0" color="0" x="9" y="136" height="48" width="1659" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+bitmap(band=summary filename="imagenes\Firmae.JPG" x="101" y="196" height="176" width="416" border="0"  name=p_1 visible="1" )
+bitmap(band=summary filename="imagenes\Firmaa.JPG" x="1335" y="196" height="176" width="416" border="0"  name=p_2 visible="1" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

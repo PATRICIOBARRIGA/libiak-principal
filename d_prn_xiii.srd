@@ -1,0 +1,95 @@
+HA$PBExportHeader$d_prn_xiii.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=508 color="536870912" )
+summary(height=108 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=124 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=no_cabrol_ep_codigo dbname="no_cabrol.ep_codigo" )
+ column=(type=char(79) updatewhereclause=yes name=empleado dbname="empleado" )
+ column=(type=char(8) updatewhereclause=yes name=fingreso dbname="fingreso" )
+ column=(type=char(20) updatewhereclause=yes name=no_emple_su_codigo dbname="no_emple.su_codigo" )
+ column=(type=char(11) updatewhereclause=yes name=no_emple_ep_ci dbname="no_emple.ep_ci" )
+ column=(type=char(1) updatewhereclause=yes name=no_emple_ep_sexo dbname="no_emple.ep_sexo" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=char(80) updatewhereclause=yes name=no_cargo_cr_descri dbname="no_cargo.cr_descri" )
+ column=(type=number updatewhereclause=yes name=tot_ing dbname="tot_ing" )
+ column=(type=number updatewhereclause=yes name=xiii dbname="xiii" )
+ retrieve=" SELECT ~"NO_CABROL~".~"EP_CODIGO~" ,
+~"NO_EMPLE~".~"EP_APEPAT~"||'  '||~"NO_EMPLE~".~"EP_APEMAT~"||'  '||~"NO_EMPLE~".~"EP_NOMBRE~"  EMPLEADO,
+TO_CHAR(~"NO_EMPLE~".~"EP_FECENT~",'DD/MM/YY') FINGRESO,
+~"NO_EMPLE~".~"SU_CODIGO~",
+~"NO_EMPLE~".~"EP_CI~",
+~"NO_EMPLE~".~"EP_SEXO~",
+~"PR_SUCUR~".~"SU_NOMBRE~",
+~"NO_CARGO~".~"CR_DESCRI~",
+SUM(DECODE(~"NO_RUBRO~".~"RU_IOE~",'I',DECODE(~"NO_RUBRO~".~"RU_CODIGO~",17,0,~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) TOT_ING,
+SUM(DECODE(~"NO_RUBRO~".~"RU_IOE~",'I',DECODE(~"NO_RUBRO~".~"RU_CODIGO~",17,0,~"NO_ROLPAGO~".~"LQ_TOTAL~"),0))/12 XIII 
+ FROM ~"NO_CABROL~", 
+~"NO_ROLPAGO~",  
+~"NO_RUBRO~",
+ ~"NO_EMPLE~" ,
+~"NO_CARGO~" ,
+~"PR_SUCUR~"
+  WHERE 
+(~"NO_CABROL~".~"EP_CODIGO~" = ~"NO_ROLPAGO~".~"EP_CODIGO~") and
+( ~"NO_CABROL~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+(~"NO_CABROL~".~"RR_CODIGO~" = ~"NO_ROLPAGO~".~"RR_CODIGO~") and
+(~"NO_ROLPAGO~".~"RU_CODIGO~" = ~"NO_RUBRO~".~"RU_CODIGO~") and 
+( ~"NO_CARGO~".~"CR_CODIGO~" = ~"NO_EMPLE~".~"CR_CODIGO~" ) and  
+( ~"NO_EMPLE~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+( (~"NO_CABROL~".~"RR_TIPO~" = 'R') AND 
+(~"NO_EMPLE~".~"EP_NONOM~" = 'S') AND
+(~"NO_EMPLE~".~"EP_FECSAL~" IS NULL) AND
+( TRUNC(~"NO_CABROL~".~"RR_FECHA~")  BETWEEN '01-DEC-05' AND '30-NOV-06'  ) )
+GROUP BY ~"NO_EMPLE~".~"EP_APEPAT~"||'  '||~"NO_EMPLE~".~"EP_APEMAT~"||'  '||~"NO_EMPLE~".~"EP_NOMBRE~",
+~"NO_EMPLE~".~"EP_FECENT~",
+~"NO_EMPLE~".~"SU_CODIGO~",
+~"NO_EMPLE~".~"EP_CI~",
+~"NO_EMPLE~".~"EP_SEXO~",
+~"PR_SUCUR~".~"SU_NOMBRE~",
+~"NO_CARGO~".~"CR_DESCRI~",
+~"NO_CABROL~".~"EP_CODIGO~" " filter=" no_emple_su_codigo in ('1','2','3','4','5','6','7','8','9','10','13','14','15','16','17','18','19','23','24','27','28','29') and no_cabrol_ep_codigo not in ('752')" sort="empleado A " )
+group(level=1 header.height=0 trailer.height=0 by=("empleado" ) header.color="536870912" trailer.color="536870912" )
+roundrectangle(band=header ellipseheight="36" ellipsewidth="41"x="64" y="264" height="232" width="4517"  name=rr_1 visible="1" brush.hatch="6" brush.color="134217739" pen.style="0" pen.width="5" pen.color="134217739"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="No." border="0" color="33554432" x="87" y="360" height="72" width="146" html.valueishtml="0"  name=t_3 visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="SEXO
+H.     M.
+0        1" border="0" color="33554432" x="2034" y="272" height="216" width="261" html.valueishtml="0"  name=sexo_t visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="TIEMPO
+TRABAJADO
+PERIODO" border="0" color="33554432" x="2341" y="312" height="172" width="357" html.valueishtml="0"  name=tiempo_t visible="1"  font.face="Book Antiqua" font.height="-7" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="VALOR PAGADO POR
+DECIMOTERCERA REMUNERACION" border="0" color="33554432" x="3173" y="360" height="96" width="741" html.valueishtml="0"  name=no_otrospagos_valor_pagado_t visible="1"  font.face="Book Antiqua" font.height="-6" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="N$$HEX1$$ba00$$ENDHEX$$.    235698" border="0" color="33554432" x="4018" y="48" height="92" width="526" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="NOMBRES" border="0" color="33554432" x="265" y="360" height="72" width="1038" html.valueishtml="0"  name=nombres_t visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="FIRMA O HUELLA DIGITAL
+DEL TRABAJADOR" border="0" color="33554432" x="3936" y="352" height="104" width="617" html.valueishtml="0"  name=firma_t visible="1"  font.face="Book Antiqua" font.height="-6" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="TOTAL GANADO" border="0" color="33554432" x="2807" y="360" height="104" width="201" html.valueishtml="0"  name=t_5 visible="1"  font.face="Book Antiqua" font.height="-6" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+line(band=header x1="1125" y1="148" x2="3762" y2="148"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="INFORMACION INDIVIDUAL SOBRE EL PAGO DE LA DECIMOTERCERA REMUNERACION" border="0" color="33554432" x="667" y="172" height="84" width="3287" html.valueishtml="0"  name=t_2 visible="1"  font.face="Book Antiqua" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="OCUPACION" border="0" color="33554432" x="1454" y="360" height="72" width="535" html.valueishtml="0"  name=no_cargo_ocupacion_t visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="MINISTERIO DE TRABAJO Y EMPLEO" border="0" color="33554432" x="1573" y="48" height="92" width="1742" html.valueishtml="0"  name=t_1 visible="1"  font.face="Book Antiqua" font.height="-14" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=detail x1="3963" y1="104" x2="4553" y2="104"  name=l_2 visible="1" pen.style="2" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="265" y="20" height="96" width="1042" format="[general]" html.valueishtml="0"  name=empleado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="0" x="55" y="20" height="104" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="1449" y="12" height="104" width="539" format="[general]" html.valueishtml="0"  name=no_cargo_cr_descri visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="IF( no_emple_ep_sexo = 'M','0','1')"border="0" color="0" x="2149" y="20" height="84" width="78" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="IF( no_cabrol_ep_codigo = '510',120,if( date(fingreso) < date('01/12/05'),360,daysafter(date(fingreso),date('30/11/06'))))"border="0" color="0" x="2478" y="24" height="76" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="IF( no_cabrol_ep_codigo = '510',1258.76, tot_ing )"border="0" color="0" x="2770" y="20" height="84" width="251" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="IF( no_cabrol_ep_codigo = '510',104.89,  xiii  )"border="0" color="0" x="3525" y="20" height="84" width="261" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(IF( no_cabrol_ep_codigo = '510',1258.76, tot_ing ) for all)"border="0" color="0" x="2779" y="20" height="84" width="251" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(IF( no_cabrol_ep_codigo = '510',104.89,  xiii  ) for ALL)"border="0" color="0" x="3525" y="20" height="84" width="261" format="#,##0.00" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="2779" y1="4" x2="3026" y2="4"  name=l_3 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=summary x1="3529" y1="4" x2="3776" y2="4"  name=l_4 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

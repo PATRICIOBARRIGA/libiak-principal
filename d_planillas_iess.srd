@@ -1,0 +1,23 @@
+HA$PBExportHeader$d_planillas_iess.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(237) updatewhereclause=yes name=planilla dbname="planilla" )
+ retrieve="select lpad(:periodo,6,' ')||lpad(~"NO_EMPLE~".~"EP_NUMAFIL~",13,0)||replace(~"NO_EMPLE~".~"EP_CI~",'-','')||rpad(TRANSLATE(SUBSTR(upper(~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~"),1,30),'$$HEX6$$c100c900cd00d300da00d100$$ENDHEX$$','AEIOUN'),30,' ')||:periodo||:periodo||NVL(~"NO_EMPLE~".~"EP_CODSEC~",'0307000002')||LPAD(SUM(~"NO_ROLPAGO~".~"LQ_TOTAL~"*100),9,0)||'30'||'00'||'00'||'00000000'||lpad(' ',131)||'2' planilla
+from  ~"NO_ROLPAGO~", ~"NO_RUBRO~", ~"NO_CABROL~",~"NO_EMPLE~" 
+where ( ~"NO_RUBRO~".~"RU_CODIGO~" = ~"NO_ROLPAGO~".~"RU_CODIGO~" )
+and    ( ~"NO_CABROL~".~"EP_CODIGO~" = ~"NO_ROLPAGO~".~"EP_CODIGO~" ) 
+and    ( ~"NO_CABROL~".~"RR_CODIGO~" = ~"NO_ROLPAGO~".~"RR_CODIGO~" ) 
+and  (~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~")
+and  ( to_char(~"NO_CABROL~".~"RR_FECHA~",'yyyymm') =:periodo) 
+and  (~"NO_EMPLE~".~"EP_FECSAL~" is null OR to_char(~"NO_EMPLE~".~"EP_FECSAL~",'yyyymm')=:periodo) 
+and  (~"NO_EMPLE~".~"EP_NONOM~" = 'S')
+and  (~"NO_ROLPAGO~".~"RU_CODIGO~" IN ('1','6','7'))
+group by ~"NO_EMPLE~".~"EP_NUMAFIL~",~"NO_EMPLE~".~"EP_CI~",~"NO_EMPLE~".~"EP_APEPAT~",~"NO_EMPLE~".~"EP_APEMAT~",~"NO_EMPLE~".~"EP_NOMBRE~",~"NO_EMPLE~".~"EP_CODSEC~"
+order by ~"NO_EMPLE~".~"EP_APEPAT~",~"NO_EMPLE~".~"EP_APEMAT~",~"NO_EMPLE~".~"EP_NOMBRE~"
+" arguments=(("periodo", string)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="8" height="56" width="5902" format="[general]"  name=planilla edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

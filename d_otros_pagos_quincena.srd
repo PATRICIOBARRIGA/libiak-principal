@@ -1,0 +1,47 @@
+HA$PBExportHeader$d_otros_pagos_quincena.srd
+$PBExportComments$Vale
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(159) updatewhereclause=yes name=cabecera dbname="cabecera" )
+ retrieve="SELECT 'BPR 17920141660010290'||lpad(count(*),6,'0')||lpad(sum(~"NO_CABROL~".~"RR_LIQUIDO~")*100,17,'0') Cabecera
+  FROM ~"NO_CABROL~",   
+       ~"NO_EMPLE~"  
+ WHERE ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and  
+( TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'MM/YYYY') = :as_fecha )  and
+       ( TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'DD') <= '15' )  and
+ 	    ( ~"NO_EMPLE~".~"EP_NONOM~" = 'S') and
+		 ( NVL(~"NO_EMPLE~".~"EP_CTABCO~",0) <> '0') and
+		 ( ~"NO_CABROL~".~"RR_LIQUIDO~" <> 0) and 
+       (~"NO_CABROL~".~"RR_TIPO~" = 'Q')
+ UNION
+SELECT LPAD(~"NO_EMPLE~".~"EP_CODIGO~",16,'0')||'                                '||'C'||
+		 LPAD(REPLACE(~"NO_EMPLE~".~"EP_CI~",'-',''),14,'0')||
+		 LPAD(~"NO_CABROL~".~"RR_LIQUIDO~"*100,13,'0')||
+		 '              '||SUBSTR(~"NO_EMPLE~".~"EP_CTABCO~",1,2)||'USDUSD'||LPAD(SUBSTR(~"NO_EMPLE~".~"EP_CTABCO~",3,10),10,'0')||
+		 'C'||TO_CHAR(SYSDATE,'YYYY-MM-DD')||TO_CHAR(SYSDATE,'YYYY-MM-DD')||
+		 'U                             ' Detalle
+  FROM ~"NO_CABROL~",   
+       ~"NO_EMPLE~"  
+ WHERE ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and  
+       ( TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'MM/YYYY') = :as_fecha )  and
+       ( TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'DD') <= '15' )  and
+ 	    ( ~"NO_EMPLE~".~"EP_NONOM~" = 'S') and
+		 ( NVL(~"NO_EMPLE~".~"EP_CTABCO~",0) <> '0') and
+		 ( ~"NO_CABROL~".~"RR_LIQUIDO~" <> 0) and
+       (~"NO_CABROL~".~"RR_TIPO~" = 'Q')
+ORDER BY 1 DESC" arguments=(("as_fecha", string)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="0" y="8" height="56" width="3150" format="[general]" html.valueishtml="0"  name=cabecera visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

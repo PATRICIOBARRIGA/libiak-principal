@@ -1,0 +1,64 @@
+HA$PBExportHeader$d_rep_anexos_iess2.srd
+$PBExportComments$Visualizaci$$HEX1$$f300$$ENDHEX$$n de la informaci$$HEX1$$f300$$ENDHEX$$n que va al IESS, formato tipo reporte.
+release 10;
+datawindow(units=0 timer_interval=60000 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=424 color="536870912" )
+summary(height=76 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(4) updatewhereclause=yes name=compute_0001 dbname="compute_0001" )
+ column=(type=char(8) updatewhereclause=yes name=compute_0002 dbname="compute_0002" )
+ column=(type=char(3) updatewhereclause=yes name=compute_0003 dbname="compute_0003" )
+ column=(type=char(11) updatewhereclause=yes name=compute_0004 dbname="compute_0004" )
+ column=(type=number updatewhereclause=yes name=compute_0005 dbname="compute_0005" )
+ column=(type=char(15) updatewhereclause=yes name=compute_0006 dbname="compute_0006" )
+ column=(type=char(1) updatewhereclause=yes name=iesshextras dbname="iesshextras" )
+ retrieve="SELECT lpad(decode(~"NO_EMPLE~".~"SU_CODIGO~",26,25,11,11,12,11,25,24,20,20,21,21,30,29,31,29,1),4,'0'),TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'yyyy;mm;'),'INS',replace(~"NO_EMPLE~".~"EP_CI~",'-'),sum(~"NO_ROLPAGO~".~"LQ_TOTAL~"),LTRIM(TO_CHAR(sum(~"NO_ROLPAGO~".~"LQ_TOTAL~") ,'00000000000D00')),'O' IESSHEXTRAS
+FROM ~"NO_EMPLE~",   
+         ~"NO_CABROL~",   
+         ~"NO_ROLPAGO~",
+         ~"NO_RUBRO~"
+WHERE (~"NO_CABROL~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~") and  
+           (~"NO_ROLPAGO~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~") and  
+           ( ~"NO_ROLPAGO~".~"RR_CODIGO~" = ~"NO_CABROL~".~"RR_CODIGO~") and  
+           (~"NO_ROLPAGO~".~"RU_CODIGO~" = ~"NO_RUBRO~".~"RU_CODIGO~") and 
+           ( (TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'MM-YYYY') = :mesanio ) and  
+           ( ~"NO_RUBRO~".~"RU_SIGLA~" like '%E%' ) and 
+           (~"NO_CABROL~".~"RR_TIPO~" = 'R')) 
+GROUP BY ~"NO_EMPLE~".~"SU_CODIGO~", ~"NO_EMPLE~".~"EP_CI~",TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'yyyy;mm;')
+HAVING sum(~"NO_ROLPAGO~".~"LQ_TOTAL~") > 0
+ORDER BY ~"NO_EMPLE~".~"EP_CI~"  
+" arguments=(("mesanio", string)) )
+text(band=header alignment="2" text="Cod. Sucursal" border="4" color="33554432" x="9" y="356" height="56" width="457" html.valueishtml="0"  name=compute_0001_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Per$$HEX1$$ed00$$ENDHEX$$odo" border="4" color="33554432" x="475" y="356" height="56" width="366" html.valueishtml="0"  name=compute_0002_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="INS" border="4" color="33554432" x="850" y="356" height="56" width="133" html.valueishtml="0"  name=compute_0003_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="C$$HEX1$$e900$$ENDHEX$$dula Identidad" border="4" color="33554432" x="992" y="356" height="56" width="498" html.valueishtml="0"  name=compute_0004_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Total" border="4" color="33554432" x="1499" y="356" height="56" width="320" html.valueishtml="0"  name=compute_0005_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Iess" border="4" color="33554432" x="1829" y="356" height="56" width="229" html.valueishtml="0"  name=iesshextras_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Total concatenado" border="4" color="33554432" x="2066" y="356" height="56" width="475" html.valueishtml="0"  name=compute_0006_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="IESS   (H Extras)" border="0" color="33554432" x="9" y="88" height="56" width="457" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="33554432" x="2066" y="24" height="56" width="475" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Impreso:" border="0" color="33554432" x="2066" y="96" height="56" width="475" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="today()"border="0" color="33554432" x="2066" y="168" height="56" width="475" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="/* 'Desde: '+ string(AD_INI,'dd-mm-yy') + '  Hasta : '+string( AD_FIN ,'dd-mm-yy')  */"border="0" color="33554432" x="9" y="160" height="76" width="457" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  slideleft=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="TRECX CIA.LTDA." border="0" color="33554432" x="9" y="16" height="56" width="457" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="68" width="457" format="[general]" html.valueishtml="0"  name=compute_0001 visible="1" edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="475" y="8" height="68" width="366" format="[general]" html.valueishtml="0"  name=compute_0002 visible="1" edit.limit=8 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="850" y="8" height="68" width="133" format="[general]" html.valueishtml="0"  name=compute_0003 visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="33554432" x="992" y="8" height="68" width="498" format="[general]" html.valueishtml="0"  name=compute_0004 visible="1" edit.limit=11 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1499" y="8" height="68" width="320" format="#,##0.00" html.valueishtml="0"  name=compute_0005 visible="1" edit.limit=15 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="33554432" x="1829" y="8" height="68" width="229" format="[general]" html.valueishtml="0"  name=iesshextras visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="2066" y="8" height="68" width="475" format="[general]" html.valueishtml="0"  name=compute_0006 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(compute_0005 for all)"border="0" color="33554432" x="1499" y="12" height="56" width="320" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1499" y1="0" x2="1815" y2="0"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
