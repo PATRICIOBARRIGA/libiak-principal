@@ -1,0 +1,80 @@
+HA$PBExportHeader$d_rep_ajuste_x_preventa.srd
+$PBExportComments$Ajuste de inventario
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=524 color="536870912" )
+summary(height=92 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=codigo dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=producto dbname="in_item.it_nombre" )
+ column=(type=datetime updatewhereclause=yes name=fecha_ajuste dbname="in_cabajus.aj_fecha" )
+ column=(type=char(80) updatewhereclause=yes name=in_cabajus_aj_observ dbname="in_cabajus.aj_observ" )
+ column=(type=char(20) updatewhereclause=yes name=numero dbname="in_cabajus.aj_numero" )
+ column=(type=decimal(3) updatewhereclause=yes name=cantidad dbname="in_ajuste.da_cantidad" )
+ column=(type=char(20) updatewhereclause=yes name=cod_movimiento dbname="in_ajuste.tm_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=ing_o_egr dbname="in_ajuste.tm_ioe" )
+ column=(type=char(20) updatewhereclause=yes name=in_ajuste_da_secuen dbname="in_ajuste.da_secuen" )
+ retrieve="SELECT ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",
+         ~"IN_CABAJUS~".~"AJ_FECHA~",   
+         ~"IN_CABAJUS~".~"AJ_OBSERV~",   
+         ~"IN_CABAJUS~".~"AJ_NUMERO~",
+         ~"IN_AJUSTE~".~"DA_CANTIDAD~",   
+         ~"IN_AJUSTE~".~"TM_CODIGO~",   
+         ~"IN_AJUSTE~".~"TM_IOE~",
+         ~"IN_AJUSTE~".~"DA_SECUEN~"
+    FROM ~"IN_ITEM~",
+         ~"IN_CABAJUS~" ,
+         ~"IN_AJUSTE~"
+   WHERE ( ~"IN_CABAJUS~".~"TM_CODIGO~" = ~"IN_AJUSTE~".~"TM_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"TM_IOE~" = ~"IN_AJUSTE~".~"TM_IOE~" ) and  
+         ( ~"IN_CABAJUS~".~"EM_CODIGO~" = ~"IN_AJUSTE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"SU_CODIGO~" = ~"IN_AJUSTE~".~"SU_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"BO_CODIGO~" = ~"IN_AJUSTE~".~"BO_CODIGO~" ) and  
+         ( ~"IN_CABAJUS~".~"AJ_NUMERO~" = ~"IN_AJUSTE~".~"AJ_NUMERO~" ) and  
+         ( ~"IN_ITEM~".~"EM_CODIGO~" = ~"IN_AJUSTE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"IT_CODIGO~" = ~"IN_AJUSTE~".~"IT_CODIGO~" ) and 
+         ( ( ~"IN_CABAJUS~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_CABAJUS~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_CABAJUS~".~"BO_CODIGO~" = :seccion ) AND  
+         ( trunc(~"IN_CABAJUS~".~"AJ_FECHA~") between :fecha_ini and :fecha_fin) AND 
+			( ~"IN_AJUSTE~".~"TM_CODIGO~" = 3 ) AND 
+			( ~"IN_AJUSTE~".~"TM_IOE~" = 'I' ) AND
+			( ~"IN_CABAJUS~".~"AJ_ESTADO~" = 'N'))" arguments=(("empresa", string),("sucursal", string),("seccion", string),("fecha_ini", date),("fecha_fin", date))  sort="number(numero) A in_ajuste_da_secuen A " )
+group(level=1 header.height=68 trailer.height=0 by=("numero" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="297" y="12" height="72" width="1326" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="1952" y="84" height="56" width="192" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g. ' + page() + ' de ' + pagecount()"border="0" color="0" x="1856" y="12" height="60" width="562" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2158" y="84" height="52" width="261" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="581" y="96" height="60" width="1289" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="581" y="168" height="60" width="1289" html.valueishtml="0"  name=st_seccion visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Sucursal:" border="0" color="0" x="297" y="96" height="60" width="270" html.valueishtml="0"  name=cc_venpro_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Secci$$HEX1$$f300$$ENDHEX$$n:" border="0" color="0" x="297" y="168" height="60" width="265" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="0" text="N$$HEX1$$fa00$$ENDHEX$$mero:" border="0" color="0" x="311" y="4" height="60" width="219" html.valueishtml="0"  name=in_compra_co_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=5 alignment="0" tabsequence=32766 border="0" color="0" x="544" y="4" height="60" width="329" format="[general]" html.valueishtml="0"  name=numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Fecha:" border="0" color="0" x="891" y="4" height="60" width="169" html.valueishtml="0"  name=in_compra_co_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=3 alignment="2" tabsequence=32766 border="0" color="0" x="1079" y="4" height="60" width="256" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_ajuste visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="0" text="Concepto:" border="0" color="0" x="1353" y="8" height="56" width="256" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1627" y="8" height="56" width="1650" format="[general]" html.valueishtml="0"  name=in_cabajus_aj_observ visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="791" y="4" height="60" width="1243" format="[general]" html.valueishtml="0"  name=producto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="2117" y="4" height="60" width="311" format="#,##0" html.valueishtml="0"  name=cantidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="311" y="4" height="60" width="462" format="[general]" html.valueishtml="0"  name=codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="1" text="No. Productos" border="0" color="0" x="1664" y="20" height="64" width="329" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(cantidad for all)"border="0" color="0" x="2048" y="20" height="64" width="379" format="#,##0" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="2057" y1="4" x2="2432" y2="4"  name=l_4 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="347" y="436" height="60" width="178" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Producto" border="0" color="0" x="864" y="436" height="60" width="251" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cantidad" border="0" color="0" x="2139" y="436" height="60" width="274" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="311" y1="416" x2="2432" y2="416"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="311" y1="516" x2="2432" y2="516"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Desde:" border="0" color="0" x="302" y="316" height="64" width="197" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" fecha_ini "border="0" color="0" x="517" y="316" height="64" width="343" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Hasta:" border="0" color="0" x="878" y="316" height="64" width="192" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" fecha_fin "border="0" color="0" x="1088" y="316" height="64" width="343" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Ajustes de ingreso por preventa que faltan reversi$$HEX1$$f300$$ENDHEX$$n" border="0" color="33554432" x="297" y="240" height="64" width="1518" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
