@@ -1,0 +1,19 @@
+HA$PBExportHeader$d_sel_rep_diario_contable_fecha.srd
+$PBExportComments$Si. (PINTULAC) Dw para selecci$$HEX1$$f300$$ENDHEX$$n de reporte de diario contable por fecha
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=164 color="536870912" )
+table(column=(type=char(20) updatewhereclause=no name=tipo_comp dbname="tipo_comp" )
+ column=(type=date updatewhereclause=no name=fecha_ini dbname="fecha_ini" )
+ column=(type=date updatewhereclause=no name=fecha_fin dbname="fecha_fin" initial="today" validation="date(gettext()) >= fecha_ini" validationmsg="'La fecha final debe ser mayor o igual a la fecha inicial'" )
+ )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="238" y="48" height="56" width="905" format="[general]"  name=tipo_comp dddw.name=d_dddw_tipo_comp_contable dddw.displaycolumn=ti_descri dddw.datacolumn=ti_codigo dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="5" color="0" x="1413" y="48" height="56" width="347" format="dd/mm/yyyy"  name=fecha_ini editmask.mask="dd/mm/yyyy"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="5" color="0" x="1970" y="48" height="56" width="347" format="dd/mm/yyyy"  name=fecha_fin editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Tipo: " border="0" color="0" x="69" y="48" height="56" width="137"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Desde: " border="0" color="0" x="1198" y="48" height="56" width="187"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Hasta:" border="0" color="0" x="1787" y="48" height="56" width="151"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

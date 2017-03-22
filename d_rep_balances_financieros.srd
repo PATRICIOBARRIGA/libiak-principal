@@ -1,0 +1,101 @@
+HA$PBExportHeader$d_rep_balances_financieros.srd
+$PBExportComments$(*******)
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=604 color="536870912" )
+summary(height=68 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=co_placta_padre_cta_padre dbname="co_placta.padre_cta_padre" )
+ column=(type=char(50) updatewhereclause=yes name=co_placta_padre_cta_nombre dbname="co_placta.padre_cta_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=co_placta_hijo_cta_padre dbname="co_placta.hijo_cta_padre" )
+ column=(type=char(50) updatewhereclause=yes name=co_placta_hijo_nombre_cta dbname="co_placta.hijo_nombre_cta" )
+ column=(type=char(50) updatewhereclause=yes name=co_placta_abuelo dbname="co_placta.abuelo" )
+ column=(type=char(20) updatewhereclause=yes name=co_placta_ctaabuelo dbname="co_placta.ctaabuelo" )
+ column=(type=char(20) updatewhereclause=yes name=co_detcom_pl_codigo dbname="co_detcom.pl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=co_detcom_centro dbname="co_detcom.centro" )
+ column=(type=decimal(0) updatewhereclause=yes name=co_detcom_numero dbname="co_detcom.numero" )
+ column=(type=number updatewhereclause=yes name=debito dbname="debito" )
+ column=(type=number updatewhereclause=yes name=credito dbname="credito" )
+ retrieve="  SELECT P.~"PL_CODIGO~" PADRE_CTA_PADRE,
+           P.~"PL_NOMBRE~" PADRE_CTA_NOMBRE,
+          H.~"PL_PADRE~" HIJO_CTA_PADRE, 
+          H.~"PL_NOMBRE~" HIJO_NOMBRE_CTA,
+          A.~"PL_NOMBRE~" AS ABUELO,
+          A.~"PL_CODIGO~" CTAABUELO,
+          ~"CO_DETCOM~".~"PL_CODIGO~",   
+          ~"CO_DETCOM~".~"CS_CODIGO~" CENTRO, 
+         ~"CO_DETCOM~".~"CP_NUMERO~" NUMERO,
+         decode(~"CO_DETCOM~".~"DT_SIGNO~",'D',~"CO_DETCOM~".~"DT_VALOR~",null) debito,
+         decode(~"CO_DETCOM~".~"DT_SIGNO~",'C',~"CO_DETCOM~".~"DT_VALOR~",null) credito
+    FROM ~"CO_CABCOM~",   
+			~"CO_DETCOM~",   
+               ~"CO_PLACTA~"  H,
+               ~"CO_PLACTA~"  P,
+			 ~"CO_PLACTA~"  A	
+     WHERE  (~"CO_CABCOM~".~"EM_CODIGO~" = ~"CO_DETCOM~".~"EM_CODIGO~" ) and  
+		(~"CO_CABCOM~".~"SU_CODIGO~" = ~"CO_DETCOM~".~"SU_CODIGO~" ) and  
+		(~"CO_CABCOM~".~"TI_CODIGO~" = ~"CO_DETCOM~".~"TI_CODIGO~" ) and  
+		(~"CO_CABCOM~".~"CP_NUMERO~" = ~"CO_DETCOM~".~"CP_NUMERO~" ) and  
+		( ~"CO_DETCOM~".~"EM_CODIGO~" = H.~"EM_CODIGO~" ) and  
+          (~"CO_DETCOM~".~"PL_CODIGO~" = H.~"PL_CODIGO~") AND
+		( P.~"EM_CODIGO~" = H.~"EM_CODIGO~")  AND 
+         ( A.~"EM_CODIGO~" = P.~"EM_CODIGO~")  AND          
+         ( P.~"PL_CODIGO~" =  H.~"PL_PADRE~") AND
+         ( A.~"PL_CODIGO~" =  P.~"PL_PADRE~") AND
+         ( ( ~"CO_CABCOM~".~"EM_CODIGO~" = '1' ) AND  
+         ( NVL(~"CO_CABCOM~".~"CP_ANULADO~",'N') not in ('S','P'))AND
+         ( ~"CO_CABCOM~".~"CP_FECHA~" BETWEEN :fecha_ini and :fecha_fin + 0.99)) 
+
+" arguments=(("empresa", string),("fecha_ini", date),("fecha_fin", date))  sort="compute_2 A co_placta_ctaabuelo A co_placta_padre_cta_padre A co_detcom_numero A " )
+group(level=1 header.height=80 trailer.height=0 by=("left( co_detcom_pl_codigo ,1)" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=68 trailer.height=0 by=("co_placta_ctaabuelo" ) header.color="536870912" trailer.color="536870912" )
+group(level=3 header.height=64 trailer.height=0 by=("co_placta_padre_cta_padre" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="HASTA:" border="0" color="0" x="590" y="140" height="56" width="183" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="2" expression=" fecha_ini "border="0" color="0" x="201" y="140" height="56" width="375" format="DD/MM/YYYY" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="2" expression=" fecha_fin "border="0" color="0" x="777" y="140" height="56" width="375" format="DD/MM/YYYY" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="cc_sumactivos  +  cc_sumpasivos + cc_sumpatrimonio"border="0" color="0" x="603" y="532" height="60" width="457" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=x visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="sum(case(mid(co_detcom_pl_codigo,1,1) when '1' then saldocta when '4' then saldocta else 0) for all)"border="0" color="0" x="594" y="320" height="56" width="466" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=cc_sumactivos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="sum(case(mid(co_detcom_pl_codigo,1,1) when '2' then saldocta when '5' then saldocta else 0) for all)"border="0" color="0" x="599" y="388" height="56" width="466" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=cc_sumpasivos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="sum(case(mid(co_detcom_pl_codigo,1,1) when '3' then saldocta when '6' then saldocta else 0) for all)"border="0" color="0" x="594" y="460" height="56" width="466" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=cc_sumpatrimonio visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="23" y="4" height="56" width="1408" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="23" y="72" height="56" width="1490" html.valueishtml="0"  name=st_titulo visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="DESDE:" border="0" color="0" x="23" y="140" height="56" width="165" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="18" y="316" height="56" width="558" html.valueishtml="0"  name=st_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="18" y="388" height="56" width="558" html.valueishtml="0"  name=st_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="18" y="460" height="56" width="558" html.valueishtml="0"  name=st_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g ' + page() + ' de ' + pageCount()"border="0" color="0" x="2491" y="8" height="56" width="599" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Centro de costo:" border="0" color="0" x="1120" y="536" height="56" width="375" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="if( (compute_2 = '1' or  compute_2 = '2' or  compute_2 = '3') and x >0 ,'Utilidad del per$$HEX1$$ed00$$ENDHEX$$odo: ',if((compute_2 = '1' or  compute_2 = '2' or  compute_2 = '3') and x < 0,'P$$HEX1$$e900$$ENDHEX$$rdida del per$$HEX1$$ed00$$ENDHEX$$odo: ',if((compute_2 = '4' or  compute_2 = '5' or  compute_2 = '6') and x >0,'P$$HEX1$$e900$$ENDHEX$$rdida del per$$HEX1$$ed00$$ENDHEX$$odo: ','Utilidad del per$$HEX1$$ed00$$ENDHEX$$odo: ')))"border="0" color="0" x="2528" y="156" height="52" width="549" format="[GENERAL]" html.valueishtml="0"  name=compute_13 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Resultado del per$$HEX1$$ed00$$ENDHEX$$odo:" border="0" color="0" x="14" y="532" height="56" width="567" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=8 alignment="0" tabsequence=32766 border="0" color="0" x="1513" y="536" height="56" width="498" format="[general]" html.valueishtml="0"  name=co_detcom_centro_1 visible="1" dddw.name=d_dddw_cetro_costos dddw.displaycolumn=cs_descri dddw.datacolumn=cs_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="today()"border="0" color="0" x="2647" y="76" height="52" width="434" format="[general] - h:mm" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Impreso: " border="0" color="0" x="2382" y="76" height="56" width="242" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header.1 alignment="0" expression="left(  co_detcom_pl_codigo , 1 )"border="0" color="0" x="23" y="16" height="56" width="50" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="0" expression="case(  compute_2  when '1' then 'ACTIVOS' when '2' then 'PASIVOS' when'3' then 'PATRIMONIO'  when '4' then 'VENTAS' when '5' then 'COSTO VENTAS' when '6' then 'GASTOS')"border="0" color="0" x="91" y="16" height="56" width="421" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="1" expression=" sum(saldocta for group 1) "border="0" color="0" x="2587" y="12" height="56" width="411" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="1" expression="case(  compute_2  when '1' then compute_3/cc_sumactivos when '2' then compute_3/cc_sumpasivos when'3' then compute_3/cc_sumpatrimonio  when '4' then compute_3/cc_sumactivos when '5' then compute_3/cc_sumactivos when '6' then compute_3/cc_sumactivos)"border="0" color="0" x="3035" y="12" height="56" width="238" format="0.00%;(0.00%)" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.2 id=6 alignment="0" tabsequence=32766 border="0" color="16711680" x="64" y="8" height="56" width="183" format="[general]" html.valueishtml="0"  name=co_placta_ctaabuelo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.2 id=5 alignment="0" tabsequence=32766 border="0" color="16711680" x="261" y="8" height="56" width="1257" format="[general]" html.valueishtml="0"  name=co_placta_abuelo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.2 alignment="1" expression="sum(saldocta for group 2)"border="0" color="16711680" x="2587" y="4" height="56" width="411" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.2 alignment="1" expression="case(  compute_2  when '1' then compute_11/cc_sumactivos when '2' then compute_11/cc_sumpasivos when'3' then compute_11/cc_sumpatrimonio  when '4' then compute_11/cc_sumactivos when '5' then compute_11/cc_sumpasivos when '6' then compute_11/cc_sumpatrimonio)"border="0" color="16711680" x="3035" y="8" height="56" width="238" format="0.00%;(0.00%)" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.3 id=1 alignment="0" tabsequence=32766 border="0" color="8388736" x="251" y="4" height="56" width="306" format="[general]" html.valueishtml="0"  name=co_placta_padre_cta_padre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.3 id=2 alignment="0" tabsequence=32766 border="0" color="8388736" x="576" y="8" height="48" width="1285" format="[general]" html.valueishtml="0"  name=co_placta_padre_cta_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="1" expression=" sum(saldocta for group 3) "border="0" color="8388736" x="2583" y="4" height="56" width="411" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="1" expression="case(  compute_2  when '1' then compute_10/cc_sumactivos when '2' then compute_10/cc_sumpasivos when'3' then compute_10/cc_sumpatrimonio  when '4' then compute_10/cc_sumactivos when '5' then compute_10/cc_sumpasivos when '6' then compute_10/cc_sumpatrimonio)"border="0" color="8388736" x="3035" y="4" height="56" width="238" format="0.00%;(0.00%)" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="325" y="8" height="56" width="453" format="[general]" html.valueishtml="0"  name=co_detcom_pl_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="791" y="8" height="56" width="1253" format="[general]" html.valueishtml="0"  name=co_placta_hijo_nombre_cta visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="16711680" x="3031" y="8" height="56" width="242" format="[general]" html.valueishtml="0"  name=co_detcom_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="2057" y="8" height="56" width="498" format="[general]" html.valueishtml="0"  name=co_detcom_centro visible="1" dddw.name=d_dddw_cetro_costos dddw.displaycolumn=cs_descri dddw.datacolumn=cs_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if (isnull(debito),0,debito) - if (isnull(credito),0,credito) "border="0" color="0" x="2587" y="8" height="56" width="416" format="#,##0.00;[RED](#,##0.00)" html.valueishtml="0"  name=saldocta visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
