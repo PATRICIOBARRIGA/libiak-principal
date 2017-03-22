@@ -1,0 +1,105 @@
+HA$PBExportHeader$dw_cliente_ubica.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=68 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=ce_codigo dbname="fa_clien.ce_codigo" )
+ column=(type=char(13) update=yes updatewhereclause=yes name=ce_rucic dbname="fa_clien.ce_rucic" )
+ column=(type=decimal(2) updatewhereclause=yes name=ce_salcre dbname="fa_clien.ce_salcre" )
+ column=(type=char(1) updatewhereclause=yes name=ce_facturar dbname="fa_clien.ce_facturar" )
+ column=(type=char(20) updatewhereclause=yes name=tc_codigo dbname="fa_clien.tc_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_razons dbname="fa_clien.ce_razons" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_nomrep dbname="fa_clien.ce_nomrep" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_aperep dbname="fa_clien.ce_aperep" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_nombre dbname="fa_clien.ce_nombre" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_apelli dbname="fa_clien.ce_apelli" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_secent dbname="fa_clien.ce_secent" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_caent1 dbname="fa_clien.ce_caent1" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_caent2 dbname="fa_clien.ce_caent2" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_refbod dbname="fa_clien.ce_refbod" )
+ column=(type=char(9) updatewhereclause=yes name=fa_clien_ce_telbod dbname="fa_clien.ce_telbod" )
+ column=(type=char(9) updatewhereclause=yes name=fa_clien_ce_telofi dbname="fa_clien.ce_telofi" )
+ column=(type=char(9) updatewhereclause=yes name=fa_clien_ce_teldom dbname="fa_clien.ce_teldom" )
+ column=(type=char(1) updatewhereclause=yes name=fa_clien_ce_estcre dbname="fa_clien.ce_estcre" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_clien_ce_cupcre dbname="fa_clien.ce_cupcre" )
+ column=(type=datetime updatewhereclause=yes name=fa_clien_ce_fecha dbname="fa_clien.ce_fecha" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_email dbname="fa_clien.ce_email" )
+ column=(type=char(20) updatewhereclause=yes name=no_emple_ep_codigo dbname="no_emple.ep_codigo" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apepat dbname="no_emple.ep_apepat" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_saludo dbname="no_emple.ep_saludo" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_hobby dbname="fa_clien.ce_hobby" )
+ column=(type=number updatewhereclause=yes name=fa_clien_ce_plazo dbname="fa_clien.ce_plazo" )
+ retrieve="  SELECT ~"FA_CLIEN~".~"CE_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_RUCIC~",   
+         ~"FA_CLIEN~".~"CE_SALCRE~",   
+         ~"FA_CLIEN~".~"CE_FACTURAR~",   
+         ~"FA_CLIEN~".~"TC_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_RAZONS~",
+		~"FA_CLIEN~".~"CE_NOMREP~",
+		~"FA_CLIEN~".~"CE_APEREP~",
+		~"FA_CLIEN~".~"CE_NOMBRE~",
+		~"FA_CLIEN~".~"CE_APELLI~",
+		~"FA_CLIEN~".~"CE_SECENT~",
+		~"FA_CLIEN~".~"CE_CAENT1~",
+		~"FA_CLIEN~".~"CE_CAENT2~",
+		~"FA_CLIEN~".~"CE_REFBOD~",
+		~"FA_CLIEN~".~"CE_TELBOD~",
+		~"FA_CLIEN~".~"CE_TELOFI~",
+		~"FA_CLIEN~".~"CE_TELDOM~",   
+         ~"FA_CLIEN~".~"CE_ESTCRE~",   
+         ~"FA_CLIEN~".~"CE_CUPCRE~",   
+         ~"FA_CLIEN~".~"CE_FECHA~",   
+         ~"FA_CLIEN~".~"CE_EMAIL~",   
+         ~"NO_EMPLE~".~"EP_CODIGO~",
+		~"NO_EMPLE~".~"EP_APEPAT~",
+		~"NO_EMPLE~".~"EP_SALUDO~",   
+         ~"FA_CLIEN~".~"CE_HOBBY~",   
+         ~"FA_CLIEN~".~"CE_PLAZO~"  
+    FROM ~"FA_CLIEN~",   
+         ~"NO_EMPLE~"  
+   WHERE ( ~"FA_CLIEN~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"EM_CODIGO~" = 1 )" )
+line(band=header x1="14" y1="68" x2="9225" y2="68"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fac." border="0" color="0" x="41" y="0" height="56" width="96" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Tipo" border="0" color="0" x="187" y="0" height="56" width="110" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Codigo" border="0" color="0" x="439" y="0" height="56" width="178" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="RUC/CI" border="0" color="0" x="654" y="0" height="56" width="165" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Credito" border="0" color="0" x="6002" y="0" height="56" width="187" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Fec. Ingreso" border="0" color="0" x="6770" y="0" height="56" width="311" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Ejecutivo / Asesor" border="0" color="0" x="7163" y="0" height="56" width="453" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Saldo" border="0" color="0" x="6601" y="0" height="56" width="151" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Cupo" border="0" color="0" x="6391" y="0" height="56" width="133" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Plazo" border="0" color="0" x="6203" y="0" height="56" width="133" html.valueishtml="0"  name=t_15 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="e-mail" border="0" color="0" x="7721" y="0" height="56" width="165" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Observaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="8498" y="4" height="56" width="347" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Razons Social / Rep. Legal / Cliente / Direccion / Telefonos" border="0" color="0" x="1074" y="0" height="56" width="1435" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="0" text="" border="0~tIf(CurrentRow() = GetRow(),5,0)" color="0" x="18" y="0" height="68" width="9225" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="81324524~tif(CurrentRow() = GetRow(), rgb(255,255,255),if( ce_facturar = 'N', rgb(220,220,220), rgb(237,232,213)))" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0~tif(  ce_facturar = 'N',rgb(192,0,0),0)" x="55" y="4" height="52" width="50" format="[general]" html.valueishtml="0"  name=ce_facturar visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400~tif(  ce_facturar = 'N',1, 0)"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="133" y="4" height="56" width="165" format="[general]" html.valueishtml="0"  name=tc_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="334" y="4" height="56" width="283" format="[general]" html.valueishtml="0"  name=ce_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="if(isnull(fa_clien_ce_razons),'', fa_clien_ce_razons ) +' / '+ if(isnull(fa_clien_ce_nomrep),'', fa_clien_ce_nomrep ) +' '+ if(isnull(fa_clien_ce_aperep),'', fa_clien_ce_aperep )  + ' '+ if(isnull(fa_clien_ce_nombre),'', fa_clien_ce_nombre ) +' '+ if(isnull(fa_clien_ce_apelli),'', fa_clien_ce_apelli ) +' Direcci$$HEX1$$f300$$ENDHEX$$n:'+ if(isnull(fa_clien_ce_secent),'', fa_clien_ce_secent ) +', '+ if(isnull(fa_clien_ce_caent1),'', fa_clien_ce_caent1 ) +' '+ if(isnull(fa_clien_ce_caent2),'', fa_clien_ce_caent2 ) +' '+ if(isnull(fa_clien_ce_refbod),'', fa_clien_ce_refbod ) +' Telfs: Bod:'+ if(isnull(fa_clien_ce_telbod),'', fa_clien_ce_telbod ) +' Ofi:'+ if(isnull(fa_clien_ce_telofi),'', fa_clien_ce_telofi ) +' Dom:'+ if(isnull(fa_clien_ce_teldom),'', fa_clien_ce_teldom )"border="0" color="0" x="1074" y="4" height="56" width="5010" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="currentRow()"border="0" color="0" x="9266" y="4" height="56" width="69" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="6537" y="4" height="56" width="238" format="#,##0.00" html.valueishtml="0"  name=ce_salcre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="if(isnull(no_emple_ep_apepat),'', no_emple_ep_apepat ) +' '+ if(isnull(no_emple_ep_saludo),'', no_emple_ep_saludo )"border="0" color="0" x="7067" y="4" height="56" width="640" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="8388608" x="7726" y="4" height="56" width="759" format="[general]" html.valueishtml="0"  name=fa_clien_ce_email visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="0" x="8503" y="4" height="56" width="727" format="[general]" html.valueishtml="0"  name=fa_clien_ce_hobby visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=20 alignment="2" tabsequence=32766 border="0" color="0" x="6789" y="4" height="56" width="265" format="dd/mm/yyyy" html.valueishtml="0"  name=fa_clien_ce_fecha visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=19 alignment="1" tabsequence=32766 border="0" color="0" x="6304" y="4" height="56" width="219" format="#,##0" html.valueishtml="0"  name=fa_clien_ce_cupcre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=26 alignment="0" tabsequence=32766 border="0" color="0" x="6194" y="4" height="56" width="96" format="#,##0" html.valueishtml="0"  name=fa_clien_ce_plazo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=18 alignment="2" tabsequence=32766 border="0" color="0" x="6107" y="4" height="56" width="64" format="[general]" html.valueishtml="0"  name=fa_clien_ce_estcre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="635" y="4" height="56" width="421" format="[general]" html.valueishtml="0"  name=ce_rucic visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=footer alignment="0" expression=" getrow() + ' de '+ count(  ce_codigo  for all ) "border="0" color="0" x="105" y="4" height="56" width="329" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=foreground alignment="0" text="No existen clientes" border="0" color="8388608" x="1010" y="168" height="56" width="480" html.valueishtml="0"  name=t_1 visible="1~tif(count(  ce_codigo for all )<1,1,0)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.escapement="0~t450"  background.mode="1" background.color="553648127" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,11 @@
+HA$PBExportHeader$pl_fabricante.srp
+PIPELINE(source_connect=motoruno,destination_connect=local,type=update,commit=100,errors=100,keyname="in_fabricante")
+SOURCE(name="IN_FABRICANTE",COLUMN(type=varchar,name="FB_CODIGO",dbtype="VARCHAR2(20)",key=yes,nulls_allowed=no)
+ COLUMN(type=varchar,name="EM_CODIGO",dbtype="VARCHAR2(20)",nulls_allowed=no)
+ COLUMN(type=varchar,name="FB_NOMBRE",dbtype="VARCHAR2(50)",nulls_allowed=no)
+ COLUMN(type=varchar,name="ESTADO",dbtype="VARCHAR2(1)",nulls_allowed=yes))
+RETRIEVE(statement="PBSELECT( VERSION(400) TABLE(NAME=~"in_fabricante~" ) COLUMN(NAME=~"in_fabricante.fb_codigo~") COLUMN(NAME=~"in_fabricante.em_codigo~") COLUMN(NAME=~"in_fabricante.fb_nombre~") COLUMN(NAME=~"in_fabricante.estado~")) ")
+DESTINATION(name="in_fabricante",COLUMN(type=varchar,name="fb_codigo",dbtype="VARCHAR2(20)",key=yes,nulls_allowed=no,initial_value="spaces")
+ COLUMN(type=varchar,name="em_codigo",dbtype="VARCHAR2(20)",nulls_allowed=no,initial_value="spaces")
+ COLUMN(type=varchar,name="fb_nombre",dbtype="VARCHAR2(50)",nulls_allowed=no,initial_value="spaces")
+ COLUMN(type=varchar,name="estado",dbtype="VARCHAR2(1)",nulls_allowed=yes))

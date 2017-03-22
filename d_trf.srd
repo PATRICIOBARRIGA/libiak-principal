@@ -1,0 +1,65 @@
+HA$PBExportHeader$d_trf.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=120 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_transfer_su_envio dbname="in_transfer.su_envio" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_bo_envio dbname="in_transfer.bo_envio" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_su_destino dbname="in_transfer.su_destino" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_bo_destino dbname="in_transfer.bo_destino" )
+ column=(type=datetime updatewhereclause=yes name=in_transfer_fecha dbname="in_transfer.fecha" )
+ column=(type=char(20) updatewhereclause=yes name=in_dettrans_ticket dbname="in_dettrans.ticket" )
+ column=(type=char(20) updatewhereclause=yes name=in_dettrans_item dbname="in_dettrans.item" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_dettrans_cantidad dbname="in_dettrans.cantidad" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_dettrans_stock dbname="in_dettrans.stock" )
+ retrieve="SELECT X.SU_CODENV SU_ENVIO,
+X.BO_CODENV BO_ENVIO,
+X.SU_CODIGO SU_DESTINO,
+X.BO_CODIGO BO_DESTINO,
+X.TF_FECHA  FECHA,
+Y.TF_TICKET TICKET,
+Y.IT_CODIGO ITEM,
+Y.DF_CANTID CANTIDAD,
+Y.DF_STOCK STOCK
+FROM IN_TRANSFER X, IN_DETTRANS Y
+WHERE X.SU_CODENV = Y.BO_CODENV
+AND X.BO_CODENV = Y.BO_CODENV
+AND X.SU_CODIGO = Y.SU_CODIGO
+AND X.BO_CODIGO = Y.BO_CODIGO
+AND X.TF_TICKET = Y.TF_TICKET
+AND Y.DF_CANTID > 0
+AND X.TF_FECHA BETWEEN '20-APR-06' AND '16-JUN-06'" )
+text(band=header alignment="2" text="In Transfer
+Su Envio" border="0" color="33554432" x="5" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_su_envio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Bo Envio" border="0" color="33554432" x="489" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_bo_envio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Su Destino" border="0" color="33554432" x="974" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_su_destino_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Bo Destino" border="0" color="33554432" x="1458" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_bo_destino_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Fecha" border="0" color="33554432" x="1943" y="4" height="112" width="507" html.valueishtml="0"  name=in_transfer_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Dettrans
+Ticket" border="0" color="33554432" x="2455" y="4" height="112" width="480" html.valueishtml="0"  name=in_dettrans_ticket_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Dettrans
+Item" border="0" color="33554432" x="2939" y="4" height="112" width="480" html.valueishtml="0"  name=in_dettrans_item_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Dettrans
+Cantidad" border="0" color="33554432" x="3424" y="4" height="112" width="274" html.valueishtml="0"  name=in_dettrans_cantidad_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Dettrans
+Stock" border="0" color="33554432" x="3703" y="4" height="112" width="274" html.valueishtml="0"  name=in_dettrans_stock_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_su_envio visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="489" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_bo_envio visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="974" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_su_destino visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1458" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_bo_destino visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1943" y="4" height="68" width="507" format="[shortdate] [time]" html.valueishtml="0"  name=in_transfer_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="2455" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_dettrans_ticket visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="2939" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_dettrans_item visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="3424" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_dettrans_cantidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="3703" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_dettrans_stock visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

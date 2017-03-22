@@ -1,0 +1,41 @@
+HA$PBExportHeader$libiak1.srj
+$PBExportComments$Generated Application Executable Project
+EXE:libiak.exe,,0,0,1
+CMP:0,0,0,2,0,0
+COM:Sybase, Inc.
+DES:Sybase, Inc. Product File
+CPY:
+PRD:PowerBuilder Enterprise Series
+PVN:1,0,0,1
+PVS:1.0.0.1
+FVN:1,0,0,1
+FVS:1.0.0.1
+PBD:powerfilter.pbd,,1
+PBD:formatos.pbl,,1
+PBD:drops.pbl,,1
+PBD:inventario.pbl,,1
+PBD:inventario_r.pbl,,1
+PBD:inventa_dw.pbl,,1
+PBD:inventa_dwr.pbl,,1
+PBD:venta.pbl,,1
+PBD:venta_r.pbl,,1
+PBD:venta_dw2.pbl,,1
+PBD:venta_dw.pbl,,1
+PBD:contabilidad.pbl,,1
+PBD:contabilidad_r.pbl,,1
+PBD:cjaban.pbl,,1
+PBD:cjaban_r.pbl,,1
+PBD:cxc.pbl,,1
+PBD:cxc_r.pbl,,1
+PBD:cxp.pbl,,1
+PBD:cxp_r.pbl,,1
+PBD:nomina.pbl,,1
+PBD:nomina_r.pbl,,1
+PBD:unomotors.pbl,,1
+PBD:produccion.pbl,,1
+PBD:powerfilterdemo.pbd,,1
+PBD:funcystr.pbl,,1
+PBD:empresa.pbl,,1
+PBD:obj_basic.pbl,,1
+
+ 
