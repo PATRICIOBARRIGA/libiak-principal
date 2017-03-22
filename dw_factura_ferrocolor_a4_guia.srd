@@ -1,0 +1,169 @@
+HA$PBExportHeader$dw_factura_ferrocolor_a4_guia.srd
+release 11.5;
+datawindow(units=0 timer_interval=0 color=16777215 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="Factura FXM" print.documentname="Factura" print.orientation = 0 print.margin.left = 110 print.margin.right = 50 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 1 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=68 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(20) updatewhereclause=yes name=fa_venta_es_codigo dbname="fa_venta.es_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_em_codigo dbname="fa_venta.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_su_codigo dbname="fa_venta.su_codigo" )
+ column=(type=number updatewhereclause=yes name=fa_venta_ve_numero dbname="fa_venta.ve_numero" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_cj_caja dbname="fa_venta.cj_caja" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ce_codigo dbname="fa_venta.ce_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ep_codigo dbname="fa_venta.ep_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ve_numpre dbname="fa_venta.ve_numpre" )
+ column=(type=datetime updatewhereclause=yes name=fa_venta_ve_fecha dbname="fa_venta.ve_fecha" )
+ column=(type=datetime updatewhereclause=yes name=fa_venta_ve_hora dbname="fa_venta.ve_hora" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_subtot dbname="fa_venta.ve_subtot" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_descue dbname="fa_venta.ve_descue" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_neto dbname="fa_venta.ve_neto" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_iva dbname="fa_venta.ve_iva" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_cargo dbname="fa_venta.ve_cargo" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_valpag dbname="fa_venta.ve_valpag" )
+ column=(type=char(100) updatewhereclause=yes name=fa_venta_ve_observ dbname="fa_venta.ve_observ" )
+ column=(type=char(300) updatewhereclause=yes name=fa_venta_ve_leyenda dbname="fa_venta.ve_leyenda" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_bo_codigo dbname="fa_venta.bo_codigo" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_efectivo dbname="fa_venta.ve_efectivo" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_valotros dbname="fa_venta.ve_valotros" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_cambio dbname="fa_venta.ve_cambio" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ve_preant dbname="fa_venta.ve_preant" )
+ column=(type=char(300) updatewhereclause=yes name=fa_venta_ve_valletras dbname="fa_venta.ve_valletras" )
+ column=(type=char(1) updatewhereclause=yes name=ve_motivo dbname="fa_venta.ve_motivo" )
+ column=(type=char(1) updatewhereclause=yes name=fa_clien_ce_tipo dbname="fa_clien.ce_tipo" )
+ column=(type=char(9) updatewhereclause=yes name=fa_clien_ce_telbod dbname="fa_clien.ce_telbod" )
+ column=(type=char(32) updatewhereclause=yes name=c_empleado dbname="c_empleado" )
+ column=(type=number updatewhereclause=yes name=fa_detve_dv_secue dbname="fa_detve.dv_secue" )
+ column=(type=decimal(3) updatewhereclause=yes name=fa_detve_dv_candes dbname="fa_detve.dv_candes" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_detve_dv_precio dbname="fa_detve.dv_precio" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_detve_dv_desc1 dbname="fa_detve.dv_desc1" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_detve_dv_desc2 dbname="fa_detve.dv_desc2" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_detve_dv_desc3 dbname="fa_detve.dv_desc3" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_detve_dv_total dbname="fa_detve.dv_total" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=char(51) updatewhereclause=yes name=c_repleg dbname="c_repleg" )
+ column=(type=char(50) updatewhereclause=yes name=pr_empre_em_nombre dbname="pr_empre.em_nombre" )
+ column=(type=char(30) updatewhereclause=yes name=pr_sucur_su_juzgado dbname="pr_sucur.su_juzgado" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_horbod dbname="fa_clien.ce_horbod" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_refbod dbname="fa_clien.ce_refbod" )
+ column=(type=char(20) updatewhereclause=yes name=fa_clien_tc_codigo dbname="fa_clien.tc_codigo" )
+ column=(type=char(13) updatewhereclause=yes name=fa_clien_ce_rucic dbname="fa_clien.ce_rucic" )
+ column=(type=char(80) updatewhereclause=yes name=pr_sucur_su_ciudad dbname="pr_sucur.su_ciudad" )
+ column=(type=char(13) updatewhereclause=yes name=pr_sucur_su_ruc dbname="pr_sucur.su_ruc" )
+ column=(type=char(103) updatewhereclause=yes name=c_dir_sucur dbname="c_dir_sucur" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_cl_codigo dbname="in_item.cl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_clien_ce_actividad dbname="fa_clien.ce_actividad" )
+ column=(type=char(13) updatewhereclause=yes name=pr_empre_em_ruc dbname="pr_empre.em_ruc" )
+ column=(type=char(163) updatewhereclause=yes name=c_direccion dbname="c_direccion" )
+ column=(type=char(163) updatewhereclause=yes name=c_entregar dbname="c_entregar" )
+ column=(type=char(42) updatewhereclause=yes name=cliente dbname="cliente" )
+ column=(type=char(94) updatewhereclause=yes name=clientec dbname="clientec" )
+ column=(type=char(30) updatewhereclause=yes name=fa_detve_dv_motor dbname="fa_detve.dv_motor" )
+ column=(type=char(35) updatewhereclause=yes name=fa_detve_dv_chasis dbname="fa_detve.dv_chasis" )
+ column=(type=char(1) updatewhereclause=yes name=in_item_it_kit dbname="in_item.it_kit" )
+ column=(type=decimal(6) updatewhereclause=yes name=in_item_it_tiemsec dbname="in_item.it_tiemsec" )
+ retrieve="  SELECT ~"FA_VENTA~".~"ES_CODIGO~",   
+         ~"FA_VENTA~".~"EM_CODIGO~",   
+         ~"FA_VENTA~".~"SU_CODIGO~",   
+         ~"FA_VENTA~".~"VE_NUMERO~",   
+         ~"FA_VENTA~".~"CJ_CAJA~",   
+         ~"FA_VENTA~".~"CE_CODIGO~",   
+         ~"FA_VENTA~".~"EP_CODIGO~",   
+         ~"FA_VENTA~".~"VE_NUMPRE~",   
+         ~"FA_VENTA~".~"VE_FECHA~",   
+         ~"FA_VENTA~".~"VE_HORA~",   
+         ~"FA_VENTA~".~"VE_SUBTOT~",   
+         ~"FA_VENTA~".~"VE_DESCUE~",   
+         ~"FA_VENTA~".~"VE_NETO~",   
+         ~"FA_VENTA~".~"VE_IVA~",   
+         ~"FA_VENTA~".~"VE_CARGO~",   
+         ~"FA_VENTA~".~"VE_VALPAG~",   
+         ~"FA_VENTA~".~"VE_OBSERV~",   
+         ~"FA_VENTA~".~"VE_LEYENDA~",   
+         ~"FA_VENTA~".~"BO_CODIGO~",   
+         ~"FA_VENTA~".~"VE_EFECTIVO~",   
+         ~"FA_VENTA~".~"VE_VALOTROS~",   
+         ~"FA_VENTA~".~"VE_CAMBIO~",   
+         ~"FA_VENTA~".~"VE_PREANT~",   
+         ~"FA_VENTA~".~"VE_VALLETRAS~",   
+         ~"FA_VENTA~".~"VE_MOTIVO~",   
+         ~"FA_CLIEN~".~"CE_TIPO~",   
+         ~"FA_CLIEN~".~"CE_TELBOD~",   
+         'Asesor:'||~"NO_EMPLE~".~"EP_SALUDO~" ~"c_empleado~",   
+         ~"FA_DETVE~".~"DV_SECUE~",   
+         ~"FA_DETVE~".~"DV_CANDES~",   
+         ~"FA_DETVE~".~"DV_PRECIO~",   
+         ~"FA_DETVE~".~"DV_DESC1~",   
+         ~"FA_DETVE~".~"DV_DESC2~",   
+         ~"FA_DETVE~".~"DV_DESC3~",   
+         ~"FA_DETVE~".~"DV_TOTAL~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"FA_CLIEN~".~"CE_NOMREP~"||' '||~"FA_CLIEN~".~"CE_APEREP~" ~"c_repleg~",   
+         ~"PR_EMPRE~".~"EM_NOMBRE~",   
+         ~"PR_SUCUR~".~"SU_JUZGADO~",   
+         ~"FA_CLIEN~".~"CE_HORBOD~",   
+         ~"FA_CLIEN~".~"CE_REFBOD~",   
+         ~"FA_CLIEN~".~"TC_CODIGO~",   
+		~"FA_CLIEN~".~"CE_RUCIC~",
+         ~"PR_SUCUR~".~"SU_CIUDAD~",   
+         ~"PR_SUCUR~".~"SU_RUC~",   
+         ~"PR_SUCUR~".~"SU_CALLE1~"||' y '||~"PR_SUCUR~".~"SU_CALLE2~" c_dir_sucur,   
+         ~"IN_ITEM~".~"CL_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_ACTIVIDAD~",   
+         ~"PR_EMPRE~".~"EM_RUC~",   
+         ~"FA_CLIEN~".~"CE_CAOFI1~"||' '||~"FA_CLIEN~".~"CE_CAOF2~"||'. ' ~"c_direccion~",   
+         ~"FA_CLIEN~".~"CE_CAENT1~"||' '||~"FA_CLIEN~".~"CE_CAENT2~"||'. ' ~"c_entregar~",   
+        ~"FA_CLIEN~".~"CE_CODIGO~"||' RUC/CI: '||~"FA_CLIEN~".~"CE_RUCIC~" ~"cliente~",
+		decode(~"FA_CLIEN~".~"CE_TIPO~", 'J','Raz$$HEX1$$f300$$ENDHEX$$n Social: '||~"FA_CLIEN~".~"CE_RAZONS~",'R','Local: '||~"FA_CLIEN~".~"CE_RAZONS~",~"FA_CLIEN~".~"CE_RAZONS~") ~"clientec~",   
+         ~"FA_DETVE~".~"DV_MOTOR~",   
+         ~"FA_DETVE~".~"DV_CHASIS~",   
+         ~"IN_ITEM~".~"IT_KIT~",
+         ~"IN_ITEM~".~"IT_TIEMSEC~"  
+    FROM ~"FA_VENTA~",   
+         ~"FA_CLIEN~",   
+         ~"NO_EMPLE~",   
+         ~"FA_DETVE~",   
+         ~"IN_ITEM~",   
+         ~"PR_EMPRE~",   
+         ~"PR_SUCUR~"  
+   WHERE ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"FA_VENTA~".~"EP_CODIGO~" ) and  
+         ( ~"NO_EMPLE~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"EM_CODIGO~" = ~"FA_CLIEN~".~"EM_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"ES_CODIGO~" = ~"FA_VENTA~".~"ES_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"SU_CODIGO~" = ~"FA_VENTA~".~"SU_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"VE_NUMERO~" = ~"FA_VENTA~".~"VE_NUMERO~" ) and  
+         ( ~"FA_DETVE~".~"BO_CODIGO~" = ~"FA_VENTA~".~"BO_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"EM_CODIGO~" = ~"FA_DETVE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"IT_CODIGO~" = ~"FA_DETVE~".~"IT_CODIGO~" ) and  
+         ( ~"PR_EMPRE~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"FA_VENTA~".~"SU_CODIGO~" ) and  
+         ( ( ~"FA_VENTA~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"FA_VENTA~".~"ES_CODIGO~" = :estado ) AND  
+         ( ~"FA_VENTA~".~"VE_NUMERO~" = :numero ) AND  
+         ( ~"FA_DETVE~".~"DV_CANDES~" > 0 ) )    
+" arguments=(("empresa", string),("sucursal", string),("estado", string),("numero", number))  sort="fa_detve_dv_secue A in_item_cl_codigo A in_item_it_codant A " )
+group(level=1 header.height=0 trailer.height=0 by=("fa_venta_ve_numero" ) header.color="536870912" header.transparency="0" header.gradient.color="8421504" header.gradient.transparency="0" header.gradient.angle="0" header.brushmode="0" header.gradient.repetition.mode="0" header.gradient.repetition.count="0" header.gradient.repetition.length="100" header.gradient.focus="0" header.gradient.scale="100" header.gradient.spread="100" trailer.color="536870912" trailer.transparency="0" trailer.gradient.color="8421504" trailer.gradient.transparency="0" trailer.gradient.angle="0" trailer.brushmode="0" trailer.gradient.repetition.mode="0" trailer.gradient.repetition.count="0" trailer.gradient.repetition.length="100" trailer.gradient.focus="0" trailer.gradient.scale="100" trailer.gradient.spread="100" )
+compute(band=detail alignment="0" expression="'MOTOR: '+ fa_detve_dv_motor "border="0" color="0" x="242" y="96" height="60" width="677" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="0" expression="'CHASIS:'+ fa_detve_dv_chasis "border="0" color="0" x="933" y="96" height="60" width="1961" format="[GENERAL]" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="0" expression="if(in_item_it_tiemsec =1, fa_detve_dv_total ,0 )"border="0" color="0" x="3026" y="92" height="64" width="210" format="[GENERAL]" html.valueishtml="0"  name=cc_trf12 visible="0"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="0" expression="if( in_item_it_tiemsec = 0, fa_detve_dv_total,0)"border="0" color="0" x="3250" y="92" height="64" width="192" format="[GENERAL]" html.valueishtml="0"  name=cc_trf0 visible="0"  font.face="Draft 20cpi" font.height="-10" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=36 alignment="0" tabsequence=32766 border="0" color="0" x="18" y="4" height="56" width="187" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=30 alignment="2" tabsequence=32766 border="0" color="0" x="219" y="4" height="56" width="119" format="[general]" html.valueishtml="0"  name=fa_detve_dv_candes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=37 alignment="0" tabsequence=32766 border="0" color="0" x="352" y="4" height="56" width="942" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 20cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml( template=(comment="" name="borrar" xhtml="$$HEX1$$fffe$$ENDHEX$$<form name=~"dw_factura_pintulac_a4_dataForm~"><div class=~"dw_factura_pintulac_a4_band_0~"><div class=~"dw_factura_pintulac_a4_t_6~">t_6</div><div class=~"dw_factura_pintulac_a4_t_10~">t_10</div><div class=~"dw_factura_pintulac_a4_t_14~">t_14</div><input name=~"dw_factura_pintulac_a4_cliente~" type=~"text~" value=~"cliente~"/><div class=~"dw_factura_pintulac_a4_compute_2~">compute_2</div><div class=~"dw_factura_pintulac_a4_ve_fecha_t~">ve_fecha_t</div><div class=~"dw_factura_pintulac_a4_compute_3~">compute_3</div><input name=~"dw_factura_pintulac_a4_fa_venta_ve_fecha_3~" type=~"text~" value=~"fa_venta_ve_fecha_3~"/><input name=~"dw_factura_pintulac_a4_c_empleado~" type=~"text~" value=~"c_empleado~"/><div class=~"dw_factura_pintulac_a4_compute_10~">compute_10</div><input name=~"dw_factura_pintulac_a4_fa_clien_tc_codigo~" type=~"text~" value=~"fa_clien_tc_codigo~"/><input name=~"dw_factura_pintulac_a4_ve_motivo~" type=~"text~" value=~"ve_motivo~"/><div class=~"dw_factura_pintulac_a4_t_1~">t_1</div><input name=~"dw_factura_pintulac_a4_fa_venta_ve_numero~" type=~"text~" value=~"fa_venta_ve_numero~"/><div class=~"dw_factura_pintulac_a4_t_3~">t_3</div><input name=~"dw_factura_pintulac_a4_fa_venta_ve_observ~" type=~"text~" value=~"fa_venta_ve_observ~"/><div class=~"dw_factura_pintulac_a4_compute_7~">compute_7</div><div class=~"dw_factura_pintulac_a4_t_4~">t_4</div><input name=~"dw_factura_pintulac_a4_clientec~" type=~"text~" value=~"clientec~"/><div class=~"dw_factura_pintulac_a4_t_12~">t_12</div><div class=~"dw_factura_pintulac_a4_t_9~">t_9</div><div class=~"dw_factura_pintulac_a4_t_5~">t_5</div></div><div class=~"dw_factura_pintulac_a4_detail_0~" __pbband=~"detail~"><input name=~"dw_factura_pintulac_a4_fa_detve_dv_secue~" type=~"text~" value=~"fa_detve_dv_secue~"/><input name=~"dw_factura_pintulac_a4_in_item_it_codant~" type=~"text~" value=~"in_item_it_codant~"/><input name=~"dw_factura_pintulac_a4_fa_detve_dv_candes~" type=~"text~" value=~"fa_detve_dv_candes~"/><input name=~"dw_factura_pintulac_a4_in_item_it_nombre~" type=~"text~" value=~"in_item_it_nombre~"/><div class=~"dw_factura_pintulac_a4_compute_11~">compute_11</div><input name=~"dw_factura_pintulac_a4_fa_detve_dv_precio~" type=~"text~" value=~"fa_detve_dv_precio~"/><input name=~"dw_factura_pintulac_a4_fa_detve_dv_total~" type=~"text~" value=~"fa_detve_dv_total~"/><input name=~"dw_factura_pintulac_a4_fa_detve_dv_desc1~" type=~"text~" value=~"fa_detve_dv_desc1~"/><input name=~"dw_factura_pintulac_a4_fa_detve_dv_desc2~" type=~"text~" value=~"fa_detve_dv_desc2~"/><input name=~"dw_factura_pintulac_a4_fa_detve_dv_desc3~" type=~"text~" value=~"fa_detve_dv_desc3~"/></div><div class=~"dw_factura_pintulac_a4_band_1~"><input name=~"dw_factura_pintulac_a4_fa_venta_ve_subtot~" type=~"text~" value=~"fa_venta_ve_subtot~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_descue~" type=~"text~" value=~"fa_venta_ve_descue~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_neto~" type=~"text~" value=~"fa_venta_ve_neto~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_iva~" type=~"text~" value=~"fa_venta_ve_iva~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_cargo~" type=~"text~" value=~"fa_venta_ve_cargo~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_valpag~" type=~"text~" value=~"fa_venta_ve_valpag~"/><div class=~"dw_factura_pintulac_a4_t_20~">t_20</div><input name=~"dw_factura_pintulac_a4_fa_venta_ve_valletras~" type=~"text~" value=~"fa_venta_ve_valletras~"/><textarea name=~"dw_factura_pintulac_a4_fa_venta_ve_leyenda~">fa_venta_ve_leyenda</textarea><div class=~"dw_factura_pintulac_a4_compute_5~">compute_5</div><input name=~"dw_factura_pintulac_a4_cliente_1~" type=~"text~" value=~"cliente_1~"/><input name=~"dw_factura_pintulac_a4_c_dir_sucur~" type=~"text~" value=~"c_dir_sucur~"/><div class=~"dw_factura_pintulac_a4_compute_9~">compute_9</div><input name=~"dw_factura_pintulac_a4_pr_empre_em_nombre~" type=~"text~" value=~"pr_empre_em_nombre~"/><input name=~"dw_factura_pintulac_a4_pr_empre_em_ruc~" type=~"text~" value=~"pr_empre_em_ruc~"/><input name=~"dw_factura_pintulac_a4_fa_clien_ce_rucic~" type=~"text~" value=~"fa_clien_ce_rucic~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_numpre~" type=~"text~" value=~"fa_venta_ve_numpre~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_fecha_1~" type=~"text~" value=~"fa_venta_ve_fecha_1~"/><input name=~"dw_factura_pintulac_a4_fa_venta_ve_fecha_2~" type=~"text~" value=~"fa_venta_ve_fecha_2~"/><div class=~"dw_factura_pintulac_a4_t_2~">t_2</div><input name=~"dw_factura_pintulac_a4_fa_venta_ve_fecha~" type=~"text~" value=~"fa_venta_ve_fecha~"/></div></form>"))
+ 
