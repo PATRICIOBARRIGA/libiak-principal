@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_dddw_todas_cuentas_bancarias.srd
+$PBExportComments$Listado de todas las cuentas bancarias para filtrar por banco.
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cn_numero dbname="cb_ctains.cn_numero" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=cn_codigo dbname="cb_ctains.cn_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=if_codigo dbname="cb_ctains.if_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="cb_ctains.su_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cb_ctains~" ) COLUMN(NAME=~"cb_ctains.cn_numero~") COLUMN(NAME=~"cb_ctains.cn_codigo~") COLUMN(NAME=~"cb_ctains.if_codigo~") COLUMN(NAME=~"cb_ctains.su_codigo~")WHERE(    EXP1 =~"~~~"CB_CTAINS~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="CB_CTAINS" updatewhere=0 updatekeyinplace=no arguments=(("empresa", string))  sort="if_codigo A cn_numero A " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="19" y="4" height="61" width="577" format="[general]"  name=cn_numero edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="663" y="4" height="61" width="46" format="[general]"  name=su_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="609" y="4" height="61" width="37" format="[general]"  name=if_codigo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

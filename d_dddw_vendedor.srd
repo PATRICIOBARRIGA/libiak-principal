@@ -1,0 +1,14 @@
+HA$PBExportHeader$d_dddw_vendedor.srd
+$PBExportComments$Lista de vendedores
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(60) updatewhereclause=yes name=compute_0001 dbname="compute_0001" )
+ retrieve="  SELECT DISTINCT UPPER( ~"TS_INGRESO~".~"TE_NOMBRE~") 
+    FROM ~"TS_INGRESO~"   
+"  sort="compute_0001 A " )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="0" x="9" y="4" height="60" width="795"  name=compute_0001  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

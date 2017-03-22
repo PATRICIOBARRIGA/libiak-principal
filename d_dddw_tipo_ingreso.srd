@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_dddw_tipo_ingreso.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes key=yes name=tn_codigo dbname="cb_tipo.tn_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=tn_descri dbname="cb_tipo.tn_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cb_tipo~" ) COLUMN(NAME=~"cb_tipo.tn_codigo~") COLUMN(NAME=~"cb_tipo.tn_descri~")WHERE(    EXP1 =~"~~~"CB_TIPO~~~".~~~"TN_IOE~~~"~"   OP =~"=~"    EXP2 =~"'I'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CB_TIPO~~~".~~~"TN_ACTIVA~~~"~"   OP =~"=~"    EXP2 =~"'S'~" ) ) " update="CB_TIPO" updatewhere=1 updatekeyinplace=yes  sort="tn_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="57" width="1125" format="[general]"  name=tn_descri edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

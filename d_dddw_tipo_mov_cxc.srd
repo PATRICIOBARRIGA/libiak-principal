@@ -1,0 +1,23 @@
+HA$PBExportHeader$d_dddw_tipo_mov_cxc.srd
+$PBExportComments$Lista de movimientos de cxc
+release 10;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes key=yes name=tt_codigo dbname="cc_tipo.tt_codigo" )
+ column=(type=char(40) updatewhereclause=yes name=tt_descri dbname="cc_tipo.tt_descri" )
+ column=(type=char(1) updatewhereclause=yes key=yes name=tt_ioe dbname="cc_tipo.tt_ioe" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cc_tipo~" ) COLUMN(NAME=~"cc_tipo.tt_codigo~") COLUMN(NAME=~"cc_tipo.tt_descri~") COLUMN(NAME=~"cc_tipo.tt_ioe~")WHERE(    EXP1 =~"~~~"CC_TIPO~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="CC_TIPO" updatewhere=0 updatekeyinplace=no arguments=(("empresa", string))  sort="tt_ioe A tt_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0~tif(tt_ioe = 'D',rgb(255,0,0),rgb(0,0,0))" x="27" y="4" height="60" width="965" format="[general]" html.valueishtml="0"  name=tt_descri visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
