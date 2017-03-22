@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_sel_fecha_pendientes.srd
+$PBExportComments$Selcciona tipo y fecha del reporte
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=180 color="536870912" )
+table(column=(type=char(1) updatewhereclause=no name=opcion dbname="opcion" initial="F" values="Hoy	T/Por Cobrar	F/" )
+ column=(type=date updatewhereclause=no name=fecha dbname="fecha" initial="today" )
+ column=(type=char(20) updatewhereclause=no name=tipo dbname="tipo" initial="1" )
+ column=(type=char(10) updatewhereclause=no name=estado dbname="estado" values="Hoy	H/En  d$$HEX1$$ed00$$ENDHEX$$as anteriores	A/" )
+ )
+text(band=detail alignment="0" text="Forma de Pago:" border="0" color="0" x="41" y="60" height="56" width="347"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="5" color="0" x="421" y="60" height="56" width="786" format="[general]"  name=tipo dddw.name=d_dddw_forma_pago dddw.displaycolumn=fp_descri dddw.datacolumn=fp_codigo dddw.percentwidth=150 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
