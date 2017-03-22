@@ -1,0 +1,84 @@
+HA$PBExportHeader$dw_rep_facturas_vendxclienxfacxfp.srd
+$PBExportComments$despliega las cantidades totales compradas por mes de todas las facturas.
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=444 color="536870912" )
+header[2](height=68 color="536870912" )
+header[3](height=64 color="536870912" )
+summary(height=92 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=codigo dbname="fa_venta_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=asesor dbname="asesor" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_cliente dbname="fa_venta_cliente" )
+ column=(type=number updatewhereclause=yes name=fa_venta_factura dbname="fa_venta_factura" )
+ column=(type=char(20) updatewhereclause=yes name=fa_formpag_fpago dbname="fa_formpag_fpago" )
+ column=(type=number updatewhereclause=yes name=neto dbname="neto" )
+ retrieve="SELECT ~"FA_VENTA~".~"EP_CODIGO~" AS CODIGO,
+		~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~" AS ASESOR,
+		~"FA_VENTA~".~"CE_CODIGO~" AS CLIENTE,
+		~"FA_VENTA~".~"VE_NUMERO~" AS FACTURA,
+		~"FA_FORMPAG~".~"FP_DESCORTA~" AS FPAGO,
+         DECODE(~"FA_DETVE~".~"ES_CODIGO~",1,'1 VENTAS FXM',9,'9 DEVOL. FXM') AS TIPO,   
+         DECODE(~"FA_DETVE~".~"ES_CODIGO~",1,sum(~"FA_DETVE~".~"DV_TOTAL~"),9,sum(~"FA_DETVE~".~"DV_TOTAL~"*-1)) AS NETO,   
+       to_char(~"FA_VENTA~".~"VE_FECHA~",'mm/yyyy') AS MES
+    FROM ~"FA_VENTA~" ,~"FA_DETVE~",~"FA_RECPAG~", ~"FA_FORMPAG~",~"NO_EMPLE~"
+   WHERE ~"FA_VENTA~".~"ES_CODIGO~" = ~"FA_DETVE~".~"ES_CODIGO~" and
+		~"FA_VENTA~".~"EM_CODIGO~" = ~"FA_DETVE~".~"EM_CODIGO~" and
+		~"FA_VENTA~".~"SU_CODIGO~" = ~"FA_DETVE~".~"SU_CODIGO~" and
+		~"FA_VENTA~".~"BO_CODIGO~" = ~"FA_DETVE~".~"BO_CODIGO~" and
+		~"FA_VENTA~".~"VE_NUMERO~" = ~"FA_DETVE~".~"VE_NUMERO~" and
+		~"FA_DETVE~".~"ES_CODIGO~" = ~"FA_RECPAG~".~"ES_CODIGO~"(+) and
+		~"FA_DETVE~".~"EM_CODIGO~" = ~"FA_RECPAG~".~"EM_CODIGO~"(+) and
+		~"FA_DETVE~".~"SU_CODIGO~" = ~"FA_RECPAG~".~"SU_CODIGO~"(+) and
+		~"FA_DETVE~".~"BO_CODIGO~" = ~"FA_RECPAG~".~"BO_CODIGO~"(+) and
+		~"FA_DETVE~".~"VE_NUMERO~" = ~"FA_RECPAG~".~"VE_NUMERO~"(+) and
+		~"FA_RECPAG~".~"FP_CODIGO~" = ~"FA_FORMPAG~".~"FP_CODIGO~"(+) and
+		~"FA_VENTA~".~"EM_CODIGO~" = ~"NO_EMPLE~".~"EM_CODIGO~" and
+		~"FA_VENTA~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" and
+		( ~"FA_VENTA~".~"EM_CODIGO~" = 1 ) AND
+         ( ~"FA_VENTA~".~"ES_CODIGO~" in (:estado )) AND 
+         ( ~"FA_VENTA~".~"VE_FECHA~" between :fecha_ini and :fecha_fin + 1 ) 
+group by to_char(~"FA_VENTA~".~"VE_FECHA~",'mm/yyyy'),~"FA_VENTA~".~"VE_NUMERO~",
+		~"FA_FORMPAG~".~"FP_DESCORTA~",~"FA_VENTA~".~"EP_CODIGO~",
+		~"FA_VENTA~".~"CE_CODIGO~",~"FA_DETVE~".~"ES_CODIGO~",~"NO_EMPLE~".~"EP_APEPAT~",
+		~"NO_EMPLE~".~"EP_APEMAT~",~"NO_EMPLE~".~"EP_NOMBRE~"" arguments=(("fecha_ini", date),("fecha_fin", date),("estado", numberlist))  sort="asesor A fa_venta_factura D " )
+text(band=header[1] alignment="0" text="" border="0" color="0" x="151" y="20" height="64" width="594" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="0" expression="'Desde: '+ fecha_ini "border="0" color="0" x="151" y="296" height="64" width="594" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression="'Hasta: '+ fecha_fin "border="0" color="0" x="151" y="372" height="64" width="594" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="Ventas Asesor x Cliente - Factura y Forma de Pago " border="0" color="0" x="151" y="96" height="184" width="594" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g.: ' + page() + ' de ' + pageCount()"border="0" color="0" x="1998" y="184" height="56" width="379" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="1" text="Impreso el:" border="0" color="0" x="1998" y="48" height="56" width="379" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="0" x="1998" y="116" height="56" width="379" format="dd/mm/yyyy H:mm" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@mes" border="0" color="16711680" x="1678" y="4" height="56" width="311" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="MES:" border="0" color="16711680" x="1312" y="4" height="56" width="357" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[3] alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="9" y="4" height="56" width="133" html.valueishtml="0"  name=fa_venta_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[3] alignment="0" text="Asesor" border="0" color="0" x="151" y="4" height="56" width="594" html.valueishtml="0"  name=asesor_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[3] alignment="0" text="Cliente" border="0" color="0" x="754" y="4" height="56" width="242" html.valueishtml="0"  name=fa_venta_cliente_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[3] alignment="0" text="Factura" border="0" color="0" x="1006" y="4" height="56" width="297" html.valueishtml="0"  name=fa_venta_factura_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[3] alignment="0" text="Forma de Pago" border="0" color="0" x="1312" y="4" height="56" width="357" html.valueishtml="0"  name=fa_formpag_fpago_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[3] alignment="2" text="@tipo" border="0" color="128" x="1678" y="4" height="56" width="311" html.valueishtml="0"  name=neto_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[3] alignment="2" text="Gran Total " border="0" color="0" x="1998" y="4" height="56" width="375" html.valueishtml="0"  name=grand_sum_neto_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="8" height="60" width="133" format="[general]" html.valueishtml="0"  name=codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="151" y="8" height="60" width="594" format="[general]" html.valueishtml="0"  name=asesor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="754" y="8" height="60" width="242" format="[general]" html.valueishtml="0"  name=fa_venta_cliente visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="1006" y="8" height="60" width="297" format="[general]" html.valueishtml="0"  name=fa_venta_factura visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1312" y="8" height="60" width="357" format="[general]" html.valueishtml="0"  name=fa_formpag_fpago visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="1678" y="8" height="60" width="311" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=neto visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="0" x="1998" y="8" height="60" width="375" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=grand_sum_neto visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="~"Gran Total~""border="0" color="0" x="9" y="20" height="64" width="133" format="[general]" html.valueishtml="0"  name=compute_17 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(neto for all )"border="0" color="0" x="1678" y="20" height="64" width="311" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_18 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_neto for all )"border="0" color="0" x="1998" y="20" height="64" width="375" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_20 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "mes, tipo" rows = "fa_venta_codigo, asesor, fa_venta_cliente, fa_venta_factura, fa_formpag_fpago" values = "sum(neto for crosstab)" sourcenames = "fa_venta_codigo, asesor, fa_venta_cliente, fa_venta_factura, fa_formpag_fpago, tipo, neto, mes")
+sparse(names="codigo	asesor")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

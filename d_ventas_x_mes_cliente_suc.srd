@@ -1,0 +1,88 @@
+HA$PBExportHeader$d_ventas_x_mes_cliente_suc.srd
+$PBExportComments$Muestra las ventas mensuales FXM graficante.Est$$HEX2$$e1002000$$ENDHEX$$por usarse.
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=264 color="536870912" )
+summary(height=84 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=0 color="536870912" )
+table(column=(type=decimal(2) updatewhereclause=yes name=fa_detve_dv_total dbname="fa_detve.dv_total" )
+ column=(type=char(2) updatewhereclause=yes name=cc_mes dbname="fecha" )
+ column=(type=char(20) updatewhereclause=yes name=tipo dbname="fa_venta.tipo" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="fa_venta.su_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ retrieve=" SELECT d.dv_total,   
+         to_char(c.ve_fecha,'MM')  FECHA,
+         c.es_codigo TIPO,
+		c.su_codigo,
+		s.su_nombre
+    FROM fa_venta  c,  fa_detve d, in_item i, pr_sucur s
+   WHERE c.em_codigo = d.em_codigo and
+			c.su_codigo = d.su_codigo and
+			c.bo_codigo = d.bo_codigo and
+			c.es_codigo = d.es_codigo and
+			c.ve_numero = d.ve_numero and
+			i.em_codigo = d.em_codigo and
+			i.it_codigo = d.it_codigo and
+			s.em_codigo = c.em_codigo and
+			s.su_codigo = c.su_codigo and
+			( c.em_codigo = 1  AND  
+			c.es_codigo  in (1 , 9 , 2, 10) AND
+         	 c.ve_fecha between :ad_ini and :ad_fin + 1) AND
+			 c.ce_codigo = '415215' AND
+			 i.cl_codigo like '10%'" arguments=(("ad_ini", date),("ad_fin", date))  sort="cc_mes A tipo A " )
+group(level=1 header.height=72 trailer.height=84 by=("su_codigo" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=0 trailer.height=72 by=("cc_mes" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="Ventas netas mensuales" border="0" color="0" x="14" y="96" height="64" width="983" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Cliente : 415215 UNNOMOTORS" border="0" color="0" x="14" y="20" height="64" width="1010" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="5" y1="248" x2="3045" y2="248"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="FXM" border="0" color="0" x="398" y="176" height="56" width="128" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="DEVOL. FXM" border="0" color="0" x="1408" y="176" height="56" width="306" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="TOT. VENTAS" border="0" color="0" x="946" y="176" height="56" width="329" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="TOT. DEVOL." border="0" color="0" x="2158" y="176" height="56" width="306" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="MES" border="0" color="0" x="14" y="176" height="56" width="110" html.valueishtml="0"  name=ve_valpag_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="P.O.S" border="0" color="0" x="773" y="176" height="56" width="128" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="DEVOL. POS" border="0" color="0" x="1783" y="176" height="56" width="306" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="TOTAL NETO" border="0" color="0" x="2587" y="176" height="56" width="311" html.valueishtml="0"  name=ve_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="%" border="0" color="0" x="2944" y="176" height="56" width="55" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=5 alignment="0" tabsequence=32766 border="0" color="0" x="23" y="8" height="52" width="965" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Roman 10cpi" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="14" y="4" height="56" width="142" format="[general]" html.valueishtml="0"  name=fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="526" y="4" height="56" width="210" format="[general]" html.valueishtml="0"  name=tipo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tipo = '1',   fa_detve_dv_total  , 0 ) "border="0" color="0" x="759" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_fxm visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tipo = '2',   fa_detve_dv_total , 0 )"border="0" color="128" x="965" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_pos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tipo = '9',  fa_detve_dv_total , 0 )"border="0" color="128" x="1189" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_dfxm visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tipo = '10',   fa_detve_dv_total , 0 )"border="0" color="128" x="1431" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_dpos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression="sum(if(  tipo = '9',   fa_detve_dv_total , 0 ) for group 2) "border="0" color="128" x="1358" y="8" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=cc_devfxm visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression="sum(if(  tipo = '1',  fa_detve_dv_total , 0 ) for group 2) "border="0" color="0" x="169" y="8" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=fxm visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression="sum(if(  tipo = '2',   fa_detve_dv_total , 0 ) for group 2)"border="0" color="0" x="544" y="8" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=pos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression="sum(if(  tipo = '10',   fa_detve_dv_total , 0 ) for group 2) "border="0" color="128" x="1733" y="8" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=cc_devpos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression=" fxm  +  pos "border="0" color="0" x="919" y="8" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=cc_totv visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression=" cc_devfxm  +  cc_devpos "border="0" color="128" x="2107" y="8" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=cc_totd visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="0" expression="case( cc_mes when '01' then 'ENE' when '02' then 'FEB' when '03' then 'MAR' when '04' then 'ABR' when '05' then 'MAY' when '06' then 'JUN'  when '07' then 'JUL' when '08' then 'AGO' when '09' then 'SEP' when '10' then 'OCT' when '11' then 'NOV' when '12' then 'DIC')"border="0" color="0" x="23" y="8" height="56" width="128" format="[GENERAL]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression=" cc_tneto * 100 / cc_sumneto "border="0" color="8388608" x="2921" y="8" height="56" width="183" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.2 alignment="1" expression=" cc_totv  -  cc_totd "border="0" color="8388608" x="2542" y="8" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=cc_tneto visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(if(  tipo = '9',   fa_detve_dv_total , 0 ) for group 1) + sum(if(  tipo = '10',   fa_detve_dv_total , 0 ) for group 1) "border="0" color="128" x="2107" y="24" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=cc_subtd visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.1 x1="942" y1="4" x2="1275" y2="4"  name=l_4 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=trailer.1 x1="2126" y1="4" x2="2464" y2="4"  name=l_6 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(if(  tipo = '1',   fa_detve_dv_total , 0 ) for group 1) + sum(if(  tipo = '2',   fa_detve_dv_total , 0 ) for group 1)"border="0" color="0" x="919" y="24" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=cc_subtv visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=trailer.1 alignment="1" text="Total:" border="0" color="0" x="594" y="24" height="56" width="219" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="(sum(if(  tipo = '1',   fa_detve_dv_total , 0 ) for group 1) + sum(if(  tipo = '2',   fa_detve_dv_total , 0 ) for group 1)) - (sum(if(  tipo = '9',   fa_detve_dv_total , 0 ) for group 1) + sum(if(  tipo = '10',   fa_detve_dv_total , 0 ) for group 1))"border="0" color="8388608" x="2542" y="24" height="56" width="357" format="#,##0.00" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.1 x1="2560" y1="8" x2="2898" y2="8"  name=l_7 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum( cc_dfxm  +  cc_dpos  for all)"border="0" color="128" x="2062" y="24" height="56" width="402" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="942" y1="8" x2="1275" y2="8"  name=l_3 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=summary x1="2126" y1="8" x2="2464" y2="8"  name=l_5 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(  cc_fxm   +  cc_pos  for all)"border="0" color="0" x="878" y="24" height="56" width="398" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="1" text="Total General:" border="0" color="0" x="302" y="24" height="56" width="512" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(  cc_fxm   +  cc_pos  for all)  -  sum( cc_dfxm  +  cc_dpos  for all)"border="0" color="8388608" x="2487" y="24" height="56" width="411" format="#,##0.00" html.valueishtml="0"  name=cc_sumneto visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="2560" y1="8" x2="2898" y2="8"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

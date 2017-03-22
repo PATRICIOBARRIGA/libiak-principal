@@ -1,0 +1,84 @@
+HA$PBExportHeader$d_rep_vtasydev_asesorxsucursal.srd
+$PBExportComments$(********* Jorge Salazar)
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=440 color="536870912" )
+header[2](height=80 color="536870912" )
+header[3](height=72 color="536870912" )
+header[4](height=72 color="536870912" )
+summary(height=96 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=codigo_asesor dbname="codigo_asesor" )
+ column=(type=char(20) updatewhereclause=yes name=asesor dbname="asesor" )
+ column=(type=char(20) updatewhereclause=yes name=cod_sucursal dbname="cod_sucursal" )
+ column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur_su_nombre" )
+ column=(type=number updatewhereclause=yes name=valor dbname="valor" )
+ retrieve="  SELECT TO_CHAR(~"FA_VENTA~".~"VE_FECHA~",'MM/YYYY') c_mes,
+         ~"FA_VENTA~".~"SU_CODIGO~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~",   
+         ~"NO_EMPLE~".~"EP_CODIGO~",   
+         ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~"  ASESOR,
+         DECODE(~"FA_DETVE~".~"ES_CODIGO~",1,'VENTAS',2,'VENTAS',9,'DEVOLUCION',10,'DEVOLUCION') TIPO,   
+         DECODE(~"FA_DETVE~".~"ES_CODIGO~",1,~"FA_DETVE~".~"DV_TOTAL~",2,~"FA_DETVE~".~"DV_TOTAL~",9,~"FA_DETVE~".~"DV_TOTAL~"*-1,10,~"FA_DETVE~".~"DV_TOTAL~"*-1) VALOR,   
+         ~"FA_DETVE~".~"ES_CODIGO~"
+    FROM  ~"FA_VENTA~",
+         ~"FA_DETVE~",   
+         ~"NO_EMPLE~" , 
+		~"PR_SUCUR~"
+   WHERE  ( ~"FA_VENTA~".~"ES_CODIGO~" = ~"FA_DETVE~".~"ES_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"EM_CODIGO~" = ~"FA_DETVE~".~"EM_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = ~"FA_DETVE~".~"SU_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"BO_CODIGO~" = ~"FA_DETVE~".~"BO_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"VE_NUMERO~" = ~"FA_DETVE~".~"VE_NUMERO~" ) and  
+         ( ~"FA_VENTA~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~"(+) ) and  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+         ( ( ~"FA_VENTA~".~"EM_CODIGO~" = 1 ) AND  
+         ( ~"FA_VENTA~".~"ES_CODIGO~" in (:estado) ) AND  
+         ( ~"FA_VENTA~".~"VE_FECHA~" between :ad_ini and :ad_fin + 1) )    
+" arguments=(("estado", numberlist),("ad_ini", date),("ad_fin", date))  sort="asesor A pr_sucur_su_nombre A " )
+group(level=1 header.height=0 trailer.height=96 by=("codigo_asesor" ) header.color="536870912" trailer.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="0" x="187" y="20" height="64" width="814" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="RESUMEN DE VENTAS Y DEVOLUCIONES DEL ASESOR POR SUCURSAL" border="0" color="0" x="187" y="104" height="168" width="814" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression="'Desde: '+ string(ad_ini,'dd/mm/yyyy') "border="0" color="0" x="187" y="292" height="56" width="814" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="0" expression="'Hasta: '+ string(ad_fin,'dd/mm/yyyy') "border="0" color="0" x="187" y="368" height="56" width="814" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g.: ' + page() + ' de ' + pageCount()"border="0" color="0" x="2071" y="60" height="64" width="343" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="0" x="2071" y="228" height="56" width="343" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[1] alignment="1" text="Impreso el:" border="0" color="0" x="2071" y="156" height="56" width="343" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="@c_mes" border="0" color="16711680" x="1440" y="4" height="56" width="288" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="@c_mes Subt." border="0" color="16711680" x="1737" y="4" height="56" width="325" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[3] alignment="0" text="@tipo" border="0" color="128" x="1440" y="4" height="56" width="288" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="C$$HEX1$$f300$$ENDHEX$$d." border="0" color="0" x="9" y="4" height="56" width="169" html.valueishtml="0"  name=codigo_asesor_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="Asesor" border="0" color="0" x="187" y="4" height="56" width="814" html.valueishtml="0"  name=asesor_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="Cod." border="0" color="0" x="1010" y="4" height="56" width="119" html.valueishtml="0"  name=cod_sucursal_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="Sucursal" border="0" color="0" x="1138" y="4" height="56" width="293" html.valueishtml="0"  name=pr_sucur_su_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="2" text="@fa_detve_es_codigo" border="0" color="255" x="1440" y="4" height="56" width="288" html.valueishtml="0"  name=valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="2" text="Gran Total " border="0" color="0" x="2071" y="4" height="56" width="343" html.valueishtml="0"  name=grand_sum_valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="56" width="169" format="[general]" html.valueishtml="0"  name=codigo_asesor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="187" y="4" height="56" width="814" format="[general]" html.valueishtml="0"  name=asesor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="1010" y="4" height="56" width="119" format="[general]" html.valueishtml="0"  name=cod_sucursal visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1138" y="4" height="56" width="293" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1440" y="4" height="56" width="288" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1, 3, ~"@c_mes~")"border="0" color="33554432" x="1737" y="4" height="56" width="325" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=sum_valor_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" crosstab.repeat=yes )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="2071" y="4" height="56" width="343" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=grand_sum_valor visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(sum_valor_1 for group 1)"border="0" color="33554432" x="1737" y="16" height="64" width="325" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_14 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(grand_sum_valor for group 1)"border="0" color="33554432" x="2071" y="16" height="64" width="343" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_15 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(valor for group 1)"border="0" color="33554432" x="1440" y="16" height="64" width="288" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="0" expression="codigo_asesor + ~" Total~""border="0" color="33554432" x="1138" y="16" height="64" width="293" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="~"Total~""border="0" color="0" x="9" y="24" height="64" width="169" format="[general]" html.valueishtml="0"  name=compute_16 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(valor for all )"border="0" color="33554432" x="1440" y="24" height="64" width="288" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_17 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(sum_valor_1 for all )"border="0" color="33554432" x="1737" y="24" height="64" width="325" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_19 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_valor for all )"border="0" color="33554432" x="2071" y="24" height="64" width="343" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_20 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "c_mes, tipo, fa_detve_es_codigo" rows = "no_emple_ep_codigo, asesor, fa_venta_su_codigo, pr_sucur_su_nombre" values = "sum(valor for crosstab)" sourcenames = "c_mes, fa_venta_su_codigo, pr_sucur_su_nombre, no_emple_ep_codigo, asesor, tipo, valor, fa_detve_es_codigo")
+sparse(names="codigo_asesor	asesor	cod_sucursal")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
