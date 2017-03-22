@@ -1,0 +1,181 @@
+HA$PBExportHeader$d_anexo_transaccional_compras_sinretfte2.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(13) updatewhereclause=yes name=numeroruc dbname="pr_empre.numeroruc" )
+ column=(type=char(50) updatewhereclause=yes name=razonsocial dbname="razonsocial" )
+ column=(type=char(101) updatewhereclause=yes name=direccionmatriz dbname="direccionmatriz" )
+ column=(type=char(9) updatewhereclause=yes name=telefono dbname="pr_empre.telefono" )
+ column=(type=char(9) updatewhereclause=yes name=fax dbname="pr_empre.fax" )
+ column=(type=char(50) updatewhereclause=yes name=email dbname="pr_empre.email" )
+ column=(type=char(1) updatewhereclause=yes name=tipidrepre dbname="tipidrepre" )
+ column=(type=char(10) updatewhereclause=yes name=idrepre dbname="idrepre" )
+ column=(type=number updatewhereclause=yes name=ruccontador dbname="ruccontador" )
+ column=(type=char(4) updatewhereclause=yes name=anio dbname="anio" )
+ column=(type=char(2) updatewhereclause=yes name=mes dbname="mes" )
+ column=(type=char(2) updatewhereclause=yes name=codsustento dbname="cp_movim.codsustento" )
+ column=(type=char(2) updatewhereclause=yes name=deviva dbname="cp_movim.deviva" )
+ column=(type=char(2) updatewhereclause=yes name=tpidprov dbname="cp_movim.tpidprov" )
+ column=(type=char(13) updatewhereclause=yes name=idprov dbname="in_prove.idprov" )
+ column=(type=char(2) updatewhereclause=yes name=tipocomprobante dbname="cp_movim.tipocomprobante" )
+ column=(type=char(10) updatewhereclause=yes name=fecharegistro dbname="fecharegistro" )
+ column=(type=char(3) updatewhereclause=yes name=establecimiento dbname="cp_movim.establecimiento" )
+ column=(type=char(3) updatewhereclause=yes name=puntoemision dbname="cp_movim.puntoemision" )
+ column=(type=char(7) updatewhereclause=yes name=secuencial dbname="cp_movim.secuencial" )
+ column=(type=char(10) updatewhereclause=yes name=fechaemision dbname="fechaemision" )
+ column=(type=char(10) updatewhereclause=yes name=autorizacion dbname="cp_movim.autorizacion" )
+ column=(type=char(7) updatewhereclause=yes name=fechacaducidad dbname="fechacaducidad" )
+ column=(type=number updatewhereclause=yes name=baseimponible dbname="baseimponible" )
+ column=(type=number updatewhereclause=yes name=baseimpgrav dbname="baseimpgrav" )
+ column=(type=char(1) updatewhereclause=yes name=porcentajeiva dbname="porcentajeiva" )
+ column=(type=number updatewhereclause=yes name=montoiva dbname="montoiva" )
+ column=(type=number updatewhereclause=yes name=baseimpice dbname="baseimpice" )
+ column=(type=char(1) updatewhereclause=yes name=porcentajeice dbname="porcentajeice" )
+ column=(type=number updatewhereclause=yes name=montoice dbname="montoice" )
+ column=(type=number updatewhereclause=yes name=montoivabienes dbname="montoivabienes" )
+ column=(type=char(1) updatewhereclause=yes name=porretbienes dbname="porretbienes" )
+ column=(type=number updatewhereclause=yes name=valorretbienes dbname="valorretbienes" )
+ column=(type=number updatewhereclause=yes name=montoivaservicios dbname="montoivaservicios" )
+ column=(type=char(1) updatewhereclause=yes name=porretservicios dbname="porretservicios" )
+ column=(type=number updatewhereclause=yes name=valorretservicios dbname="valorretservicios" )
+ column=(type=char(3) updatewhereclause=yes name=codretair dbname="codretair" )
+ column=(type=number updatewhereclause=yes name=baseimpair dbname="baseimpair" )
+ column=(type=number updatewhereclause=yes name=porcentajeair dbname="porcentajeair" )
+ column=(type=number updatewhereclause=yes name=valretair dbname="valretair" )
+ column=(type=char(3) updatewhereclause=yes name=estabretencion1 dbname="estabretencion1" )
+ column=(type=char(3) updatewhereclause=yes name=ptoemiretencion1 dbname="ptoemiretencion1" )
+ column=(type=char(7) updatewhereclause=yes name=secretencion1 dbname="secretencion1" )
+ column=(type=char(10) updatewhereclause=yes name=autretencion1 dbname="autretencion1" )
+ column=(type=char(10) updatewhereclause=yes name=fechaemiret1 dbname="fechaemiret1" )
+ column=(type=char(2) updatewhereclause=yes name=docmodificado dbname="docmodificado" )
+ column=(type=char(10) updatewhereclause=yes name=fechaemimodificado dbname="fechaemimodificado" )
+ column=(type=char(3) updatewhereclause=yes name=estabmodificado dbname="estabmodificado" )
+ column=(type=char(3) updatewhereclause=yes name=ptoemimodficado dbname="ptoemimodficado" )
+ column=(type=char(8) updatewhereclause=yes name=secmodificado dbname="secmodificado" )
+ column=(type=char(10) updatewhereclause=yes name=autmodificado dbname="autmodificado" )
+ retrieve="SELECT EM_RUC numeroRuc,
+UPPER(EM_NOMBRE) razonSocial,
+UPPER(EM_CALLE1||' '||EM_CALLE2) direccionMatriz,
+EM_TELEF2 telefono,
+EM_FAX  fax,
+EM_EMAIL email,
+'C' tipIdRepre,
+'1001349479' IdRepre,
+1701448803001 rucContador,
+to_char(:ad_ini,'yyyy') anio,
+to_char(:ad_ini,'mm') mes,
+X.MP_CODTRIBU codSustento,
+X.MP_DOCDEVIVA devIva,
+X.MP_TIPIDPRV tpidProv,
+P.PV_RUCCI idProv,
+X.MP_TIPODOC tipoComprobante,
+TO_CHAR(X.MP_FECHA,'DD/MM/YYYY') fechaRegistro,
+X.MP_DOCNROEST establecimiento,
+X.MP_DOCNROPTO puntoEmision,
+X.MP_DOCNROSEC secuencial,
+TO_CHAR(X.MP_FECEMISION,'DD/MM/YYYY') fechaEmision,
+X.MP_NAUT autorizacion,
+TO_CHAR(NVL(X.MP_FECCADUCI,:ad_fin),'MM/YYYY') fechaCaducidad,
+NVL(X.MP_BSEIMPTRF0,0) baseImponible,
+NVL(X.MP_BASEIMP,0) baseImpGrav,
+NVL(X.MP_CODPCTIVA,0) porcentajeIva,
+NVL(X.MP_VALRET,0) montoIva,
+NVL(X.MP_BSEIMPICE,0) baseImpIce,
+NVL(X.MP_CODPCTICE,0) porcentajeIce,
+NVL(X.MP_MONTOICE,0) montoIce,
+decode(X.MP_TIPOIVA,1,NVL(X.MP_VALRET,0),0) montoIvaBienes,
+NVL(X.MP_BIEPCTIVA,0) porRetBienes,
+NVL(X.MP_BIEVLRRET,0) valorRetBienes,
+decode(X.MP_TIPOIVA,1,0,NVL(X.MP_VALRET,0)) montoIvaServicios,
+NVL(X.MP_SRVPCTIVA,0) porRetServicios,
+NVL(X.MP_SRVVLRRET,0) valorRetServicios,
+'332' codRetAir,
+NVL(X.MP_BSEIMPTRF0,0) + NVL(X.MP_BASEIMP,0) baseImpAir,
+0 porcentajeAir,
+0 valRetAir,
+'000' estabRetencion1,
+'000' ptoEmiRetencion1,
+'0000000' secRetencion1,
+'0000000000' autRetencion1,
+to_char(:ad_fin,'dd/mm/yyyy')  fechaEmiRet1,
+NVL(X.MP_MODTIPODOC,0)  docModificado,
+NVL(TO_CHAR(X.MP_MODFECEMI,'DD/MM/YYYY'),'00/00/0000')  fechaEmiModificado,
+NVL(X.MP_MODNROEST,'000') estabModificado,
+NVL(X.MP_MODNROPTO,'000') ptoEmiModficado,
+NVL(X.MP_MODNROSEC,'00000000') secModificado,
+NVL(X.MP_NAUT,'0000000000') autModificado
+FROM  CP_MOVIM X, IN_PROVE P,PR_EMPRE E
+WHERE X.TV_TIPO = 'C'
+AND X.EM_CODIGO = 1
+AND NVL(X.ESTADO,'S') <> 'N' 
+AND P.PV_CODIGO = X.PV_CODIGO
+AND X.MP_RETEN = 0
+AND NVL(X.EC_CODIGO,0) = :estado
+AND (X.MP_FECHA BETWEEN :ad_ini AND :ad_fin + 0.99)
+
+" arguments=(("ad_ini", date),("ad_fin", date),("estado", number)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="320" format="[general]" html.valueishtml="0"  name=numeroruc visible="1" edit.limit=13 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="329" y="4" height="68" width="1166" format="[general]" html.valueishtml="0"  name=razonsocial visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1499" y="4" height="68" width="2331" format="[general]" html.valueishtml="0"  name=direccionmatriz visible="1" edit.limit=101 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="3835" y="4" height="68" width="229" format="[general]" html.valueishtml="0"  name=telefono visible="1" edit.limit=9 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="4073" y="4" height="68" width="229" format="[general]" html.valueishtml="0"  name=fax visible="1" edit.limit=9 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="4306" y="4" height="68" width="1166" format="[general]" html.valueishtml="0"  name=email visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="5477" y="4" height="68" width="46" format="[general]" html.valueishtml="0"  name=tipidrepre visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="5701" y="4" height="68" width="160" format="[general]" html.valueishtml="0"  name=idrepre visible="1" edit.limit=6 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="5865" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=ruccontador visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="6153" y="4" height="68" width="114" format="[general]" html.valueishtml="0"  name=anio visible="1" edit.limit=4 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="6272" y="4" height="68" width="69" format="[general]" html.valueishtml="0"  name=mes visible="1" edit.limit=2 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="6341" y="0" height="56" width="46" format="[general]" html.valueishtml="0"  name=codsustento visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="6386" y="0" height="56" width="46" format="[general]" html.valueishtml="0"  name=deviva visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="33554432" x="6459" y="4" height="56" width="82" format="[general]" html.valueishtml="0"  name=tpidprov visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="33554432" x="6551" y="0" height="56" width="105" format="[general]" html.valueishtml="0"  name=idprov visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="33554432" x="6656" y="0" height="56" width="169" format="[general]" html.valueishtml="0"  name=tipocomprobante visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="33554432" x="6825" y="0" height="56" width="233" format="[general]" html.valueishtml="0"  name=fecharegistro visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="33554432" x="7058" y="0" height="56" width="69" format="[general]" html.valueishtml="0"  name=establecimiento visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="33554432" x="7127" y="0" height="56" width="69" format="[general]" html.valueishtml="0"  name=puntoemision visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="0" color="33554432" x="7195" y="0" height="56" width="165" format="[general]" html.valueishtml="0"  name=secuencial visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="33554432" x="7360" y="0" height="56" width="233" format="[general]" html.valueishtml="0"  name=fechaemision visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="0" tabsequence=32766 border="0" color="33554432" x="7593" y="0" height="56" width="233" format="[general]" html.valueishtml="0"  name=autorizacion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="33554432" x="7826" y="0" height="56" width="229" format="[general]" html.valueishtml="0"  name=fechacaducidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="0" color="33554432" x="8055" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=baseimponible visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="33554432" x="9047" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=baseimpgrav visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="0" tabsequence=32766 border="0" color="33554432" x="10039" y="0" height="56" width="23" format="[general]" html.valueishtml="0"  name=porcentajeiva visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="0" tabsequence=32766 border="0" color="33554432" x="10062" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=montoiva visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="0" tabsequence=32766 border="0" color="33554432" x="11054" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=baseimpice visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=37 alignment="0" tabsequence=32766 border="0" color="33554432" x="12046" y="0" height="56" width="462" format="[general]" html.valueishtml="0"  name=codretair visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=38 alignment="0" tabsequence=32766 border="0" color="33554432" x="12507" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=baseimpair visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=40 alignment="0" tabsequence=32766 border="0" color="33554432" x="13504" y="0" height="56" width="987" format="[general]" html.valueishtml="0"  name=valretair visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=41 alignment="0" tabsequence=32766 border="0" color="33554432" x="14487" y="0" height="56" width="69" format="[general]" html.valueishtml="0"  name=estabretencion1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=42 alignment="0" tabsequence=32766 border="0" color="33554432" x="14555" y="0" height="56" width="69" format="[general]" html.valueishtml="0"  name=ptoemiretencion1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=43 alignment="0" tabsequence=32766 border="0" color="33554432" x="14624" y="0" height="56" width="160" format="[general]" html.valueishtml="0"  name=secretencion1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=44 alignment="0" tabsequence=32766 border="0" color="33554432" x="14793" y="0" height="56" width="233" format="[general]" html.valueishtml="0"  name=autretencion1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=45 alignment="0" tabsequence=32766 border="0" color="33554432" x="15072" y="0" height="56" width="242" format="[general]" html.valueishtml="0"  name=fechaemiret1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="0" tabsequence=32766 border="0" color="33554432" x="15337" y="0" height="56" width="23" format="[general]" html.valueishtml="0"  name=porcentajeice visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=30 alignment="0" tabsequence=32766 border="0" color="33554432" x="15625" y="16" height="56" width="439" format="[general]" html.valueishtml="0"  name=montoice visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=31 alignment="0" tabsequence=32766 border="0" color="33554432" x="16265" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=montoivabienes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=32 alignment="0" tabsequence=32766 border="0" color="33554432" x="17257" y="0" height="56" width="23" format="[general]" html.valueishtml="0"  name=porretbienes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=33 alignment="0" tabsequence=32766 border="0" color="33554432" x="17280" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=valorretbienes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=34 alignment="0" tabsequence=32766 border="0" color="33554432" x="18272" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=montoivaservicios visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=35 alignment="0" tabsequence=32766 border="0" color="33554432" x="19264" y="0" height="56" width="23" format="[general]" html.valueishtml="0"  name=porretservicios visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=36 alignment="0" tabsequence=32766 border="0" color="33554432" x="19287" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=valorretservicios visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=39 alignment="0" tabsequence=32766 border="0" color="33554432" x="20279" y="0" height="56" width="992" format="[general]" html.valueishtml="0"  name=porcentajeair visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=46 alignment="0" tabsequence=32766 border="0" color="33554432" x="21271" y="0" height="56" width="46" format="[general]" html.valueishtml="0"  name=docmodificado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=47 alignment="0" tabsequence=32766 border="0" color="33554432" x="21317" y="0" height="56" width="256" format="[general]" html.valueishtml="0"  name=fechaemimodificado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=48 alignment="0" tabsequence=32766 border="0" color="33554432" x="21573" y="0" height="56" width="69" format="[general]" html.valueishtml="0"  name=estabmodificado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=49 alignment="0" tabsequence=32766 border="0" color="33554432" x="21641" y="0" height="56" width="73" format="[general]" html.valueishtml="0"  name=ptoemimodficado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=51 alignment="0" tabsequence=32766 border="0" color="33554432" x="21874" y="0" height="56" width="229" format="[general]" html.valueishtml="0"  name=autmodificado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=50 alignment="0" tabsequence=32766 border="0" color="33554432" x="22103" y="0" height="56" width="187" format="[general]" html.valueishtml="0"  name=secmodificado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(usetemplate="t_anexo_transaccional" headgroups="0" includewhitespace="0" metadatatype=1 savemetadata=1  template=(comment="" encoding="UTF-8" name="t_anexo_transaccional" xml="<?xml version=~"1.0~" encoding=~"UTF-16LE~" standalone=~"no~"?><iva><numeroRuc>numeroruc</numeroRuc><razonSocial>razonsocial</razonSocial><direccionMatriz>direccionmatriz</direccionMatriz><telefono>telefono</telefono><fax>fax</fax><email>email</email><tpIdRepre>tipidrepre</tpIdRepre><idRepre>idrepre</idRepre><rucContador>ruccontador</rucContador><anio>anio</anio><mes>mes</mes><compras><detalleCompras __pbband=~"detail~"><codSustento>codsustento</codSustento><devIva>deviva</devIva><tpIdProv>tpidprov</tpIdProv><idProv>idprov</idProv><tipoComprobante>tipocomprobante</tipoComprobante><fechaRegistro>fecharegistro</fechaRegistro><establecimiento>establecimiento</establecimiento><puntoEmision>puntoemision</puntoEmision><secuencial>secuencial</secuencial><fechaEmision>fechaemision</fechaEmision><autorizacion>autorizacion</autorizacion><fechaCaducidad>fechacaducidad</fechaCaducidad><baseImponible>baseimponible</baseImponible><baseImpGrav>baseimpgrav</baseImpGrav><porcentajeIva>porcentajeiva</porcentajeIva><montoIva>montoiva</montoIva><baseImpIce>baseimpice</baseImpIce><porcentajeIce>porcentajeice</porcentajeIce><montoIce>montoice</montoIce><montoIvaBienes>montoivabienes</montoIvaBienes><porRetBienes>porretbienes</porRetBienes><valorRetBienes>valorretbienes</valorRetBienes><montoIvaServicios>montoivaservicios</montoIvaServicios><porRetServicios>porretservicios</porRetServicios><valorRetServicios>valorretservicios</valorRetServicios><air><detalleAir><codRetAir>codretair</codRetAir><baseImpAir>baseimpair</baseImpAir><porcentajeAir>porcentajeair</porcentajeAir><valRetAir>valretair</valRetAir></detalleAir></air><estabRetencion1>estabretencion1</estabRetencion1><ptoEmiRetencion1>ptoemiretencion1</ptoEmiRetencion1><secRetencion1>secretencion1</secRetencion1><autRetencion1>autretencion1</autRetencion1><fechaEmiRet1>fechaemiret1</fechaEmiRet1><docModificado>docmodificado</docModificado><fechaEmiModificado>fechaemimodificado</fechaEmiModificado><estabModificado>estabmodificado</estabModificado><ptoEmiModificado>ptoemimodficado</ptoEmiModificado><secModificado>secmodificado</secModificado><autModificado>autmodificado</autModificado></detalleCompras></compras><ventas/><importaciones/><exportaciones/><recap/><fideicomisos/><anulados/><rendFinancieros/></iva>"))
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
