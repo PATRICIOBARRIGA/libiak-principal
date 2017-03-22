@@ -1,0 +1,26 @@
+HA$PBExportHeader$f_menu.srf
+global type f_menu from function_object
+end type
+
+forward prototypes
+global function string f_menu (string as_mncodigo)
+end prototypes
+
+global function string f_menu (string as_mncodigo);string ls_wname
+
+select mn_opcion
+into:ls_wname
+from sg_menu
+where mn_codigo = :as_mncodigo;
+if sqlca.sqlcode <> 0 Then
+	messagebox("Error interno","No se ha encontrado el nombre de la ventana...comuniquese con sistemas",stopsign!)
+	return 'noexiste'
+End if
+
+If mid(ls_wname,1,2) <> 'w_' Then
+	return 'noexiste'
+End if
+
+return ls_wname
+end function
+

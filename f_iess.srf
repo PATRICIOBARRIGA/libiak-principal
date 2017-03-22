@@ -1,0 +1,24 @@
+HA$PBExportHeader$f_iess.srf
+global type f_iess from function_object
+end type
+
+forward prototypes
+global function decimal f_iess (string empleado, string rol, string rubro)
+end prototypes
+
+global function decimal f_iess (string empleado, string rol, string rubro);Decimal lc_iess
+
+select   round(SUM(y.lq_total*.0935),2)
+into     :lc_iess
+from    no_rolpago y, no_rubro z
+where  y.ru_codigo = z.ru_codigo
+and      y.ep_codigo = :empleado
+and     y.rr_codigo = :rol
+and     z.ru_sigla like '%I%' 
+and     z.ru_codigo <> :rubro;
+
+
+
+return lc_iess;
+end function
+

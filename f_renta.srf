@@ -1,0 +1,24 @@
+HA$PBExportHeader$f_renta.srf
+global type f_renta from function_object
+end type
+
+forward prototypes
+global function decimal f_renta (decimal ac_valor)
+end prototypes
+
+global function decimal f_renta (decimal ac_valor);dec{2} g
+
+select (:ac_valor - ir_frbasica)*ir_impexceso/100 + ir_impbasica
+into  :g
+from pr_renta 
+where ir_frbasica <= :ac_valor and :ac_valor <= ir_exceso;
+
+return g
+
+
+
+
+
+
+end function
+

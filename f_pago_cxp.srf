@@ -1,0 +1,98 @@
+HA$PBExportHeader$f_pago_cxp.srf
+$PBExportComments$Utilizada en compras
+global type f_pago_cxp from function_object
+end type
+
+forward prototypes
+global function integer f_pago_cxp (string as_sucursal, decimal ac_valor, decimal ac_percentfte, decimal ac_percentiva, string as_tvcodigo, string as_mpcodigo, string as_fpcodigo, string as_pvcodigo, string as_facpro, date ad_fecha, long al_conumero, long al_numdoc, string as_autsri, string as_preimp, date ad_emision)
+end prototypes
+
+global function integer f_pago_cxp (string as_sucursal, decimal ac_valor, decimal ac_percentfte, decimal ac_percentiva, string as_tvcodigo, string as_mpcodigo, string as_fpcodigo, string as_pvcodigo, string as_facpro, date ad_fecha, long al_conumero, long al_numdoc, string as_autsri, string as_preimp, date ad_emision);String ls_mpcoddeb,ls_autsri
+Long ll_numdoc
+Decimal{2} lc_iva,lc_ivadebito,lc_rftedebito,lc_rivadebito
+
+lc_iva = f_iva()
+lc_ivadebito = (ac_valor/(1 + lc_iva))*lc_iva
+lc_rftedebito = (ac_valor/(1 + lc_iva))*ac_percentfte
+lc_rivadebito = lc_ivadebito*ac_percentiva
+
+
+/*Determinar el secuencial del mov. de debito*/
+
+ls_mpcoddeb = string(f_secuencial(str_appgeninfo.empresa,'DEB_CXP'))
+
+/**/
+INSERT INTO "CP_MOVIM"  
+				 ("TV_CODIGO","TV_TIPO","EM_CODIGO","SU_CODIGO","MP_CODIGO",   
+				  "PV_CODIGO","EC_CODIGO","CO_NUMERO","RF_CODIGO","MP_FECHA",   
+				  "MP_VALOR","MP_VALRET","MP_SALDO","ESTADO","MP_CONTAB",   
+				  "MP_TRANSPORTE","EG_NUMERO","CO_FACPRO","MP_BASEIMP","MP_OBSERV",   
+				  "MP_RETEN","MP_RETIVA","MP_NAUT","MP_FECEMISION","MP_PREIMP" )  
+VALUES (:as_tvcodigo,'D',:str_appgeninfo.empresa,:as_sucursal,:ls_mpcoddeb,   
+	:as_pvcodigo,null,:al_conumero,null,:ad_fecha,
+	:ac_valor,:lc_ivadebito,0,null,null,
+	0,null,:as_facpro,0,'Pago Factura',
+	:lc_rftedebito,:lc_rivadebito,:as_autsri,:ad_emision,:as_preimp);
+	
+IF SQLCA.SQLCODE < 0 &	
+THEN
+MESSAGEBOX("ATENCION","Problemas al Actualizar el Mov. de D$$HEX1$$e900$$ENDHEX$$bito" + sqlca.sqlerrtext)
+ROLLBACK;
+RETURN -1
+END IF
+	
+
+
+/**/
+INSERT INTO "CP_PAGO"  
+( "TV_CODIGO","TV_TIPO","EM_CODIGO","SU_CODIGO","MP_CODIGO",   
+"PM_SECUENCIA","PM_FECHA","PM_VALOR","PM_FECPA","PM_INTER",   
+"PM_CXP","IF_CODIGO","CN_CODIGO","PM_DESCUE","ESTADO",   
+"FP_CODIGO","PM_NUMDOC","PM_NAUT","PM_EMISION","PM_PREIMP" )  
+VALUES (:as_tvcodigo,'D',:str_appgeninfo.empresa,:as_sucursal,:ls_mpcoddeb,   
+		1,:ad_fecha,:ac_valor,:ad_fecha,null,   
+		null,0,null,0,null,   
+:as_fpcodigo,:ll_numdoc,:as_autsri,:ad_emision,:as_preimp);
+IF SQLCA.SQLCODE < 0 &	
+THEN
+MESSAGEBOX("ATENCION","Problemas al Registrar el pago" +sqlca.sqlerrtext)
+ROLLBACK;
+RETURN -1
+END IF
+	
+
+/*Cruzar cada pago con el credito */
+INSERT INTO "CP_CRUCE"  
+			( "TV_CODDEB","TV_TIPODEB","MP_CODDEB","TV_CODIGO","TV_TIPO",   
+			  "EM_CODIGO","SU_CODIGO", "MP_CODIGO","CX_FECHA","CX_VALCRE",
+			  "CX_VALDEB","ESTADO" )  
+VALUES ( :as_tvcodigo,'D',:ls_mpcoddeb,'1','C',
+		  :str_appgeninfo.empresa,:as_sucursal,:as_mpcodigo,:ad_fecha,:ac_valor,   
+		  0,null )  ;
+IF SQLCA.SQLCODE < 0 &	
+THEN
+MESSAGEBOX("ATENCION","Problemas al Cruzar el pago" +sqlca.sqlerrtext)
+ROLLBACK;
+RETURN -1
+END IF
+
+
+/*Actualizar el saldo*/
+UPDATE "CP_MOVIM"
+SET "MP_SALDO" = "MP_SALDO" - :ac_valor
+WHERE "EM_CODIGO" = :str_appgeninfo.empresa
+AND "SU_CODIGO"= :as_sucursal
+AND "MP_CODIGO"= :as_mpcodigo
+AND "TV_CODIGO"= '1'
+AND "TV_TIPO"  ='C';
+IF SQLCA.SQLCODE < 0 &	
+THEN
+MESSAGEBOX("ATENCION","Problemas al Actualizar la Cuenta por Pagar" +sqlca.sqlerrtext)
+ROLLBACK;
+RETURN -1
+END IF
+
+
+RETURN 1
+end function
+

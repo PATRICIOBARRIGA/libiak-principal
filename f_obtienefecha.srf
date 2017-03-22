@@ -1,0 +1,70 @@
+HA$PBExportHeader$f_obtienefecha.srf
+global type f_obtienefecha from function_object
+end type
+
+forward prototypes
+global function string f_obtienefecha (datetime adt_fecha)
+end prototypes
+
+global function string f_obtienefecha (datetime adt_fecha);
+string   ls_fecha
+integer  li_mes,li_diasemana,li_dia,li_anio
+string   ls_mes,ls_diasemana
+date     ld_fecha
+
+ld_fecha = date(adt_fecha)
+
+li_dia = day(ld_fecha)
+li_diasemana = daynumber(ld_fecha)
+li_mes = month(ld_fecha)
+li_anio = year(ld_fecha)
+
+CHOOSE CASE li_diasemana
+	CASE 1
+		ls_diasemana = "Domingo"
+   CASE 2
+		ls_diasemana = "Lunes"
+	CASE 3
+		ls_diasemana = "Martes"
+	CASE 4
+		ls_diasemana = "Mi$$HEX1$$e900$$ENDHEX$$rcoles"
+	CASE 5
+		ls_diasemana = "Jueves"
+	CASE 6
+		ls_diasemana = "Viernes"
+	CASE 7
+		ls_diasemana = "S$$HEX1$$e100$$ENDHEX$$bado"
+END CHOOSE
+
+CHOOSE CASE li_mes
+	CASE 1
+		ls_mes = "Enero"
+	CASE 2
+		ls_mes = "Febrero"
+	CASE 3
+		ls_mes = "Marzo"
+	CASE 4
+		ls_mes = "Abril"
+	CASE 5
+		ls_mes = "Mayo"
+	CASE 6
+		ls_mes = "Junio"
+	CASE 7
+		ls_mes = "Julio"
+	CASE 8
+		ls_mes = "Agosto"
+	CASE 9
+		ls_mes = "Septiembre"
+	CASE 10
+		ls_mes = "Octubre"
+	CASE 11
+		ls_mes = "Noviembre"
+	CASE 12
+		ls_mes = "Diciembre"
+END CHOOSE
+
+ls_fecha = ls_diasemana+" "+string(li_dia)+" de "+ls_mes+" de "+string(li_anio)
+
+return(ls_fecha)
+end function
+

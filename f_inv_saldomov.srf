@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_inv_saldomov.srf
+global type f_inv_saldomov from function_object
+end type
+
+forward prototypes
+global function long f_inv_saldomov (string as_pepa, date ad_ini, date ad_fin)
+end prototypes
+
+global function long f_inv_saldomov (string as_pepa, date ad_ini, date ad_fin);//DataStore lds_inv
+//
+//lds_inv = create datastore
+
+Long ll_cant
+
+SELECT SUM(DECODE(X.TM_IOE,'I',X.MV_CANTID,MV_CANTID * -1)) cant  
+INTO :ll_cant
+FROM  IN_MOVIM X, IN_ITEM Y
+WHERE X.IT_CODIGO  = Y.IT_CODIGO
+AND X.EM_CODIGO = 1
+AND X.IT_CODIGO = :as_pepa
+AND TRUNC(X.MV_FECHA) between :ad_ini and :ad_fin
+//AND X.TM_CODIGO NOT IN ('7','8')
+GROUP BY X.IT_CODIGO, Y.IT_CODANT,Y.IT_NOMBRE;
+
+return ll_cant
+end function
+

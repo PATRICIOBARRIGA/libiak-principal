@@ -1,0 +1,22 @@
+HA$PBExportHeader$f_recupera_empresa.srf
+global type f_recupera_empresa from function_object
+end type
+
+forward prototypes
+global function integer f_recupera_empresa (datawindow adw_datawindow, string as_parametro)
+end prototypes
+
+global function integer f_recupera_empresa (datawindow adw_datawindow, string as_parametro);datawindowchild ldwc_aux
+
+adw_datawindow.getChild(as_parametro, ldwc_aux)
+ldwc_aux.setTransObject(sqlca)
+//return ldwc_aux.retrieve(str_appgeninfo.empresa)
+
+if ldwc_aux.retrieve(str_appgeninfo.empresa) < 0 then 
+	return -1
+else 
+	ldwc_aux.InsertRow(0)
+	return 1 
+end if
+end function
+

@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_retencion.srf
+global type f_retencion from function_object
+end type
+
+forward prototypes
+global function decimal f_retencion (decimal ac_conumero, string as_fpcodigo)
+end prototypes
+
+global function decimal f_retencion (decimal ac_conumero, string as_fpcodigo);Decimal lc_pago
+SELECT "CP_MOVIM"."MP_VALOR"  
+INTO :lc_pago  
+FROM "CP_MOVIM",   
+"CP_PAGO"  
+WHERE ( "CP_PAGO"."TV_CODIGO" = "CP_MOVIM"."TV_CODIGO" ) and  
+	( "CP_PAGO"."TV_TIPO" = "CP_MOVIM"."TV_TIPO" ) and  
+	( "CP_PAGO"."EM_CODIGO" = "CP_MOVIM"."EM_CODIGO" ) and  
+	( "CP_PAGO"."SU_CODIGO" = "CP_MOVIM"."SU_CODIGO" ) and  
+	( "CP_PAGO"."MP_CODIGO" = "CP_MOVIM"."MP_CODIGO" ) and  
+	( ( "CP_MOVIM"."EM_CODIGO" = '1' ) AND  
+	( "CP_MOVIM"."CO_NUMERO" = :ac_conumero ) AND  
+	( "CP_PAGO"."FP_CODIGO" = :as_fpcodigo ) )   ;
+	
+return lc_pago;	
+	
+
+end function
+

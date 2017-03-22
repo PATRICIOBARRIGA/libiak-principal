@@ -1,0 +1,78 @@
+HA$PBExportHeader$f_mayorizacion.srf
+global type f_mayorizacion from function_object
+end type
+
+forward prototypes
+global subroutine f_mayorizacion (string as_empresa, string as_sucursal, string as_fecha_corte)
+end prototypes
+
+global subroutine f_mayorizacion (string as_empresa, string as_sucursal, string as_fecha_corte);int     contador,numtran,posini,longtotal,longnivel
+string  cuenta,cadena,codaux,codigoaux,dt_signo,pl_codigo
+decimal aux_saldeb,aux_salcre,ultimo_saldo,dt_valor
+date    fch_ultimo_saldo
+long    ll_cp_numero
+
+declare cabcom cursor for
+    select x.CP_NUMERO,
+	          PL_CODIGO,
+				 DT_VALOR,
+				 DT_SIGNO
+      from CO_CABCOM x, CO_DETCOM y
+     where x.EM_CODIGO = y.EM_CODIGO
+	    and x.SU_CODIGO = y.SU_CODIGO
+       and x.TI_CODIGO = y.TI_CODIGO
+       and x.CP_NUMERO = y.CP_NUMERO
+       and x.EM_CODIGO = :as_empresa
+		 and x.su_codigo = :as_sucursal
+		 and nvl(CP_MAYOR,'N') = 'N'
+       and trunc(x.CP_FECHA) <= to_date(:as_fecha_corte,'dd/mm/yyyy');
+		 
+// PROGRAMA PRINCIPAL
+// begin
+  update co_plansuc
+     set ps_saldo = 0,
+         ps_debito = 0,
+         ps_credit = 0
+   where em_codigo = :as_empresa
+	  and su_codigo = :as_sucursal;
+  commit;
+  
+  aux_saldeb = 0
+  aux_salcre = 0
+  
+  open cabcom;
+  do
+  //  for reg in cabcom loop
+    fetch cabcom into :ll_cp_numero,:pl_codigo,:dt_valor,:dt_signo;
+	 if sqlca.sqlcode <> 0 then exit
+    if dt_signo = 'D' then
+      aux_saldeb   = dt_valor
+      aux_salcre   = 0
+    else
+      aux_saldeb = 0
+      aux_salcre = dt_valor
+    end if
+    cadena = pl_codigo
+    codigoaux = pl_codigo
+    do while not isnull(codigoaux)
+         update CO_PLANSUC
+         set PS_DEBITO = PS_DEBITO + :aux_saldeb,
+                PS_CREDIT = PS_CREDIT + :aux_salcre
+          where EM_CODIGO = :as_empresa
+		and su_codigo = :as_sucursal
+          and PL_CODIGO = :codigoaux;
+          select pl_padre
+          into :codigoaux
+          from co_placta
+          where em_codigo = :as_empresa
+         and pl_codigo = :cadena;
+         cadena = codigoaux
+    loop
+    loop while TRUE
+    update co_placta
+    set     pl_saldo  = pl_salini + pl_saldeb - pl_salcre 
+    where em_codigo = :as_empresa;
+    commit;
+   /*pl_debito - pl_credit*/
+end subroutine
+

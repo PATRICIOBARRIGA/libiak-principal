@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_numero_a_letras.srf
+global type f_numero_a_letras from function_object
+end type
+
+forward prototypes
+global function string f_numero_a_letras (decimal valor)
+end prototypes
+
+global function string f_numero_a_letras (decimal valor);Long  millones, miles, centenas, aux, parte_entera, aux1
+decimal parte_decimal
+string valor_letras, texto, p
+
+parte_entera = truncate(valor,0)
+parte_decimal = round(valor - parte_entera,2) * 100
+valor_letras = ''
+
+aux = truncate(parte_entera / 1000000,0)
+
+if aux > 0 then
+   millones = aux
+   parte_entera = parte_entera - aux*1000000
+	
+   select mn_descri
+     into :texto
+     from pr_numeros
+    where mn_numero = :millones;
+	 
+   if millones = 1 then
+     valor_letras = 'UN MILLON '
+   else
+     valor_letras = texto + ' MILLONES '
+   end if
+end if
+
+aux = truncate(parte_entera / 1000,0)
+
+if aux > 0 then
+   miles = aux
+   parte_entera = parte_entera - aux*1000
+   select mn_descri
+     into :texto
+     from pr_numeros
+    where mn_numero = :miles;
+    valor_letras = valor_letras + texto + ' MIL '
+end if
+
+centenas = parte_entera
+  if centenas > 0 then
+     select mn_descri
+       into :texto
+       from pr_numeros
+      where mn_numero = :centenas;
+        valor_letras = valor_letras + texto 
+   end if
+
+//   texto = ' CON ' + STRING(parte_decimal,"00") + '/100'
+//Modificado segun la nueva ley de cheques vigente desde 26/09/2014
+texto = ' ' + STRING(parte_decimal,"00") + '/100'
+
+   valor_letras = valor_letras + texto
+	p = left(valor_letras,1)
+	valor_letras = p + lower(right(valor_letras,len(valor_letras)-1))
+return valor_letras
+
+end function
+

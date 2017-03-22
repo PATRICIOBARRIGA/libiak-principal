@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_permisos.srf
+global type f_permisos from function_object
+end type
+
+forward prototypes
+global function character f_permisos (string as_tipo)
+end prototypes
+
+global function character f_permisos (string as_tipo);char lch_permiso
+
+CHOOSE CASE as_tipo
+	CASE 'sa_anula'
+		select sa_anula
+		into :lch_permiso
+		from sg_acceso
+		where em_codigo = :str_appgeninfo.empresa
+		and sa_login = :str_appgeninfo.username
+		and sa_activo = 'S'	;
+	CASE 'sa_reimp'
+		select sa_reimp
+		into :lch_permiso
+		from sg_acceso
+		where em_codigo = :str_appgeninfo.empresa
+		and sa_login = :str_appgeninfo.username
+		and sa_activo = 'S'	;		
+	CASE 'sa_vercost'
+		select sa_vercost
+		into :lch_permiso
+		from sg_acceso
+		where em_codigo = :str_appgeninfo.empresa
+		and sa_login = :str_appgeninfo.username
+		and sa_activo = 'S'	;		
+	CASE 'sa_proceso'
+		select sa_proceso
+		into :lch_permiso
+		from sg_acceso
+		where em_codigo = :str_appgeninfo.empresa
+		and sa_login = :str_appgeninfo.username
+		and sa_activo = 'S'	;		
+	CASE 'sa_cambpre'
+		select sa_cambpre
+		into :lch_permiso
+		from sg_acceso
+		where em_codigo = :str_appgeninfo.empresa
+		and sa_login = :str_appgeninfo.username
+		and sa_activo = 'S'	;		
+END CHOOSE
+
+if sqlca.sqlcode <> 0 then
+	MessageBox("Error","Problemas con permisos",StopSign!)
+	return 'N'
+End if
+return lch_permiso
+
+end function
+

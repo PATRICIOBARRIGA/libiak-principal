@@ -1,0 +1,222 @@
+HA$PBExportHeader$f_kardex_sucur.srf
+global type f_kardex_sucur from function_object
+end type
+
+forward prototypes
+global function integer f_kardex_sucur (string empresa, string sucursal, string item, string fecha_corte, window aw_frame)
+end prototypes
+
+global function integer f_kardex_sucur (string empresa, string sucursal, string item, string fecha_corte, window aw_frame);string codant, nombre,  unidad, ub_nombre, ls_kit, codantk, nombrek
+decimal saldo, saldok, saldo_inicial,saldo_actual, ld_mv_cantid,ld_mv_costo, ld
+decimal ld_ingresosk, ld_salidask, ld_totcom, ld_saldoh, ld_x,ld_c,ld_salcomp
+long ll_tot, li= 0
+string ls_tm_codigo, ls_tm_ioe, ls_it_codigo, ls_em_codigo, ls_su_codigo
+string ls_bo_codigo, ls_mv_numero,ls_mv_observ, ls_mv_usado
+datetime ld_mv_fecha
+string ls_item, ls_cod, ls_nom
+
+SetPointer(HourGlass!)
+declare c1 cursor for
+   select tm_codigo, tm_ioe, it_codigo, em_codigo,
+          su_codigo, bo_codigo, mv_numero, mv_cantid,
+          mv_costo, mv_fecha, mv_observ, mv_usado
+     from in_movim
+    where em_codigo = :empresa
+      and su_codigo = :sucursal
+      and it_codigo = :item
+      and trunc(mv_fecha) <= to_date(:fecha_corte,'dd/mm/yyyy')
+    order by mv_fecha;
+
+declare kit_cursor cursor for
+   select it_codigo,ri_cantid
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo1 = :item
+		and tr_codigo = '1';   // TR_CODIGO = '1' --> ES KIT
+
+declare componente_cursor cursor for
+   select it_codigo1,ri_cantid
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo = :ls_it_codigo
+		and tr_codigo = '1';   // TR_CODIGO = '1' --> ES KIT
+		
+   select count(*)
+	  into :ll_tot
+     from in_movim
+    where em_codigo = :empresa
+      and su_codigo = :sucursal
+      and it_codigo = :item
+      and trunc(mv_fecha) <= to_date(:fecha_corte,'dd/mm/yyyy')
+    order by mv_fecha;
+
+aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' registros. Espere un momento...')
+
+delete from rp_itkardex;
+delete from rp_compkit;
+
+  select it_codant,it_nombre,ub_codigo, it_kit
+    into :codant, :nombre, :unidad, :ls_kit
+    from in_item
+   where em_codigo = :empresa
+     and it_codigo = :item;
+	  
+  select ub_nombre
+    into :ub_nombre
+    from in_unibas
+   where ub_codigo = :unidad;
+	
+  select nvl(it_stkini,0),nvl(it_stock,0)
+    into :saldo_inicial, :saldo_actual
+    from in_itesucur
+   where em_codigo = :empresa
+     and su_codigo = :sucursal
+     and it_codigo = :item;
+  saldo = saldo_inicial;
+	open c1;
+	do
+		fetch c1 into :ls_tm_codigo, :ls_tm_ioe, :ls_it_codigo, :ls_em_codigo,
+		:ls_su_codigo, :ls_bo_codigo, :ls_mv_numero, :ld_mv_cantid,
+		:ld_mv_costo, :ld_mv_fecha, :ls_mv_observ, :ls_mv_usado;
+   	if sqlca.sqlcode <> 0 then exit; 
+		li++
+		aw_frame.SetMicroHelp('Procesando: '+ string(li) + ' de ' + string(ll_tot) + ' registros. Espere un momento...')
+    	if ls_tm_ioe = 'I' then
+         saldo = saldo + ld_mv_cantid;
+      elseif ls_tm_ioe = 'E' then
+         saldo = saldo - ld_mv_cantid;
+      end if
+      insert into rp_itkardex(tm_codigo,tm_ioe,it_codigo,em_codigo,su_codigo,
+                            bo_codigo,mv_numero,mv_cantid,mv_costo,mv_fecha,
+                            mv_observ,mv_usado,kd_saldo,it_codant,it_nombre,
+                            ib_stkini,ub_nombre,kd_feccorte,ib_stock,kd_secuen,it_kit)
+      values(:ls_tm_codigo,:ls_tm_ioe,:ls_it_codigo,:ls_em_codigo,
+           :ls_su_codigo,:ls_bo_codigo,:ls_mv_numero,:ld_mv_cantid,
+           :ld_mv_costo,:ld_mv_fecha,:ls_mv_observ,:ls_mv_usado,
+           :saldo,:codant,:nombre,:saldo_inicial,:ub_nombre,to_date(:fecha_corte,'dd/mm/yyyy'),
+           :saldo_actual,:li, :ls_kit);
+	loop while TRUE;
+	close c1;
+if ls_kit = 'S' then
+	aw_frame.SetMicroHelp('Procesando las ventas de componentes del kit...')
+	ld_saldoh = saldo
+	li++
+	open kit_cursor;
+	do
+		fetch kit_cursor into :ls_it_codigo, :ld;
+   	if sqlca.sqlcode <> 0 then exit;    	
+		  select it_codant, it_nombre
+			 into :codantk, :nombrek
+			 from in_item
+			where em_codigo = :empresa
+			  and it_codigo = :ls_it_codigo;		
+			  
+  		  ld_totcom = ld_saldoh * ld	  
+   	  select nvl(sum(mv_cantid),0)
+          into :ld_ingresosk		 
+     		 from in_movim
+		   where em_codigo = :empresa
+			  and su_codigo = :sucursal
+		     and it_codigo = :ls_it_codigo
+			  and tm_ioe = 'I'
+			  and trunc(mv_fecha) <= to_date(:fecha_corte,'dd/mm/yyyy');
+			  
+   	  select nvl(sum(mv_cantid),0)
+          into :ld_salidask		 
+     		 from in_movim
+		   where em_codigo = :empresa
+			  and su_codigo = :sucursal
+		     and it_codigo = :ls_it_codigo
+			  and tm_ioe = 'E'
+			  and trunc(mv_fecha) <= to_date(:fecha_corte,'dd/mm/yyyy');
+			  
+		  select nvl(it_stkini,0)
+			 into :saldok
+			 from in_itesucur
+			where em_codigo = :empresa
+			  and su_codigo = :sucursal
+			  and it_codigo = :ls_it_codigo;
+		saldok += ld_ingresosk - ld_salidask
+      if saldok < ld_totcom then
+			ld_x = round(ld_saldoh - (saldok / ld),3)
+			saldo = saldo - ld_x
+			ls_mv_observ = 'Salidas comp. '+codantk + ' ' +nombrek
+			insert into rp_itkardex(tm_codigo,tm_ioe,it_codigo,em_codigo,su_codigo,
+										 bo_codigo,mv_numero,mv_cantid,mv_costo,mv_fecha,
+										 mv_observ,mv_usado,kd_saldo,it_codant,it_nombre,
+										 ib_stkini,ub_nombre,kd_feccorte,ib_stock,kd_secuen,it_kit)
+			values(null,'E',:item,:empresa,:sucursal,null,null,:ld_x,
+				  :ld_mv_costo,to_date(:fecha_corte,'dd/mm/yyyy'),:ls_mv_observ,null,
+				  :saldo,:codant,:nombre,:saldo_inicial,:ub_nombre,to_date(:fecha_corte,'dd/mm/yyyy'),
+				  :saldo_actual,:li,:ls_kit);
+		   li++
+		 else
+			ld_x = round((saldok / ld) - ld_saldoh,3)
+			saldo = saldo + ld_x
+			ls_mv_observ = 'Ingresos comp. '+codantk + ' ' +nombrek
+			insert into rp_itkardex(tm_codigo,tm_ioe,it_codigo,em_codigo,su_codigo,
+										 bo_codigo,mv_numero,mv_cantid,mv_costo,mv_fecha,
+										 mv_observ,mv_usado,kd_saldo,it_codant,it_nombre,
+										 ib_stkini,ub_nombre,kd_feccorte,ib_stock,kd_secuen,it_kit)
+			values(null,'I',:item,:empresa,:sucursal,null,null,:ld_x,
+				  :ld_mv_costo,to_date(:fecha_corte,'dd/mm/yyyy'),:ls_mv_observ,null,
+				  :saldo,:codant,:nombre,:saldo_inicial,:ub_nombre,to_date(:fecha_corte,'dd/mm/yyyy'),
+				  :saldo_actual,:li,:ls_kit);
+		   li++
+		end if
+
+	loop while TRUE;
+	close kit_cursor;		
+	//Expreso el stock de todos los formatos en que se presenta el componente	
+  open kit_cursor;
+	do
+		fetch kit_cursor into :ls_it_codigo, :ld;
+   	if sqlca.sqlcode <> 0 then exit;    	
+		open componente_cursor;
+		do
+			fetch componente_cursor into :ls_item, :ld_c;
+			if sqlca.sqlcode <> 0 then exit;    	
+				if ls_item = item then
+				  select it_codant, it_nombre
+					 into :ls_cod, :ls_nom
+					 from in_item
+					where em_codigo = :empresa
+					  and it_codigo = :ls_it_codigo;					
+					ld_salcomp = truncate((saldo*ld),0)
+				else
+				  select it_codant, it_nombre
+					 into :ls_cod, :ls_nom
+					 from in_item
+					where em_codigo = :empresa
+					  and it_codigo = :ls_item;
+				   ld_salcomp = round((saldo*ld)/ld_c,3)
+				end if
+				insert into rp_compkit (rc_codant,rc_nombre,rc_observ,rc_stock)
+				values (:ls_cod, :ls_nom, 'D', :ld_salcomp);
+		loop while TRUE;
+	   close componente_cursor;		
+	loop while TRUE;
+	close kit_cursor;		
+else
+	ls_it_codigo = item
+	   open componente_cursor;
+		do
+			fetch componente_cursor into :ls_item, :ld_c;
+			if sqlca.sqlcode <> 0 then exit;    	
+			  select it_codant, it_nombre
+				 into :ls_cod, :ls_nom
+				 from in_item
+				where em_codigo = :empresa
+				  and it_codigo = :ls_item;		
+				ld_salcomp = round(saldo/ld_c,3)
+				insert into rp_compkit (rc_codant,rc_nombre,rc_observ,rc_stock)
+				values (:ls_cod, :ls_nom, 'D', :ld_salcomp);
+		loop while TRUE;
+	   close componente_cursor;		
+end if
+commit using sqlca;
+SetPointer(Arrow!)
+aw_frame.SetMicroHelp('Listo.')
+return 1
+end function
+

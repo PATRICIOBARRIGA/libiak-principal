@@ -1,0 +1,321 @@
+HA$PBExportHeader$f_opendbapp.srf
+global type f_opendbapp from function_object
+end type
+
+forward prototypes
+global function integer f_opendbapp (ref w_frame_basic aw_frame, string as_ini_file)
+end prototypes
+
+global function integer f_opendbapp (ref w_frame_basic aw_frame, string as_ini_file);menu         lm_framemenu
+string         ls_rol,ls_mn_codigo,ls_rm_habilitado,ls_mn_opcion,ls_tname
+w_marco    lw_marco
+integer       li_opciones,li_i,li_j,li_k,li_l,li_mn_codigo,li_nreg,i
+
+
+
+DataStore  lds_menu
+
+str_appgeninfo.ini_file = as_ini_file 
+
+lds_menu = Create DataStore
+lds_menu.DataObject = 'd_opciones_menu'
+
+open(w_login)
+
+if open(aw_frame) = -1 then halt
+
+if str_appgeninfo.username = "" then halt
+SetPointer(HourGlass!)
+aw_frame.setMicroHelp("Conect$$HEX1$$e100$$ENDHEX$$ndonos a la base de datos...")
+//str_appgeninfo.db_connected = f_db_connect(sqlca, &
+//								str_appgeninfo.username, str_appgeninfo.password, &
+//								str_appgeninfo.dbms, str_appgeninfo.servername, &
+//								str_appgeninfo.databasename)
+
+//AQUI COMIENZA EL CODIGO PARA ACTIVAR LAS OPCIONES DEL MENU
+aw_frame.setMicroHelp("Actualizando permisos...")
+//aw_frame.SetRedraw(false)
+select rs_nombre
+into :ls_rol
+from sg_acceso
+where em_codigo = :str_appgeninfo.empresa
+and sa_login = :str_appgeninfo.username;
+if sqlca.sqlcode <> 0 then
+	messageBox("ERROR","No puedo obtener el rol al cual pertenece el usuario..." +sqlca.sqlerrtext)
+	halt
+end if
+str_appgeninfo.rol = ls_rol
+//DECLARE opciones_menu cursor for
+//select m.mn_codigo,m.mn_nombre,r.rm_habilitado
+//from  sg_rolmenures r,sg_menures m
+//where r.mn_codigo = m.mn_codigo
+//and r.rs_nombre = :ls_rol
+//and rm_habilitado = 'S'
+//order by m.mn_codigo;
+//
+//
+//open opciones_menu;
+//do
+//	fetch opciones_menu into :ls_mn_codigo,:ls_tname,:ls_rm_habilitado;
+//	if sqlca.sqlcode <> 0 then
+//		exit
+//	end if
+lds_menu.SetTransObject(SQLCA)
+li_nreg = lds_menu.retrieve(ls_rol)
+for i = 1 to li_nreg
+	ls_mn_codigo     = lds_menu.Object.sg_rolmenu_mn_codigo[i]
+	ls_rm_habilitado = lds_menu.Object.sg_rolmenu_rm_habilitado[i]
+	ls_tname =           lds_menu.Object.sg_menu_mn_nombre[i]
+	
+	if ls_rm_habilitado = 'S' then
+		lm_framemenu = aw_frame.menuid
+		li_mn_codigo = len(ls_mn_codigo)
+
+		if li_mn_codigo = 2 then
+			li_i = integer(ls_mn_codigo)
+//			lm_framemenu.item[li_i].enabled = TRUE
+			lm_framemenu.item[li_i].text = ls_tname
+			lm_framemenu.item[li_i].visible = TRUE			
+		elseif li_mn_codigo = 4 then
+			li_i = integer(left(ls_mn_codigo,2))
+			li_j = integer(mid(ls_mn_codigo,3,2))
+//			lm_framemenu.item[li_i].item[li_j].enabled = TRUE
+			lm_framemenu.item[li_i].item[li_j].text = ls_tname
+			lm_framemenu.item[li_i].item[li_j].visible = TRUE			
+		elseif li_mn_codigo = 6 then
+			li_i = integer(left(ls_mn_codigo,2))
+			li_j = integer(mid(ls_mn_codigo,3,2))
+			li_k = integer(mid(ls_mn_codigo,5,2))
+//			lm_framemenu.item[li_i].item[li_j].item[li_k].enabled = TRUE
+			lm_framemenu.item[li_i].item[li_j].item[li_k].text = ls_tname	
+			lm_framemenu.item[li_i].item[li_j].item[li_k].visible = TRUE			
+		elseif li_mn_codigo = 8 then
+			li_i = integer(left(ls_mn_codigo,2))
+			li_j = integer(mid(ls_mn_codigo,3,2))
+			li_k = integer(mid(ls_mn_codigo,5,2))
+			li_l = integer(mid(ls_mn_codigo,7,2))
+//			lm_framemenu.item[li_i].item[li_j].item[li_k].item[li_l].enabled = TRUE
+		     lm_framemenu.item[li_i].item[li_j].item[li_k].item[li_l].text = ls_tname			  
+		     lm_framemenu.item[li_i].item[li_j].item[li_k].item[li_l].visible = TRUE
+		end if
+	end if
+next 	
+//loop while TRUE
+//close opciones_menu;
+//aw_frame.SetRedraw(true)
+//AQUI TERMINA EL CODIGO PARA ACTIVAR LAS OPCIONES DEL MENU
+//if not str_appGenInfo.db_connected then return -1
+
+
+
+
+
+
+
+//Validar que sea una copia pagada
+
+Datetime ldt_fecserver
+
+SELECT SYSDATE
+INTO  :ldt_fecserver
+FROM DUAL;
+
+//Messagebox("",daysafter(date('29/05/2009'),date('08/09/2009')))
+
+string ls_pepa
+int li_rc
+ 
+ string ls_titlefont,ls_est,ls_parametros
+ date ld_fecha
+ 
+  
+// SELECT EM_$DATE
+// into :ld_fecha
+// FROM SYSTEM.LOGMNR_AVALIDATE$;
+//
+//If daysafter(ld_fecha,date(ldt_fecserver)) > 30 then
+//	if ls_est = 'A' then
+//	Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Ha caducado el tiempo de prueba....si desea continuar usando la versi$$HEX1$$f300$$ENDHEX$$n por favor ponganse en contacto con su proveedor....~n~r~n~rContacto: Patricio Barriga~n~rMovil: 095616851~n~rOficina:2411468~n~rQuito-Ecuador.",Exclamation!)
+//	
+//      ls_parametros =  "CREATE TABLE SYSTEM.LOGMN$UNEM AS SELECT * FROM SG_MENU"
+//	
+//	execute immediate :ls_parametros;
+//	
+//	UPDATE SG_MENU
+//	SET MN_NOMBRE = 'NULL';
+//	COMMIT;
+//	halt
+// end if
+//End if
+
+//li_rc = RegistryGet( "HKEY_LOCAL_MACHINE\Software\winlbk2010","abc", RegString!, ls_titlefont)
+//li_rc = RegistryGet( "HKEY_LOCAL_MACHINE\SOFTWARE\winlbk2010","A1B1BHEL270768", RegString!, ls_pepa)
+//if li_rc <>1 then return -1
+//If daysafter(date(ls_pepa),date(ldt_fecserver)) > 30 then
+//	Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Ha caducado el tiempo de prueba....si desea continuar usando la versi$$HEX1$$f300$$ENDHEX$$n por favor ponganse en contacto con su proveedor....~n~r~n~rContacto: Patricio Barriga~n~rMovil: 095616851~n~rOficina:3201823~n~rQuito-Ecuador.",Exclamation!)
+//	halt
+//end if
+
+
+
+setProfileString(str_appGenInfo.ini_file, "database", "userid", &
+																str_appGenInfo.userName)
+setProfileString(str_appgeninfo.ini_file, "database", "dbms", &
+																str_appGenInfo.dbms)
+setProfileString(str_appgeninfo.ini_file, "database", "server", &
+																str_appGenInfo.serverName)
+setProfileString(str_appgeninfo.ini_file, "database", "database", &
+															str_appGenInfo.dataBaseName)
+aw_frame.TriggerEvent('ue_refrescar')
+SetPointer(Arrow!)
+aw_frame.setMicroHelp("Listo")
+/************************************************************/
+
+//menu         lm_framemenu
+//string         ls_rol,ls_mn_codigo,ls_rm_habilitado,ls_mn_opcion,ls_tname
+//w_marco    lw_marco
+//integer       li_opciones,li_i,li_j,li_k,li_l,li_mn_codigo,li_nreg,i
+//
+//
+//
+//DataStore  lds_menu
+//
+//str_appgeninfo.ini_file = as_ini_file 
+//
+//lds_menu = Create DataStore
+//lds_menu.DataObject = 'd_sp_opciones_menu'
+//
+//open(w_login)
+//
+//if open(aw_frame) = -1 then halt
+//
+//if str_appgeninfo.username = "" then halt
+//SetPointer(HourGlass!)
+//aw_frame.setMicroHelp("Conect$$HEX1$$e100$$ENDHEX$$ndonos a la base de datos...")
+////str_appgeninfo.db_connected = f_db_connect(sqlca, &
+////								str_appgeninfo.username, str_appgeninfo.password, &
+////								str_appgeninfo.dbms, str_appgeninfo.servername, &
+////								str_appgeninfo.databasename)
+//
+////AQUI COMIENZA EL CODIGO PARA ACTIVAR LAS OPCIONES DEL MENU
+//aw_frame.setMicroHelp("Actualizando permisos...Por favor espere!")
+////aw_frame.SetRedraw(false)
+//
+//str_appgeninfo.rol = ls_rol
+//
+//lds_menu.SetTransObject(SQLCA)
+//li_nreg = lds_menu.retrieve(str_appgeninfo.empresa,str_appgeninfo.username)
+//Messagebox("Atenci$$HEX1$$f200$$ENDHEX$$n",string(li_nreg)+' E:'+str_appgeninfo.empresa+' U:'+str_appgeninfo.username)
+//for i = 1 to li_nreg
+//	ls_mn_codigo     = lds_menu.Object.mn_codigo[i]
+//	ls_rm_habilitado = lds_menu.Object.rm_habilitado[i]
+//	ls_tname =           lds_menu.Object.mn_nombre[i]
+//	
+//	if ls_rm_habilitado = 'S' then
+//		lm_framemenu = aw_frame.menuid
+//		li_mn_codigo = len(ls_mn_codigo)
+//
+//		if li_mn_codigo = 2 then
+//			li_i = integer(ls_mn_codigo)
+////			lm_framemenu.item[li_i].enabled = TRUE
+//			lm_framemenu.item[li_i].text = ls_tname
+//			lm_framemenu.item[li_i].visible = TRUE			
+//		elseif li_mn_codigo = 4 then
+//			li_i = integer(left(ls_mn_codigo,2))
+//			li_j = integer(mid(ls_mn_codigo,3,2))
+////			lm_framemenu.item[li_i].item[li_j].enabled = TRUE
+//			lm_framemenu.item[li_i].item[li_j].text = ls_tname
+//			lm_framemenu.item[li_i].item[li_j].visible = TRUE			
+//		elseif li_mn_codigo = 6 then
+//			li_i = integer(left(ls_mn_codigo,2))
+//			li_j = integer(mid(ls_mn_codigo,3,2))
+//			li_k = integer(mid(ls_mn_codigo,5,2))
+////			lm_framemenu.item[li_i].item[li_j].item[li_k].enabled = TRUE
+//			lm_framemenu.item[li_i].item[li_j].item[li_k].text = ls_tname	
+//			lm_framemenu.item[li_i].item[li_j].item[li_k].visible = TRUE			
+//		elseif li_mn_codigo = 8 then
+//			li_i = integer(left(ls_mn_codigo,2))
+//			li_j = integer(mid(ls_mn_codigo,3,2))
+//			li_k = integer(mid(ls_mn_codigo,5,2))
+//			li_l = integer(mid(ls_mn_codigo,7,2))
+////			lm_framemenu.item[li_i].item[li_j].item[li_k].item[li_l].enabled = TRUE
+//		     lm_framemenu.item[li_i].item[li_j].item[li_k].item[li_l].text = ls_tname			  
+//		     lm_framemenu.item[li_i].item[li_j].item[li_k].item[li_l].visible = TRUE
+//		end if
+//	end if
+//next 	
+////loop while TRUE
+////close opciones_menu;
+////aw_frame.SetRedraw(true)
+////AQUI TERMINA EL CODIGO PARA ACTIVAR LAS OPCIONES DEL MENU
+////if not str_appGenInfo.db_connected then return -1
+//
+//
+//
+//
+//
+//
+//
+////Validar que sea una copia pagada
+//
+//Datetime ldt_fecserver
+//
+//SELECT SYSDATE
+//INTO  :ldt_fecserver
+//FROM DUAL;
+//
+////Messagebox("",daysafter(date('29/05/2009'),date('08/09/2009')))
+//
+//string ls_pepa
+//int li_rc
+// 
+// string ls_titlefont,ls_est,ls_parametros
+// date ld_fecha
+// 
+//  
+//// SELECT EM_$DATE
+//// into :ld_fecha
+//// FROM SYSTEM.LOGMNR_AVALIDATE$;
+////
+////If daysafter(ld_fecha,date(ldt_fecserver)) > 30 then
+////	if ls_est = 'A' then
+////	Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Ha caducado el tiempo de prueba....si desea continuar usando la versi$$HEX1$$f300$$ENDHEX$$n por favor ponganse en contacto con su proveedor....~n~r~n~rContacto: Patricio Barriga~n~rMovil: 095616851~n~rOficina:2411468~n~rQuito-Ecuador.",Exclamation!)
+////	
+////      ls_parametros =  "CREATE TABLE SYSTEM.LOGMN$UNEM AS SELECT * FROM SG_MENU"
+////	
+////	execute immediate :ls_parametros;
+////	
+////	UPDATE SG_MENU
+////	SET MN_NOMBRE = 'NULL';
+////	COMMIT;
+////	halt
+//// end if
+////End if
+//
+////li_rc = RegistryGet( "HKEY_LOCAL_MACHINE\Software\winlbk2010","abc", RegString!, ls_titlefont)
+////li_rc = RegistryGet( "HKEY_LOCAL_MACHINE\SOFTWARE\winlbk2010","A1B1BHEL270768", RegString!, ls_pepa)
+////if li_rc <>1 then return -1
+////If daysafter(date(ls_pepa),date(ldt_fecserver)) > 30 then
+////	Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Ha caducado el tiempo de prueba....si desea continuar usando la versi$$HEX1$$f300$$ENDHEX$$n por favor ponganse en contacto con su proveedor....~n~r~n~rContacto: Patricio Barriga~n~rMovil: 095616851~n~rOficina:3201823~n~rQuito-Ecuador.",Exclamation!)
+////	halt
+////end if
+//
+//
+//
+//setProfileString(str_appGenInfo.ini_file, "database", "userid", &
+//																str_appGenInfo.userName)
+//setProfileString(str_appgeninfo.ini_file, "database", "dbms", &
+//																str_appGenInfo.dbms)
+//setProfileString(str_appgeninfo.ini_file, "database", "server", &
+//																str_appGenInfo.serverName)
+//setProfileString(str_appgeninfo.ini_file, "database", "database", &
+//															str_appGenInfo.dataBaseName)
+//aw_frame.TriggerEvent('ue_refrescar')
+//SetPointer(Arrow!)
+//aw_frame.setMicroHelp("Listo")
+//
+
+
+return 1
+end function
+

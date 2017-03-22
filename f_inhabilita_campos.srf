@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_inhabilita_campos.srf
+global type f_inhabilita_campos from function_object
+end type
+
+forward prototypes
+global function integer f_inhabilita_campos (ref datawindow adw_datos, string as_vector[])
+end prototypes
+
+global function integer f_inhabilita_campos (ref datawindow adw_datos, string as_vector[]);String ls_columnname
+Long i
+
+for i = 1 to upperbound(as_vector)
+adw_datos.settaborder(as_vector[i],0)
+adw_datos.Modify(as_vector[i]+ ".Background.Mode='1'")
+adw_datos.Modify(as_vector[i]+".Border='0'")
+next
+return 1
+
+
+
+
+
+
+end function
+

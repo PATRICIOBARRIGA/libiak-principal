@@ -1,0 +1,23 @@
+HA$PBExportHeader$f_otros_debitos_cxp.srf
+global type f_otros_debitos_cxp from function_object
+end type
+
+forward prototypes
+global function integer f_otros_debitos_cxp (string empresa, string sucursal, string mov_credito, string mov_debito)
+end prototypes
+
+global function integer f_otros_debitos_cxp (string empresa, string sucursal, string mov_credito, string mov_debito);
+Decimal lc_otros_debitos
+
+select sum(cx_valcre )
+into :lc_otros_debitos
+from cp_cruce
+where em_codigo = :empresa
+and su_codigo = :sucursal
+and mp_codigo = :mov_credito
+and mp_coddeb not in (:mov_debito);
+
+
+return lc_otros_debitos
+end function
+

@@ -1,0 +1,43 @@
+HA$PBExportHeader$f_load_plantilla.srf
+global type f_load_plantilla from function_object
+end type
+
+forward prototypes
+global function integer f_load_plantilla (string as_tipo, datawindow adw_cc)
+end prototypes
+
+global function integer f_load_plantilla (string as_tipo, datawindow adw_cc);String ls_plcodigo,ls_cscodigo,ls_signo,ls_obs,ls_param
+Long ll_new
+
+//Carga plantilla contable
+
+
+declare  c1 cursor for
+select y.pl_codigo,y.cs_codigo,y.ct_debcre,y.ct_descri,y.estado
+from co_cabaut x, co_comaut y
+where x.em_codigo= y.em_codigo
+and x.su_codigo = y.su_codigo
+and x.ct_codigo = y.ct_codigo
+and x.em_codigo =:str_appgeninfo.empresa
+and x.su_codigo =:str_appgeninfo.sucursal
+and x.ct_nombre = :as_tipo
+order by y.ct_debcre desc;
+
+adw_cc.reset()
+
+open c1;
+fetch c1 into :ls_plcodigo,:ls_cscodigo,:ls_signo,:ls_obs,:ls_param;
+do while sqlca.sqlcode = 0
+	ll_new = adw_cc.insertrow(0)
+	adw_cc.setitem(ll_new,"pl_codigo",ls_plcodigo)
+	adw_cc.setitem(ll_new,"cs_codigo",ls_cscodigo)
+	adw_cc.setitem(ll_new,"dt_signo",ls_signo)
+	adw_cc.setitem(ll_new,"dt_detalle",ls_obs)
+	adw_cc.setitem(ll_new,"param",ls_param)
+	fetch c1 into :ls_plcodigo,:ls_cscodigo,:ls_signo,:ls_obs,:ls_param ;	
+loop
+close c1;
+
+return 1
+end function
+

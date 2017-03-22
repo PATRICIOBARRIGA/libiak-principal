@@ -1,0 +1,142 @@
+HA$PBExportHeader$f_proforma_a_factura.srf
+global type f_proforma_a_factura from function_object
+end type
+
+forward prototypes
+global function integer f_proforma_a_factura (long ai_factura)
+end prototypes
+
+global function integer f_proforma_a_factura (long ai_factura);integer  li_factura
+string   ls_estado,ls_bodega,ls_item,ls_empresa,ls_sucursal,ls_codant,ls_nombre
+long     ll_secue,ll_descue,ll_total,li_nuevonum
+decimal  ld_cantid,ld_candes,ld_precio,ld_desc1,ld_desc2,ld_desc3,ld_stock,lc_recargo
+boolean  lb_hay_stock
+string   ls_null,ls_kit
+
+declare c2 cursor for
+ select es_codigo,bo_codigo,it_codigo,em_codigo,su_codigo,dv_secue,
+        dv_cantid,dv_candes,dv_precio,dv_desc1,dv_desc2,dv_desc3,
+		  dv_descue,dv_total,it_kit
+   from fa_detve
+  where em_codigo = :str_appgeninfo.empresa
+    and su_codigo = :str_appgeninfo.sucursal
+    and es_codigo = '3'
+    and ve_numero = :ai_factura;
+	 
+
+SetNull(ls_null)
+// busco numero de venta
+select nvl(max(VE_NUMERO),0) + 1
+  into :li_factura
+  from fa_venta
+ where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and es_codigo = '2';
+	
+li_nuevonum = li_factura	
+INSERT INTO FA_VENTA 
+          (es_codigo,em_codigo, su_codigo, ve_numero,cj_caja,   
+           ce_codigo,ep_codigo, ve_numpre,  ve_fecha,ve_hora,   
+           ve_subtot,ve_descue, ve_neto, ve_iva, ve_cargo,   
+           ve_valpag,ve_observ, ve_leyenda, bo_codigo, ve_efectivo, 
+			  ve_valotros, ve_cambio )
+SELECT '2',em_codigo,su_codigo,:li_factura,cj_caja,
+       ce_codigo,ep_codigo,ve_numpre,ve_fecha,ve_hora,
+		 ve_subtot,ve_descue,ve_neto,ve_iva,ve_cargo,
+		 ve_valpag,ve_observ,null,bo_codigo,ve_efectivo,
+		 ve_valotros,ve_cambio
+  FROM FA_VENTA
+ WHERE es_codigo = '3'
+   AND em_codigo = :str_appgeninfo.empresa
+   AND su_codigo = :str_appgeninfo.sucursal
+	AND bo_codigo = :str_appgeninfo.seccion
+	AND ve_numero = :ai_factura;
+	
+open c2;
+do
+	fetch c2 into :ls_estado,:ls_bodega,:ls_item,:ls_empresa,:ls_sucursal,&
+	              :ll_secue,:ld_cantid,:ld_candes,:ld_precio,:ld_desc1,:ld_desc2,&
+					  :ld_desc3,:ll_descue,:ll_total,:ls_kit;
+	if sqlca.sqlcode <> 0 then exit
+	lb_hay_stock = f_dame_stock_sucursal_new( ls_item,ld_cantid,ld_stock, ls_kit )
+	if lb_hay_stock = true then
+		update fa_detve
+		   set dv_cantid = 0,
+			    dv_candes = 0
+		 where em_codigo = :ls_empresa
+		   and su_codigo = :ls_sucursal
+			and ve_numero = :ai_factura
+			and es_codigo = '3'
+			and dv_secue = :ll_secue;
+		select it_codant,it_nombre
+		  into :ls_codant,:ls_nombre
+		  from in_item
+		 where em_codigo = :str_appgeninfo.empresa
+		   and it_codigo = :ls_item;
+//		dw_det.SetItem(ll_secue,"es_codigo",'2')
+//		dw_det.SetItem(ll_secue,"bo_codigo",ls_bodega)
+//		dw_det.SetItem(ll_secue,"it_codigo",ls_item)
+//		dw_det.SetItem(ll_secue,"codant",ls_codant)
+//		dw_det.SetItem(ll_secue,"nombre",ls_nombre)
+//		dw_det.SetItem(ll_secue,"em_codigo",ls_empresa)
+//		dw_det.SetItem(ll_secue,"su_codigo",ls_sucursal)
+//		dw_det.SetItem(ll_secue,"dv_secue",ll_secue)
+//		dw_det.SetItem(ll_secue,"dv_cantid",ld_cantid)
+//		dw_det.SetItem(ll_secue,"dv_candes",ld_cantid)
+//		dw_det.SetItem(ll_secue,"dv_precio",ld_precio)
+//		dw_det.SetItem(ll_secue,"dv_desc1",ld_desc1)
+//		dw_det.SetItem(ll_secue,"dv_desc2",ld_desc1)
+//		dw_det.SetItem(ll_secue,"dv_desc3",ld_desc1)
+//		dw_det.SetItem(ll_secue,"dv_descue",ll_descue)
+//		dw_det.SetItem(ll_secue,"dv_total",ll_total)
+//		dw_det.SetItem(ll_secue,"dv_entrega","N")
+		insert into fa_detve(es_codigo,bo_codigo,ve_numero,it_codigo,em_codigo,
+	                     	su_codigo,dv_secue,dv_cantid,dv_candes,dv_precio,
+									dv_desc1,dv_desc2,dv_desc3,dv_descue,dv_total,
+									dv_entrega,dv_devolu,dv_yanc,dv_dfecha)
+		values('2',:ls_bodega,:li_factura,:ls_item,:ls_empresa,:ls_sucursal,
+	       	:ll_secue,:ld_cantid,:ld_cantid,:ld_precio,:ld_desc1,:ld_desc2,
+			 	:ld_desc3,:ll_descue,:ll_total,'N',0,null,null);
+		f_descarga_stock_disponible_sucursal(ls_item,ld_cantid)
+	else
+		if lb_hay_stock = true then
+			update fa_detve
+		   	set dv_cantid = dv_cantid - :ld_stock,
+			    	 dv_candes = dv_candes - :ld_stock
+		 	 where em_codigo = :ls_empresa
+		   	and su_codigo = :ls_sucursal
+				and ve_numero = :ai_factura
+				and es_codigo = '3'
+				and dv_secue = :ll_secue;
+//			dw_det.SetItem(ll_secue,"es_codigo",'2')
+//			dw_det.SetItem(ll_secue,"bo_codigo",ls_bodega)
+//			dw_det.SetItem(ll_secue,"it_codigo",ls_item)
+//			dw_det.SetItem(ll_secue,"codant",ls_codant)
+//			dw_det.SetItem(ll_secue,"nombre",ls_nombre)
+//			dw_det.SetItem(ll_secue,"em_codigo",ls_empresa)
+//			dw_det.SetItem(ll_secue,"su_codigo",ls_sucursal)
+//			dw_det.SetItem(ll_secue,"dv_secue",ll_secue)
+//			dw_det.SetItem(ll_secue,"dv_cantid",ld_stock)
+//			dw_det.SetItem(ll_secue,"dv_candes",ld_stock)
+//			dw_det.SetItem(ll_secue,"dv_precio",ld_precio)
+//			dw_det.SetItem(ll_secue,"dv_desc1",ld_desc1)
+//			dw_det.SetItem(ll_secue,"dv_desc2",ld_desc1)
+//			dw_det.SetItem(ll_secue,"dv_desc3",ld_desc1)
+//			dw_det.SetItem(ll_secue,"dv_descue",ll_descue)
+//			dw_det.SetItem(ll_secue,"dv_total",ll_total)
+//			dw_det.SetItem(ll_secue,"dv_entrega","N")
+			insert into fa_detve(es_codigo,bo_codigo,ve_numero,it_codigo,em_codigo,
+	                     		su_codigo,dv_secue,dv_cantid,dv_candes,dv_precio,
+										dv_desc1,dv_desc2,dv_desc3,dv_descue,dv_total,
+										dv_entrega,dv_devolu,dv_yanc,dv_dfecha)
+			values('2',:ls_bodega,:li_factura,:ls_item,:ls_empresa,:ls_sucursal,
+	       		:ll_secue,:ld_stock,:ld_stock,:ld_precio,:ld_desc1,:ld_desc2,
+			 		:ld_desc3,:ll_descue,:ll_total,'N',0,null,null);
+			f_descarga_stock_disponible_sucursal(ls_item,ld_stock)
+		end if
+	end if
+loop while TRUE;
+close c2;
+return 1
+end function
+

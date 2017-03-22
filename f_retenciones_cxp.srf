@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_retenciones_cxp.srf
+global type f_retenciones_cxp from function_object
+end type
+
+forward prototypes
+global function decimal f_retenciones_cxp (string as_formapago, string as_cofacpro, string as_pvcodigo, string as_mpcodigo)
+end prototypes
+
+global function decimal f_retenciones_cxp (string as_formapago, string as_cofacpro, string as_pvcodigo, string as_mpcodigo);decimal lc_valor_retenido
+
+
+SELECT "CP_PAGO"."PM_VALOR"
+    INTO  :lc_valor_retenido
+	 FROM "CP_CRUCE",
+         "CP_PAGO" , "CP_MOVIM"
+   WHERE ( "CP_CRUCE"."TV_CODIGO" = "CP_MOVIM"."TV_CODIGO" ) and  
+         ( "CP_CRUCE"."TV_TIPO" = "CP_MOVIM"."TV_TIPO" ) and  
+         ( "CP_CRUCE"."EM_CODIGO" = "CP_MOVIM"."EM_CODIGO" ) and  
+         ( "CP_CRUCE"."SU_CODIGO" = "CP_MOVIM"."SU_CODIGO" ) and  
+         ( "CP_CRUCE"."MP_CODIGO" = "CP_MOVIM"."MP_CODIGO" ) and  
+         ( "CP_PAGO"."TV_CODIGO" = "CP_CRUCE"."TV_CODDEB" ) and  
+         ( "CP_PAGO"."TV_TIPO" = "CP_CRUCE"."TV_TIPODEB" ) and  
+         ( "CP_PAGO"."MP_CODIGO" = "CP_CRUCE"."MP_CODDEB" ) and  
+         ( "CP_PAGO"."EM_CODIGO" = "CP_CRUCE"."EM_CODIGO" ) and  
+         ( "CP_PAGO"."SU_CODIGO" = "CP_CRUCE"."SU_CODIGO" ) and  
+         ( ( "CP_PAGO"."FP_CODIGO" = :as_formapago) AND  
+         ( "CP_MOVIM"."CO_FACPRO" = :as_cofacpro ) AND 
+         ( "CP_MOVIM"."PV_CODIGO" = :as_pvcodigo) AND
+         ( "CP_MOVIM"."MP_CODIGO" = :as_mpcodigo ) )  ;
+			
+RETURN lc_valor_retenido
+end function
+

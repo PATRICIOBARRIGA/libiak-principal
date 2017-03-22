@@ -1,0 +1,65 @@
+HA$PBExportHeader$f_recupera_datos.srf
+global type f_recupera_datos from function_object
+end type
+
+forward prototypes
+global function integer f_recupera_datos (datawindow adw_datawindow, string as_parametro, string av_datos[], long al_numparametros)
+end prototypes
+
+global function integer f_recupera_datos (datawindow adw_datawindow, string as_parametro, string av_datos[], long al_numparametros);///////////////////////////////////////////////////////////////////////
+// Descripci$$HEX1$$f300$$ENDHEX$$n : crea un Datwindow Child con el dw y el parametro, 
+// luego recupera el dw_child con el numero de par$$HEX1$$e100$$ENDHEX$$metros y el valor 
+// de cada par$$HEX1$$e100$$ENDHEX$$metro
+// Fecha de Ultima Revisi$$HEX1$$f300$$ENDHEX$$n : 18-Feb-1999
+///////////////////////////////////////////////////////////////////////
+
+datawindowchild ldwc_aux
+adw_datawindow.getChild(as_parametro, ldwc_aux)
+ldwc_aux.setTransObject(sqlca)
+
+CHOOSE CASE al_numparametros
+	CASE 1
+		if ldwc_aux.retrieve(av_datos[1]) < 0 then 
+			return 1
+		else 
+			ldwc_aux.InsertRow(0)
+			return -1 
+		end if
+	CASE 2
+		if ldwc_aux.retrieve(av_datos[1],av_datos[2]) < 0 then 
+			return 1
+		else 
+			ldwc_aux.InsertRow(0)
+			return -1 
+		end if		
+	CASE 3
+		if ldwc_aux.retrieve(av_datos[1],av_datos[2],av_datos[3]) < 0 then 
+			return 1
+		else 
+			ldwc_aux.InsertRow(0)
+			return -1 
+		end if		
+	CASE 4
+		if ldwc_aux.retrieve(av_datos[1],av_datos[2],av_datos[3],av_datos[4]) < 0 then 
+			return 1
+		else 
+			ldwc_aux.InsertRow(0)
+			return -1 
+		end if			
+	CASE 5
+		if ldwc_aux.retrieve(av_datos[1],av_datos[2],av_datos[3],av_datos[4],av_datos[5]) < 0 then 
+			return 1
+		else 
+			ldwc_aux.InsertRow(0)
+			return -1 
+		end if
+	CASE 6
+		if ldwc_aux.retrieve(av_datos[1],av_datos[2],av_datos[3],av_datos[4],av_datos[5],av_datos[6]) < 0 then 
+			return 1
+		else 
+			ldwc_aux.InsertRow(0)
+			return -1 
+		end if								
+END CHOOSE
+end function
+

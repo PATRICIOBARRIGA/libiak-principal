@@ -1,0 +1,19 @@
+HA$PBExportHeader$f_iva.srf
+global type f_iva from function_object
+end type
+
+forward prototypes
+global function decimal f_iva ()
+end prototypes
+
+global function decimal f_iva ();decimal ic_iva
+
+SELECT "PR_PARAM"."PR_VALOR"  
+INTO :ic_iva  
+FROM "PR_PARAM"  
+WHERE ( "PR_PARAM"."PR_NOMBRE" = 'IVA' ) AND  
+( "PR_PARAM"."EM_CODIGO" = :str_appgeninfo.empresa ) ;
+
+Return ic_iva
+end function
+
