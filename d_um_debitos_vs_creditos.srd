@@ -1,0 +1,111 @@
+HA$PBExportHeader$d_um_debitos_vs_creditos.srd
+$PBExportComments$Para indicar que debitos son afectados por un credito dado
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=140 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=tt_codigo dbname="cc_cruce.tt_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=tt_ioe dbname="cc_cruce.tt_ioe" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=mt_codigo dbname="cc_cruce.mt_codigo" )
+ column=(type=char(40) updatewhereclause=yes name=tt_descri dbname="cc_tipo.tt_descri" )
+ column=(type=decimal(2) updatewhereclause=yes name=mt_saldo dbname="cc_movim.mt_saldo" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=tt_ioedeb dbname="cc_cruce.tt_ioedeb" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=mt_coddeb dbname="cc_cruce.mt_coddeb" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="cc_cruce.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="cc_cruce.su_codigo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cr_fecha dbname="cc_cruce.cr_fecha" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cr_valdeb dbname="cc_cruce.cr_valdeb" validation="Real(gettext())>=0 and Real(gettext())<=mt_saldo" validationmsg="'Atenci$$HEX1$$f300$$ENDHEX$$n!!!debe ingresar un valor positivo y menor o igual al saldo pendiente.'" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cr_valcre dbname="cc_cruce.cr_valcre" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=tt_coddeb dbname="cc_cruce.tt_coddeb" )
+ column=(type=decimal(0) updatewhereclause=yes name=ve_numero dbname="cc_movim.ve_numero" )
+ column=(type=datetime updatewhereclause=yes name=mt_fecven dbname="cc_movim.mt_fecven" )
+ column=(type=char(20) updatewhereclause=yes name=if_codigo dbname="cc_movim.if_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=mt_ctacli dbname="cc_movim.mt_ctacli" )
+ column=(type=char(20) updatewhereclause=yes name=mt_numch dbname="cc_movim.mt_numch" )
+ column=(type=char(20) updatewhereclause=yes name=mt_ctacor dbname="cc_movim.mt_ctacor" )
+ column=(type=decimal(2) updatewhereclause=yes name=cc_movim_mt_valor dbname="cc_movim.mt_valor" )
+ column=(type=char(1) updatewhereclause=yes name=cc_fpago dbname="cc_fpago" )
+ retrieve="SELECT   ~"CC_CRUCE~".~"TT_CODIGO~",   
+         ~"CC_CRUCE~".~"TT_IOE~",   
+         ~"CC_CRUCE~".~"MT_CODIGO~",   
+         ~"CC_TIPO~".~"TT_DESCRI~",   
+         ~"CC_MOVIM~".~"MT_SALDO~",   
+         ~"CC_CRUCE~".~"TT_IOEDEB~",   
+         ~"CC_CRUCE~".~"MT_CODDEB~",   
+         ~"CC_CRUCE~".~"EM_CODIGO~",   
+         ~"CC_CRUCE~".~"SU_CODIGO~",   
+         ~"CC_CRUCE~".~"CR_FECHA~",
+         ~"CC_CRUCE~".~"CR_VALDEB~",     
+         ~"CC_CRUCE~".~"CR_VALCRE~",   
+         ~"CC_CRUCE~".~"TT_CODDEB~",   
+         ~"CC_MOVIM~".~"VE_NUMERO~",
+         ~"CC_MOVIM~".~"MT_FECVEN~",
+         ~"CC_MOVIM~".~"IF_CODIGO~",
+         ~"CC_MOVIM~".~"MT_CTACLI~",
+         ~"CC_MOVIM~".~"MT_NUMCH~",
+         ~"CC_MOVIM~".~"MT_CTACOR~",
+         ~"CC_MOVIM~".~"MT_VALOR~",
+         ' ' cc_fpago
+    FROM ~"CC_CRUCE~",   
+         ~"CC_TIPO~",   
+         ~"CC_MOVIM~"  
+   WHERE ( ~"CC_CRUCE~".~"TT_CODIGO~" = ~"CC_TIPO~".~"TT_CODIGO~" ) and  
+         ( ~"CC_CRUCE~".~"TT_IOE~" = ~"CC_TIPO~".~"TT_IOE~" ) and  
+         ( ~"CC_CRUCE~".~"TT_CODDEB~" = ~"CC_MOVIM~".~"TT_CODIGO~" ) and  
+         ( ~"CC_CRUCE~".~"TT_IOEDEB~" = ~"CC_MOVIM~".~"TT_IOE~" ) and  
+         ( ~"CC_CRUCE~".~"MT_CODDEB~" = ~"CC_MOVIM~".~"MT_CODIGO~" ) and  
+         ( ~"CC_CRUCE~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"CC_CRUCE~".~"SU_CODIGO~" = ~"CC_MOVIM~".~"SU_CODIGO~" ) and  
+         ( ( ~"CC_CRUCE~".~"EM_CODIGO~" = :EMPRESA ) AND  
+         ( ~"CC_CRUCE~".~"SU_CODIGO~" = :SUCURSAL ) AND
+         (~"CC_CRUCE~".~"MT_CODIGO~" = :MOVIMIENTO))    
+" update="CC_CRUCE" updatewhere=1 updatekeyinplace=yes arguments=(("EMPRESA", string),("SUCURSAL", string),("MOVIMIENTO", string))  sort="mt_fecven A " )
+text(band=header alignment="0" text="Factura N$$HEX1$$ba00$$ENDHEX$$" border="0" color="0" x="782" y="8" height="60" width="293" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="Saldo" border="0" color="0" x="1445" y="8" height="60" width="398" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Abono" border="0" color="0" x="1851" y="8" height="60" width="361" html.valueishtml="0"  name=cc_valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Valor" border="0" color="0" x="1083" y="8" height="60" width="352" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="0" text="Forma de pago" border="0" color="0" x="2999" y="8" height="60" width="503" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Vence" border="0" color="0" x="2597" y="8" height="56" width="393" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Cuenta" border="0" color="0" x="5097" y="8" height="60" width="462" html.valueishtml="0"  name=st_cuenta visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$Cheque" border="0" color="0" x="3511" y="8" height="60" width="544" html.valueishtml="0"  name=st_numch visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Motivo" border="0" color="0" x="4064" y="8" height="60" width="553" html.valueishtml="0"  name=st_motivo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Inst.Financiera" border="0" color="0" x="4626" y="8" height="60" width="462" html.valueishtml="0"  name=st_insfin visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Pendiente" border="0" color="0" x="2222" y="8" height="56" width="366" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="0" text="Mov. N$$HEX1$$ba00$$ENDHEX$$" border="0" color="0" x="320" y="12" height="56" width="453" html.valueishtml="0"  name=mt_coddeb_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="128" x="9" y="4" height="60" width="302" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="0" x="782" y="4" height="60" width="293" format="[general]" html.valueishtml="0"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=15 alignment="2" tabsequence=40 border="0" color="128" x="2597" y="4" height="60" width="393" format="[shortdate]" html.valueishtml="0"  name=mt_fecven visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+button(band=detail text=">" defaultpicture=yes enabled=yes action="0" border="0" color="0" x="3008" y="4" height="60" width="361" vtextalign="0" htextalign="0"  name=b_1  tag="BubbleHelp=Haga click aqu$$HEX2$$ed002000$$ENDHEX$$para ver m$$HEX1$$e100$$ENDHEX$$s informaci$$HEX1$$f300$$ENDHEX$$n" visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=20 alignment="1" tabsequence=20 border="0" color="0" x="1083" y="4" height="60" width="352" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=cc_movim_mt_valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="1445" y="4" height="60" width="398" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=mt_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=11 alignment="1" tabsequence=30 border="0" color="0" x="1851" y="4" height="60" width="361" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=cr_valdeb visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="128" x="2999" y="4" height="60" width="503" format="[general]" html.valueishtml="0"  name=cc_fpago visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=detail alignment="0" expression="mt_saldo  - cr_valdeb "border="0" color="0" x="5568" y="4" height="60" width="178" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=18 alignment="0" tabsequence=50 border="0" color="128" x="3511" y="4" height="60" width="544" format="[general]" html.valueishtml="0"  name=mt_numch visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=17 alignment="0" tabsequence=70 border="0" color="128" x="5097" y="4" height="60" width="462" format="[general]" html.valueishtml="0"  name=mt_ctacli visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=detail alignment="0" expression="case( mt_ctacor when 'F' then 'Sin fondos' when 'D'  then 'Defectos de forma' when 'B' then 'Cambio de cheque' when 'C' then 'Cuenta cerrada' when 'R' then 'Cuenta robada' )"border="0" color="128" x="4064" y="4" height="60" width="553" format="[GENERAL]" html.valueishtml="0"  name=cc_motivo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=16 alignment="0" tabsequence=60 border="0" color="128" x="4626" y="4" height="60" width="462" format="[general]" html.valueishtml="0"  name=if_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=detail alignment="1" expression=" mt_saldo - cr_valdeb "border="0" color="0" x="2222" y="4" height="56" width="366" format="$#,##0.00;($#,##0.00)" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=7 alignment="0" tabsequence=10 border="0" color="0" x="320" y="8" height="56" width="453" format="[general]" html.valueishtml="0"  name=mt_coddeb visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=summary alignment="0" expression="sum(  mt_saldo  - cr_valdeb  for all)"border="0" color="0" x="2999" y="4" height="60" width="503" format="[General]" html.valueishtml="0"  name=cc_total_saldo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(cr_valdeb for all)"border="6" color="0" x="1851" y="76" height="56" width="361" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=cc_sumvaldeb visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=footer alignment="1" expression="sum(mt_saldo for all)"border="6" color="0" x="1445" y="76" height="56" width="398" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Total Canc." border="0" color="0" x="1851" y="8" height="56" width="361" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Total por cobrar" border="0" color="0" x="1445" y="8" height="56" width="398" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=footer alignment="0" expression="rowcount()"border="0" color="128" x="9" y="68" height="52" width="302" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=footer alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$de debitos" border="0" color="0" x="9" y="4" height="52" width="302" html.valueishtml="0"  name=t_8 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=footer alignment="1" expression="sum( mt_saldo - cr_valdeb for all)"border="6" color="0" x="2222" y="76" height="56" width="366" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=footer alignment="1" text="Diferencia" border="0" color="0" x="2222" y="8" height="56" width="366" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,85 @@
+HA$PBExportHeader$d_um_estadocuenta_x_cliente.srd
+$PBExportComments$2
+release 10;
+datawindow(units=0 timer_interval=0 color=67108864 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=204 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=0 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=mt_codigo dbname="cc_movim.mt_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=tt_codigo dbname="cc_movim.tt_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=tt_ioe dbname="cc_movim.tt_ioe" initial="C" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ve_numero dbname="cc_movim.ve_numero" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ce_codigo dbname="cc_movim.ce_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=es_codigo dbname="cc_movim.es_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="cc_movim.em_codigo" initial="1" )
+ column=(type=datetime update=yes updatewhereclause=yes name=mt_fecha dbname="cc_movim.mt_fecha" initial="today" )
+ column=(type=datetime update=yes updatewhereclause=yes name=mt_fecven dbname="cc_movim.mt_fecven" initial="today" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="cc_movim.su_codigo" initial="1" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=mt_valor dbname="cc_movim.mt_valor" initial="0" validation="Real(Gettext()) >= 0.01" validationmsg="~"El valor no puede ser negativo~"" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=mt_saldo dbname="cc_movim.mt_saldo" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=mt_valret dbname="cc_movim.mt_valret" initial="0" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=mt_ctacor dbname="cc_movim.mt_ctacor" initial="1" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=rf_codigo dbname="cc_movim.rf_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=bo_codigo dbname="cc_movim.bo_codigo" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ig_numero dbname="cc_movim.ig_numero" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=mt_valiva dbname="cc_movim.mt_valiva" initial="0" )
+ column=(type=char(40) updatewhereclause=yes name=cc_tipo_tt_descri dbname="cc_tipo.tt_descri" )
+ column=(type=number updatewhereclause=yes name=saldoxcruzar dbname="saldoxcruzar" )
+ retrieve="  SELECT ~"CC_MOVIM~".~"MT_CODIGO~",   
+         ~"CC_MOVIM~".~"TT_CODIGO~",   
+         ~"CC_MOVIM~".~"TT_IOE~",   
+         ~"CC_MOVIM~".~"VE_NUMERO~",   
+         ~"CC_MOVIM~".~"CE_CODIGO~",   
+         ~"CC_MOVIM~".~"ES_CODIGO~",   
+         ~"CC_MOVIM~".~"EM_CODIGO~",   
+         ~"CC_MOVIM~".~"MT_FECHA~",   
+         ~"CC_MOVIM~".~"MT_FECVEN~",   
+         ~"CC_MOVIM~".~"SU_CODIGO~",   
+         ~"CC_MOVIM~".~"MT_VALOR~",
+         ~"CC_MOVIM~".~"MT_SALDO~",
+         ~"CC_MOVIM~".~"MT_VALRET~",   
+         ~"CC_MOVIM~".~"MT_CTACOR~",   
+         ~"CC_MOVIM~".~"RF_CODIGO~",   
+         ~"CC_MOVIM~".~"BO_CODIGO~",   
+         ~"CC_MOVIM~".~"IG_NUMERO~",   
+         ~"CC_MOVIM~".~"MT_VALIVA~",
+         ~"CC_TIPO~".~"TT_DESCRI~",
+         0 saldoxcruzar 
+   FROM ~"CC_MOVIM~",~"CC_TIPO~"  
+   WHERE  ( ~"CC_MOVIM~".~"TT_CODIGO~" = ~"CC_TIPO~".~"TT_CODIGO~")  AND 
+                ( ~"CC_MOVIM~".~"TT_IOE~" = ~"CC_TIPO~".~"TT_IOE~")  AND 
+			  ( ~"CC_MOVIM~".~"EM_CODIGO~" = :empresa )  AND  
+			  ( ~"CC_MOVIM~".~"SU_CODIGO~" = :sucursal)   AND
+			  ( ~"CC_MOVIM~".~"CE_CODIGO~" = :codcliente) AND    
+			  ( ~"CC_MOVIM~".~"MT_SALDO~" > 0)
+" update="CC_MOVIM" updatewhere=0 updatekeyinplace=no retrieve.asneeded=yes arguments=(("empresa", string),("sucursal", string),("codcliente", string))  sort="mt_fecha A " )
+compute(band=detail alignment="0" expression="''"border="0" color="67108864" x="9" y="4" height="64" width="251" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=detail alignment="0" text="" border="0~tif(getrow() = currentrow(),5,0)" color="0" x="270" y="4" height="64" width="251" html.valueishtml="0"  name=st_nombre visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(),16777215,67108864)" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0~tif(getrow() = currentrow(),5,0)" color="128" x="270" y="4" height="64" width="251" format="[general]" html.valueishtml="0" protect="0~tif(isRowNew(),0,1)"  name=mt_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+column(band=detail id=11 alignment="1" tabsequence=60 border="0~tif(getrow() = currentrow(),5,0)" color="0" x="1888" y="4" height="64" width="357" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0" protect="0~tif(isRowNew() and tt_ioe = 'D',0,1)"  name=mt_valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.required=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="128" x="1787" y="4" height="64" width="91" format="[general]" html.valueishtml="0" protect="0~tif(isRowNew(),0,1)"  name=tt_ioe visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+button(band=detail text="" defaultpicture=yes enabled=yes action="0" border="0" color="0" x="2725" y="4" height="64" width="82" vtextalign="0" htextalign="0"  name=b_1 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=detail alignment="1" expression="IF( tt_ioe ='D', mt_saldo,0 )"border="0" color="0" x="2647" y="4" height="64" width="338" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="IF( tt_ioe ='C', mt_saldo*(-1),0 )"border="0" color="0" x="2994" y="4" height="64" width="338" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="if( tt_ioe ='D',mt_saldo,mt_saldo*(-1))"border="0~tif(getrow() = currentrow(),5,0)" color="0" x="2254" y="4" height="64" width="379" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+column(band=detail id=4 alignment="0" tabsequence=30 border="0~tif(getrow() = currentrow(),5,0)" color="0" x="768" y="4" height="64" width="361" format="[general]" html.valueishtml="0" protect="0~tif(isRowNew(),0,1)"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.required=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0~tif(getrow() = currentrow(),5,0)" color="0" x="530" y="4" height="64" width="229" format="[general]" html.valueishtml="0" protect="0~tif(isRowNew(),0,1)"  name=tt_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+column(band=detail id=8 alignment="2" tabsequence=40 border="0~tif(getrow() = currentrow(),5,0)" color="0" x="1138" y="4" height="64" width="325" format="dd/mm/yyyy" html.valueishtml="0" protect="0~tif(isRowNew(),0,1)"  name=mt_fecha  tag="Fecha en la que se realiza el movimiento" visible="1" editmask.required=yes editmask.autoskip=yes editmask.mask="DD/MM/YYYY" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+column(band=detail id=9 alignment="2" tabsequence=50 border="0~tif(getrow() = currentrow(),5,0)" color="0" x="1472" y="4" height="64" width="306" format="dd/mm/yyyy" html.valueishtml="0" protect="0~tif(isRowNew(),0,1)"  name=mt_fecven visible="1" editmask.required=yes editmask.autoskip=yes editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="67108864~tif(getrow() = currentrow(), 16777215, 67108864 )" )
+text(band=summary alignment="1" text="Total d$$HEX1$$e900$$ENDHEX$$bitos:" border="0" color="0" x="9" y="4" height="52" width="357" html.valueishtml="0"  name=t_3 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=summary alignment="1" text="Total cr$$HEX1$$e900$$ENDHEX$$ditos:" border="0" color="0" x="9" y="72" height="52" width="357" html.valueishtml="0"  name=t_4 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=summary alignment="1" text="Saldo:" border="0" color="0" x="9" y="140" height="52" width="357" html.valueishtml="0"  name=t_5 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=summary alignment="1" expression="sum(IF( tt_ioe ='D', mt_saldo,0 ) for all)"border="5" color="0" x="375" y="4" height="52" width="379" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=cc_totdeb visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=summary alignment="1" expression="sum(IF( tt_ioe ='C', mt_saldo*(-1),0 ) for all)"border="5" color="0" x="375" y="72" height="52" width="379" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=cc_totcre visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=summary alignment="1" expression="cc_totdeb+cc_totcre"border="5" color="0" x="375" y="140" height="52" width="379" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=cc_saldo visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
