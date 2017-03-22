@@ -1,0 +1,86 @@
+HA$PBExportHeader$d_comprobante_ingreso.srd
+$PBExportComments$Si.
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=704 color="536870912" )
+summary(height=576 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=ts_ingreso_te_codigo dbname="ts_ingreso.te_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=ts_ingreso_ep_codigo dbname="ts_ingreso.ep_codigo" )
+ column=(type=datetime updatewhereclause=yes name=ts_ingreso_te_fecha dbname="ts_ingreso.te_fecha" )
+ column=(type=char(60) updatewhereclause=yes name=ts_ingreso_te_nombre dbname="ts_ingreso.te_nombre" )
+ column=(type=char(80) updatewhereclause=yes name=ts_ingreso_te_concep dbname="ts_ingreso.te_concep" )
+ column=(type=decimal(2) updatewhereclause=yes name=ts_ingreso_te_total dbname="ts_ingreso.te_total" )
+ column=(type=decimal(2) updatewhereclause=yes name=ts_deting_dt_valefe dbname="ts_deting.dt_valefe" )
+ column=(type=decimal(2) updatewhereclause=yes name=ts_deting_dt_valche dbname="ts_deting.dt_valche" )
+ column=(type=decimal(2) updatewhereclause=yes name=ts_deting_dt_valdep dbname="ts_deting.dt_valdep" )
+ column=(type=decimal(2) updatewhereclause=yes name=ts_deting_dt_valvou dbname="ts_deting.dt_valvou" )
+ column=(type=decimal(2) updatewhereclause=yes name=ts_deting_dt_valchd dbname="ts_deting.dt_valchd" )
+ column=(type=decimal(2) updatewhereclause=yes name=ts_deting_dt_valotr1 dbname="ts_deting.dt_valotr1" )
+ column=(type=char(20) updatewhereclause=yes name=ts_deting_dt_numdoc dbname="ts_deting.dt_numdoc" )
+ retrieve="  SELECT ~"TS_INGRESO~".~"TE_CODIGO~",   
+         ~"TS_INGRESO~".~"EP_CODIGO~",   
+         ~"TS_INGRESO~".~"TE_FECHA~",   
+         ~"TS_INGRESO~".~"TE_NOMBRE~",   
+         ~"TS_INGRESO~".~"TE_CONCEP~",   
+         ~"TS_INGRESO~".~"TE_TOTAL~",   
+         ~"TS_DETING~".~"DT_VALEFE~",   
+         ~"TS_DETING~".~"DT_VALCHE~",   
+         ~"TS_DETING~".~"DT_VALDEP~",   
+         ~"TS_DETING~".~"DT_VALVOU~", 
+        ~"TS_DETING~".~"DT_VALCHD~",  
+         ~"TS_DETING~".~"DT_VALOTR1~",   
+         ~"TS_DETING~".~"DT_NUMDOC~"  
+    FROM ~"TS_DETING~",   
+         ~"TS_INGRESO~"  
+   WHERE ( ~"TS_INGRESO~".~"EM_CODIGO~" = ~"TS_DETING~".~"EM_CODIGO~" ) and  
+         ( ~"TS_INGRESO~".~"SU_CODIGO~" = ~"TS_DETING~".~"SU_CODIGO~" ) and  
+         ( ~"TS_INGRESO~".~"TE_CODIGO~" = ~"TS_DETING~".~"TE_CODIGO~" ) and  
+         ( ( ~"TS_INGRESO~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"TS_INGRESO~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"TS_INGRESO~".~"TE_CODIGO~" = :tecodigo ) )    
+" arguments=(("empresa", string),("sucursal", string),("tecodigo", string)) )
+text(band=header alignment="0" text="Documento" border="0" color="0" x="32" y="616" height="56" width="311"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=3 alignment="0" tabsequence=32766 border="0" color="0" x="480" y="388" height="56" width="443" format="dd/mm/yyyy"  name=ts_ingreso_te_fecha edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1257" y="388" height="56" width="462" format="[general]"  name=ts_ingreso_ep_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=5 alignment="0" tabsequence=32766 border="0" color="0" x="480" y="460" height="56" width="1842" format="[general]"  name=ts_ingreso_te_concep edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Empleado:" border="0" color="0" x="969" y="388" height="56" width="261"  name=t_12  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=4 alignment="0" tabsequence=32766 border="0" color="0" x="480" y="308" height="56" width="1381" format="[general]"  name=ts_ingreso_te_nombre edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fecha:" border="0" color="0" x="32" y="388" height="56" width="160"  name=t_9  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Concepto:" border="0" color="0" x="32" y="460" height="56" width="256"  name=t_10  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="32" y="16" height="76" width="695"  name=t_16  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="32" y="112" height="76" width="695"  name=t_17  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Nombre:" border="0" color="0" x="32" y="308" height="56" width="215"  name=t_11  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=1 alignment="0" tabsequence=32766 border="0" color="0" x="805" y="212" height="52" width="434" format="[general]"  name=ts_ingreso_te_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Liquidaci$$HEX1$$f300$$ENDHEX$$n de Caja Nro:" border="0" color="0" x="32" y="212" height="64" width="754"  name=t_8  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Recaps" border="0" color="0" x="2313" y="616" height="56" width="192"  name=t_5  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Otros" border="0" color="0" x="2743" y="620" height="56" width="155"  name=t_6  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Dep$$HEX1$$f300$$ENDHEX$$sitos" border="0" color="0" x="1861" y="616" height="56" width="265"  name=t_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Ch. Diferidos" border="0" color="0" x="1385" y="616" height="56" width="325"  name=t_19  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Efectivo" border="0" color="0" x="677" y="616" height="56" width="210"  name=t_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Cheque" border="0" color="0" x="1093" y="616" height="56" width="206"  name=t_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="27" y="4" height="56" width="434" format="[general]"  name=ts_deting_dt_numdoc edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="2139" y="4" height="56" width="357" format="#,##0.00"  name=ts_deting_dt_valvou edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="0" x="2519" y="8" height="56" width="370" format="#,##0.00"  name=ts_deting_dt_valotr1 edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="0" x="1746" y="4" height="56" width="370" format="#,##0.00"  name=ts_deting_dt_valdep edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="507" y="4" height="56" width="370" format="#,##0.00"  name=ts_deting_dt_valefe edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="919" y="4" height="56" width="370" format="#,##0.00"  name=ts_deting_dt_valche edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="1" text="TOTAL:" border="0" color="0" x="279" y="124" height="56" width="183"  name=t_15  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression=" compute_1  +  compute_2  +  compute_3  +  compute_4  +  compute_5   + compute_8"border="0" color="0" x="507" y="124" height="56" width="375" format="#,##0.00"  name=compute_7  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="TESORERIA" border="0" color="0" x="416" y="504" height="56" width="270"  name=t_13  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="AGENTE BENEFICIARIO" border="0" color="0" x="1838" y="508" height="56" width="535"  name=t_18  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="274" y1="464" x2="933" y2="464"  name=l_3 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=summary x1="1760" y1="472" x2="2473" y2="472"  name=l_4 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=summary alignment="1" text="SUBTOTAL:" border="0" color="0" x="183" y="24" height="56" width="279"  name=t_14  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(ts_deting_dt_valvou for all)"border="0" color="0" x="2139" y="24" height="56" width="357" format="#,##0.00"  name=compute_4  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(ts_deting_dt_valotr1 for all)"border="0" color="0" x="2519" y="24" height="56" width="370" format="#,##0.00"  name=compute_5  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(ts_deting_dt_valdep for all)"border="0" color="0" x="1751" y="24" height="56" width="370" format="#,##0.00"  name=compute_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(ts_deting_dt_valefe for all)"border="0" color="0" x="507" y="24" height="56" width="370" format="#,##0.00"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(ts_deting_dt_valche for all)"border="0" color="0" x="923" y="24" height="56" width="370" format="#,##0.00"  name=compute_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(ts_deting_dt_valCHD for all) "border="0" color="0" x="1339" y="24" height="56" width="370" format="#,##0.00"  name=compute_8  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="1" tabsequence=0 border="0" color="0" x="1339" y="4" height="60" width="366" format="#,##0.00"  name=ts_deting_dt_valchd  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="37" y1="688" x2="2894" y2="688"  name=l_1 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=summary x1="498" y1="8" x2="2894" y2="8"  name=l_2 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

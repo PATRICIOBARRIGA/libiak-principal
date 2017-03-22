@@ -1,0 +1,97 @@
+HA$PBExportHeader$d_cruce_vauchers.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=82042848 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=104 color="536870912" )
+summary(height=176 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ct_codigo dbname="cb_cruce.ct_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="cb_cruce.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=dt_secue dbname="cb_cruce.dt_secue" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=bt_codigo dbname="cb_cruce.bt_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cb_valcre dbname="cb_cruce.cb_valcre" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cb_fecha dbname="cb_cruce.cb_fecha" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_ct_codigo dbname="cb_dettar.ct_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_em_codigo dbname="cb_dettar.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="cb_dettar.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=dt_numdoc dbname="cb_dettar.dt_numdoc" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_rp_numero dbname="cb_dettar.rp_numero" )
+ column=(type=decimal(2) updatewhereclause=yes name=dt_valor dbname="cb_dettar.dt_valor" )
+ column=(type=decimal(2) updatewhereclause=yes name=dt_comision dbname="cb_dettar.dt_comision" )
+ column=(type=decimal(2) updatewhereclause=yes name=dt_interes dbname="cb_dettar.dt_interes" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_fp_codigo dbname="cb_dettar.fp_codigo" )
+ column=(type=number updatewhereclause=yes name=ve_numero dbname="cb_dettar.ve_numero" )
+ column=(type=decimal(2) updatewhereclause=yes name=dt_saldo dbname="cb_dettar.dt_saldo" )
+ column=(type=char(20) updatewhereclause=yes name=cb_dettar_dt_secue dbname="cb_dettar.dt_secue" )
+ column=(type=char(5) updatewhereclause=yes name=compute_0019 dbname="compute_0019" values="	1/	0" )
+ retrieve="  SELECT ~"CB_CRUCE~".~"CT_CODIGO~",   
+         ~"CB_CRUCE~".~"EM_CODIGO~",   
+         ~"CB_CRUCE~".~"DT_SECUE~",   
+         ~"CB_CRUCE~".~"BT_CODIGO~",   
+         ~"CB_CRUCE~".~"CB_VALCRE~",   
+         ~"CB_CRUCE~".~"CB_FECHA~",   
+         ~"CB_DETTAR~".~"CT_CODIGO~",   
+         ~"CB_DETTAR~".~"EM_CODIGO~",   
+         ~"CB_DETTAR~".~"SU_CODIGO~",   
+         ~"CB_DETTAR~".~"DT_NUMDOC~",   
+         ~"CB_DETTAR~".~"RP_NUMERO~",   
+         ~"CB_DETTAR~".~"DT_VALOR~",   
+         ~"CB_DETTAR~".~"DT_COMISION~",   
+         ~"CB_DETTAR~".~"DT_INTERES~",   
+         ~"CB_DETTAR~".~"FP_CODIGO~",   
+         ~"CB_DETTAR~".~"VE_NUMERO~",   
+         ~"CB_DETTAR~".~"DT_SALDO~",   
+         ~"CB_DETTAR~".~"DT_SECUE~" ,
+		'click' 
+    FROM ~"CB_CRUCE~",   
+         ~"CB_DETTAR~"  
+   WHERE ( ~"CB_CRUCE~".~"CT_CODIGO~" = ~"CB_DETTAR~".~"CT_CODIGO~" ) and  
+         ( ~"CB_CRUCE~".~"EM_CODIGO~" = ~"CB_DETTAR~".~"EM_CODIGO~" ) and  
+         ( ~"CB_CRUCE~".~"DT_SECUE~" = ~"CB_DETTAR~".~"DT_SECUE~" )    
+" update="CB_CRUCE" updatewhere=0 updatekeyinplace=no  sort="number(ct_codigo) A " )
+text(band=header alignment="0" text="Ticket #" border="0" color="128" x="471" y="24" height="56" width="169" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=header alignment="0" text="Vaucher" border="0" color="128" x="233" y="24" height="56" width="201" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=header alignment="0" text="Inter$$HEX1$$e900$$ENDHEX$$s" border="0" color="128" x="1321" y="24" height="56" width="151" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=header alignment="0" text="Comisi$$HEX1$$f300$$ENDHEX$$n" border="0" color="128" x="1047" y="24" height="56" width="206" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=header alignment="0" text="Valor" border="0" color="128" x="910" y="24" height="56" width="119" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=header alignment="0" text="Abono" border="0" color="128" x="1783" y="24" height="56" width="146" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=header alignment="0" text="Saldo" border="0" color="128" x="1600" y="24" height="56" width="123" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+line(band=header x1="306" y1="96" x2="2939" y2="96"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Forma de pago" border="0" color="128" x="2021" y="24" height="56" width="695" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=header alignment="0" text="Sucursal" border="0" color="128" x="2743" y="24" height="56" width="197" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="128" x="14" y="8" height="52" width="201" format="[general]" html.valueishtml="0"  name=ct_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="5" color="0" x="471" y="8" height="56" width="343" format="[general]" html.valueishtml="0"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="5" color="0" x="233" y="8" height="56" width="224" format="[general]" html.valueishtml="0"  name=dt_numdoc visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="5" color="0" x="1266" y="8" height="56" width="206" format="#,##0.00" html.valueishtml="0"  name=dt_interes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="5" color="0" x="1042" y="8" height="56" width="210" format="#,##0.00" html.valueishtml="0"  name=dt_comision visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="5" color="0" x="837" y="8" height="56" width="192" format="#,##0.00" html.valueishtml="0"  name=dt_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=17 alignment="1" tabsequence=32766 border="5" color="0" x="1490" y="8" height="56" width="233" format="#,##0.00" html.valueishtml="0"  name=dt_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=5 alignment="1" tabsequence=10 border="5" color="0" x="1742" y="8" height="56" width="187" format="[General]" html.valueishtml="0"  name=cb_valcre visible="1" edit.name="###,###.00" editmask.mask="###,###.00" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="0" tabsequence=30 border="5" color="128" x="1947" y="8" height="52" width="59" format="[general]" html.valueishtml="0"  name=compute_0019 visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="5" color="0" x="2021" y="8" height="56" width="699" format="[general]" html.valueishtml="0"  name=cb_dettar_fp_codigo visible="1" dddw.name=d_dddw_forma_pago dddw.displaycolumn=fp_descri dddw.datacolumn=fp_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="2747" y="92" height="56" width="169" format="[general]" html.valueishtml="0"  name=em_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=9 alignment="1" tabsequence=70 border="0" color="0" x="2766" y="8" height="52" width="146" format="[general]" html.valueishtml="0"  name=su_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="0" color="0" x="3017" y="4" height="68" width="146" format="[general]" html.valueishtml="0"  name=bt_codigo visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=50 border="0" color="0" x="3182" y="8" height="60" width="114" format="[general]" html.valueishtml="0"  name=dt_secue visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="0" color="0" x="3314" y="8" height="52" width="306" format="[shortdate] [time]" html.valueishtml="0"  name=cb_fecha visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if( cb_valcre > 0, dt_valor,0)"border="0" color="0" x="841" y="80" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+compute(band=detail alignment="0" expression="if( cb_valcre > 0,  dt_comision ,0)"border="0" color="0" x="1047" y="80" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+compute(band=detail alignment="0" expression="if( cb_valcre > 0,  dt_interes ,0)"border="0" color="0" x="1266" y="76" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+compute(band=summary alignment="1" expression="sum(cb_valcre for all)"border="5" color="0" x="1714" y="12" height="56" width="238" format="#,##0.00" html.valueishtml="0"  name=cc_cancelacion visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+compute(band=summary alignment="1" expression="sum(dt_saldo for all)"border="5" color="0" x="1390" y="92" height="56" width="320" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+compute(band=summary alignment="1" expression="sum(compute_3)"border="5" color="0" x="663" y="12" height="56" width="370" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+compute(band=summary alignment="1" expression="sum(compute_4)"border="5" color="0" x="1047" y="12" height="56" width="215" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+compute(band=summary alignment="1" expression="sum( compute_5 )"border="5" color="0" x="1271" y="12" height="56" width="210" format="#,##0.00" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=summary alignment="1" text="Total Saldo:" border="0" color="128" x="978" y="96" height="56" width="393" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml( template=(comment="" name="1" xhtml="$$HEX1$$fffe$$ENDHEX$$<form name=~"d_cruce_vauchers_dataForm~"><div class=~"d_cruce_vauchers_band_0~"><div class=~"d_cruce_vauchers_t_2~">t_2</div><div class=~"d_cruce_vauchers_t_1~">t_1</div><div class=~"d_cruce_vauchers_t_5~">t_5</div><div class=~"d_cruce_vauchers_t_4~">t_4</div><div class=~"d_cruce_vauchers_t_3~">t_3</div><div class=~"d_cruce_vauchers_t_7~">t_7</div><div class=~"d_cruce_vauchers_t_6~">t_6</div><hr/><div class=~"d_cruce_vauchers_t_8~">t_8</div><div class=~"d_cruce_vauchers_t_9~">t_9</div></div><div class=~"d_cruce_vauchers_detail_0~" __pbband=~"detail~"><input name=~"d_cruce_vauchers_ct_codigo~" type=~"text~" value=~"ct_codigo~"/><input name=~"d_cruce_vauchers_ve_numero~" type=~"text~" value=~"ve_numero~"/><input name=~"d_cruce_vauchers_dt_numdoc~" type=~"text~" value=~"dt_numdoc~"/><input name=~"d_cruce_vauchers_dt_interes~" type=~"text~" value=~"dt_interes~"/><input name=~"d_cruce_vauchers_dt_comision~" type=~"text~" value=~"dt_comision~"/><input name=~"d_cruce_vauchers_dt_valor~" type=~"text~" value=~"dt_valor~"/><input name=~"d_cruce_vauchers_dt_saldo~" type=~"text~" value=~"dt_saldo~"/><input name=~"d_cruce_vauchers_cb_valcre~" type=~"text~" value=~"cb_valcre~"/><div class=~"d_cruce_vauchers_compute_0019~"><input name=~"d_cruce_vauchers_compute_0019~" type=~"checkbox~" value=~"compute_0019~"/></div><div class=~"d_cruce_vauchers_cb_dettar_fp_codigo~">cb_dettar_fp_codigo</div><input name=~"d_cruce_vauchers_em_codigo~" type=~"text~" value=~"em_codigo~"/><input name=~"d_cruce_vauchers_su_codigo~" type=~"text~" value=~"su_codigo~"/><div class=~"d_cruce_vauchers_compute_3~">compute_3</div><div class=~"d_cruce_vauchers_compute_4~">compute_4</div><div class=~"d_cruce_vauchers_compute_5~">compute_5</div></div><div class=~"d_cruce_vauchers_band_1~"><div class=~"d_cruce_vauchers_cc_cancelacion~">cc_cancelacion</div><div class=~"d_cruce_vauchers_compute_1~">compute_1</div><div class=~"d_cruce_vauchers_compute_2~">compute_2</div><div class=~"d_cruce_vauchers_compute_6~">compute_6</div><div class=~"d_cruce_vauchers_compute_7~">compute_7</div><div class=~"d_cruce_vauchers_t_10~">t_10</div></div></form>"))
+ 

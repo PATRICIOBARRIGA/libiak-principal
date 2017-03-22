@@ -1,0 +1,44 @@
+HA$PBExportHeader$d_ingreso.srd
+$PBExportComments$Si. Cabecera del Ingreso(Tesoreria).Vale
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=360 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="ts_ingreso.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="ts_ingreso.su_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=te_codigo dbname="ts_ingreso.te_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=es_codigo dbname="ts_ingreso.es_codigo" initial="1" values="S.I.F	1/P.O.S	2/OTROS	3/" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ep_codigo dbname="ts_ingreso.ep_codigo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=te_fecha dbname="ts_ingreso.te_fecha" initial="today" )
+ column=(type=char(60) update=yes updatewhereclause=yes name=te_nombre dbname="ts_ingreso.te_nombre" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=te_concep dbname="ts_ingreso.te_concep" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=te_total dbname="ts_ingreso.te_total" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=te_proce dbname="ts_ingreso.te_proce" initial="N" values="S.I.F	S/P.O.S	P/OTROS	O/" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=estado dbname="ts_ingreso.estado" initial="1" )
+ retrieve="  SELECT ~"TS_INGRESO~".~"EM_CODIGO~",   
+         ~"TS_INGRESO~".~"SU_CODIGO~",   
+         ~"TS_INGRESO~".~"TE_CODIGO~",   
+         ~"TS_INGRESO~".~"ES_CODIGO~",   
+         ~"TS_INGRESO~".~"EP_CODIGO~",   
+         ~"TS_INGRESO~".~"TE_FECHA~",   
+         ~"TS_INGRESO~".~"TE_NOMBRE~",   
+         ~"TS_INGRESO~".~"TE_CONCEP~",   
+         ~"TS_INGRESO~".~"TE_TOTAL~",   
+         ~"TS_INGRESO~".~"TE_PROCE~",   
+         ~"TS_INGRESO~".~"ESTADO~"  
+    FROM ~"TS_INGRESO~"   
+" update="TS_INGRESO" updatewhere=1 updatekeyinplace=yes  sort="number(te_codigo) A " )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="329" y="32" height="56" width="462" format="[general]"  name=te_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+column(band=detail id=8 alignment="0" tabsequence=20 border="5" color="0" x="334" y="232" height="60" width="1595" format="[general]"  name=te_concep edit.limit=0 edit.case=upper edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="5" color="0" x="334" y="132" height="56" width="279" format="[shortdate] [time]"  name=te_fecha editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="1" tabsequence=30 border="0" color="0" x="2011" y="32" height="192" width="302" format="[general]"  name=es_codigo radiobuttons.columns=1 radiobuttons.scale=yes radiobuttons.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=7 alignment="0" tabsequence=10 border="5" color="0" x="1038" y="36" height="56" width="887" format="[general]"  name=te_nombre dddw.name=d_dddw_vendedor dddw.displaycolumn=compute_0001 dddw.datacolumn=compute_0001 dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.hscrollbar=yes dddw.vscrollbar=yes dddw.showlist=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="N$$HEX1$$fa00$$ENDHEX$$mero:" border="0" color="0" x="78" y="32" height="56" width="183"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="0" text="Fecha:" border="0" color="0" x="78" y="132" height="56" width="165"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="0" text="Concepto:" border="0" color="0" x="78" y="236" height="56" width="224"  name=t_4  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="0" text="Total:" border="0" color="0" x="818" y="124" height="56" width="119"  name=t_5  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="0" text="Nombre:" border="0" color="0" x="818" y="32" height="56" width="183"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="5" color="0" x="1038" y="128" height="60" width="407" format="#,##0.00"  name=te_total edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

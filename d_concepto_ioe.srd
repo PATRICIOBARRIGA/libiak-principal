@@ -1,0 +1,23 @@
+HA$PBExportHeader$d_concepto_ioe.srd
+$PBExportComments$Si. Conceptos de los ingresos o egresos
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=96 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=tn_codigo dbname="cb_tipo.tn_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=tn_ioe dbname="cb_tipo.tn_ioe" initial="E" values="Ingreso	I/Egreso	E/" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=tn_descri dbname="cb_tipo.tn_descri" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=tn_activa dbname="cb_tipo.tn_activa" initial="S" values="Activa	S/Activa	N" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cb_tipo~" ) COLUMN(NAME=~"cb_tipo.tn_codigo~") COLUMN(NAME=~"cb_tipo.tn_ioe~") COLUMN(NAME=~"cb_tipo.tn_descri~") COLUMN(NAME=~"cb_tipo.tn_activa~")) " update="CB_TIPO" updatewhere=1 updatekeyinplace=yes  sort="tn_ioe A number(tn_codigo) A " )
+line(band=header x1="41" y1="84" x2="1838" y2="80"  name=l_1 pen.style="0" pen.width="9" pen.color="128"  background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="128" x="78" y="12" height="56" width="178"  name=tn_codigo_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Clase" border="0" color="128" x="1193" y="12" height="56" width="142"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Descripci$$HEX1$$f300$$ENDHEX$$n" border="0" color="128" x="498" y="12" height="56" width="297"  name=tn_descri_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=10 border="5" color="0" x="320" y="16" height="56" width="658" format="[general]"  name=tn_descri edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="55" y="16" height="56" width="233" format="[general]"  name=tn_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+column(band=detail id=4 alignment="0" tabsequence=30 border="0" color="0" x="1550" y="16" height="56" width="247" format="[general]"  name=tn_activa checkbox.text="Activa" checkbox.on="S" checkbox.off="N" checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="1006" y="16" height="56" width="521" format="[general]"  name=tn_ioe radiobuttons.columns=2 radiobuttons.scale=yes radiobuttons.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

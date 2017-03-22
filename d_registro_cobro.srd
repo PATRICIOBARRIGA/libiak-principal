@@ -1,0 +1,41 @@
+HA$PBExportHeader$d_registro_cobro.srd
+$PBExportComments$Si. Cobro de vauchers, Cabecera para registrar el detalle del cobro de las tarjetasde credito. Vale
+release 9;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=316 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=bt_codigo dbname="cb_cabcobt.bt_codigo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=bt_fecha dbname="cb_cabcobt.bt_fecha" )
+ column=(type=datetime update=yes updatewhereclause=yes name=bt_fcruce dbname="cb_cabcobt.bt_fcruce" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cn_codigo dbname="cb_cabcobt.cn_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=bt_total dbname="cb_cabcobt.bt_total" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="cb_cabcobt.em_codigo" )
+ column=(type=number updatewhereclause=yes name=cc_saldo dbname="cb_cabcobt.cc_saldo" )
+ retrieve="  SELECT ~"CB_CABCOBT~".~"BT_CODIGO~",   
+         ~"CB_CABCOBT~".~"BT_FECHA~",
+         ~"CB_CABCOBT~".~"BT_FCRUCE~",
+         ~"CB_CABCOBT~".~"CN_CODIGO~",   
+         ~"CB_CABCOBT~".~"BT_TOTAL~",   
+         ~"CB_CABCOBT~".~"EM_CODIGO~",
+          0  cc_saldo
+    FROM ~"CB_CABCOBT~"  
+   WHERE ~"CB_CABCOBT~".~"EM_CODIGO~" = :empresa    
+" update="CB_CABCOBT" updatewhere=1 updatekeyinplace=yes arguments=(("empresa", string))  sort="NUMBER(bt_codigo) A " )
+text(band=detail alignment="0" text="Cuenta:" border="0" color="0" x="82" y="212" height="56" width="183" html.valueishtml="0"  name=cn_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="283" y="212" height="56" width="713" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=cn_codigo visible="1" dddw.name=d_dddw_cuenta_banco dddw.displaycolumn=ccuenta dddw.datacolumn=cn_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Total:" border="0" color="0" x="1033" y="212" height="56" width="128" html.valueishtml="0"  name=bt_total_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=30 border="0" color="128" x="1179" y="212" height="56" width="187" format="#,##0.00" html.valueishtml="0"  name=bt_total visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=7 alignment="1" tabsequence=40 border="0" color="128" x="1541" y="212" height="56" width="178" format="0.00" html.valueishtml="0"  name=cc_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=detail alignment="0" text="Saldo:" border="0" color="0" x="1385" y="212" height="56" width="137" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82042848" )
+text(band=detail alignment="0" text="* C$$HEX1$$f300$$ENDHEX$$digo:" border="0" color="0" x="78" y="36" height="56" width="197" html.valueishtml="0"  name=bt_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="293" y="36" height="56" width="279" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=bt_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+text(band=detail alignment="0" text="Cruzado el:" border="0" color="0" x="910" y="36" height="56" width="251" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="0" x="1189" y="36" height="56" width="343" format="dd/mm/yyyy" html.valueishtml="0"  name=bt_fcruce visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="82899184" )
+text(band=detail alignment="0" text="Cobrado el:" border="0" color="0" x="910" y="120" height="56" width="251" html.valueishtml="0"  name=bt_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="5" color="0" x="1193" y="120" height="56" width="329" format="dd/mm/yyyy" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=bt_fecha visible="1" editmask.mask="dd/mm/yyyy" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
