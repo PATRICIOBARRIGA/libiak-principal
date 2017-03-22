@@ -1,0 +1,43 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cjaban_r.pbl" "";
+@end;
+@begin Objects
+ "d_prn_ch_pichincha_a.srd" "cjaban_r.pbl";
+ "w_rep_tarjeta_x_cobro.srw" "cjaban_r.pbl";
+ "d_rep_crucerecaps.srd" "cjaban_r.pbl";
+ "d_reporte_libro_bancos.srd" "cjaban_r.pbl";
+ "d_sel_rep_libro_bancos.srd" "cjaban_r.pbl";
+ "w_rep_libro_bancos.srw" "cjaban_r.pbl";
+ "d_prn_cheque_lote.srd" "cjaban_r.pbl";
+ "d_prn_egreso_ret_lote.srd" "cjaban_r.pbl";
+ "d_rep_cobros_x_fp.srd" "cjaban_r.pbl";
+ "d_rep_conciliacion.srd" "cjaban_r.pbl";
+ "d_reporte_egreso_nd.srd" "cjaban_r.pbl";
+ "w_rep_crucerecaps.srw" "cjaban_r.pbl";
+ "d_reporte_ingreso.srd" "cjaban_r.pbl";
+ "d_prn_egreso_x_lote.srd" "cjaban_r.pbl";
+ "d_rep_egreso_list.srd" "cjaban_r.pbl";
+ "w_rep_conciliaci\u00f3n.srw" "cjaban_r.pbl";
+ "d_rep_recap_tarjetas.srd" "cjaban_r.pbl";
+ "w_rep_cobros_x_fp.srw" "cjaban_r.pbl";
+ "d_rep_tarjetas.srd" "cjaban_r.pbl";
+ "d_prn_ingreso_lote.srd" "cjaban_r.pbl";
+ "d_rep_efectivizados.srd" "cjaban_r.pbl";
+ "w_rep_efectivizados.srw" "cjaban_r.pbl";
+ "d_rep_ingreso_list.srd" "cjaban_r.pbl";
+ "d_rep_recaps.srd" "cjaban_r.pbl";
+ "d_rep_egresos.srd" "cjaban_r.pbl";
+ "d_reporte_libro_bancos_x_suc.srd" "cjaban_r.pbl";
+ "w_rep_egresoprint.srw" "cjaban_r.pbl";
+ "d_reporte_egreso_cheque.srd" "cjaban_r.pbl";
+ "w_rep_ingresoprint.srw" "cjaban_r.pbl";
+ "w_rep_recaps.srw" "cjaban_r.pbl";
+ "d_rep_egreso_ch_ret_lote.srd" "cjaban_r.pbl";
+ "w_rep_egresos.srw" "cjaban_r.pbl";
+ "w_depositos.srw" "cjaban_r.pbl";
+ "d_rep_crucerecaps2.srd" "cjaban_r.pbl";
+ "d_rep_crucerecaps3.srd" "cjaban_r.pbl";
+ "d_rep_liquidacion_caja.srd" "cjaban_r.pbl";
+ "w_rep_liquidacion_caja.srw" "cjaban_r.pbl";
+@end;
