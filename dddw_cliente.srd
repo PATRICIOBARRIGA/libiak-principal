@@ -1,0 +1,10 @@
+HA$PBExportHeader$dddw_cliente.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=ce_codigo dbname="fa_clien.ce_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"fa_clien~" ) COLUMN(NAME=~"fa_clien.ce_codigo~")) " )
+column(band=detail id=1 alignment="0" tabsequence=10 border="2" color="0" x="10" y="4" height="57" width="1198" format="[general]"  name=ce_codigo dddw.name=dwc_cliente dddw.displaycolumn=cliente_razon_social_o_nombre dddw.datacolumn=ce_codigo dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

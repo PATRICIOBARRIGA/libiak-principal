@@ -1,0 +1,15 @@
+HA$PBExportHeader$dddw_cuentas_auxiliares.srd
+$PBExportComments$Si.
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=61 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes key=yes name=em_codigo dbname="co_placta.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=pl_codigo dbname="co_placta.pl_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=pl_mayor dbname="co_placta.pl_mayor" )
+ column=(type=char(50) updatewhereclause=yes name=pl_nombre dbname="co_placta.pl_nombre" )
+ column=(type=char(71) updatewhereclause=yes name=cuenta dbname="cuenta" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"co_placta~" ) COLUMN(NAME=~"co_placta.em_codigo~") COLUMN(NAME=~"co_placta.pl_codigo~") COLUMN(NAME=~"co_placta.pl_mayor~") COLUMN(NAME=~"co_placta.pl_nombre~") COMPUTE(NAME=~"~~~"CO_PLACTA~~~".~~~"PL_CODIGO~~~"||' '||~~~"CO_PLACTA~~~".~~~"PL_NOMBRE~~~" ~~~"cuenta~~~"~")WHERE(    EXP1 =~"~~~"CO_PLACTA~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa ~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CO_PLACTA~~~".~~~"PL_MAYOR~~~"~"   OP =~"=~"    EXP2 =~"'A' ~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="CO_PLACTA" updatewhere=0 updatekeyinplace=no arguments=(("empresa", string)) )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1" y="4" height="57" width="1390" format="[general]"  name=cuenta edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
