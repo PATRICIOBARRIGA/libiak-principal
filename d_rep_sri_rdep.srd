@@ -1,0 +1,70 @@
+HA$PBExportHeader$d_rep_sri_rdep.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+summary(height=0 color="536870912" )
+footer(height=92 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(129) updatewhereclause=yes name=compute_0001 dbname="compute_0001" )
+ retrieve="SELECT '1791812484001'||
+             ~"NO_EMPLE~".~"EP_CI~"||
+             '2'||
+              lpad( substr(~"NO_EMPLE~".~"EP_CALLE1~",1,20),20,' ')||
+              lpad( substr(~"NO_EMPLE~".~"EP_CALLE2~",1,10),10,' ')||
+              lpad( substr( DECODE( ~"NO_EMPLE~".~"SU_CODIGO~",'20','ESMERALDAS','21','ATACAMES','25','AMBATO','26','GUAYAQUIL','11','SANTO DOMINGO DE LOS','12','SANTO DOMINGO DE LOS','QUITO'),1,20),20,' ')||
+              DECODE( ~"NO_EMPLE~".~"SU_CODIGO~",'20','08','21','08','25','18','26','09','17')||
+              decode(length(~"NO_EMPLE~".~"EP_TELEF~"),9,~"NO_EMPLE~".~"EP_TELEF~",7,'02'||~"NO_EMPLE~".~"EP_TELEF~",'022530912')||
+              '1'||
+			TO_CHAR(SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'1',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'6',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'7',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'10',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'29',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'35',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'12',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'13',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'38',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)),'00000000.00')||
+			TO_CHAR(SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'18',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)),'000000.00')|| 
+			TO_CHAR(SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'1',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'6',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'7',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'10',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) + 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'29',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'35',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'12',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'13',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) +
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'38',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)) - 
+			SUM( nvl(DECODE(~"NO_ROLPAGO~".~"RU_CODIGO~",'18',~"NO_ROLPAGO~".~"LQ_TOTAL~"),0)),'00000000.00')||
+			'200601'
+  FROM ~"NO_CABROL~",   
+         ~"NO_EMPLE~",   
+         ~"NO_ROLPAGO~" ,
+         ~"NO_RUBRO~" 
+   WHERE ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and  
+         ( ~"NO_ROLPAGO~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and  
+         ( ~"NO_ROLPAGO~".~"RR_CODIGO~" = ~"NO_CABROL~".~"RR_CODIGO~" ) and  
+         ( ~"NO_RUBRO~".~"RU_CODIGO~" = ~"NO_ROLPAGO~".~"RU_CODIGO~")and
+         (   ( ~"NO_CABROL~".~"RR_FECHA~" between :ad_ini and :ad_fin)  and
+            ( ~"NO_CABROL~".~"RR_TIPO~" IN ('R','U','L','I')) and
+            (~"NO_ROLPAGO~".~"EP_CODIGO~" NOT IN (654,527,378,570,506,644,599,542,582,288,545,581,502,359,109,521,683,579,684)))
+GROUP BY    ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~",   
+              ~"NO_EMPLE~".~"EP_CI~",
+             ~"NO_EMPLE~".~"CR_CODIGO~",
+              ~"NO_EMPLE~".~"SU_CODIGO~",
+              ~"NO_EMPLE~".~"EP_TELEF~",
+              ~"NO_EMPLE~".~"EP_CALLE1~",
+              ~"NO_EMPLE~".~"EP_CALLE2~",
+              ~"NO_EMPLE~".~"EP_FECAFI~",
+              ~"NO_EMPLE~".~"EP_FECSAL~"
+ORDER BY ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~"" arguments=(("ad_ini", date),("ad_fin", date)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="68" width="4549" format="[general]" html.valueishtml="0"  name=compute_0001 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

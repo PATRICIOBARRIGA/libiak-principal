@@ -1,0 +1,95 @@
+HA$PBExportHeader$d_rep_prestamos.srd
+$PBExportComments$Listado de pr$$HEX1$$e900$$ENDHEX$$stamos pendientes.
+release 10;
+datawindow(units=0 timer_interval=60000 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=164 color="536870912" )
+summary(height=40 color="536870912" )
+footer(height=124 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=ep_codigo dbname="no_emple.ep_codigo" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apepat dbname="no_emple.ep_apepat" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_nombre dbname="no_emple.ep_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=no_prestamo_pp_numero dbname="no_prestamo.pp_numero" )
+ column=(type=datetime updatewhereclause=yes name=no_prestamo_pp_fecha dbname="no_prestamo.pp_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_prestamo_pp_valor dbname="no_prestamo.pp_valor" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_prestamo_pp_saldo dbname="no_prestamo.pp_saldo" )
+ column=(type=char(10) updatewhereclause=yes name=pp_estado dbname="no_prestamo.pp_estado" )
+ column=(type=char(50) updatewhereclause=yes name=no_prestamo_pp_observ dbname="no_prestamo.pp_observ" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="no_emple.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cr_codigo dbname="no_emple.cr_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=dt_codigo dbname="no_emple.dt_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=tp_codigo dbname="no_prestamo.tp_codigo" )
+ column=(type=decimal(0) updatewhereclause=yes name=no_prestamo_pp_cuotas dbname="no_prestamo.pp_cuotas" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_detpag_dp_valcuo dbname="no_detpag.dp_valcuo" )
+ column=(type=char(20) updatewhereclause=yes name=ru_codigo dbname="no_rubro.ru_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=no_rubro_ru_nombre dbname="no_rubro.ru_nombre" )
+ retrieve="  SELECT DISTINCT ~"NO_EMPLE~".~"EP_CODIGO~",   
+         ~"NO_EMPLE~".~"EP_APEPAT~",   
+         ~"NO_EMPLE~".~"EP_NOMBRE~",   
+         ~"NO_PRESTAMO~".~"PP_NUMERO~",   
+         ~"NO_PRESTAMO~".~"PP_FECHA~",   
+         ~"NO_PRESTAMO~".~"PP_VALOR~",   
+         ~"NO_PRESTAMO~".~"PP_SALDO~",   
+         ~"NO_PRESTAMO~".~"PP_ESTADO~",   
+         ~"NO_PRESTAMO~".~"PP_OBSERV~",   
+         ~"NO_EMPLE~".~"SU_CODIGO~",   
+         ~"NO_EMPLE~".~"CR_CODIGO~",   
+         ~"NO_EMPLE~".~"DT_CODIGO~",   
+         ~"NO_PRESTAMO~".~"TP_CODIGO~",   
+         ~"NO_PRESTAMO~".~"PP_CUOTAS~",   
+         ~"NO_DETPAG~".~"DP_VALCUO~",
+			~"NO_RUBRO~".~"RU_CODIGO~",
+			~"NO_RUBRO~".~"RU_NOMBRE~"
+    FROM ~"NO_PRESTAMO~",   
+         ~"NO_DETPAG~", 
+         ~"NO_EMPLE~",   
+			~"NO_RUBRO~"  
+   WHERE ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_PRESTAMO~".~"EP_CODIGO~" ) and  
+         ( ~"NO_PRESTAMO~".~"EP_CODIGO~" = ~"NO_DETPAG~".~"EP_CODIGO~" ) and  
+         ( ~"NO_PRESTAMO~".~"PP_NUMERO~" = ~"NO_DETPAG~".~"PP_NUMERO~" ) and  
+         ( ~"NO_RUBRO~".~"RU_CODIGO~" = ~"NO_PRESTAMO~".~"RU_CODIGO~" ) and  
+         ( ( ~"NO_EMPLE~".~"EM_CODIGO~" = :empresa ) AND  
+         ( trunc(~"NO_DETPAG~".~"DP_FECPAG~") between :fec_ini and :fec_fin ) )    
+" arguments=(("empresa", number),("fec_ini", date),("fec_fin", date))  sort="number(ru_codigo) A pp_estado A no_emple_ep_apepat A no_emple_ep_nombre A no_prestamo_pp_fecha A no_prestamo_pp_numero A " )
+group(level=1 header.height=80 trailer.height=0 by=("ru_codigo" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=152 trailer.height=68 by=("pp_estado" ) header.color="536870912" trailer.color="536870912" )
+group(level=3 header.height=64 trailer.height=76 by=("ep_codigo" ) header.color="536870912" trailer.color="536870912" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2711" y="12" height="56" width="517" format="[GENERAL]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="" border="0" color="0" x="37" y="12" height="64" width="1349" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Del '+string( fec_ini ,'dd/mm/yyyy')+' al '+string( fec_fin ,'dd/mm/yyyy')"border="0" color="0" x="37" y="92" height="60" width="1161" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression=" 'Impreso el: '+string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2464" y="92" height="60" width="759" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=16 alignment="0" tabsequence=32766 border="0" color="0" x="37" y="8" height="64" width="119" format="[general]" html.valueishtml="0"  name=ru_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=17 alignment="0" tabsequence=32766 border="0" color="0" x="169" y="8" height="64" width="1298" format="[general]" html.valueishtml="0"  name=no_rubro_ru_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header.2 alignment="0" expression="case(trim( pp_estado)  when 'R' then 'Renegociados' when 'A' then 'Anulados' when 'P' then 'Pendientes' when 'T' then 'Cancelados' else 'Procesados')"border="0" color="128" x="37" y="4" height="60" width="955" format="[general]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.2 alignment="0" text="Empleado" border="0" color="0" x="133" y="88" height="56" width="210" html.valueishtml="0"  name=no_emple_ep_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="1" text="Cuota " border="0" color="0" x="1435" y="88" height="56" width="160" html.valueishtml="0"  name=t_2 visible="1~tif( tp_codigo ='3' or  tp_codigo ='4',0,1)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="1" text="N$$HEX1$$fa00$$ENDHEX$$mero" border="0" color="0" x="827" y="88" height="56" width="169" html.valueishtml="0"  name=no_prestamo_pp_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="1" text="Saldo" border="0" color="0" x="2130" y="88" height="56" width="123" html.valueishtml="0"  name=no_prestamo_pp_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="1" text="Valor" border="0" color="0" x="1819" y="88" height="56" width="119" html.valueishtml="0"  name=no_prestamo_pp_valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="0" text="Observaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="2299" y="88" height="56" width="283" html.valueishtml="0"  name=no_prestamo_pp_observ_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="0" text="Fecha" border="0" color="0" x="539" y="88" height="56" width="146" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.2 alignment="1" text="N$$HEX2$$ba002000$$ENDHEX$$Cuotas" border="0" color="0" x="1111" y="88" height="56" width="247" html.valueishtml="0"  name=t_3 visible="1~tif( tp_codigo ='3' or  tp_codigo ='4',0,1)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.3 alignment="0" expression=" ep_codigo +' '+ no_emple_ep_apepat +' '+ no_emple_ep_nombre "border="0" color="0" x="133" y="4" height="56" width="1033" format="[general]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="823" y="4" height="56" width="279" format="[general]" html.valueishtml="0"  name=no_prestamo_pp_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="0" color="0" x="1353" y="4" height="56" width="224" format="#,##0.00" html.valueishtml="0"  name=no_detpag_dp_valcuo visible="1~tif( tp_codigo ='3' or  tp_codigo ='4',0,1)" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="1989" y="4" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=no_prestamo_pp_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="1673" y="4" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=no_prestamo_pp_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="2304" y="4" height="56" width="1024" format="[general]" html.valueishtml="0"  name=no_prestamo_pp_observ visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="494" y="4" height="52" width="297" format="DD/MM/YYYY" html.valueishtml="0"  name=no_prestamo_pp_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="0" x="1152" y="4" height="56" width="165" format="#,##0" html.valueishtml="0"  name=no_prestamo_pp_cuotas visible="1~tif( tp_codigo ='3' or  tp_codigo ='4',0,1)" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.3 x1="1673" y1="4" x2="2263" y2="4"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=trailer.3 alignment="1" expression="sum( no_prestamo_pp_valor for group 3)"border="0" color="0" x="1673" y="16" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.3 alignment="1" expression="sum( no_prestamo_pp_saldo for group 3  )"border="0" color="0" x="1989" y="16" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.2 alignment="1" expression="sum( no_prestamo_pp_saldo for group 2 )"border="0" color="128" x="1989" y="8" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.2 alignment="1" expression="sum( no_prestamo_pp_valor for group 2)"border="0" color="128" x="1673" y="8" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

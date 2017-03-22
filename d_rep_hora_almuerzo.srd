@@ -1,0 +1,47 @@
+HA$PBExportHeader$d_rep_hora_almuerzo.srd
+$PBExportComments$Reporte de asistencia diaria
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=348 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=no_asistencia_ep_codigo dbname="no_asistencia.ep_codigo" )
+ column=(type=datetime updatewhereclause=yes name=no_asistencia_as_in1 dbname="no_asistencia.as_in1" )
+ column=(type=datetime updatewhereclause=yes name=no_asistencia_as_out1 dbname="no_asistencia.as_out1" )
+ column=(type=char(77) updatewhereclause=yes name=empleado dbname="empleado" )
+ retrieve="  SELECT ~"NO_ASISTENCIA~".~"EP_CODIGO~",   
+         ~"NO_ASISTENCIA~".~"AS_IN1~",
+			~"NO_ASISTENCIA~".~"AS_OUT1~",
+         ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~" empleado
+    FROM ~"NO_ASISTENCIA~",   
+         ~"NO_EMPLE~"  
+   WHERE ( ~"NO_ASISTENCIA~".~"EM_CODIGO~" = ~"NO_EMPLE~".~"EM_CODIGO~" ) and  
+         ( ~"NO_ASISTENCIA~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+         ( ( ~"NO_ASISTENCIA~".~"EM_CODIGO~" = :empresa ) AND 
+         (~"NO_ASISTENCIA~".~"AS_FECHA~" = :fec_ini) )    
+" arguments=(("empresa", string),("fec_ini", date))  sort="empleado A " )
+text(band=header alignment="2" text="H. Salida" border="2" color="0" x="1317" y="268" height="56" width="247" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="H. Entrada" border="2" color="0" x="1582" y="268" height="56" width="261" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="H : MM" border="2" color="0" x="1861" y="268" height="56" width="229" html.valueishtml="0"  name=t_15 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Hora de Almuerzo" border="2" color="0" x="1317" y="196" height="56" width="773" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="1637" y="12" height="56" width="178" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="round(secondsafter(time( no_asistencia_as_out1),time( no_asistencia_as_in1 )) / 3600,2)"border="0" color="0" x="2130" y="8" height="56" width="78" format="#,##0.00" html.valueishtml="0"  name=cc_hora visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="getrow()"border="0" color="0" x="9" y="8" height="56" width="128" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="160" y="8" height="56" width="1170" format="[general]" html.valueishtml="0"  name=empleado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="1385" y="8" height="56" width="160" format="hh:mm" html.valueishtml="0"  name=no_asistencia_as_out1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="1650" y="8" height="56" width="160" format="hh:mm" html.valueishtml="0"  name=no_asistencia_as_in1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="int( cc_hora)"border="0" color="0" x="1902" y="8" height="56" width="64" format="[GENERAL]" html.valueishtml="0"  name=cc_tardeh visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text=":" border="0" color="0" x="1970" y="8" height="56" width="14" html.valueishtml="0"  name=t_17 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="round((cc_hora -  cc_tardeh )*60,0)"border="0" color="0" x="1989" y="8" height="56" width="55" format="0#,##0" html.valueishtml="0"  name=cc_tardemin visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="142" y1="180" x2="2085" y2="176"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header x1="142" y1="340" x2="2085" y2="340"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Reporte Hora de Almuerzo del ' +fec_ini"border="0" color="0" x="137" y="96" height="68" width="1394" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="137" y="12" height="64" width="1289" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="1824" y="12" height="56" width="453" format="[shortdate] [time]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g ' + page() + ' de ' + pageCount()"border="0" color="0" x="1824" y="80" height="64" width="453" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

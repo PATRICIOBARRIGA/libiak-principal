@@ -1,0 +1,77 @@
+HA$PBExportHeader$d_rep_pago_decimo4.srd
+release 9;
+datawindow(units=0 timer_interval=60000 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 9 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=504 color="536870912" )
+summary(height=140 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=148 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cod_emple dbname="no_cabrol.ep_codigo" )
+ column=(type=char(77) updatewhereclause=yes name=nombres dbname="nombres" )
+ column=(type=char(80) updatewhereclause=yes name=no_cargo_ocupacion dbname="no_cargo.ocupacion" )
+ column=(type=number updatewhereclause=yes name=sexom dbname="sexom" )
+ column=(type=number updatewhereclause=yes name=sexof dbname="sexof" )
+ column=(type=number updatewhereclause=yes name=tiempo dbname="tiempo" )
+ column=(type=number updatewhereclause=yes name=valor_pagado dbname="valor_pagado" )
+ column=(type=char(0) updatewhereclause=yes name=firma dbname="firma" )
+ column=(type=char(20) updatewhereclause=yes name=no_emple_su_codigo dbname="no_emple.su_codigo" )
+ retrieve="  SELECT ~"NO_CABROL~".~"EP_CODIGO~",   
+         ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~" nombres,   
+         ~"NO_CARGO~".~"CR_DESCRI~" ocupacion,   
+         DECODE(~"NO_EMPLE~".~"EP_SEXO~",'M',0,null) sexom,
+         DECODE(~"NO_EMPLE~".~"EP_SEXO~",'F',1,null) sexof,
+         sum(~"NO_CABROL~".~"RR_HORAS~")*360/2880 tiempo,
+			(sum(~"NO_CABROL~".~"RR_HORAS~")*360/2880)*160/360 valor_pagado,
+			'' firma,
+			~"NO_EMPLE~".~"SU_CODIGO~"
+    FROM ~"NO_CABROL~", 
+         ~"NO_EMPLE~",   
+         ~"NO_CARGO~"
+   WHERE ( no_emple.cr_codigo = no_cargo.cr_codigo (+)) and  
+         ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and  
+         ( ( ~"NO_EMPLE~".~"EM_CODIGO~" = :empresa) and  
+         ( ~"NO_CABROL~".~"RR_TIPO~" = 'R' ) and  
+         ( ~"NO_EMPLE~".~"EP_NONOM~" = 'S' ) and  
+         ( ~"NO_CABROL~".~"RR_FECHA~" between :fec_ini and :fec_fin ))
+GROUP BY ~"NO_CABROL~".~"EP_CODIGO~",   
+         ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~",   
+         ~"NO_CARGO~".~"CR_DESCRI~",   
+         ~"NO_EMPLE~".~"EP_SEXO~",
+			~"NO_EMPLE~".~"SU_CODIGO~"
+" filter="no_emple_su_codigo not in ('11','12','21','20','26')  and  cod_emple not in ('752','729','1')"arguments=(("empresa", string),("fec_ini", date),("fec_fin", date))  sort="nombres A " )
+roundrectangle(band=header ellipseheight="36" ellipsewidth="41"x="64" y="264" height="232" width="4475"  name=rr_1 visible="1" brush.hatch="6" brush.color="134217739" pen.style="0" pen.width="5" pen.color="134217739"  background.mode="2" background.color="0" )
+line(band=header x1="1125" y1="148" x2="3762" y2="148"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="INFORMACION INDIVIDUAL SOBRE EL PAGO DE LA DECIMOCUARTA REMUNERACION" border="0" color="33554432" x="686" y="172" height="84" width="3250" html.valueishtml="0"  name=t_2 visible="1"  font.face="Book Antiqua" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="No." border="0" color="33554432" x="87" y="360" height="72" width="146" html.valueishtml="0"  name=t_3 visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="OCUPACION" border="0" color="33554432" x="1454" y="360" height="72" width="535" html.valueishtml="0"  name=no_cargo_ocupacion_t visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="SEXO
+H.     M.
+0        1" border="0" color="33554432" x="2034" y="272" height="216" width="261" html.valueishtml="0"  name=sexo_t visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="TIEMPO
+TRABAJADO
+PERIODO" border="0" color="33554432" x="2418" y="312" height="172" width="357" html.valueishtml="0"  name=tiempo_t visible="1"  font.face="Book Antiqua" font.height="-7" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="VALOR PAGADO POR
+DECIMOCUARTA REMUNERACION" border="0" color="33554432" x="2811" y="360" height="104" width="741" html.valueishtml="0"  name=no_otrospagos_valor_pagado_t visible="1"  font.face="Book Antiqua" font.height="-6" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="MINISTERIO DE TRABAJO Y EMPLEO" border="0" color="33554432" x="1573" y="48" height="92" width="1742" html.valueishtml="0"  name=t_1 visible="1"  font.face="Book Antiqua" font.height="-14" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="N$$HEX1$$ba00$$ENDHEX$$.    199125" border="0" color="33554432" x="4018" y="48" height="92" width="526" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="NOMBRES" border="0" color="33554432" x="265" y="360" height="72" width="1038" html.valueishtml="0"  name=nombres_t visible="1"  font.face="Book Antiqua" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+text(band=header alignment="2" text="FIRMA O HUELLA DIGITAL
+DEL TRABAJADOR" border="0" color="33554432" x="3575" y="360" height="104" width="837" html.valueishtml="0"  name=firma_t visible="1"  font.face="Book Antiqua" font.height="-6" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="134217739" )
+compute(band=detail alignment="1" expression="getrow()"border="0" color="33554432" x="91" y="8" height="124" width="242" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="389" y="8" height="124" width="1042" format="[general]" html.valueishtml="0"  name=nombres visible="1" edit.limit=77 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1454" y="8" height="124" width="535" format="[general]" html.valueishtml="0"  name=no_cargo_ocupacion visible="1" edit.limit=80 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="2377" y="8" height="124" width="439" format="#,##0" html.valueishtml="0"  name=tiempo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="2875" y="8" height="124" width="635" format="#,##0.00" html.valueishtml="0"  name=valor_pagado visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="2007" y="8" height="124" width="73" format="[general]" html.valueishtml="0"  name=sexom visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2144" y="8" height="124" width="69" format="[general]" html.valueishtml="0"  name=sexof visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="4" color="33554432" x="3575" y="8" height="124" width="837" format="[general]" html.valueishtml="0"  name=firma visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( sexom = 0, valor_pagado , 0 )"border="0" color="33554432" x="4430" y="8" height="124" width="174" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( sexof = 1, valor_pagado ,0)"border="0" color="33554432" x="4690" y="8" height="124" width="174" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(sexof for all)"border="0" color="33554432" x="2144" y="4" height="124" width="69" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(valor_pagado for all)"border="0" color="33554432" x="2875" y="4" height="124" width="635" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(if( sexom = 0, valor_pagado , 0 ) for all)"border="0" color="33554432" x="4320" y="4" height="124" width="283" format="#,##0.00" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(if( sexof = 1, valor_pagado ,0) for all)"border="0" color="33554432" x="4617" y="4" height="124" width="247" format="#,##0.00" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

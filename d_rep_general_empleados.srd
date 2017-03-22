@@ -1,0 +1,102 @@
+HA$PBExportHeader$d_rep_general_empleados.srd
+$PBExportComments$Reporte general de empleados.
+release 9;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=284 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=148 color="536870912" )
+detail(height=136 color="536870912" )
+table(column=(type=char(77) updatewhereclause=yes name=empleado dbname="empleado" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=pr_empre_em_nombre dbname="pr_empre.em_nombre" )
+ column=(type=char(80) updatewhereclause=yes name=no_cargo_cr_descri dbname="no_cargo.cr_descri" )
+ column=(type=char(20) updatewhereclause=yes name=no_departa_dt_descri dbname="no_departa.dt_descri" )
+ column=(type=char(11) updatewhereclause=yes name=no_emple_ep_ci dbname="no_emple.ep_ci" )
+ column=(type=datetime updatewhereclause=yes name=no_emple_ep_fecnac dbname="no_emple.ep_fecnac" )
+ column=(type=char(100) updatewhereclause=yes name=no_emple_ep_calle1 dbname="no_emple.ep_calle1" )
+ column=(type=char(50) updatewhereclause=yes name=no_emple_ep_calle2 dbname="no_emple.ep_calle2" )
+ column=(type=char(9) updatewhereclause=yes name=no_emple_ep_telef dbname="no_emple.ep_telef" )
+ column=(type=decimal(2) updatewhereclause=yes name=ep_sueldo dbname="no_emple.ep_sueldo" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_emple_ep_comision dbname="no_emple.ep_comision" )
+ column=(type=datetime updatewhereclause=yes name=no_emple_ep_fecent dbname="no_emple.ep_fecent" )
+ column=(type=char(20) updatewhereclause=yes name=cr_codigo dbname="no_emple.cr_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="no_emple.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=dt_codigo dbname="no_emple.dt_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=bo_codigo dbname="no_emple.bo_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=in_bode_bo_nombre dbname="in_bode.bo_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=ep_codigo dbname="no_emple.ep_codigo" )
+ column=(type=char(15) updatewhereclause=yes name=no_emple_ep_numafil dbname="no_emple.ep_numafil" )
+ column=(type=datetime updatewhereclause=yes name=no_emple_ep_fecafi dbname="no_emple.ep_fecafi" )
+ retrieve="  SELECT ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_APEMAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~" empleado,   
+         ~"PR_SUCUR~".~"SU_NOMBRE~",   
+         ~"PR_EMPRE~".~"EM_NOMBRE~",   
+         ~"NO_CARGO~".~"CR_DESCRI~",   
+         ~"NO_DEPARTA~".~"DT_DESCRI~",   
+         ~"NO_EMPLE~".~"EP_CI~",   
+         ~"NO_EMPLE~".~"EP_FECNAC~",   
+         ~"NO_EMPLE~".~"EP_CALLE1~",   
+         ~"NO_EMPLE~".~"EP_CALLE2~",   
+         ~"NO_EMPLE~".~"EP_TELEF~",   
+         ~"NO_EMPLE~".~"EP_SUELDO~",   
+         ~"NO_EMPLE~".~"EP_COMISION~",   
+         ~"NO_EMPLE~".~"EP_FECENT~",   
+         ~"NO_EMPLE~".~"CR_CODIGO~",   
+         ~"NO_EMPLE~".~"SU_CODIGO~",   
+         ~"NO_EMPLE~".~"DT_CODIGO~",   
+         ~"NO_EMPLE~".~"BO_CODIGO~",   
+         ~"IN_BODE~".~"BO_NOMBRE~",   
+         ~"NO_EMPLE~".~"EP_CODIGO~",   
+         ~"NO_EMPLE~".~"EP_NUMAFIL~",   
+         ~"NO_EMPLE~".~"EP_FECAFI~"  
+    FROM ~"PR_SUCUR~",   
+         ~"PR_EMPRE~",   
+         ~"NO_EMPLE~",   
+         ~"NO_CARGO~",   
+         ~"NO_DEPARTA~",   
+         ~"IN_BODE~"  
+   WHERE ( ~"NO_EMPLE~".~"EM_CODIGO~" = ~"NO_DEPARTA~".~"EM_CODIGO~" ) and  
+         ( ~"PR_EMPRE~".~"EM_CODIGO~" = ~"PR_SUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"PR_EMPRE~".~"EM_CODIGO~" = ~"NO_EMPLE~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"NO_EMPLE~".~"SU_CODIGO~" ) and  
+         ( ~"NO_CARGO~".~"CR_CODIGO~"(+) = ~"NO_EMPLE~".~"CR_CODIGO~" ) and  
+         ( ~"NO_EMPLE~".~"DT_CODIGO~" = ~"NO_DEPARTA~".~"DT_CODIGO~" ) and  
+         ( ~"IN_BODE~".~"EM_CODIGO~" = ~"PR_SUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"IN_BODE~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+         ( ~"NO_EMPLE~".~"BO_CODIGO~" = ~"IN_BODE~".~"BO_CODIGO~" ) and  
+         ( ( ~"PR_SUCUR~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"NO_EMPLE~".~"EP_FECSAL~" is null ) )    
+" arguments=(("empresa", string))  sort="pr_sucur_su_nombre A " )
+group(level=1 header.height=64 trailer.height=0 by=("pr_sucur_su_nombre" ) header.color="536870912" trailer.color="536870912" )
+column(band=header id=3 alignment="0" tabsequence=32766 border="0" color="0" x="18" y="28" height="84" width="1399" format="[general]" html.valueishtml="0"  name=pr_empre_em_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Britannic Bold" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Sueldo" border="0" color="0" x="1509" y="224" height="56" width="151" html.valueishtml="0"  name=st_ep_sueldo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="C.I." border="0" color="0" x="1591" y="156" height="56" width="69" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Nombre" border="0" color="0" x="105" y="156" height="56" width="178" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Departamento" border="0" color="0" x="741" y="224" height="56" width="306" html.valueishtml="0"  name=no_departa_dt_descri_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Cargo" border="0" color="0" x="105" y="224" height="56" width="133" html.valueishtml="0"  name=no_cargo_cr_descri_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2743" y="116" height="64" width="562" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header.1 alignment="0" text="Sucursal:" border="0" color="0" x="5" y="4" height="56" width="233" html.valueishtml="0"  name=pr_sucur_su_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="1335" y="8" height="56" width="325" format="[general]" html.valueishtml="0"  name=no_emple_ep_ci visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="0" x="1367" y="76" height="56" width="293" format="#,##0.00" html.valueishtml="0"  name=ep_sueldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="105" y="76" height="56" width="576" format="[general]" html.valueishtml="0"  name=no_cargo_cr_descri visible="1" edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="741" y="76" height="56" width="576" format="[general]" html.valueishtml="0"  name=no_departa_dt_descri visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="8" height="56" width="114" format="[general]" html.valueishtml="0"  name=ep_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="137" y="8" height="56" width="1179" format="[general]" html.valueishtml="0"  name=empleado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Britannic Bold" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'Impreso el: '+string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2569" y="36" height="68" width="736" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Tel$$HEX1$$e900$$ENDHEX$$fono" border="0" color="0" x="2331" y="224" height="56" width="192" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Direcci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="2331" y="156" height="56" width="206" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression=" no_emple_ep_telef "border="0" color="0" x="2331" y="76" height="56" width="274" format="[GENERAL]" html.valueishtml="0"  name=cc_telf visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression=" no_emple_ep_calle1 +if(not isnull(trim( no_emple_ep_calle2 )),' / '+ no_emple_ep_calle2 ,'') "border="0" color="0" x="2331" y="8" height="56~tif(len(  direcc )>45,60,57)" width="1024" format="[general]" html.valueishtml="0"  name=direcc visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="No. Afiliaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="2021" y="224" height="56" width="288" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Fec. Afiliaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="1998" y="156" height="56" width="311" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=20 alignment="1" tabsequence=32766 border="0" color="0" x="1952" y="76" height="56" width="357" format="[general]" html.valueishtml="0"  name=no_emple_ep_numafil visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="1" tabsequence=32766 border="0" color="0" x="2053" y="8" height="56" width="256" format="" html.valueishtml="0"  name=no_emple_ep_fecafi visible="1" editmask.mask="DD/MM/YYYY" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fec. Nac." border="0" color="0" x="1673" y="224" height="56" width="210" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fec. Entrada" border="0" color="0" x="1673" y="156" height="56" width="279" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=2 alignment="0" tabsequence=32766 border="0" color="0" x="251" y="4" height="56" width="1760" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="1673" y="8" height="56" width="256" format="" html.valueishtml="0"  name=no_emple_ep_fecent visible="1" editmask.mask="DD/MM/YYYY " editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="1673" y="76" height="56" width="256" format="" html.valueishtml="0"  name=no_emple_ep_fecnac visible="1" editmask.mask="DD/MM/YYYY" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

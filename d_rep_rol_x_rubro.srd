@@ -1,0 +1,115 @@
+HA$PBExportHeader$d_rep_rol_x_rubro.srd
+$PBExportComments$Ingreso Manual de rubros para la elaboraci$$HEX1$$f300$$ENDHEX$$n del rol
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=444 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=72 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=decimal(2) update=yes updatewhereclause=yes name=lq_valor dbname="no_rolpago.lq_valor" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=lq_numhor dbname="no_rolpago.lq_numhor" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=rr_codigo dbname="no_rolpago.rr_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=lq_total dbname="no_rolpago.lq_total" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ep_codigo dbname="no_rolpago.ep_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ru_codigo dbname="no_rolpago.ru_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=no_rubro_ru_tipcam dbname="no_rubro.ru_tipcam" )
+ column=(type=char(1) updatewhereclause=yes name=no_rubro_ru_ioe dbname="no_rubro.ru_ioe" values="Ingreso	I/Egreso	E/" )
+ column=(type=decimal(0) updatewhereclause=yes name=no_rubro_ru_sec dbname="no_rubro.ru_sec" )
+ column=(type=char(20) updatewhereclause=yes name=em_codigo dbname="no_emple.em_codigo" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_nombre dbname="no_emple.ep_nombre" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apepat dbname="no_emple.ep_apepat" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apemat dbname="no_emple.ep_apemat" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_horas dbname="no_cabrol.rr_horas" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_totingr dbname="no_cabrol.rr_totingr" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_totegre dbname="no_cabrol.rr_totegre" )
+ column=(type=decimal(2) updatewhereclause=yes name=no_cabrol_rr_liquido dbname="no_cabrol.rr_liquido" )
+ column=(type=number updatewhereclause=yes name=cc_otrosingresos dbname="compute_0018" )
+ column=(type=number updatewhereclause=yes name=cc_otrosegresos dbname="compute_0019" )
+ column=(type=char(50) updatewhereclause=yes name=no_rubro_ru_nombre dbname="no_rubro.ru_nombre" )
+ column=(type=char(3) updatewhereclause=yes name=no_rubro_ru_sigla dbname="no_rubro.ru_sigla" )
+ retrieve="  SELECT ~"NO_ROLPAGO~".~"LQ_VALOR~",   
+         ~"NO_ROLPAGO~".~"LQ_NUMHOR~",   
+         ~"NO_ROLPAGO~".~"RR_CODIGO~",   
+         ~"NO_ROLPAGO~".~"LQ_TOTAL~",   
+         ~"NO_ROLPAGO~".~"EP_CODIGO~",   
+         ~"NO_ROLPAGO~".~"RU_CODIGO~",   
+         ~"NO_RUBRO~".~"RU_TIPCAM~",   
+         ~"NO_RUBRO~".~"RU_IOE~",   
+         ~"NO_RUBRO~".~"RU_SEC~",   
+         ~"NO_EMPLE~".~"EM_CODIGO~",   
+         ~"NO_EMPLE~".~"EP_NOMBRE~",   
+         ~"NO_EMPLE~".~"EP_APEPAT~",   
+         ~"NO_EMPLE~".~"EP_APEMAT~",   
+         ~"NO_CABROL~".~"RR_HORAS~",   
+         ~"NO_CABROL~".~"RR_TOTINGR~",   
+         ~"NO_CABROL~".~"RR_TOTEGRE~",   
+         ~"NO_CABROL~".~"RR_LIQUIDO~",   
+         decode(~"NO_RUBRO~".~"RU_IOE~",'I',~"NO_CABROL~".~"RR_TOTINGR~" - ~"NO_ROLPAGO~".~"LQ_TOTAL~",0),   
+         decode(~"NO_RUBRO~".~"RU_IOE~",'E', ~"NO_CABROL~".~"RR_TOTEGRE~" - ~"NO_ROLPAGO~".~"LQ_TOTAL~",0),   
+         ~"NO_RUBRO~".~"RU_NOMBRE~",   
+         ~"NO_RUBRO~".~"RU_SIGLA~"  
+    FROM ~"NO_ROLPAGO~",   
+         ~"NO_RUBRO~",   
+         ~"NO_EMPLE~",   
+         ~"NO_CABROL~"  
+   WHERE ( ~"NO_ROLPAGO~".~"RU_CODIGO~" = ~"NO_RUBRO~".~"RU_CODIGO~" ) and  
+         ( ~"NO_ROLPAGO~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+         ( ~"NO_CABROL~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+         ( ~"NO_CABROL~".~"EP_CODIGO~" = ~"NO_ROLPAGO~".~"EP_CODIGO~" ) and  
+         ( ~"NO_CABROL~".~"RR_CODIGO~" = ~"NO_ROLPAGO~".~"RR_CODIGO~" ) and  
+         ( ( ~"NO_EMPLE~".~"EM_CODIGO~" = :em_codigo ) AND  
+         ( ~"NO_ROLPAGO~".~"RU_CODIGO~" = :rubro ) AND  
+         ( to_char(~"NO_CABROL~".~"RR_FECHA~",'MM-YYYY') = :periodo ) AND  
+         ( ~"NO_EMPLE~".~"SU_CODIGO~" = :sucursal ) )    
+" update="NO_ROLPAGO" updatewhere=1 updatekeyinplace=yes arguments=(("em_codigo", string),("rubro", string),("periodo", string),("sucursal", string))  sort="cc_empleado A " )
+column(band=header id=8 alignment="0" tabsequence=80 border="0" color="0" x="1303" y="176" height="60" width="425" format="[general]" html.valueishtml="0"  name=no_rubro_ru_ioe visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Tipo:" border="0" color="0" x="1179" y="176" height="56" width="105" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="if(  no_rubro_ru_sigla like '%I%','SI','NO' )"border="0" color="0" x="2217" y="176" height="60" width="302" format="[GENERAL]" html.valueishtml="0"  name=cc_aportaiess visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Aporta al IESS:" border="0" color="0" x="1847" y="180" height="56" width="329" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=20 alignment="0" tabsequence=100 border="0" color="0" x="197" y="160" height="60" width="782" format="[general]" html.valueishtml="0"  name=no_rubro_ru_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="ROL POR RUBRO" border="0" color="0" x="14" y="92" height="56" width="393" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Rubro:" border="0" color="0" x="14" y="160" height="56" width="165" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="TRECX." border="0" color="0" x="14" y="20" height="56" width="407" html.valueishtml="0"  name=t_15 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="0" x="2432" y="20" height="48" width="823" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=90 border="0" color="0" x="14" y="8" height="48" width="82" format="[general]" html.valueishtml="0"  name=ep_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Empleado" border="0" color="0" x="114" y="368" height="56" width="210" html.valueishtml="0"  name=ru_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if(isnull(no_emple_ep_apepat),' ',no_emple_ep_apepat)+' '+if(isnull(no_emple_ep_apemat),' ',no_emple_ep_apemat)+' '+ if(isnull(no_emple_ep_nombre),' ',no_emple_ep_nombre)"border="0" color="0" x="114" y="8" height="56" width="795" format="[GENERAL]" html.valueishtml="0"  name=cc_empleado visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="0" x="937" y="8" height="56" width="169" format="#,##0.00" html.valueishtml="0"  name=lq_valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="0" color="0" x="1147" y="8" height="56" width="201" format="#,##0" html.valueishtml="0"  name=lq_numhor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Valor/Hora" border="0" color="0" x="855" y="368" height="56" width="251" html.valueishtml="0"  name=lq_valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="N$$HEX2$$ba002000$$ENDHEX$$Horas" border="0" color="0" x="1152" y="368" height="56" width="201" html.valueishtml="0"  name=lq_numhor_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=footer alignment="1" text="Total Rubro:" border="0" color="0" x="846" y="4" height="56" width="375" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="INGRESOS" border="1" color="0" x="1673" y="280" height="56" width="590" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="EGRESOS" border="1" color="0" x="2295" y="280" height="56" width="567" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="0" y1="432" x2="3264" y2="432"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Total" border="0" color="0" x="1381" y="368" height="56" width="233" html.valueishtml="0"  name=lq_total_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="RUBRO" border="1" color="0" x="837" y="280" height="56" width="777" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="1" tabsequence=30 border="0" color="0" x="1381" y="8" height="56" width="233" format="#,##0.00" html.valueishtml="0"  name=lq_total visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(lq_total for all)"border="0" color="0" x="1275" y="8" height="52" width="338" format="#,##0.00" html.valueishtml="0"  name=cc_totalingresos visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=18 alignment="1" tabsequence=70 border="0" color="0" x="1682" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=cc_otrosingresos visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(cc_otrosingresos for all)"border="0" color="0" x="1682" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Otros" border="0" color="0" x="1682" y="368" height="56" width="270" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(no_cabrol_rr_totingr for all)"border="0" color="0" x="1989" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="case(  no_rubro_ru_ioe  when 'I' then  lq_total else 0)+ cc_otrosingresos"border="0" color="0" x="1989" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=cc_ingresos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Total" border="0" color="0" x="1989" y="368" height="56" width="270" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="1" tabsequence=80 border="0" color="0" x="2299" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=cc_otrosegresos visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(cc_otrosegresos for all)"border="0" color="0" x="2299" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Otros" border="0" color="0" x="2299" y="368" height="56" width="270" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(no_cabrol_rr_totegre for all)"border="0" color="0" x="2601" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="CASE( no_rubro_ru_ioe  WHEN 'I' THEN no_cabrol_rr_totegre  WHEN 'E' THEN  (lq_total +  cc_otrosegresos )) - cc_dif_iess"border="0" color="0" x="2601" y="8" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=cc_egresos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Total" border="0" color="0" x="2601" y="368" height="56" width="270" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="L$$HEX1$$ed00$$ENDHEX$$quido a Recibir" border="0" color="0" x="2903" y="368" height="56" width="361" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression=" cc_ingresos  -  cc_egresos "border="0" color="0" x="3031" y="8" height="56" width="233" format="#,##0.00" html.valueishtml="0"  name=cc_liquido visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum( no_cabrol_rr_totingr  -  no_cabrol_rr_totegre  for all)"border="0" color="0" x="2949" y="8" height="56" width="315" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="f_aporteiess( ep_codigo , rr_codigo )"border="0" color="0" x="1719" y="184" height="56" width="201" format="#,##0.00" html.valueishtml="0"  name=cc_aporteiess visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="if( no_rubro_ru_sigla like '%I%', lq_total*0.0935,0) "border="0" color="0" x="1934" y="184" height="56" width="229" format="#,##0.00" html.valueishtml="0"  name=cc_cuotaiess visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="f_iess( ep_codigo , rr_codigo , ru_codigo )"border="0" color="0" x="2176" y="184" height="56" width="215" format="#,##0.00" html.valueishtml="0"  name=cc_otrosiess visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression=" cc_cuotaiess  +  cc_otrosiess "border="0" color="0" x="2418" y="184" height="56" width="201" format="#,##0.00" html.valueishtml="0"  name=cc_aporte_nuevo visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression=" cc_aporteiess -  cc_aporte_nuevo "border="0" color="0" x="2633" y="184" height="56" width="206" format="#,##0.00" html.valueishtml="0"  name=cc_dif_iess visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Impreso: " border="0" color="0" x="2533" y="88" height="56" width="206" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2757" y="88" height="56" width="498" format="[shortdate]  [time]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

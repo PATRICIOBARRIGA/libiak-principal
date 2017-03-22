@@ -1,0 +1,62 @@
+HA$PBExportHeader$d_rep_imp_rol.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=476 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(2) updatewhereclause=yes name=tipo dbname="tipo" )
+ column=(type=char(10) updatewhereclause=yes name=cuenta dbname="cuenta" )
+ column=(type=char(16) updatewhereclause=yes name=codigo dbname="codigo" )
+ column=(type=char(14) updatewhereclause=yes name=cedula dbname="cedula" )
+ column=(type=char(51) updatewhereclause=yes name=empleado dbname="empleado" )
+ column=(type=decimal(2) updatewhereclause=yes name=total dbname="no_cabrol.total" )
+ retrieve="SELECT substr(~"NO_EMPLE~".~"EP_CTABCO~",1,2) TIPO,
+       LPAD(substr(~"NO_EMPLE~".~"EP_CTABCO~",3),10,'0') CUENTA,
+       LPAD(~"NO_EMPLE~".~"EP_CODIGO~",16,'0') CODIGO,                                
+		 LPAD(REPLACE(~"NO_EMPLE~".~"EP_CI~",'-',''),14,'0') CEDULA,
+       ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~" EMPLEADO,
+		 ~"NO_CABROL~".~"RR_LIQUIDO~" TOTAL
+  FROM ~"NO_CABROL~",   
+       ~"NO_EMPLE~"  
+ WHERE ( ~"NO_EMPLE~".~"EP_CODIGO~" = ~"NO_CABROL~".~"EP_CODIGO~" ) and  
+       ( TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'MM/YYYY') = :as_fecha )  and
+       ( TO_CHAR(~"NO_CABROL~".~"RR_FECHA~",'DD') > '15' )  and
+       (~"NO_CABROL~".~"RR_TIPO~" = 'R') and 
+ 	    ( ~"NO_EMPLE~".~"EP_NONOM~" = 'S') and
+		 ( NVL(~"NO_EMPLE~".~"EP_CTABCO~",0) <> '0') and
+		 ( ~"NO_CABROL~".~"RR_LIQUIDO~" <> 0) 
+ORDER BY ~"NO_EMPLE~".~"EP_APEPAT~" ASC" arguments=(("as_fecha", string)) )
+text(band=header alignment="0" text="" border="0" color="0" x="27" y="16" height="56" width="1175" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="27" y="88" height="56" width="1339" html.valueishtml="0"  name=st_departamento visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Tipo" border="0" color="0" x="174" y="392" height="56" width="110" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Cod.Emp" border="0" color="0" x="809" y="392" height="56" width="224" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="C$$HEX1$$e900$$ENDHEX$$dula" border="0" color="0" x="1280" y="392" height="56" width="174" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Nombre" border="0" color="0" x="1815" y="392" height="56" width="201" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Mensual" border="0" color="0" x="3077" y="400" height="56" width="233" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="27" y1="468" x2="3310" y2="468"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="No" border="0" color="0" x="37" y="392" height="56" width="82" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="RUC:" border="0" color="0" x="2432" y="12" height="56" width="114" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="FECHA:" border="0" color="0" x="2432" y="80" height="56" width="174" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="CODIGO:" border="0" color="0" x="2432" y="148" height="56" width="206" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="TOTAL MENSUAL:" border="0" color="0" x="2432" y="216" height="56" width="434" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="TOTAL EMPLEADOS:" border="0" color="0" x="2432" y="288" height="56" width="512" html.valueishtml="0"  name=t_15 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2971" y="80" height="56" width="343" format="YYYY/MM/DD" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="0290" border="0" color="0" x="3205" y="148" height="56" width="110" html.valueishtml="0"  name=t_16 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="sum(total for all)"border="0" color="0" x="2885" y="216" height="56" width="430" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="rowcount()"border="0" color="0" x="3131" y="288" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="'MENSUAL DE  ' +  as_fecha "border="0" color="0" x="32" y="160" height="56" width="1339" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="" border="0" color="0" x="2871" y="8" height="56" width="443" html.valueishtml="0"  name=st_ruc visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="No.Cuenta" border="0" color="0" x="494" y="392" height="56" width="256" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="795" y="8" height="56" width="480" format="[general]" html.valueishtml="0"  name=codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1289" y="8" height="56" width="507" format="[general]" html.valueishtml="0"  name=cedula visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1819" y="8" height="56" width="1175" format="[general]" html.valueishtml="0"  name=empleado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="3008" y="8" height="56" width="302" format="[general]" html.valueishtml="0"  name=total visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="0" x="32" y="8" height="56" width="114" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="192" y="8" height="56" width="73" format="[general]" html.valueishtml="0"  name=tipo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="302" y="8" height="56" width="448" format="[general]" html.valueishtml="0"  name=cuenta visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
