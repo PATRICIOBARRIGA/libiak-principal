@@ -1,0 +1,64 @@
+HA$PBExportHeader$d_actualiza_prestamos.srd
+$PBExportComments$Actualiza los pr$$HEX1$$e900$$ENDHEX$$stamos que se realizan a los empleados. Se utiliza en el proceso de rol de pagos.
+release 9;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=100 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ep_codigo dbname="no_prestamo.ep_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=pp_numero dbname="no_prestamo.pp_numero" )
+ column=(type=datetime update=yes updatewhereclause=yes name=pp_fecha dbname="no_prestamo.pp_fecha" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=pp_cuotas dbname="no_prestamo.pp_cuotas" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=pp_valor dbname="no_prestamo.pp_valor" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=pp_saldo dbname="no_prestamo.pp_saldo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=pp_interes dbname="no_prestamo.pp_interes" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=tp_codigo dbname="no_prestamo.tp_codigo" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=pp_estado dbname="no_prestamo.pp_estado" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=pp_observ dbname="no_prestamo.pp_observ" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ru_codigo dbname="no_prestamo.ru_codigo" )
+ retrieve="  SELECT ~"NO_PRESTAMO~".~"EP_CODIGO~",   
+         ~"NO_PRESTAMO~".~"PP_NUMERO~",   
+         ~"NO_PRESTAMO~".~"PP_FECHA~",   
+         ~"NO_PRESTAMO~".~"PP_CUOTAS~",   
+         ~"NO_PRESTAMO~".~"PP_VALOR~",   
+         ~"NO_PRESTAMO~".~"PP_SALDO~",   
+         ~"NO_PRESTAMO~".~"PP_INTERES~",   
+         ~"NO_PRESTAMO~".~"TP_CODIGO~",   
+         ~"NO_PRESTAMO~".~"PP_ESTADO~",   
+         ~"NO_PRESTAMO~".~"PP_OBSERV~",   
+         ~"NO_PRESTAMO~".~"RU_CODIGO~"  
+    FROM ~"NO_PRESTAMO~"  
+   WHERE ( RTRIM(LTRIM(~"NO_PRESTAMO~".~"PP_ESTADO~")) in ('P','T') ) AND  
+         ( ~"NO_PRESTAMO~".~"PP_NUMERO~" in (  SELECT ~"NO_DETPAG~".~"PP_NUMERO~"  
+                                             FROM ~"NO_DETPAG~"  
+                                            WHERE ( ~"NO_DETPAG~".~"DP_CUOCANC~" = 'N' ) AND  
+                                                  ( trunc(~"NO_DETPAG~".~"DP_FECPAG~",'mm') <= :ad_fecfin )  ))    
+" update="NO_PRESTAMO" updatewhere=1 updatekeyinplace=yes arguments=(("ad_fecfin", date))  sort="pp_numero A " )
+text(band=header alignment="2" text="Ep Codigo" border="0" color="0" x="18" y="16" height="64" width="576" html.valueishtml="0"  name=ep_codigo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Numero" border="0" color="0" x="613" y="16" height="64" width="576" html.valueishtml="0"  name=pp_numero_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ru Codigo" border="0" color="0" x="1207" y="16" height="64" width="581" html.valueishtml="0"  name=ru_codigo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Fecha" border="0" color="0" x="1806" y="16" height="64" width="603" html.valueishtml="0"  name=pp_fecha_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Cuotas" border="0" color="0" x="2427" y="16" height="64" width="329" html.valueishtml="0"  name=pp_cuotas_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Valor" border="0" color="0" x="2775" y="16" height="64" width="334" html.valueishtml="0"  name=pp_valor_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Saldo" border="0" color="0" x="3127" y="16" height="64" width="329" html.valueishtml="0"  name=pp_saldo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Interes" border="0" color="0" x="3474" y="16" height="64" width="329" html.valueishtml="0"  name=pp_interes_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tp Codigo" border="0" color="0" x="3822" y="16" height="64" width="581" html.valueishtml="0"  name=tp_codigo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Estado" border="0" color="0" x="4421" y="16" height="64" width="279" html.valueishtml="0"  name=pp_estado_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pp Observ" border="0" color="0" x="4718" y="16" height="64" width="969" html.valueishtml="0"  name=pp_observ_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="18" y="8" height="64" width="576" format="[general]" html.valueishtml="0"  name=ep_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="613" y="8" height="64" width="576" format="[general]" html.valueishtml="0"  name=pp_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=11 alignment="0" tabsequence=30 border="5" color="0" x="1207" y="8" height="64" width="581" format="[general]" html.valueishtml="0"  name=ru_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=3 alignment="0" tabsequence=40 border="5" color="0" x="1806" y="8" height="64" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=pp_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=4 alignment="1" tabsequence=50 border="5" color="0" x="2427" y="8" height="64" width="329" format="[general]" html.valueishtml="0"  name=pp_cuotas visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=5 alignment="1" tabsequence=60 border="5" color="0" x="2775" y="8" height="64" width="334" format="[general]" html.valueishtml="0"  name=pp_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=6 alignment="1" tabsequence=70 border="5" color="0" x="3127" y="8" height="64" width="329" format="[general]" html.valueishtml="0"  name=pp_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=7 alignment="1" tabsequence=80 border="5" color="0" x="3474" y="8" height="64" width="329" format="[general]" html.valueishtml="0"  name=pp_interes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=8 alignment="0" tabsequence=90 border="5" color="0" x="3822" y="8" height="64" width="581" format="[general]" html.valueishtml="0"  name=tp_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=9 alignment="0" tabsequence=100 border="5" color="0" x="4421" y="8" height="64" width="238" format="[general]" html.valueishtml="0"  name=pp_estado visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=10 alignment="0" tabsequence=110 border="5" color="0" x="4718" y="8" height="64" width="969" format="[general]" html.valueishtml="0"  name=pp_observ visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
