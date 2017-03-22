@@ -1,0 +1,114 @@
+HA$PBExportHeader$d_rep_pagos_diferidos_x_plazos_xxx.srd
+$PBExportComments$Cheque vencidos de registros ingresados por el SIF.Draft 20cpi
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=300 color="536870912" )
+header[2](height=120 color="536870912" )
+summary(height=80 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur_su_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_su_codigo dbname="cc_cheque_su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cliente dbname="cc_cliente" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_mt_codigo dbname="cc_cheque_mt_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_ch_numero dbname="cc_cheque_ch_numero" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_ch_cuenta dbname="cc_cheque_ch_cuenta" )
+ column=(type=datetime updatewhereclause=yes name=cc_cheque_ch_fecha dbname="cc_cheque_ch_fecha" )
+ column=(type=datetime updatewhereclause=yes name=cc_cheque_ch_fecefec dbname="cc_cheque_ch_fecefec" )
+ column=(type=number updatewhereclause=yes name=dias dbname="dias" )
+ column=(type=number updatewhereclause=yes name=saldo dbname="saldo" )
+ retrieve="SELECT ~"CC_CHEQUE~".~"SU_CODIGO~",   
+         ~"CC_CHEQUE~".~"MT_CODIGO~",   
+         ~"CC_CHEQUE~".~"CH_CUENTA~",   
+         ~"CC_CHEQUE~".~"CH_NUMERO~",   
+         ~"CC_CHEQUE~".~"CH_FECHA~",
+         ~"CC_CHEQUE~".~"CH_FECEFEC~",      
+         ~"CC_CHEQUE~".~"CH_VALOR~",   
+         ~"CC_CHEQUE~".~"FP_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~"||'/ RUC:'||~"FA_CLIEN~".~"CE_RUCIC~"||' '||~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_NOMBRE~"||' ' ||~"FA_CLIEN~".~"CE_APELLI~"||'/ UBIC: '||~"CE_SECOFI~"  ~"cc_cliente~", 
+         ~"PR_INSTFIN~".~"IF_NOMBRE~",
+		~"PR_SUCUR~".~"SU_NOMBRE~",
+        TRUNC(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate) DIAS,   
+		decode(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") -TRUNC(sysdate),
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*1), ~"CC_CHEQUE~".~"CH_VALOR~",
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*2), ~"CC_CHEQUE~".~"CH_VALOR~",
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*3), ~"CC_CHEQUE~".~"CH_VALOR~",
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*4), ~"CC_CHEQUE~".~"CH_VALOR~",
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*5), ~"CC_CHEQUE~".~"CH_VALOR~",
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*6), ~"CC_CHEQUE~".~"CH_VALOR~",~"CC_CHEQUE~".~"CH_VALOR~") SALDO,
+		decode(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") -TRUNC(sysdate),
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*1),'     '||:x*1,
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*2),'    '||:x*2,
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*3),'   '||:x*3,
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*4),'  '||:x*4,
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*5),' '||:x*5,
+		least(trunc(~"CC_CHEQUE~".~"CH_FECEFEC~") - TRUNC(sysdate),:x*6),''||:x*6, '>'||:x*6) rango
+    FROM ~"PR_INSTFIN~",
+			~"PR_SUCUR~",
+         ~"FA_CLIEN~",   
+         ~"CC_MOVIM~",   
+			~"CC_CHEQUE~"
+   WHERE ( ~"CC_CHEQUE~".~"TT_IOE~" = ~"CC_MOVIM~".~"TT_IOE~" ) and  
+         ( ~"CC_CHEQUE~".~"TT_CODIGO~" = ~"CC_MOVIM~".~"TT_CODIGO~" ) and  
+			( ~"CC_CHEQUE~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"CC_CHEQUE~".~"SU_CODIGO~" = ~"CC_MOVIM~".~"SU_CODIGO~" ) and  
+         ( ~"CC_CHEQUE~".~"MT_CODIGO~" = ~"CC_MOVIM~".~"MT_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"EM_CODIGO~" = ~"FA_CLIEN~".~"EM_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and  
+			( ~"PR_SUCUR~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"CC_MOVIM~".~"SU_CODIGO~" ) and  
+         ( ~"PR_INSTFIN~".~"EM_CODIGO~" = ~"CC_CHEQUE~".~"EM_CODIGO~" ) and  
+         ( ~"PR_INSTFIN~".~"IF_CODIGO~" = ~"CC_CHEQUE~".~"IF_CODIGO~" ) and  
+         ( TRUNC( ~"CC_CHEQUE~".~"CH_FECHA~") <> TRUNC( ~"CC_CHEQUE~".~"CH_FECEFEC~" )) AND
+         ( ( ~"CC_CHEQUE~".~"EM_CODIGO~" = 1) AND  
+         ( TRUNC( ~"CC_CHEQUE~".~"CH_FECEFEC~" ) between :f_ini and :f_fin ) AND  
+          ( ~"CC_CHEQUE~".~"FP_CODIGO~" = :formapago ) )    
+" filter=" cc_cliente NOT like '%TRECX%'"arguments=(("x", number),("empresa", string),("f_ini", date),("f_fin", date),("formapago", string))  sort="pr_sucur_su_nombre A cc_cheque_su_codigo A cc_cliente A cc_cheque_mt_codigo A cc_cheque_ch_numero A cc_cheque_ch_cuenta A cc_cheque_ch_fecha A cc_cheque_ch_fecefec A dias A " )
+group(level=1 header.height=0 trailer.height=68 by=("pr_sucur_su_nombre" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=0 trailer.height=0 by=("cc_cliente" ) header.color="536870912" trailer.color="536870912" )
+text(band=header[1] alignment="0" text="UNNOMOTORS CIA LTDA" border="0" color="33554432" x="9" y="16" height="124" width="338" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="CARTERA DIFERIDA" border="0" color="33554432" x="9" y="152" height="132" width="343" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="33554432" x="3008" y="12" height="56" width="297" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="1" text="Impreso:" border="0" color="33554432" x="3008" y="84" height="56" width="297" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="33554432" x="3008" y="152" height="56" width="297" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Fecha de cancelaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="33554432" x="1947" y="8" height="100" width="288" html.valueishtml="0"  name=cc_cheque_ch_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Fecha de Efectivizaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="33554432" x="2245" y="4" height="108" width="347" html.valueishtml="0"  name=cc_cheque_ch_fecefec_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="Dias" border="0" color="33554432" x="2601" y="44" height="72" width="160" html.valueishtml="0"  name=dias_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@rango" border="0" color="128" x="2770" y="44" height="72" width="229" html.valueishtml="0"  name=saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Total " border="0" color="33554432" x="3008" y="44" height="68" width="297" html.valueishtml="0"  name=grand_sum_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Sucursal" border="0" color="33554432" x="9" y="56" height="56" width="338" html.valueishtml="0"  name=pr_sucur_su_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="SUC." border="0" color="33554432" x="357" y="56" height="56" width="114" html.valueishtml="0"  name=cc_cheque_su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Cliente" border="0" color="33554432" x="480" y="56" height="56" width="626" html.valueishtml="0"  name=cc_cliente_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Mov." border="0" color="33554432" x="1115" y="56" height="56" width="174" html.valueishtml="0"  name=cc_cheque_mt_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Cheque N$$HEX1$$ba00$$ENDHEX$$" border="0" color="33554432" x="1298" y="56" height="56" width="256" html.valueishtml="0"  name=cc_cheque_ch_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Cuenta" border="0" color="33554432" x="1563" y="56" height="56" width="375" html.valueishtml="0"  name=cc_cheque_ch_cuenta_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="68" width="338" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="357" y="4" height="68" width="114" format="[general]" html.valueishtml="0"  name=cc_cheque_su_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="480" y="4" height="68" width="626" format="[general]" html.valueishtml="0"  name=cc_cliente visible="1" edit.limit=123 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1115" y="4" height="68" width="174" format="[general]" html.valueishtml="0"  name=cc_cheque_mt_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1298" y="4" height="68" width="256" format="[general]" html.valueishtml="0"  name=cc_cheque_ch_numero visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="1563" y="4" height="68" width="375" format="[general]" html.valueishtml="0"  name=cc_cheque_ch_cuenta visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="33554432" x="1947" y="4" height="68" width="288" format="dd/mm/yy" html.valueishtml="0"  name=cc_cheque_ch_fecha visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="0" color="33554432" x="2245" y="4" height="68" width="347" format="dd/mm/yy" html.valueishtml="0"  name=cc_cheque_ch_fecefec visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="2601" y="4" height="68" width="160" format="[general]" html.valueishtml="0"  name=dias visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="2770" y="4" height="68" width="229" format="[general]" html.valueishtml="0"  name=saldo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="3008" y="4" height="68" width="297" format="[general]" html.valueishtml="0"  name=grand_sum_saldo visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="0" expression="pr_sucur_su_nombre "border="0" color="33554432" x="9" y="4" height="56" width="338" format="[general]" html.valueishtml="0"  name=compute_22 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(saldo for group 1)"border="0" color="33554432" x="2770" y="4" height="56" width="229" format="#,##0.00" html.valueishtml="0"  name=compute_23 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(grand_sum_saldo for group 1)"border="0" color="33554432" x="3008" y="4" height="56" width="297" format="#,##0.00" html.valueishtml="0"  name=compute_24 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"Gran Total~""border="0" color="33554432" x="9" y="4" height="76" width="338" format="[general]" html.valueishtml="0"  name=compute_25 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(saldo for all )"border="0" color="33554432" x="2770" y="4" height="68" width="229" format="#,##0.00" html.valueishtml="0"  name=compute_26 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_saldo for all )"border="0" color="33554432" x="3008" y="4" height="68" width="297" format="#,##0.00" html.valueishtml="0"  name=compute_27 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "rango" rows = "pr_sucur_su_nombre, cc_cheque_su_codigo, cc_cliente, cc_cheque_mt_codigo, cc_cheque_ch_numero, cc_cheque_ch_cuenta, cc_cheque_ch_fecha, cc_cheque_ch_fecefec, dias" values = "sum(saldo for crosstab)" sourcenames = "cc_cheque_su_codigo, cc_cheque_mt_codigo, cc_cheque_ch_cuenta, cc_cheque_ch_numero, cc_cheque_ch_fecha, cc_cheque_ch_fecefec, cc_cheque_ch_valor, cc_cheque_fp_codigo, cc_cliente, pr_instfin_if_nombre, pr_sucur_su_nombre, dias, saldo, rango")
+sparse(names="pr_sucur_su_nombre	cc_cheque_su_codigo	cc_cliente	cc_cheque_mt_codigo	cc_cheque_ch_numero	cc_cheque_ch_cuenta	cc_cheque_ch_fecha	cc_cheque_ch_fecefec")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
