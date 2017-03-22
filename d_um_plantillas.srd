@@ -1,0 +1,63 @@
+HA$PBExportHeader$d_um_plantillas.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=128 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=em_codigo dbname="co_cabaut.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="co_cabaut.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=ti_codigo dbname="co_cabaut.ti_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=ct_codigo dbname="co_cabaut.ct_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=pl_codigo dbname="co_comaut.pl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cs_codigo dbname="co_comaut.cs_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=dt_signo dbname="co_comaut.ct_debcre" )
+ column=(type=number updatewhereclause=yes name=dt_valor dbname="valor" )
+ column=(type=char(30) updatewhereclause=yes name=dt_detalle dbname="co_comaut.ct_descri" )
+ retrieve="select x.em_codigo,x.su_codigo,x.ti_codigo,x.ct_codigo,y.pl_codigo,y.cs_codigo,y.ct_debcre,0 valor,y.ct_descri
+from co_cabaut x,co_comaut y
+where x.em_codigo = y.em_codigo
+and x.su_codigo = y.su_codigo
+and x.ct_codigo = y.ct_codigo
+and x.em_codigo = :empresa
+and x.su_codigo =:sucursal
+and x.ct_codigo = :pepa
+
+" arguments=(("empresa", string),("sucursal", string),("pepa", string)) )
+text(band=header alignment="2" text="Co Cabaut
+Em Codigo" border="0" color="33554432" x="9" y="8" height="112" width="480" html.valueishtml="0"  name=co_cabaut_em_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Co Cabaut
+Su Codigo" border="0" color="33554432" x="498" y="8" height="112" width="480" html.valueishtml="0"  name=co_cabaut_su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Co Cabaut
+Ti Codigo" border="0" color="33554432" x="987" y="8" height="112" width="480" html.valueishtml="0"  name=co_cabaut_ti_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Co Cabaut
+Ct Codigo" border="0" color="33554432" x="1477" y="8" height="112" width="480" html.valueishtml="0"  name=co_cabaut_ct_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Co Comaut
+Pl Codigo" border="0" color="33554432" x="1966" y="8" height="112" width="480" html.valueishtml="0"  name=co_comaut_pl_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Co Comaut
+Cs Codigo" border="0" color="33554432" x="2455" y="8" height="112" width="480" html.valueishtml="0"  name=co_comaut_cs_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Co Comaut
+Ct Debcre" border="0" color="33554432" x="2944" y="8" height="112" width="238" html.valueishtml="0"  name=co_comaut_ct_debcre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Co Comaut
+Ct Descri" border="0" color="33554432" x="3662" y="8" height="112" width="709" html.valueishtml="0"  name=co_comaut_ct_descri_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Valor" border="0" color="33554432" x="3191" y="56" height="56" width="462" html.valueishtml="0"  name=valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=em_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="498" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=su_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="987" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=ti_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1477" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=ct_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1966" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=pl_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="2455" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=cs_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="2944" y="8" height="68" width="238" format="[general]" html.valueishtml="0"  name=dt_signo visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="3662" y="8" height="68" width="709" format="[general]" html.valueishtml="0"  name=dt_detalle visible="1" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="3191" y="8" height="68" width="462" format="[general]" html.valueishtml="0"  name=dt_valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
