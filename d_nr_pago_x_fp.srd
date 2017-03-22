@@ -1,0 +1,70 @@
+HA$PBExportHeader$d_nr_pago_x_fp.srd
+release 11.5;
+datawindow(units=0 timer_interval=0 color=16777215 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=68 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(20) updatewhereclause=yes name=cc_cheque_tt_codigo dbname="cc_cheque.tt_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=cc_cheque_tt_ioe dbname="cc_cheque.tt_ioe" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_em_codigo dbname="cc_cheque.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_su_codigo dbname="cc_cheque.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=mt_codigo dbname="cc_cheque.mt_codigo" )
+ column=(type=decimal(0) updatewhereclause=yes name=cc_cheque_ch_secue dbname="cc_cheque.ch_secue" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_if_codigo dbname="cc_cheque.if_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_ch_cuenta dbname="cc_cheque.ch_cuenta" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_ch_numero dbname="cc_cheque.ch_numero" )
+ column=(type=datetime updatewhereclause=yes name=cc_cheque_ch_fecha dbname="cc_cheque.ch_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=cc_cheque_ch_valor dbname="cc_cheque.ch_valor" )
+ column=(type=datetime updatewhereclause=yes name=cc_cheque_ch_fecefec dbname="cc_cheque.ch_fecefec" )
+ column=(type=char(20) updatewhereclause=yes name=cc_cheque_fp_codigo dbname="cc_cheque.fp_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=pr_instfin_if_nombre dbname="pr_instfin.if_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=fa_formpag_fp_descri dbname="fa_formpag.fp_descri" )
+ column=(type=char(19) updatewhereclause=yes name=fa_formpag_fp_descorta dbname="fa_formpag.fp_descorta" )
+ retrieve="  SELECT ~"CC_CHEQUE~".~"TT_CODIGO~",   
+         ~"CC_CHEQUE~".~"TT_IOE~",   
+         ~"CC_CHEQUE~".~"EM_CODIGO~",   
+         ~"CC_CHEQUE~".~"SU_CODIGO~",   
+         ~"CC_CHEQUE~".~"MT_CODIGO~",   
+         ~"CC_CHEQUE~".~"CH_SECUE~",   
+         ~"CC_CHEQUE~".~"IF_CODIGO~",   
+         ~"CC_CHEQUE~".~"CH_CUENTA~",   
+         ~"CC_CHEQUE~".~"CH_NUMERO~",   
+         ~"CC_CHEQUE~".~"CH_FECHA~",   
+         ~"CC_CHEQUE~".~"CH_VALOR~",   
+         ~"CC_CHEQUE~".~"CH_FECEFEC~",   
+         ~"CC_CHEQUE~".~"FP_CODIGO~",   
+         ~"PR_INSTFIN~".~"IF_NOMBRE~",   
+         ~"FA_FORMPAG~".~"FP_DESCRI~",  
+         ~"FA_FORMPAG~".~"FP_DESCORTA~"  
+    FROM ~"CC_CHEQUE~",   
+         ~"FA_FORMPAG~",   
+         ~"PR_INSTFIN~"  
+   WHERE ( ~"CC_CHEQUE~".~"EM_CODIGO~" = ~"FA_FORMPAG~".~"EM_CODIGO~" ) and  
+         ( ~"FA_FORMPAG~".~"EM_CODIGO~" = ~"PR_INSTFIN~".~"EM_CODIGO~" ) and  
+         ( ~"CC_CHEQUE~".~"IF_CODIGO~" = ~"PR_INSTFIN~".~"IF_CODIGO~" ) and  
+         ( ~"CC_CHEQUE~".~"FP_CODIGO~" = ~"FA_FORMPAG~".~"FP_CODIGO~" ) and  
+         ( ( ~"CC_CHEQUE~".~"TT_CODIGO~" = '5' ) AND  
+         ( ~"CC_CHEQUE~".~"TT_IOE~" = 'C' ) AND  
+         ( ~"CC_CHEQUE~".~"EM_CODIGO~" = 1 ) AND  
+         ( ~"CC_CHEQUE~".~"SU_CODIGO~" = :sucursal ) AND 
+         ( ~"CC_CHEQUE~".~"MT_CODIGO~"= :numero) AND
+         (~"CC_CHEQUE~".~"FP_CODIGO~" = :fp) AND
+         ( ~"CC_CHEQUE~".~"CH_SECUE~" > 0)  )  " arguments=(("sucursal", number),("numero", string),("fp", string)) )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="0" x="302" y="8" height="60" width="229" format="[general]" html.valueishtml="0"  name=pr_instfin_if_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="0" x="1339" y="8" height="60" width="206" format="dd/mm/yy" html.valueishtml="0"  name=cc_cheque_ch_fecefec visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="0" x="14" y="8" height="60" width="265" format="[general]" html.valueishtml="0"  name=fa_formpag_fp_descorta_1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="1" expression="daysafter(cc_cheque_ch_fecha  ,cc_cheque_ch_fecefec  )"border="0" color="0" x="1234" y="8" height="60" width="82" format="#,##0" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="0" x="937" y="8" height="60" width="274" format="#,##0.00" html.valueishtml="0"  name=cc_cheque_ch_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="0" x="549" y="8" height="60" width="370" format="[general]" html.valueishtml="0"  name=cc_cheque_ch_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
