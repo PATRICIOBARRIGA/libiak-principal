@@ -1,0 +1,41 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "obj_basic.pbl" "";
+@end;
+@begin Objects
+ "w_sheet.srw" "obj_basic.pbl";
+ "d_lista_items_x_sucursal.srd" "obj_basic.pbl";
+ "w_sheet_master_detail.srw" "obj_basic.pbl";
+ "f_global_replace.srf" "obj_basic.pbl";
+ "uo_dw_master_basic.sru" "obj_basic.pbl";
+ "w_sheet_1_dw.srw" "obj_basic.pbl";
+ "w_response_basic.srw" "obj_basic.pbl";
+ "m_click_derecho.srm" "obj_basic.pbl";
+ "w_sheet_1_dw_prueba.srw" "obj_basic.pbl";
+ "m_frame_basic.srm" "obj_basic.pbl";
+ "w_sheet_master_tabpage_detail.srw" "obj_basic.pbl";
+ "w_sheet_1_dw_maint.srw" "obj_basic.pbl";
+ "w_frame_basic.srw" "obj_basic.pbl";
+ "uo_dw_master_mult.sru" "obj_basic.pbl";
+ "w_sheet_1_dw_rep.srw" "obj_basic.pbl";
+ "s_printdlgattrib.srs" "obj_basic.pbl";
+ "f_closedbapp.srf" "obj_basic.pbl";
+ "s_arginformation.srs" "obj_basic.pbl";
+ "f_replacestring.srf" "obj_basic.pbl";
+ "u_graph_gallery.sru" "obj_basic.pbl";
+ "f_db_connect.srf" "obj_basic.pbl";
+ "d_system_error.srd" "obj_basic.pbl";
+ "uo_dw_basic.sru" "obj_basic.pbl";
+ "w_dw_print_options.srw" "obj_basic.pbl";
+ "a_basic.sra" "obj_basic.pbl";
+ "s_appgeninfo.srs" "obj_basic.pbl";
+ "uo_dw_detail.sru" "obj_basic.pbl";
+ "w_sheet_master_mult_detail.srw" "obj_basic.pbl";
+ "w_system_error.srw" "obj_basic.pbl";
+ "f_dw_print.srf" "obj_basic.pbl";
+ "f_dberror.srf" "obj_basic.pbl";
+ "uo_dw_master.sru" "obj_basic.pbl";
+ "u_ddcal.sru" "obj_basic.pbl";
+ "w_preview.srw" "obj_basic.pbl";
+ "f_error.srf" "obj_basic.pbl";
+@end;
