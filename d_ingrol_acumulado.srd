@@ -1,0 +1,31 @@
+HA$PBExportHeader$d_ingrol_acumulado.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=120 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=no_rolpago_ep_codigo dbname="no_rolpago.ep_codigo" )
+ column=(type=number updatewhereclause=yes name=ing_rol dbname="ing_rol" )
+ retrieve="select    y.ep_codigo,SUM(y.lq_total) ing_rol
+from      no_rubro z,  no_cabrol  x,  no_rolpago y
+where   x.ep_codigo = y.ep_codigo
+and        x.rr_codigo = y.rr_codigo
+and       z.ru_codigo = y.ru_codigo
+and       x.rr_fecha between '01-jan-05' and '30-apr-05'
+and       z.ru_sigla like '%I%' 
+and       y.lq_total > 0
+group by  y.ep_codigo"  sort="no_rolpago_ep_codigo A " )
+text(band=header alignment="2" text="No Rolpago
+Ep Codigo" border="0" color="33554432" x="5" y="4" height="112" width="480" html.valueishtml="0"  name=no_rolpago_ep_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=no_rolpago_ep_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Total Anual" border="0" color="33554432" x="965" y="4" height="56" width="274" html.valueishtml="0"  name=total_anual_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Iess" border="0" color="33554432" x="1243" y="4" height="56" width="274" html.valueishtml="0"  name=iess_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Baseimp" border="0" color="33554432" x="1522" y="4" height="56" width="274" html.valueishtml="0"  name=baseimp_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ing Rol" border="0" color="33554432" x="507" y="4" height="56" width="201" html.valueishtml="0"  name=ing_rol_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="507" y="4" height="68" width="201" format="[general]" html.valueishtml="0"  name=ing_rol visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

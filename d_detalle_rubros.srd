@@ -1,0 +1,18 @@
+HA$PBExportHeader$d_detalle_rubros.srd
+$PBExportComments$Listado de rubros , para formar los subrubros.
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ru_codpad dbname="no_subrub.ru_codpad" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ru_codigo dbname="no_subrub.ru_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=sr_activo dbname="no_subrub.sr_activo" initial="S" values="Activo	S/Activo	N" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="no_subrub.estado" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"no_subrub~" ) COLUMN(NAME=~"no_subrub.ru_codpad~") COLUMN(NAME=~"no_subrub.ru_codigo~") COLUMN(NAME=~"no_subrub.sr_activo~") COLUMN(NAME=~"no_subrub.estado~")WHERE(    EXP1 =~"~~~"NO_SUBRUB~~~".~~~"RU_CODPAD~~~"~"   OP =~"=~"    EXP2 =~":ru_codpad~" ) ) ARG(NAME = ~"ru_codpad~" TYPE = string) " update="NO_SUBRUB" updatewhere=1 updatekeyinplace=yes arguments=(("ru_codpad", string)) )
+text(band=header alignment="2" text="Rubros" border="0" color="0" x="663" y="4" height="56" width="160"  name=ru_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="347" y="4" height="56" width="795" format="[general]"  name=ru_codigo dddw.name=d_dddw_rubros dddw.displaycolumn=ru_nombre dddw.datacolumn=ru_codigo dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="1179" y="8" height="56" width="274" format="[general]"  name=sr_activo checkbox.text="Activo" checkbox.on="S" checkbox.off="N" checkbox.scale=no checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

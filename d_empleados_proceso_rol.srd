@@ -1,0 +1,50 @@
+HA$PBExportHeader$d_empleados_proceso_rol.srd
+$PBExportComments$Datawindow escondido para el proceso de rol de pagos que contiene los empleados.
+release 9;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=100 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ep_codigo dbname="no_emple.ep_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="no_emple.em_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ep_sueldo dbname="no_emple.ep_sueldo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ep_fecent dbname="no_emple.ep_fecent" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ep_fecsal dbname="no_emple.ep_fecsal" )
+ column=(type=decimal(2) updatewhereclause=yes name=ep_comision dbname="no_emple.ep_comision" )
+ column=(type=char(20) updatewhereclause=yes name=cs_codigo dbname="no_emple.cs_codigo" )
+ column=(type=char(51) updatewhereclause=yes name=c_nombre dbname="c_nombre" )
+ column=(type=datetime updatewhereclause=yes name=ep_fecafi dbname="no_emple.ep_fecafi" )
+ retrieve="  SELECT ~"NO_EMPLE~".~"EP_CODIGO~",   
+         ~"NO_EMPLE~".~"EM_CODIGO~",   
+         ~"NO_EMPLE~".~"EP_SUELDO~",   
+         ~"NO_EMPLE~".~"EP_FECENT~",   
+         ~"NO_EMPLE~".~"EP_FECSAL~",   
+         ~"NO_EMPLE~".~"EP_COMISION~",
+         ~"NO_EMPLE~".~"CS_CODIGO~",
+         ~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~" ~"c_nombre~",   
+         ~"NO_EMPLE~".~"EP_FECAFI~"  
+    FROM ~"NO_EMPLE~"  
+   WHERE ( ~"NO_EMPLE~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"NO_EMPLE~".~"EP_NONOM~" = 'S' ) AND  
+         ( ~"NO_EMPLE~".~"EP_FECSAL~" is null )    
+" update="NO_EMPLE" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string))  sort="c_nombre A " )
+text(band=header alignment="2" text="Ep Codigo" border="0" color="0" x="544" y="16" height="64" width="576" html.valueishtml="0"  name=ep_codigo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Em Codigo" border="0" color="0" x="1138" y="16" height="64" width="576" html.valueishtml="0"  name=em_codigo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ep Sueldo" border="0" color="0" x="1733" y="16" height="64" width="334" html.valueishtml="0"  name=ep_sueldo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ep Fecent" border="0" color="0" x="2085" y="16" height="64" width="603" html.valueishtml="0"  name=ep_fecent_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ep Fecsal" border="0" color="0" x="2706" y="16" height="64" width="603" html.valueishtml="0"  name=ep_fecsal_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="544" y="8" height="64" width="576" format="[general]" html.valueishtml="0"  name=ep_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="3346" y="8" height="64" width="297" format="[shortdate] [time]" html.valueishtml="0"  name=ep_fecafi visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="1138" y="8" height="64" width="576" format="[general]" html.valueishtml="0"  name=em_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="5" color="0" x="1733" y="8" height="64" width="334" format="[general]" html.valueishtml="0"  name=ep_sueldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="5" color="0" x="2085" y="8" height="64" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=ep_fecent visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="5" color="0" x="2706" y="8" height="64" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=ep_fecsal visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="0" y="8" height="64" width="521" format="[general]" html.valueishtml="0"  name=c_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="0" color="0" x="3666" y="8" height="64" width="352" format="[general]" html.valueishtml="0"  name=ep_comision visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="0" color="0" x="4037" y="8" height="64" width="78" format="[general]" html.valueishtml="0"  name=cs_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

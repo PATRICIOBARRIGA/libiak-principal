@@ -1,0 +1,19 @@
+HA$PBExportHeader$d_parentezco.srd
+$PBExportComments$Parentezcos de las cargas familiares
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=100 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=pf_codigo dbname="no_parent.pf_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=pf_descri dbname="no_parent.pf_descri" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="no_parent.estado" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"no_parent~" ) COLUMN(NAME=~"no_parent.pf_codigo~") COLUMN(NAME=~"no_parent.pf_descri~") COLUMN(NAME=~"no_parent.estado~")) " update="NO_PARENT" updatewhere=1 updatekeyinplace=no  sort="pf_codigo A pf_descri A " )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="206" y="16" height="56" width="151"  name=pf_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Descripci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="562" y="16" height="56" width="261"  name=pf_descri_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="174" y1="88" x2="1019" y2="88"  name=l_1 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="206" y="12" height="56" width="151" format="[general]"  name=pf_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0" x="407" y="12" height="56" width="576" format="[general]"  name=pf_descri edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
