@@ -1,0 +1,86 @@
+HA$PBExportHeader$d_cambia_precio_item_x_prov.srd
+$PBExportComments$Cambiar precio de los articulos en una sucursal
+release 9;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=212 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=it_codigo dbname="in_item.it_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="in_item.em_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=it_nombre dbname="in_item.it_nombre" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=it_codant dbname="in_item.it_codant" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=it_precio dbname="in_item.it_precio" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=it_costo dbname="in_item.it_costo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=it_prefab dbname="in_item.it_prefab" )
+ column=(type=char(20) updatewhereclause=yes name=cl_codigo dbname="in_item.cl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cod_fabricante dbname="in_item.fb_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_clase_cl_codpad dbname="in_clase.cl_codpad" )
+ column=(type=char(50) updatewhereclause=yes name=in_clase_cl_descri dbname="in_clase.cl_descri" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=it_imprimir dbname="in_item.it_imprimir" values="	S/	N" )
+ column=(type=decimal(4) updatewhereclause=yes name=ip_plista dbname="in_itepro.ip_plista" )
+ column=(type=decimal(2) updatewhereclause=yes name=ip_desc1 dbname="in_itepro.ip_desc1" )
+ column=(type=decimal(2) updatewhereclause=yes name=ip_desc2 dbname="in_itepro.ip_desc2" )
+ column=(type=decimal(2) updatewhereclause=yes name=ip_desc3 dbname="in_itepro.ip_desc3" )
+ retrieve=" SELECT ~"IN_ITEM~".~"IT_CODIGO~",   
+         ~"IN_ITEM~".~"EM_CODIGO~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_PRECIO~",
+         ~"IN_ITEM~".~"IT_COSTO~",   
+         ~"IN_ITEM~".~"IT_PREFAB~",   
+         ~"IN_ITEM~".~"CL_CODIGO~",
+         ~"IN_ITEM~".~"FB_CODIGO~",   
+         ~"IN_CLASE_A~".~"CL_CODPAD~",   
+         ~"IN_CLASE_B~".~"CL_DESCRI~",   
+         ~"IN_ITEM~".~"IT_IMPRIMIR~" ,
+         ~"IN_ITEPRO~".~"IP_PLISTA~",
+         ~"IN_ITEPRO~".~"IP_DESC1~", 
+         ~"IN_ITEPRO~".~"IP_DESC2~", 
+         ~"IN_ITEPRO~".~"IP_DESC3~" 
+    FROM ~"IN_ITEM~",   
+         ~"IN_CLASE~" ~"IN_CLASE_A~",   
+         ~"IN_CLASE~" ~"IN_CLASE_B~",
+          ~"IN_ITEPRO~" 
+   WHERE ( ~"IN_CLASE_A~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"IN_CLASE_A~".~"CL_CODIGO~" = ~"IN_ITEM~".~"CL_CODIGO~" ) and  
+         ( ~"IN_CLASE_A~".~"CL_CODPAD~" = ~"IN_CLASE_B~".~"CL_CODIGO~" ) and  
+         ( ~"IN_CLASE_A~".~"EM_CODIGO~" = ~"IN_CLASE_B~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"IT_CODIGO~" = ~"IN_ITEPRO~".~"IT_CODIGO~"(+))and
+         ( ( ~"IN_ITEM~".~"EM_CODIGO~" = :empresa ) )    
+  
+" update="IN_ITEM" updatewhere=1 updatekeyinplace=yes arguments=(("empresa", string))  sort="in_clase_cl_codpad A it_codant A " )
+group(level=1 header.height=68 trailer.height=0 by=("cl_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="46" y="124" height="56" width="178" html.valueishtml="0"  name=it_codant_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Producto" border="0" color="0" x="553" y="120" height="56" width="229" html.valueishtml="0"  name=it_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="46" y1="204" x2="4709" y2="200"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Precio de Venta" border="0" color="0" x="2144" y="124" height="56" width="384" html.valueishtml="0"  name=st_pventa visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Precio de F$$HEX1$$e100$$ENDHEX$$brica" border="0" color="0" x="1687" y="124" height="56" width="430" html.valueishtml="0"  name=st_prefab visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Costo" border="0" color="0" x="2665" y="124" height="56" width="238" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+button(band=header text="Marcar todo" enabled=yes action="0" border="0" color="0" x="2949" y="20" height="80" width="421" vtextalign="0" htextalign="0"  name=b_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Lista de Precios" border="0" color="0" x="2962" y="124" height="56" width="407" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="P Lista" border="0" color="0" x="3387" y="124" height="56" width="233" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="1" text="Dscto1 %" border="0" color="0" x="3666" y="124" height="56" width="215" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="1" text="Dscto 2 %" border="0" color="0" x="3936" y="124" height="56" width="229" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="1" text="Dscto 3 %" border="0" color="0" x="4197" y="124" height="56" width="238" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="1" text="Costo" border="0" color="0" x="4571" y="124" height="56" width="128" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=header.1 alignment="0" expression="in_clase_cl_codpad  +'    ' + in_clase_cl_descri "border="0" color="8388608" x="448" y="8" height="52" width="1234" format="[general]" html.valueishtml="0"  name=cc_clcodigo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header.1 alignment="2" text="Departamento:" border="0" color="8388608" x="41" y="4" height="56" width="370" html.valueishtml="0"  name=t_3 visible="1"  resizeable=1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=30 border="0" color="0" x="2939" y="16" height="56" width="421" format="[general]" html.valueishtml="0"  name=it_imprimir visible="1" checkbox.text="" checkbox.on="S" checkbox.off="N" checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="50" y="12" height="56" width="453" format="[general]" html.valueishtml="0"  name=it_codant visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=10 border="5" color="0" x="1769" y="8" height="56" width="329" format="#,##0.00" html.valueishtml="0"  name=it_prefab visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="1" tabsequence=20 border="5" color="0" x="2139" y="8" height="56" width="361" format="#,##0.00" html.valueishtml="0"  name=it_precio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="535" y="12" height="56" width="1202" format="[general]" html.valueishtml="0"  name=it_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=detail x1="3374" y1="0" x2="3374" y2="72"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="128"  background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=40 border="5" color="0" x="2533" y="12" height="56" width="361" format="#,##0.0000" html.valueishtml="0"  name=it_costo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if(  it_imprimir = 'S','Imprimir','No Imprimir')"border="0" color="0" x="3008" y="16" height="56" width="357" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="5" color="0" x="3392" y="8" height="60" width="229" format="[general]" html.valueishtml="0"  name=ip_plista visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="5" color="0" x="3639" y="8" height="60" width="270" format="[general]" html.valueishtml="0"  name=ip_desc1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="5" color="0" x="3927" y="8" height="60" width="247" format="[general]" html.valueishtml="0"  name=ip_desc2 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="1" tabsequence=32766 border="5" color="0" x="4192" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=ip_desc3 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="((ip_plista - ip_plista*(if( isNull( ip_desc1 ),0,ip_desc1)/100)) - ((ip_plista - ip_plista*(if( isNull( ip_desc1 ),0,ip_desc1)/100))*(if(isNull(ip_desc2),0,ip_desc2)/100)))  - ((ip_plista - ip_plista*(if( isNull( ip_desc1 ),0,ip_desc1)/100)) - ((ip_plista - ip_plista*(if( isNull( ip_desc1 ),0,ip_desc1)/100))*(if(isNull(ip_desc2),0,ip_desc2)/100))) * (if(isnull(ip_desc3),0,ip_desc3/100))"border="5" color="0" x="4462" y="8" height="64" width="247" format="#,##0.0000" html.valueishtml="0"  name=cc_costo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

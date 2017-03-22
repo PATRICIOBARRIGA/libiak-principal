@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_crosstab_stock_bodegas.srd
+$PBExportComments$Si.desliega el stock de las bodegas dado un Item
+release 7;
+datawindow(units=0 timer_interval=0 color=79741120 processing=4 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=0 color="536870912" )
+header[2](height=120 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=it_codant dbname="it_codant" )
+ column=(type=number updatewhereclause=yes name=ib_stock dbname="ib_stock" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_itebod~" )  TABLE(NAME=~"in_item~" )  TABLE(NAME=~"in_bode~" ) COLUMN(NAME=~"in_item.cl_codigo~") COLUMN(NAME=~"in_item.it_codant~") COLUMN(NAME=~"in_item.it_nombre~") COLUMN(NAME=~"in_itebod.ib_stock~") COLUMN(NAME=~"in_item.it_precio~") COLUMN(NAME=~"in_bode.bo_nombre~")    JOIN (LEFT=~"in_bode.em_codigo~"    OP =~"=~"RIGHT=~"in_itebod.em_codigo~" )    JOIN (LEFT=~"in_bode.su_codigo~"    OP =~"=~"RIGHT=~"in_itebod.su_codigo~" )    JOIN (LEFT=~"in_bode.bo_codigo~"    OP =~"=~"RIGHT=~"in_itebod.bo_codigo~" )    JOIN (LEFT=~"in_itebod.em_codigo~"    OP =~"=~"RIGHT=~"in_item.em_codigo~" )    JOIN (LEFT=~"in_itebod.it_codigo~"    OP =~"=~"RIGHT=~"in_item.it_codigo~" )WHERE(    EXP1 =~"~~~"IN_ITEBOD~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_ITEBOD~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_ITEM~~~".~~~"IT_CODANT~~~"~"   OP =~"=~"    EXP2 =~":codant~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal~" TYPE = string)  ARG(NAME = ~"codant~" TYPE = string) " arguments=(("empresa", string),("sucursal", string),("codant", string))  sort="it_codant A " )
+text(band=header[2] alignment="2" text="Total Suc" border="0" color="255" x="891" y="4" height="112" width="297"  name=grand_sum_ib_stock_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@bo_nombre" border="0" color="0" x="594" y="4" height="112" width="288"  name=ib_stock_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Detalle de Bodegas 
+           Producto" border="0" color="0" x="9" y="4" height="112" width="576"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="crosstabsum(1)"border="0" color="255" x="891" y="4" height="60" width="297" format="#,##0"  name=grand_sum_ib_stock  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="60" width="576" format="[general]"  name=it_codant edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="594" y="4" height="60" width="288" format="#,##0"  name=ib_stock edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "bo_nombre" rows = "it_codant" values = "sum(ib_stock for crosstab)" sourcenames = "cl_codigo, it_codant, it_nombre, ib_stock, it_precio, bo_nombre")htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

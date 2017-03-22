@@ -1,0 +1,73 @@
+HA$PBExportHeader$d_costo_componentes_preparados.srd
+$PBExportComments$Por ticket y sucursal
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=120 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_preparado_it_codigo dbname="in_preparado.it_codigo" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_movim_mv_cantid dbname="in_movim.mv_cantid" )
+ column=(type=char(20) updatewhereclause=yes name=in_movim_mv_numero dbname="in_movim.mv_numero" )
+ column=(type=char(20) updatewhereclause=yes name=it_codigo1 dbname="in_relitem.it_codigo1" )
+ column=(type=char(20) updatewhereclause=yes name=in_relitem_it_codigo dbname="in_relitem.it_codigo" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_preparado_pr_cantidad dbname="in_preparado.pr_cantidad" )
+ column=(type=decimal(4) updatewhereclause=yes name=in_movim_mv_costo dbname="in_movim.mv_costo" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_relitem_ri_cantid dbname="in_relitem.ri_cantid" )
+ retrieve="SELECT  DISTINCT X.IT_CODIGO,Y.MV_CANTID,Y.MV_NUMERO,Z.IT_CODIGO1,Z.IT_CODIGO,X.PR_CANTIDAD,Y.MV_COSTO,Z.RI_CANTID
+FROM  IN_MOVIM Y ,IN_PREPARADO X ,IN_RELITEM Z
+WHERE Y.IT_CODIGO = X.IT_CODIGO 
+AND Z.IT_CODIGO1 = X.IT_CODPREP
+AND ( Y.TM_CODIGO = '10'
+AND Y.TM_IOE  = 'E'
+AND Y.EM_CODIGO = 1
+AND Y.SU_CODIGO = :sucursal
+AND Y.BO_CODIGO = :seccion)
+AND Y.VE_NUMERO = :ticket
+ AND (X.PR_NUMERO = :ticket 
+AND X.EM_CODIGO = 1 
+AND X.SU_CODIGO = :sucursal
+AND X.BO_CODIGO =:seccion)
+AND Z.IT_CODIGO = :item
+ORDER BY Z.IT_CODIGO
+" arguments=(("empresa", string),("sucursal", string),("seccion", string),("ticket", string),("item", string))  sort="in_relitem_it_codigo A " )
+group(level=1 header.height=0 trailer.height=60 by=("in_relitem_it_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="In Preparado
+It Codigo" border="0" color="33554432" x="5" y="4" height="112" width="480" html.valueishtml="0"  name=in_preparado_it_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Cantid" border="0" color="33554432" x="489" y="4" height="112" width="274" html.valueishtml="0"  name=in_movim_mv_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Numero" border="0" color="33554432" x="768" y="4" height="112" width="480" html.valueishtml="0"  name=in_movim_mv_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="It Codigo1" border="0" color="33554432" x="1253" y="4" height="56" width="480" html.valueishtml="0"  name=it_codigo1_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Relitem
+It Codigo" border="0" color="33554432" x="1737" y="4" height="112" width="480" html.valueishtml="0"  name=in_relitem_it_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Preparado
+Pr Cantidad" border="0" color="33554432" x="2226" y="4" height="112" width="279" html.valueishtml="0"  name=in_preparado_pr_cantidad_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Relitem
+Ri Cantid" border="0" color="33554432" x="3360" y="4" height="112" width="274" html.valueishtml="0"  name=in_relitem_ri_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Costo" border="0" color="33554432" x="2514" y="0" height="112" width="274" html.valueishtml="0"  name=in_movim_mv_costo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_preparado_it_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="489" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_movim_mv_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="768" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_movim_mv_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1253" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=it_codigo1 visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1737" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_relitem_it_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="2226" y="4" height="68" width="270" format="[general]" html.valueishtml="0"  name=in_preparado_pr_cantidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="3365" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_relitem_ri_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="2514" y="0" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_movim_mv_costo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" in_preparado_pr_cantidad * in_movim_mv_costo "border="0" color="16711680" x="2848" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" in_preparado_pr_cantidad * in_relitem_ri_cantid "border="0" color="16711680" x="3150" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum( in_preparado_pr_cantidad * in_movim_mv_costo  for group 1)"border="0" color="255" x="2848" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_costototal visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum( in_preparado_pr_cantidad * in_relitem_ri_cantid  for group 1)"border="0" color="255" x="3150" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_unidades visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression=" cc_costototal/ cc_unidades "border="0" color="255" x="3378" y="4" height="56" width="279" format="#,##0.0000" html.valueishtml="0"  name=cc_costocomp visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
