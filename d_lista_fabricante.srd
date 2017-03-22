@@ -1,0 +1,17 @@
+HA$PBExportHeader$d_lista_fabricante.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=92 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="in_fabricante.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=fb_codigo dbname="in_fabricante.fb_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=fb_nombre dbname="in_fabricante.fb_nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_fabricante~" ) COLUMN(NAME=~"in_fabricante.em_codigo~") COLUMN(NAME=~"in_fabricante.fb_codigo~") COLUMN(NAME=~"in_fabricante.fb_nombre~")WHERE(    EXP1 =~"~~~"IN_FABRICANTE~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="IN_FABRICANTE" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string))  sort="fb_nombre A " )
+text(band=header alignment="2" text="Codigo" border="1" color="0" x="14" y="12" height="64" width="183"  name=fb_codigo_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fabricante" border="1" color="0" x="219" y="12" height="64" width="1207"  name=fb_nombre_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="55" y="4" height="52" width="133" format="[general]"  name=fb_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="206" y="4" height="52" width="1207" format="[general]"  name=fb_nombre edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

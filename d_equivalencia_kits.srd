@@ -1,0 +1,36 @@
+HA$PBExportHeader$d_equivalencia_kits.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=128 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=64 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_item_codkit dbname="in_item.codkit" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_codatomo dbname="in_item.codatomo" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_relitem_ri_cantid dbname="in_relitem.ri_cantid" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_intkit dbname="in_item.intkit" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_intatomo dbname="in_item.intatomo" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_nomkit dbname="in_item.nomkit" )
+ retrieve="SELECT A.IT_CODANT CODKIT, B.IT_CODANT CODATOMO,X.RI_CANTID, A.IT_CODIGO intkit, B.IT_CODIGO intatomo,A.IT_NOMBRE nomkit
+FROM IN_RELITEM X, IN_ITEM A, IN_ITEM B
+WHERE X.IT_CODIGO1 = A.IT_CODIGO
+AND X.IT_CODIGO = B.IT_CODIGO
+AND X.IT_CODIGO = :as_atomo
+" arguments=(("ac_pedido", number),("as_atomo", string))  sort="in_item_codatomo A " )
+text(band=header alignment="0" text="Equivalencia" border="4" color="33554432" x="1001" y="60" height="56" width="315" html.valueishtml="0"  name=in_relitem_ri_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Kit" border="4" color="33554432" x="686" y="60" height="56" width="306" html.valueishtml="0"  name=in_item_codkit_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Atomo" border="4" color="33554432" x="9" y="60" height="56" width="306" html.valueishtml="0"  name=in_item_codatomo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="A Pedir" border="4" color="0" x="1326" y="60" height="56" width="302" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Sugerido" border="4" color="0" x="325" y="60" height="56" width="352" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="56" width="306" format="[general]" html.valueishtml="0"  name=in_item_codatomo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432~tif( in_relitem_ri_cantid = cc_maxequivalencia,rgb(255,0,0),rgb(0,0,0))" x="686" y="4" height="56" width="306" format="[general]" html.valueishtml="0"  name=in_item_codkit visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432~tif( in_relitem_ri_cantid = cc_maxequivalencia,rgb(255,0,0),rgb(0,0,0))" x="1001" y="0" height="56" width="315" format="[general]" html.valueishtml="0"  name=in_relitem_ri_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="truncate(ac_pedido / in_relitem_ri_cantid,2) "border="0" color="0~tif( in_relitem_ri_cantid = cc_maxequivalencia,rgb(255,0,0),rgb(0,0,0))" x="1326" y="4" height="52" width="302" format="0" html.valueishtml="0"  name=cc_cantidad_x_pedir visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression=" ac_pedido "border="0" color="33554432" x="325" y="0" height="56" width="352" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+button(band=footer text="Pedir" enabled=yes action="0" border="0" color="0" x="1326" y="0" height="68" width="293" vtextalign="0" htextalign="0"  name=b_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=footer alignment="0" expression="max( in_relitem_ri_cantid )"border="0" color="33554432" x="1001" y="4" height="56" width="315" format="[GENERAL]" html.valueishtml="0"  name=cc_maxequivalencia visible="0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

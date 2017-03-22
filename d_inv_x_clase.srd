@@ -1,0 +1,54 @@
+HA$PBExportHeader$d_inv_x_clase.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=120 color="536870912" )
+summary(height=76 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=datetime updatewhereclause=yes name=compute_0001 dbname="compute_0001" )
+ column=(type=char(20) updatewhereclause=yes name=in_movim_tm_codigo dbname="in_movim.tm_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=in_movim_tm_ioe dbname="in_movim.tm_ioe" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_movim_mv_cantid dbname="in_movim.mv_cantid" )
+ column=(type=decimal(4) updatewhereclause=yes name=in_movim_mv_costo dbname="in_movim.mv_costo" )
+ column=(type=number updatewhereclause=yes name=compute_0008 dbname="compute_0008" )
+ retrieve="select trunc(x.mv_fecha),x.tm_codigo,x.tm_ioe,y.it_codant,y.it_nombre,x.mv_cantid,x.mv_costo,x.mv_cantid*x.mv_costo
+from in_movim x, in_item y, in_clase z
+where x.it_codigo = y.it_codigo
+and y.cl_codigo = z.cl_codigo
+and z.cl_codigo = '0305'
+and x.em_codigo = 1
+and x.su_codigo = 17
+and trunc(x.mv_fecha) between '01-jan-04' and '31-jan-04'
+order by trunc(x.mv_fecha) "  sort="in_movim_tm_ioe A " )
+group(level=1 header.height=0 trailer.height=84 by=("in_movim_tm_ioe" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="Trunc(x.mv Fecha)" border="0" color="33554432" x="5" y="4" height="56" width="503" html.valueishtml="0"  name=compute_0001_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Tm Codigo" border="0" color="33554432" x="512" y="4" height="112" width="480" html.valueishtml="0"  name=in_movim_tm_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Tm Ioe" border="0" color="33554432" x="997" y="4" height="112" width="187" html.valueishtml="0"  name=in_movim_tm_ioe_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Item
+It Codant" border="0" color="33554432" x="1189" y="4" height="112" width="480" html.valueishtml="0"  name=in_item_it_codant_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Item
+It Nombre" border="0" color="33554432" x="1673" y="4" height="112" width="1166" html.valueishtml="0"  name=in_item_it_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Cantid" border="0" color="33554432" x="2848" y="4" height="112" width="274" html.valueishtml="0"  name=in_movim_mv_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Costo" border="0" color="33554432" x="3127" y="4" height="112" width="274" html.valueishtml="0"  name=in_movim_mv_costo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="X.mv Cantid*x.mv Costo" border="0" color="33554432" x="3406" y="4" height="56" width="526" html.valueishtml="0"  name=compute_0008_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="503" format="[shortdate] [time]" html.valueishtml="0"  name=compute_0001 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="512" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_movim_tm_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="997" y="4" height="68" width="46" format="[general]" html.valueishtml="0"  name=in_movim_tm_ioe visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1189" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1673" y="4" height="68" width="1166" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="2848" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_movim_mv_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="3127" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_movim_mv_costo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="3406" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=compute_0008 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(compute_0008 for group 1)"border="0" color="33554432" x="3406" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(compute_0008 for all)"border="0" color="33554432" x="3410" y="8" height="56" width="274" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

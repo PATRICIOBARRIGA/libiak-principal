@@ -1,0 +1,58 @@
+HA$PBExportHeader$dw_consulta_stk_sucursales.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=440 color="536870912" )
+summary(height=80 color="536870912" )
+footer(height=64 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=in_itesucur_su_codigo dbname="in_itesucur.su_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=number updatewhereclause=yes name=stock dbname="stock" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codigo dbname="in_item.it_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=codant dbname="compute_0006" )
+ retrieve="  SELECT ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITESUCUR~".~"SU_CODIGO~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~",   
+         floor(~"IN_ITESUCUR~".~"IT_STOCK~" / :ad_stock) ~"stock~",   
+         ~"IN_ITEM~".~"IT_CODIGO~",   
+         :as_codant  
+    FROM ~"IN_ITEM~",   
+         ~"IN_ITESUCUR~",   
+         ~"PR_SUCUR~"  
+   WHERE ( ~"IN_ITESUCUR~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITESUCUR~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_ITESUCUR~".~"EM_CODIGO~" = ~"PR_SUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITESUCUR~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+         ( ( ~"IN_ITEM~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_ITEM~".~"IT_CODIGO~" = :codigo ) )    
+" arguments=(("ad_stock", number),("empresa", string),("codigo", string),("as_codant", string))  sort="pr_sucur_su_nombre A " )
+group(level=1 header.height=0 trailer.height=0 by=("in_item_it_codigo" , "in_item_it_nombre" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="STOCK DE PRODUCTO
+POR SUCURSALES" border="0" color="8388608" x="297" y="20" height="160" width="1038" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+rectangle(band=header x="55" y="336" height="16" width="1541"  name=r_1 visible="1" brush.hatch="6" brush.color="0" pen.style="5" pen.width="9" pen.color="553648127"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="55" y="424" height="16" width="1541"  name=r_2 visible="1" brush.hatch="6" brush.color="0" pen.style="5" pen.width="9" pen.color="553648127"  background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="Stock" border="0" color="33554432" x="1193" y="356" height="56" width="325" html.valueishtml="0"  name=in_itesucur_it_stkreal_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="571" y="268" height="56" width="1321" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression=" as_codant "border="0" color="0" x="73" y="268" height="56" width="466" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Sucursal" border="0" color="33554432" x="73" y="356" height="56" width="649" html.valueishtml="0"  name=in_itesucur_su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Codigo" border="0" color="33554432" x="73" y="196" height="56" width="466" html.valueishtml="0"  name=in_item_it_codant_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Producto" border="0" color="33554432" x="571" y="196" height="56" width="695" html.valueishtml="0"  name=in_item_it_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="1326" y="196" height="56" width="379" format="[General]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="8388608" x="1193" y="4" height="64" width="325" format="#,##0" html.valueishtml="0"  name=stock visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="73" y="4" height="64" width="1056" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(stock for all)"border="0" color="8388608" x="1198" y="20" height="56" width="325" format="#,##0" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="2" text="Total:" border="0" color="33554432" x="1042" y="20" height="56" width="137" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1189" y1="4" x2="1522" y2="4"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=footer alignment="0" expression="'P$$HEX1$$e100$$ENDHEX$$g. ' + page() + ' de ' + pagecount()"border="0" color="33554432" x="69" y="4" height="56" width="558" format="[general]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

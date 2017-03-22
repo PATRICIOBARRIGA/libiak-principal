@@ -1,0 +1,38 @@
+HA$PBExportHeader$dw_productos_busca_compras.srd
+$PBExportComments$Si.
+release 9;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=64 color="81324524" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(13) update=yes updatewhereclause=yes name=barras dbname="in_item.it_codbar" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=nombre dbname="in_item.it_nombre" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=codant dbname="in_item.it_codant" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cl_codigo dbname="in_item.cl_codigo" )
+ retrieve="  SELECT ~"IN_ITEM~".~"IT_CODBAR~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"CL_CODIGO~"  
+    FROM ~"IN_ITEM~"   
+   WHERE ~"IN_ITEM~".~"EM_CODIGO~" = '2'" update="IN_ITEM" updatewhere=0 updatekeyinplace=no  sort="nombre A " )
+text(band=header alignment="2" text="Dep." border="0" color="0" x="206" y="0" height="56" width="110" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Producto" border="0" color="0" x="1275" y="4" height="56" width="229" html.valueishtml="0"  name=in_item_it_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="498" y="4" height="56" width="178" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Producto" border="0" color="0" x="1275" y="4" height="56" width="229" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="2" color="0" x="841" y="4" height="56" width="1093" format="[general]" html.valueishtml="0"  name=nombre visible="1" edit.limit=63 edit.case=upper edit.autoselect=no edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="2" color="0" x="357" y="4" height="56" width="466" format="[general]" html.valueishtml="0"  name=codant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=4 alignment="0" tabsequence=30 border="2" color="0" x="197" y="4" height="56" width="142" format="[general]" html.valueishtml="0"  name=cl_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Stock" border="0" color="0" x="2016" y="4" height="56" width="142" html.valueishtml="0"  name=t_3 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Costo" border="0" color="0" x="2222" y="4" height="56" width="197" html.valueishtml="0"  name=t_5 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="P. Lista" border="0" color="0" x="2478" y="4" height="56" width="233" html.valueishtml="0"  name=t_4 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="P.V.P." border="0" color="0" x="2779" y="4" height="56" width="201" html.valueishtml="0"  name=t_7 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Fac." border="0" color="0" x="3026" y="4" height="56" width="119" html.valueishtml="0"  name=t_8 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Fac." border="0" color="0" x="3241" y="4" height="56" width="119" html.valueishtml="0"  name=t_9 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Fac." border="0" color="0" x="3401" y="4" height="56" width="119" html.valueishtml="0"  name=t_10 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Fac." border="0" color="0" x="3557" y="4" height="56" width="119" html.valueishtml="0"  name=t_11 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
