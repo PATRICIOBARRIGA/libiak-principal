@@ -1,0 +1,85 @@
+HA$PBExportHeader$d_rep_demanda_insatisfecha_ordencompra.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=380 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_detco_it_codigo dbname="in_detco.it_codigo" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_detco_dc_cantid dbname="in_detco.dc_cantid" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_detco_dc_saldo dbname="in_detco.dc_saldo" )
+ column=(type=char(20) updatewhereclause=yes name=in_detco_su_codigo dbname="in_detco.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_detco_bo_codigo dbname="in_detco.bo_codigo" )
+ column=(type=decimal(0) updatewhereclause=yes name=in_detco_co_numero dbname="in_detco.co_numero" )
+ column=(type=datetime updatewhereclause=yes name=in_compra_co_fecha dbname="in_compra.co_fecha" )
+ column=(type=char(20) updatewhereclause=yes name=in_compra_co_rucsuc dbname="in_compra.co_rucsuc" )
+ column=(type=char(20) updatewhereclause=yes name=in_compra_pv_codigo dbname="in_compra.pv_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_rucsuc dbname="pr_sucur.rucsuc" )
+ retrieve=" SELECT ~"IN_DETCO~".~"IT_CODIGO~",   
+         ~"IN_DETCO~".~"DC_CANTID~",   
+         ~"IN_DETCO~".~"DC_SALDO~",   
+         ~"IN_DETCO~".~"SU_CODIGO~",   
+         ~"IN_DETCO~".~"BO_CODIGO~",   
+         ~"IN_DETCO~".~"CO_NUMERO~",  
+        ~"IN_COMPRA~".~"CO_FECHA~", 
+        ~"IN_COMPRA~".~"CO_RUCSUC~",
+        ~"IN_COMPRA~".~"PV_CODIGO~",
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~" ,
+         ~"PR_SUCUR~".~"SU_NOMBRE~" ,
+          B.~"SU_NOMBRE~" RUCSUC
+    FROM ~"IN_COMPRA~",   
+         ~"IN_DETCO~",   
+         ~"IN_ITEM~" ,
+         ~"PR_SUCUR~" ,~"PR_SUCUR~" B
+   WHERE ( ~"IN_DETCO~".~"EC_CODIGO~" = ~"IN_COMPRA~".~"EC_CODIGO~" ) and  
+         ( ~"IN_DETCO~".~"EM_CODIGO~" = ~"IN_COMPRA~".~"EM_CODIGO~" ) and  
+         ( ~"IN_DETCO~".~"SU_CODIGO~" = ~"IN_COMPRA~".~"SU_CODIGO~" ) and  
+         ( ~"IN_DETCO~".~"CO_NUMERO~" = ~"IN_COMPRA~".~"CO_NUMERO~" ) and  
+         ( ~"IN_DETCO~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"IN_COMPRA~".~"SU_CODIGO~") and
+         ( ~"B~".~"SU_CODIGO~" = ~"IN_COMPRA~".~"CO_RUCSUC~") and
+         ( ( ~"IN_DETCO~".~"EC_CODIGO~" = '1' ) AND  
+           ( ~"IN_DETCO~".~"DC_SALDO~"  > 0 ) AND  
+           (TRUNC ( ~"IN_COMPRA~".~"CO_FECHA~") between :ad_ini and :ad_fin) ) " arguments=(("ad_ini", date),("ad_fin", date))  sort="in_item_it_codant A in_detco_co_numero A " )
+group(level=1 header.height=80 trailer.height=80 by=("in_item_it_codant" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="DEMANDA INSATISFECHA EN COMPRAS" border="0" color="0" x="9" y="88" height="56" width="928" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Desde: '+string(ad_ini ) + ' Hasta : '+string(ad_fin)"border="0" color="0" x="14" y="152" height="56" width="1070" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="23" y1="368" x2="3319" y2="368"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="3136" y="84" height="64" width="247" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Impreso: " border="0" color="0" x="2930" y="84" height="56" width="187" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g ' + page() + ' de ' + pageCount()"border="0" color="0" x="2811" y="4" height="64" width="562" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Producto" border="0" color="0" x="489" y="308" height="56" width="197" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="18" y="308" height="56" width="151" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Cod.Prov." border="0" color="0" x="777" y="308" height="56" width="215" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Solicitado en" border="0" color="0" x="2423" y="308" height="56" width="279" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$orden" border="0" color="0" x="1042" y="308" height="56" width="197" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fecha" border="0" color="0" x="1303" y="308" height="56" width="137" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Saldo" border="0" color="0" x="2240" y="308" height="56" width="123" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Recibido" border="0" color="0" x="1952" y="308" height="56" width="192" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Solicitada" border="0" color="0" x="1673" y="308" height="56" width="219" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Destino" border="0" color="0" x="2834" y="308" height="56" width="183" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="CANTIDAD" border="1" color="0" x="1632" y="224" height="56" width="750" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=10 alignment="0" tabsequence=32766 border="0" color="0" x="14" y="8" height="56" width="462" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=11 alignment="0" tabsequence=32766 border="0" color="0" x="489" y="8" height="56" width="1152" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="2821" y="8" height="56" width="480" format="[general]" html.valueishtml="0"  name=pr_sucur_rucsuc visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="773" y="12" height="56" width="169" format="[general]" html.valueishtml="0"  name=in_compra_pv_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="1015" y="8" height="56" width="251" format="[general]" html.valueishtml="0"  name=in_detco_co_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="1307" y="8" height="56" width="357" format="DD/MM/YYYY" html.valueishtml="0"  name=in_compra_co_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="1696" y="8" height="56" width="215" format="[general]" html.valueishtml="0"  name=in_detco_dc_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0" x="2427" y="8" height="56" width="366" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression=" in_detco_dc_cantid  -  in_detco_dc_saldo "border="0" color="0" x="1952" y="8" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="2149" y="8" height="56" width="219" format="[general]" html.valueishtml="0"  name=in_detco_dc_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(in_detco_dc_cantid for group 1)"border="0" color="0" x="1696" y="16" height="56" width="215" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=trailer.1 x1="1673" y1="0" x2="2368" y2="0"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum( in_detco_dc_cantid  -  in_detco_dc_saldo  for group 1)"border="0" color="0" x="1952" y="16" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(in_detco_dc_saldo for group 1)"border="0" color="0" x="2149" y="20" height="56" width="219" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="5" y="12" height="64" width="1129" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_rep_det_hoja_tecnica.srd
+$PBExportComments$Detalle de la hoja t$$HEX1$$e900$$ENDHEX$$cnica.
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912"  height.autosize=yes)
+table(column=(type=char(50) updatewhereclause=yes name=in_htlabels_lh_descri dbname="in_htlabels.lh_descri" )
+ column=(type=char(32759) updatewhereclause=no name=in_htitem_hi_texto dbname="in_htitem.hi_texto" )
+ column=(type=char(20) updatewhereclause=yes name=in_htitem_hi_codigo dbname="in_htitem.hi_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_htitem_lh_codigo dbname="in_htitem.lh_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_htitem~" )  TABLE(NAME=~"in_htlabels~" )  TABLE(NAME=~"in_hojtec~" ) COLUMN(NAME=~"in_htlabels.lh_descri~") COLUMN(NAME=~"in_htitem.hi_texto~") COLUMN(NAME=~"in_htitem.hi_codigo~") COLUMN(NAME=~"in_htitem.lh_codigo~")    JOIN (LEFT=~"in_htitem.ht_codhoja~"    OP =~"=~"RIGHT=~"in_hojtec.ht_codhoja~" )    JOIN (LEFT=~"in_htitem.em_codigo~"    OP =~"=~"RIGHT=~"in_hojtec.em_codigo~" )    JOIN (LEFT=~"in_htlabels.lh_codigo~"    OP =~"=~"RIGHT=~"in_htitem.lh_codigo~" )    JOIN (LEFT=~"in_htlabels.em_codigo~"    OP =~"=~"RIGHT=~"in_htitem.em_codigo~" )WHERE(    EXP1 =~"( ( ~~~"IN_HOJTEC~~~".~~~"HT_CODHOJA~~~"~"   OP =~"=~"    EXP2 =~":ht_codhoja )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( ~~~"IN_HOJTEC~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( ~~~"IN_HTLABELS~~~".~~~"LH_VIGENTE~~~"~"   OP =~"=~"    EXP2 =~"'S' ) )~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"ht_codhoja~" TYPE = string) " arguments=(("empresa", string),("ht_codhoja", string))  sort="NUMBER(in_htitem_hi_codigo) A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1025" y="16" height="57~tif(len( in_htitem_hi_texto)>73,ceiling(len( in_htitem_hi_texto)/73)*56,56)" width="2254" format="[general]"  name=in_htitem_hi_texto height.autosize=yes edit.limit=32000 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autovscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression=" in_htlabels_lh_descri +' :'"border="0" color="0" x="1" y="16" height="57" width="1011" format="[general]"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

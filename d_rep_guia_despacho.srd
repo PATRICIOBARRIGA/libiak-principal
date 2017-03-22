@@ -1,0 +1,93 @@
+HA$PBExportHeader$d_rep_guia_despacho.srd
+$PBExportComments$Si.Guia de despacho de bodega
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=296 color="536870912" )
+summary(height=400 color="536870912" )
+footer(height=148 color="536870912" )
+detail(height=56 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=gu_numero dbname="fa_guia.gu_numero" )
+ column=(type=datetime update=yes updatewhereclause=yes name=gu_fecha dbname="fa_guia.gu_fecha" initial="today" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=gu_vehiculo dbname="fa_guia.gu_vehiculo" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=gu_observ dbname="fa_guia.gu_observ" )
+ column=(type=number updatewhereclause=yes name=fa_venta_ve_numero dbname="fa_venta.ve_numero" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ve_numpre dbname="fa_venta.ve_numpre" )
+ column=(type=datetime updatewhereclause=yes name=fa_venta_ve_fecha dbname="fa_venta.ve_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_valpag dbname="fa_venta.ve_valpag" )
+ column=(type=char(20) updatewhereclause=yes name=fa_guia_ep_codigo dbname="fa_guia.ep_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ce_codigo dbname="fa_venta.ce_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_em_codigo dbname="fa_venta.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_su_codigo dbname="fa_venta.su_codigo" )
+ column=(type=char(102) updatewhereclause=yes name=cliente dbname="cliente" )
+ retrieve="  SELECT ~"FA_GUIA~".~"GU_NUMERO~",   
+         ~"FA_GUIA~".~"GU_FECHA~",   
+         ~"FA_GUIA~".~"GU_VEHICULO~",   
+         ~"FA_GUIA~".~"GU_OBSERV~",   
+         ~"FA_VENTA~".~"VE_NUMERO~",   
+         ~"FA_VENTA~".~"VE_NUMPRE~",   
+         ~"FA_VENTA~".~"VE_FECHA~",   
+         ~"FA_VENTA~".~"VE_VALPAG~",   
+         ~"FA_GUIA~".~"EP_CODIGO~",   
+         ~"FA_VENTA~".~"CE_CODIGO~",   
+         ~"FA_VENTA~".~"EM_CODIGO~",   
+         ~"FA_VENTA~".~"SU_CODIGO~",
+			~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_APEREP~"||' '||~"FA_CLIEN~".~"CE_NOMREP~" cliente
+    FROM ~"FA_VENTA~",
+             ~"FA_CLIEN~",  
+			~"FA_GUIA~"   
+   WHERE ( ~"FA_VENTA~".~"GU_NUMERO~" = ~"FA_GUIA~".~"GU_NUMERO~" ) and  
+			( ~"FA_VENTA~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and  
+         ( ( ~"FA_VENTA~".~"ES_CODIGO~" = '1' ) AND  
+         ( ~"FA_VENTA~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"FA_VENTA~".~"BO_CODIGO~" = :bodega ) AND  
+         ( ~"FA_VENTA~".~"VE_NUMERO~" in (:facturas) ) )   
+" arguments=(("empresa", string),("sucursal", string),("facturas", numberlist),("bodega", string))  sort="number(gu_numero) A " )
+group(level=1 header.height=348 trailer.height=0 by=("gu_numero" ) header.color="536870912" trailer.color="536870912" )
+compute(band=header alignment="0" expression="'Sucursal: '   "border="0" color="0" x="123" y="116" height="80" width="411" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=1 alignment="0" tabsequence=20 border="0" color="0" x="933" y="208" height="80" width="421" format="[general]" html.valueishtml="0"  name=gu_numero visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Guia de Despacho No." border="0" color="0" x="123" y="208" height="80" width="777" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'Fecha de Impresi$$HEX1$$f300$$ENDHEX$$n: ' + string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="1893" y="232" height="56" width="878" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="123" y="24" height="80" width="782" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="549" y="116" height="80" width="1321" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=2 alignment="0" tabsequence=10 border="0" color="0" x="635" y="8" height="56" width="462" format="[shortdate] [time]" html.valueishtml="0"  name=gu_fecha visible="1" editmask.mask="dd/mm/yyyy [hh:mm]" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header.1 x1="146" y1="328" x2="2770" y2="328"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="2" text="N$$HEX1$$fa00$$ENDHEX$$mero" border="0" color="0" x="187" y="256" height="56" width="169" html.valueishtml="0"  name=fa_venta_ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="2" text="Preimpreso" border="0" color="0" x="448" y="256" height="56" width="247" html.valueishtml="0"  name=fa_venta_ve_numpre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="2" text="Fecha" border="0" color="0" x="891" y="256" height="56" width="137" html.valueishtml="0"  name=fa_venta_ve_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="2" text="Valor" border="0" color="0" x="2638" y="256" height="56" width="119" html.valueishtml="0"  name=fa_venta_ve_valpag_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Fecha/Hora de Salida:" border="0" color="0" x="123" y="8" height="56" width="485" html.valueishtml="0"  name=gu_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="1" text="Observaci$$HEX1$$f300$$ENDHEX$$n:" border="0" color="0" x="123" y="160" height="56" width="297" html.valueishtml="0"  name=gu_observ_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="1" text="Veh$$HEX1$$ed00$$ENDHEX$$culo:" border="0" color="0" x="1655" y="84" height="56" width="206" html.valueishtml="0"  name=gu_vehiculo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=3 alignment="0" tabsequence=40 border="0" color="0" x="1888" y="84" height="56" width="640" format="[general]" html.valueishtml="0"  name=gu_vehiculo visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=4 alignment="0" tabsequence=50 border="0" color="0" x="443" y="160" height="56" width="1687" format="[general]" html.valueishtml="0"  name=gu_observ visible="1" edit.limit=80 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="2" text="Cliente" border="0" color="0" x="1189" y="256" height="56" width="146" html.valueishtml="0"  name=ccliente_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header.1 x1="146" y1="236" x2="2770" y2="236"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="1" text="Responsable:" border="0" color="0" x="82" y="84" height="56" width="343" html.valueishtml="0"  name=ep_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=9 alignment="0" tabsequence=32766 border="0" color="0" x="439" y="84" height="56" width="1202" format="[general]" html.valueishtml="0"  name=fa_guia_ep_codigo visible="1" dddw.name=dwww_empleado dddw.displaycolumn=c_empleado dddw.datacolumn=ep_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="0" x="151" y="0" height="56" width="242" format="[general]" html.valueishtml="0"  name=fa_venta_ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="0" x="411" y="0" height="56" width="320" format="[general]" html.valueishtml="0"  name=fa_venta_ve_numpre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="2354" y="0" height="56" width="402" format="#,##0.00" html.valueishtml="0"  name=fa_venta_ve_valpag visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="750" y="0" height="56" width="430" format="dd/mm/yyyy h:mm" html.valueishtml="0"  name=fa_venta_ve_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="1193" y="0" height="56" width="183" format="[general]" html.valueishtml="0"  name=fa_venta_ce_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="1394" y="0" height="56" width="937" format="[general]" html.valueishtml="0"  name=cliente visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="0" expression="count(  fa_venta_ve_numero  for all )"border="0" color="0" x="2158" y="20" height="56" width="183" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(fa_venta_ve_valpag for all)"border="0" color="0" x="2354" y="20" height="60" width="402" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="Responsable" border="0" color="0" x="1961" y="288" height="56" width="288" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="Despachador" border="0" color="0" x="631" y="288" height="56" width="297" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="494" y1="268" x2="1061" y2="268"  name=l_5 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=summary x1="146" y1="4" x2="2770" y2="4"  name=l_3 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="Total Facturas:" border="0" color="0" x="1810" y="20" height="56" width="329" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="1819" y1="268" x2="2386" y2="268"  name=l_4 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=footer alignment="0" expression="'Pag. ' +page() + ' de ' +pagecount()"border="0" color="0" x="119" y="4" height="56" width="695" format="[general]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
