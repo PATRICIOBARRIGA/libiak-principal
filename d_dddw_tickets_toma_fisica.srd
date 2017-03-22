@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_dddw_tickets_toma_fisica.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="in_tomfis.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="in_tomfis.su_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=bo_codigo dbname="in_tomfis.bo_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ts_numero dbname="in_tomfis.ts_numero" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ts_fecha dbname="in_tomfis.ts_fecha" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=ts_proceso dbname="in_tomfis.ts_proceso" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=ts_observ dbname="in_tomfis.ts_observ" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_tomfis~" ) COLUMN(NAME=~"in_tomfis.em_codigo~") COLUMN(NAME=~"in_tomfis.su_codigo~") COLUMN(NAME=~"in_tomfis.bo_codigo~") COLUMN(NAME=~"in_tomfis.ts_numero~") COLUMN(NAME=~"in_tomfis.ts_fecha~") COLUMN(NAME=~"in_tomfis.ts_proceso~") COLUMN(NAME=~"in_tomfis.ts_observ~")WHERE(    EXP1 =~"~~~"IN_TOMFIS~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_TOMFIS~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_TOMFIS~~~".~~~"BO_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":bodega~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal~" TYPE = string)  ARG(NAME = ~"bodega~" TYPE = string) " update="IN_TOMFIS" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string),("sucursal", string),("bodega", string))  sort="number(ts_numero) A " )
+column(band=detail id=4 alignment="0" tabsequence=40 border="0" color="0" x="10" y="4" height="57" width="1089" format="[general]"  name=ts_numero edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

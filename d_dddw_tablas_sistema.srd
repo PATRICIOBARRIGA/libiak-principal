@@ -1,0 +1,10 @@
+HA$PBExportHeader$d_dddw_tablas_sistema.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(30) updatewhereclause=yes name=table_name dbname="table_name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"all_tables~" ) COLUMN(NAME=~"all_tables.table_name~")WHERE(    EXP1 =~"~~~"ALL_TABLES~~~".~~~"OWNER~~~"~"   OP =~"=~"    EXP2 =~"upper(:usuario)~" ) ) ARG(NAME = ~"usuario~" TYPE = string) " arguments=(("usuario", string)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="57" width="993" format="[general]"  name=table_name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

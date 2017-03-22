@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_dddw_subclases_items.srd
+$PBExportComments$Si.Clases de segundo nivel de clasificacion
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=cl_codigo dbname="in_clase.cl_codigo" )
+ column=(type=char(103) updatewhereclause=yes name=cclase dbname="clase" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_clase~" ALIAS=~"IN_CLASE_A~" )  TABLE(NAME=~"in_clase~" ALIAS=~"IN_CLASE_B~" ) COLUMN(NAME=~"IN_CLASE_A.cl_codigo~") COMPUTE(NAME=~"~~~"IN_CLASE_B~~~".~~~"CL_DESCRI~~~"||' - '||~~~"IN_CLASE_A~~~".~~~"CL_DESCRI~~~"  ~~~"clase~~~"~")    JOIN (LEFT=~"IN_CLASE_B.cl_codigo~"    OP =~"=~"RIGHT=~"IN_CLASE_A.cl_codpad~" )WHERE(    EXP1 =~"( ( ~~~"IN_CLASE_A~~~".~~~"CL_CODIGO~~~"~"   OP =~"is not~"    EXP2 =~"null )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( ~~~"IN_CLASE_A~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa ) )~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " arguments=(("empresa", string))  sort="cl_codigo A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="48" width="1902" format="[general]" html.valueishtml="0"  name=cclase visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

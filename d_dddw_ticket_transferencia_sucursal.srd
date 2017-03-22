@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_dddw_ticket_transferencia_sucursal.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=em_codigo dbname="rp_transfer.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=tf_ticket dbname="rp_transfer.tf_ticket" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="rp_transfer.su_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"rp_transfer~" ) COLUMN(NAME=~"rp_transfer.em_codigo~") COLUMN(NAME=~"rp_transfer.tf_ticket~") COLUMN(NAME=~"rp_transfer.su_codigo~")WHERE(    EXP1 =~"~~~"RP_TRANSFER~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"RP_TRANSFER~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal_destino~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal_destino~" TYPE = string) " arguments=(("empresa", string),("sucursal_destino", string)) )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1" y="4" height="57" width="362" format="[general]"  name=tf_ticket edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_dddw_rubroxtipo.srd
+$PBExportComments$Lista de rubros, pide como par$$HEX1$$e100$$ENDHEX$$metro el tipo de rubro
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ru_codigo dbname="no_rubro.ru_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ru_nombre dbname="no_rubro.ru_nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"no_rubro~" ) COLUMN(NAME=~"no_rubro.ru_codigo~") COLUMN(NAME=~"no_rubro.ru_nombre~")WHERE(    EXP1 =~"~~~"NO_RUBRO~~~".~~~"RU_TIPCAM~~~"~"   OP =~"=~"    EXP2 =~":tipo~" ) ) ARG(NAME = ~"tipo~" TYPE = string) " update="NO_RUBRO" updatewhere=1 updatekeyinplace=no arguments=(("tipo", string))  sort="ru_nombre A " )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="10" y="4" height="57" width="1399" format="[general]"  name=ru_nombre edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

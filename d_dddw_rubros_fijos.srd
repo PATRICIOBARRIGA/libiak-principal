@@ -1,0 +1,26 @@
+HA$PBExportHeader$d_dddw_rubros_fijos.srd
+$PBExportComments$Listado de rubros.
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=ru_nombre dbname="no_rubro.ru_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=ru_codigo dbname="no_rubro.ru_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=ru_tipcam dbname="no_rubro.ru_tipcam" )
+ column=(type=char(1) updatewhereclause=yes name=ru_ioe dbname="no_rubro.ru_ioe" )
+ retrieve="SELECT  ~"NO_RUBRO~".~"RU_NOMBRE~" ,
+           ~"NO_RUBRO~".~"RU_CODIGO~" ,
+           ~"NO_RUBRO~".~"RU_TIPCAM~" ,
+           ~"NO_RUBRO~".~"RU_IOE~" 
+        FROM ~"NO_RUBRO~"      
+        WHERE ( ~"NO_RUBRO~".~"EM_CODIGO~" = :empresa ) and          ( ~"NO_RUBRO~".~"RU_FOV~" = 'F' )   " arguments=(("empresa", string))  sort="ru_ioe A " )
+group(level=1 header.height=64 trailer.height=0 by=("ru_ioe" ) header.color="536870912" trailer.color="536870912" )
+column(band=header.1 id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1111" y="140" height="56" width="23" format="[general]" html.valueishtml="0"  name=ru_ioe visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="0" expression="If ( ru_ioe ='I','INGRESOS','EGRESOS')"border="0" color="128" x="23" y="4" height="56" width="608" format="[general]" html.valueishtml="0"  name=cc_ioe visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="59" y="4" height="60" width="1106" format="[general]" html.valueishtml="0"  name=ru_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
