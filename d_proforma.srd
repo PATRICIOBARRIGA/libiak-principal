@@ -1,0 +1,118 @@
+HA$PBExportHeader$d_proforma.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=572 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=es_codigo dbname="fa_venta.es_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="fa_venta.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=su_codigo dbname="fa_venta.su_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cj_caja dbname="fa_venta.cj_caja" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ce_codigo dbname="fa_venta.ce_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ep_codigo dbname="fa_venta.ep_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ve_numpre dbname="fa_venta.ve_numpre" initial="0" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ve_fecha dbname="fa_venta.ve_fecha" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ve_hora dbname="fa_venta.ve_hora" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_subtot dbname="fa_venta.ve_subtot" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_descue dbname="fa_venta.ve_descue" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_neto dbname="fa_venta.ve_neto" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_iva dbname="fa_venta.ve_iva" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_cargo dbname="fa_venta.ve_cargo" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_valpag dbname="fa_venta.ve_valpag" initial="0" )
+ column=(type=char(100) update=yes updatewhereclause=yes name=ve_observ dbname="fa_venta.ve_observ" )
+ column=(type=char(32765) update=yes updatewhereclause=yes name=ve_leyenda dbname="fa_venta.ve_leyenda" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=bo_codigo dbname="fa_venta.bo_codigo" values="Vendedor	V/Cliente	C/Tel$$HEX1$$e900$$ENDHEX$$fono	T/Internet	O/" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_efectivo dbname="fa_venta.ve_efectivo" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_valotros dbname="fa_venta.ve_valotros" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ve_cambio dbname="fa_venta.ve_cambio" initial="0" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ve_preant dbname="fa_venta.ve_preant" initial="N" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=ve_motivo dbname="fa_venta.ve_motivo" initial="T" values="Vendedor	V/Cliente	C/Tel$$HEX1$$e900$$ENDHEX$$fono	T/Internet	O/" )
+ column=(type=char(50) updatewhereclause=yes name=ce_firma dbname="fa_clien.ce_firma" )
+ column=(type=char(20) updatewhereclause=yes name=ce_actividad dbname="fa_clien.ce_actividad" )
+ column=(type=number update=yes updatewhereclause=yes name=ve_numero dbname="fa_venta.ve_numero" )
+ column=(type=char(300) update=yes updatewhereclause=yes name=ve_valletras dbname="fa_venta.ve_valletras" )
+ column=(type=char(20) updatewhereclause=yes name=empleado dbname="fa_clien.ep_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=ce_cambven dbname="fa_clien.ce_cambven" )
+ column=(type=char(126) updatewhereclause=yes name=cliente dbname="cliente" )
+ retrieve="  SELECT ~"FA_VENTA~".~"ES_CODIGO~",   
+         ~"FA_VENTA~".~"EM_CODIGO~",   
+         ~"FA_VENTA~".~"SU_CODIGO~",   
+         ~"FA_VENTA~".~"CJ_CAJA~",   
+         ~"FA_VENTA~".~"CE_CODIGO~",   
+         ~"FA_VENTA~".~"EP_CODIGO~",   
+         ~"FA_VENTA~".~"VE_NUMPRE~",   
+         ~"FA_VENTA~".~"VE_FECHA~",   
+         ~"FA_VENTA~".~"VE_HORA~",   
+         ~"FA_VENTA~".~"VE_SUBTOT~",   
+         ~"FA_VENTA~".~"VE_DESCUE~",   
+         ~"FA_VENTA~".~"VE_NETO~",   
+         ~"FA_VENTA~".~"VE_IVA~",   
+         ~"FA_VENTA~".~"VE_CARGO~",   
+         ~"FA_VENTA~".~"VE_VALPAG~",   
+         ~"FA_VENTA~".~"VE_OBSERV~",   
+         ~"FA_VENTA~".~"VE_LEYENDA~",   
+         ~"FA_VENTA~".~"BO_CODIGO~",   
+         ~"FA_VENTA~".~"VE_EFECTIVO~",   
+         ~"FA_VENTA~".~"VE_VALOTROS~",   
+         ~"FA_VENTA~".~"VE_CAMBIO~",   
+         ~"FA_VENTA~".~"VE_PREANT~",   
+         ~"FA_VENTA~".~"VE_MOTIVO~",   
+         ~"FA_CLIEN~".~"CE_FIRMA~",   
+         ~"FA_CLIEN~".~"CE_ACTIVIDAD~",   
+         ~"FA_VENTA~".~"VE_NUMERO~",   
+         ~"FA_VENTA~".~"VE_VALLETRAS~",   
+         ~"FA_CLIEN~".~"EP_CODIGO~",
+         ~"FA_CLIEN~".~"CE_CAMBVEN~",
+			' RUC / CI '||~"FA_CLIEN~".~"CE_RUCIC~"||' '||~"FA_CLIEN~".~"CE_RAZONS~"||' '||decode(LENGTH(~"FA_CLIEN~".~"CE_RUCIC~"), 13,' ',~"FA_CLIEN~".~"CE_NOMBRE~"||' '||~"FA_CLIEN~".~"CE_APELLI~") ~"cliente~" 
+    FROM ~"FA_VENTA~",   
+         ~"FA_CLIEN~"  
+   WHERE ( ~"FA_CLIEN~".~"CE_CODIGO~" = ~"FA_VENTA~".~"CE_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ( ~"FA_VENTA~".~"EM_CODIGO~" = 1 ) AND  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = :sucursal ) AND
+			(~"FA_VENTA~".~"ES_CODIGO~" in ('8',:estado )) AND
+         ( ~"FA_VENTA~".~"VE_NUMERO~" = :numero ))
+
+" arguments=(("sucursal", string),("estado", string),("numero", number))  sort="ve_numero A " )
+text(band=detail alignment="1" text="Observaci$$HEX1$$f300$$ENDHEX$$n:" border="0" color="0" x="46" y="308" height="56" width="297" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="N$$HEX1$$fa00$$ENDHEX$$mero:" border="0" color="0" x="46" y="20" height="56" width="183" html.valueishtml="0"  name=ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Firma del cliente" border="0" color="0" x="2240" y="20" height="56" width="352" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="5" color="0" x="1253" y="216" height="56" width="270" format="#,##0.00" html.valueishtml="0"  name=ve_iva visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Cargo:" border="0" color="0" x="1637" y="216" height="56" width="146" html.valueishtml="0"  name=ve_cargo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="IVA:" border="0" color="0" x="1134" y="216" height="56" width="96" html.valueishtml="0"  name=ve_iva_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" ve_valpag - ( ve_efectivo  +  ve_valotros )"border="0" color="8388608" x="2162" y="24" height="44" width="23" format="#,##0.00" html.valueishtml="0"  name=cc_saldo visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="1" text="SON:" border="0" color="8388608" x="41" y="504" height="56" width="114" html.valueishtml="0"  name=ve_observ_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="0" tabsequence=32766 border="0" color="8388608" x="169" y="504" height="64" width="1879" format="[general]" html.valueishtml="0"  name=ve_valletras visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="0" tabsequence=32766 border="0" color="128" x="2295" y="508" height="56" width="672" format="[general]" html.valueishtml="0" protect="0~tif( ce_cambven = 'S' ,0,1)"  name=empleado visible="1" dddw.name=d_dddw_empleado dddw.displaycolumn=c_nombre dddw.datacolumn=ep_codigo dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Ejecutivo:" border="0" color="128" x="2071" y="508" height="56" width="210" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Cliente:" border="0" color="0" x="46" y="120" height="56" width="160" html.valueishtml="0"  name=ce_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="1" tabsequence=32766 border="5" color="0" x="261" y="20" height="56" width="329" format="[general]" html.valueishtml="0"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="2" color="0" x="2089" y="92" height="396" width="654" format="[general]" html.valueishtml="0"  name=ce_firma visible="1" bitmapname=yes edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="A Pagar:" border="0" color="128" x="41" y="400" height="80" width="302" html.valueishtml="0"  name=ve_valpag_t visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if(cc_saldo>=0,'Saldo: ','Cambio: ')"border="0" color="8388608" x="1330" y="400" height="80" width="293" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="abs( ve_valpag - ( ve_efectivo  +  ve_valotros ))"border="0" color="8388608" x="1641" y="400" height="80" width="402" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="128" x="366" y="400" height="80" width="462" format="#,##0.00" html.valueishtml="0"  name=ve_valpag visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="0" x="846" y="400" height="80" width="466" format="[general]" html.valueishtml="0"  name=ce_actividad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Origen:" border="0" color="0" x="1477" y="20" height="56" width="160" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=50 border="5" color="0" x="366" y="308" height="64" width="1678" format="[general]" html.valueishtml="0"  name=ve_observ visible="1" edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Subtotal:" border="0" color="0" x="46" y="216" height="56" width="192" html.valueishtml="0"  name=ve_subtot_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="5" color="0" x="261" y="216" height="56" width="329" format="#,##0.00" html.valueishtml="0"  name=ve_subtot visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Desc:" border="0" color="0" x="654" y="216" height="56" width="128" html.valueishtml="0"  name=ve_descue_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=30 border="5" color="0" x="805" y="216" height="56" width="256" format="#,##0.00" html.valueishtml="0"  name=ve_descue visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="5" color="0" x="805" y="20" height="56" width="443" format="[general]" html.valueishtml="0"  name=ve_fecha visible="1" editmask.mask="dd/mm/yyyy hh:mm" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="0" tabsequence=10 border="5" color="0" x="1659" y="20" height="56" width="384" format="[general]" html.valueishtml="0"  name=ve_motivo visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="1" text="Fecha:" border="0" color="0" x="631" y="20" height="56" width="151" html.valueishtml="0"  name=ve_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=40 border="5" color="0" x="1806" y="216" height="56" width="238" format="#,##0.00" html.valueishtml="0"  name=ve_cargo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=20 border="5" color="0" x="261" y="120" height="56" width="329" format="[general]" html.valueishtml="0"  name=ce_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=30 alignment="0" tabsequence=60 border="5" color="0" x="622" y="120" height="56" width="1422" format="[general]" html.valueishtml="0"  name=cliente visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
