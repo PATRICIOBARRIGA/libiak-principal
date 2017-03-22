@@ -1,0 +1,59 @@
+HA$PBExportHeader$productos_sin_rotacion_por_sucursal.srd
+$PBExportComments$Reporte de Productos Sin Rotaci$$HEX1$$f300$$ENDHEX$$n por Sucursal
+release 7;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=340 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_itesucur_it_codigo dbname="in_itesucur.it_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_itesucur_em_codigo dbname="in_itesucur.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_itesucur_su_codigo dbname="in_itesucur.su_codigo" )
+ column=(type=decimal(3) updatewhereclause=yes name=stock dbname="in_itesucur.it_stock" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_cl_codigo dbname="in_item.cl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ retrieve="  SELECT ~"IN_ITESUCUR~".~"IT_CODIGO~",   
+         ~"IN_ITESUCUR~".~"EM_CODIGO~",   
+         ~"IN_ITESUCUR~".~"SU_CODIGO~",   
+         ~"IN_ITESUCUR~".~"IT_STOCK~",   
+         ~"IN_ITEM~".~"CL_CODIGO~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~"  
+    FROM ~"IN_ITEM~",   
+         ~"IN_ITESUCUR~"  
+   WHERE ( ~"IN_ITEM~".~"EM_CODIGO~" = ~"IN_ITESUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITESUCUR~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ( ~"IN_ITESUCUR~".~"IT_CODIGO~" in (SELECT ~"IN_ITEM~".~"IT_CODIGO~" FROM ~"IN_ITEM~" 
+			                                                 WHERE ~"IN_ITEM~".~"EM_CODIGO~" = :empresa  
+											minus  SELECT ~"IN_MOVIM~".~"IT_CODIGO~" 
+													FROM ~"IN_MOVIM~" 
+													WHERE ( ~"IN_MOVIM~".~"EM_CODIGO~" = :empresa ) 
+AND ( ~"IN_MOVIM~".~"SU_CODIGO~" = :sucursal ) 
+AND ( ~"IN_MOVIM~".~"TM_CODIGO~" in ('2','7','10') ) 
+AND ( ~"IN_MOVIM~".~"MV_FECHA~" > sysdate - :dias_antes ) ) )
+ AND  ( ~"IN_ITESUCUR~".~"EM_CODIGO~" = :empresa ) 
+AND  ( ~"IN_ITESUCUR~".~"SU_CODIGO~" = :sucursal ) 
+AND  ( ~"IN_ITESUCUR~".~"IT_STOCK~" > 0 ) 
+AND  ( ~"IN_ITEM~".~"IT_KIT~" = 'N' ) )    
+" arguments=(("empresa", string),("sucursal", string),("dias_antes", number))  sort="in_item_cl_codigo A in_item_it_codant A " )
+group(level=1 header.height=72 trailer.height=80 by=("left(in_item_cl_codigo,2)" ) header.color="536870912" trailer.color="536870912" )
+compute(band=header alignment="0" expression="'Reporte de Productos sin Rotaci$$HEX1$$f300$$ENDHEX$$n desde hace '  + dias_antes + ' d$$HEX1$$ed00$$ENDHEX$$as antes.'"border="0" color="0" x="37" y="188" height="56" width="1829" format="[GENERAL]"  name=compute_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+line(band=header x1="18" y1="332" x2="2235" y2="332"  name=l_1 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="1073741824" )
+text(band=header alignment="0" text="Producto" border="0" color="33554432" x="914" y="268" height="56" width="229"  name=t_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Stock" border="0" color="33554432" x="2066" y="268" height="56" width="142"  name=t_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="37" y="8" height="64" width="1234"  name=st_empresa  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pageCount()"border="0" color="0" x="1673" y="8" height="64" width="562" format="[general]"  name=page_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+compute(band=header alignment="1" expression="'Fecha de  Impresi$$HEX1$$f300$$ENDHEX$$n ' + today()"border="0" color="0" x="1289" y="92" height="64" width="946" format="[General]"  name=date_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=header.1 id=5 alignment="0" tabsequence=32766 border="0" color="0" x="567" y="4" height="56" width="1321" format="[general]"  name=in_item_cl_codigo dddw.name=zdddw_clase dddw.displaycolumn=in_clase_cl_descri dddw.datacolumn=in_clase_cl_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=header.1 alignment="0" text="Departamento:" border="0" color="33554432" x="160" y="4" height="56" width="370"  name=t_5  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="535" y="4" height="56" width="1413" format="[general]"  name=in_item_it_nombre edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="73" y="4" height="56" width="462" format="[general]"  name=in_item_it_codant edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="1998" y="4" height="56" width="201" format="#,##0"  name=stock edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+line(band=trailer.1 x1="18" y1="4" x2="2235" y2="4"  name=l_2 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="1073741824" )
+text(band=trailer.1 alignment="0" text="Total Items en Departamento:" border="0" color="33554432" x="1170" y="20" height="56" width="800"  name=t_6  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="count(stock for group 1)"border="0" color="0" x="1998" y="20" height="56" width="201" format="#,##0"  name=compute_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=header alignment="0" text="Sucursal:" border="0" color="33554432" x="37" y="96" height="56" width="270"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="320" y="96" height="56" width="951"  name=st_sucursal  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
