@@ -1,0 +1,14 @@
+HA$PBExportHeader$d_dddw_facpro.srd
+$PBExportComments$Factura por proveedor
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(25) updatewhereclause=yes name=co_facpro dbname="in_compra.co_facpro" )
+ column=(type=number updatewhereclause=yes name=cp_movim_co_numero dbname="cp_movim.co_numero" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_compra~" )  TABLE(NAME=~"cp_movim~" ) COLUMN(NAME=~"in_compra.co_facpro~") COLUMN(NAME=~"cp_movim.co_numero~")    JOIN (LEFT=~"in_compra.em_codigo~"    OP =~"=~"RIGHT=~"cp_movim.em_codigo~" )    JOIN (LEFT=~"in_compra.co_rucsuc~"    OP =~"=~"RIGHT=~"cp_movim.su_codigo~" )    JOIN (LEFT=~"in_compra.pv_codigo~"    OP =~"=~"RIGHT=~"cp_movim.pv_codigo~" )    JOIN (LEFT=~"in_compra.ec_codigo~"    OP =~"=~"RIGHT=~"cp_movim.ec_codigo~" )    JOIN (LEFT=~"in_compra.co_numero~"    OP =~"=~"RIGHT=~"cp_movim.co_numero~" )WHERE(    EXP1 =~"~~~"IN_COMPRA~~~".~~~"EC_CODIGO~~~"~"   OP =~"=~"    EXP2 =~"'3'~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"~~~"IN_COMPRA~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"~~~"IN_COMPRA~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal~" TYPE = string) " arguments=(("empresa", string),("sucursal", string)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="56" width="334" format="[general]"  name=co_facpro edit.limit=25 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="357" y="4" height="56" width="270"  name=cp_movim_co_numero  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

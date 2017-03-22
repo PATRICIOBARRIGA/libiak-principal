@@ -1,0 +1,17 @@
+HA$PBExportHeader$d_dddw_entidad_financiera.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=if_codigo dbname="pr_instfin.if_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=if_nombre dbname="pr_instfin.if_nombre" )
+ retrieve="  SELECT ~"PR_INSTFIN~".~"IF_CODIGO~",   
+         ~"PR_INSTFIN~".~"IF_NOMBRE~"  
+    FROM ~"PR_INSTFIN~"  
+   WHERE ( ~"PR_INSTFIN~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"PR_INSTFIN~".~"IF_ACTIVA~" = 'S' )    
+" update="PR_INSTFIN" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string))  sort="if_nombre A " )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="5" y="4" height="60" width="1399" format="[general]"  name=if_nombre edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

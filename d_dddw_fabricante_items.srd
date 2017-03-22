@@ -1,0 +1,15 @@
+HA$PBExportHeader$d_dddw_fabricante_items.srd
+$PBExportComments$si.
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=fb_codigo dbname="in_fabricante.fb_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="in_fabricante.em_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=fb_nombre dbname="in_fabricante.fb_nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_fabricante~" ) COLUMN(NAME=~"in_fabricante.fb_codigo~") COLUMN(NAME=~"in_fabricante.em_codigo~") COLUMN(NAME=~"in_fabricante.fb_nombre~")WHERE(    EXP1 =~"~~~"IN_FABRICANTE~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="IN_FABRICANTE" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string))  sort="trim(fb_nombre) A " )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="160" y="8" height="56" width="1051" format="[general]"  name=fb_nombre edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="2" tabsequence=0 border="0" color="0" x="9" y="8" height="56" width="137"  name=fb_codigo  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

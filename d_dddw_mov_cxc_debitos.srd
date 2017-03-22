@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_dddw_mov_cxc_debitos.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=tt_codigo dbname="cc_tipo.tt_codigo" )
+ column=(type=char(40) updatewhereclause=yes name=tt_descri dbname="cc_tipo.tt_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cc_tipo~" ) COLUMN(NAME=~"cc_tipo.tt_codigo~") COLUMN(NAME=~"cc_tipo.tt_descri~")WHERE(    EXP1 =~"~~~"CC_TIPO~~~".~~~"TT_IOE~~~"~"   OP =~"=~"    EXP2 =~"'D'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CC_TIPO~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " arguments=(("empresa", string))  sort="tt_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="65" width="1322" format="[general]"  name=tt_descri edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

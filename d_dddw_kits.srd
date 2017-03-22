@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_dddw_kits.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=15780518 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=85 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=it_codigo dbname="in_item.it_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=it_nombre dbname="in_item.it_nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_item~" ) COLUMN(NAME=~"in_item.it_codigo~") COLUMN(NAME=~"in_item.it_nombre~")WHERE(    EXP1 =~"~~~"IN_ITEM~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_ITEM~~~".~~~"IT_KIT~~~"~"   OP =~"=~"    EXP2 =~"'S'~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " arguments=(("empresa", string))  sort="it_nombre A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="69" width="1729" format="[general]"  name=it_nombre edit.limit=25 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Bookman Old Style" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

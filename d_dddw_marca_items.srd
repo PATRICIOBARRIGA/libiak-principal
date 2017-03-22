@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_dddw_marca_items.srd
+$PBExportComments$si.
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ma_codigo dbname="in_marca.ma_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ma_descri dbname="in_marca.ma_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_marca~" ) COLUMN(NAME=~"in_marca.ma_codigo~") COLUMN(NAME=~"in_marca.ma_descri~")WHERE(    EXP1 =~"~~~"IN_MARCA~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="IN_MARCA" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string))  sort="ma_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="4" height="57" width="1089" format="[general]"  name=ma_descri edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

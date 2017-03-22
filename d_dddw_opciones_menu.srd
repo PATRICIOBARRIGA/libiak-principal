@@ -1,0 +1,21 @@
+HA$PBExportHeader$d_dddw_opciones_menu.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(83) updatewhereclause=yes name=opcion dbname="opcion" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=mn_codigo dbname="sg_menu.mn_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=mn_padre dbname="sg_menu.mn_padre" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=mn_opcion dbname="sg_menu.mn_opcion" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=mn_nombre dbname="sg_menu.mn_nombre" )
+ retrieve="  SELECT mn_opcion||'-->'||sg_menu.mn_nombre opcion,   
+         mn_codigo,   
+         mn_padre,   
+         mn_opcion,   
+         mn_nombre  
+    FROM sg_menu  
+ORDER BY mn_codigo ASC   
+" update="sg_menu" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1" y="4" height="57" width="1390" format="[general]"  name=opcion edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

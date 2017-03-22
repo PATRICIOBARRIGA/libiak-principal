@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_dddw_parentezco.srd
+$PBExportComments$Lista de parentezcos
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=pf_codigo dbname="no_parent.pf_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=pf_descri dbname="no_parent.pf_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"no_parent~" ) COLUMN(NAME=~"no_parent.pf_codigo~") COLUMN(NAME=~"no_parent.pf_descri~")) " update="NO_PARENT" updatewhere=1 updatekeyinplace=no  sort="pf_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="0" x="14" y="8" height="57" width="577" format="[general]"  name=pf_descri edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

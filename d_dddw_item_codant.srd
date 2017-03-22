@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_dddw_item_codant.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=it_nombre dbname="in_item.it_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=it_codigo dbname="in_item.it_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_item~" ) COLUMN(NAME=~"in_item.it_codant~") COLUMN(NAME=~"in_item.it_nombre~") COLUMN(NAME=~"in_item.it_codigo~")WHERE(    EXP1 =~"~~~"IN_ITEM~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " arguments=(("empresa", string))  sort="it_codant A " )
+compute(band=detail alignment="0" expression=" it_codant + ' --> '+ it_nombre "border="0" color="0" x="10" y="4" height="57" width="1203" format="[general]"  name=cc_item  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
