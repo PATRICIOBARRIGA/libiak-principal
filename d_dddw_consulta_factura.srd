@@ -1,0 +1,17 @@
+HA$PBExportHeader$d_dddw_consulta_factura.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=fa_venta_ve_numero dbname="fa_venta.ve_numero" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clien_ce_razons dbname="fa_clien.ce_razons" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_nombre dbname="fa_clien.ce_nombre" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_apelli dbname="fa_clien.ce_apelli" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_nomrep dbname="fa_clien.ce_nomrep" )
+ column=(type=char(25) updatewhereclause=yes name=fa_clien_ce_aperep dbname="fa_clien.ce_aperep" )
+ column=(type=decimal(0) updatewhereclause=yes name=fa_venta_ve_valpag dbname="fa_venta.ve_valpag" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_bo_codigo dbname="fa_venta.bo_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"fa_clien~" )  TABLE(NAME=~"fa_venta~" ) COLUMN(NAME=~"fa_venta.ve_numero~") COLUMN(NAME=~"fa_clien.ce_razons~") COLUMN(NAME=~"fa_clien.ce_nombre~") COLUMN(NAME=~"fa_clien.ce_apelli~") COLUMN(NAME=~"fa_clien.ce_nomrep~") COLUMN(NAME=~"fa_clien.ce_aperep~") COLUMN(NAME=~"fa_venta.ve_valpag~") COLUMN(NAME=~"fa_venta.bo_codigo~")    JOIN (LEFT=~"fa_venta.ce_codigo~"    OP =~"=~"RIGHT=~"fa_clien.ce_codigo~" )    JOIN (LEFT=~"fa_clien.em_codigo~"    OP =~"=~"RIGHT=~"fa_venta.em_codigo~" )WHERE(    EXP1 =~"~~~"FA_VENTA~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"FA_VENTA~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"FA_VENTA~~~".~~~"BO_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":bodega~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"FA_VENTA~~~".~~~"ES_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":estado~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal~" TYPE = string)  ARG(NAME = ~"bodega~" TYPE = string)  ARG(NAME = ~"estado~" TYPE = string) " arguments=(("empresa", string),("sucursal", string),("bodega", string),("estado", string))  sort="fa_venta_ve_numero A " )
+compute(band=detail alignment="0" expression=" fa_venta_ve_numero + '    ' + if(isnull(fa_clien_ce_razons),'',fa_clien_ce_razons + ' / ') +  if(isnull(fa_clien_ce_nombre),'',fa_clien_ce_nombre + ' ' +  fa_clien_ce_apelli) +  if(isnull(fa_clien_ce_nomrep),'','. ' + fa_clien_ce_nomrep + ' ' +  fa_clien_ce_aperep) + '    ' +  string(fa_venta_ve_valpag ,'###,###')"border="0" color="0" x="10" y="4" height="57" width="1413" format="[general]"  name=cc_clien  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddw_departamento.srd
+$PBExportComments$Lista de departamentos
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="no_departa.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=dt_descri dbname="no_departa.dt_descri" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=dt_codigo dbname="no_departa.dt_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"no_departa~" ) COLUMN(NAME=~"no_departa.em_codigo~") COLUMN(NAME=~"no_departa.dt_descri~") COLUMN(NAME=~"no_departa.dt_codigo~")WHERE(    EXP1 =~"~~~"NO_DEPARTA~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="NO_DEPARTA" updatewhere=0 updatekeyinplace=no arguments=(("empresa", string))  sort="dt_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="14" y="8" height="57" width="577" format="[general]"  name=dt_descri edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

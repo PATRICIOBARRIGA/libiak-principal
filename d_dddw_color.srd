@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddw_color.srd
+$PBExportComments$si.
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=co_codigo dbname="pr_color.co_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="pr_color.em_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=co_descri dbname="pr_color.co_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"pr_color~" ) COLUMN(NAME=~"pr_color.co_codigo~") COLUMN(NAME=~"pr_color.em_codigo~") COLUMN(NAME=~"pr_color.co_descri~")WHERE(    EXP1 =~"~~~"PR_COLOR~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="PR_COLOR" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string))  sort="co_descri A " )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="14" y="4" height="57" width="947" format="[general]"  name=co_descri edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

@@ -1,0 +1,25 @@
+HA$PBExportHeader$d_dddw_cuenta_banco_x_suc.srd
+$PBExportComments$Cuentas por sucursal
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cn_codigo dbname="cb_ctains.cn_codigo" )
+ column=(type=char(71) updatewhereclause=yes name=ccuenta dbname="cuenta" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="cb_ctains.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cb_ctains_if_codigo dbname="cb_ctains.if_codigo" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cb_ctains~" )  TABLE(NAME=~"pr_instfin~" ) COLUMN(NAME=~"cb_ctains.cn_codigo~") COMPUTE(NAME=~"~~~"PR_INSTFIN~~~".~~~"IF_NOMBRE~~~" || ' '|| ~~~"CB_CTAINS~~~".~~~"CN_NUMERO~~~" ~~~"CUENTA~~~"    ~") COLUMN(NAME=~"cb_ctains.su_codigo~") COLUMN(NAME=~"cb_ctains.if_codigo~")    JOIN (LEFT=~"cb_ctains.if_codigo~"    OP =~"=~"RIGHT=~"pr_instfin.if_codigo~" )WHERE(    EXP1 =~"(  ~~~"CB_CTAINS~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CB_CTAINS~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CB_CTAINS~~~".~~~"CN_ACTIVA~~~"~"   OP =~"<>~"    EXP2 =~"'N'~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal~" TYPE = string) " arguments=(("empresa", string),("sucursal", string))  sort="ccuenta A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="56" width="1650" format="[general]" html.valueishtml="0"  name=ccuenta visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1673" y="4" height="56" width="640" format="[general]" html.valueishtml="0"  name=cb_ctains_if_codigo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

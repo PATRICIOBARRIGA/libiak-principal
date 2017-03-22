@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_dddw_emple_ventas.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="-1" )
+footer(height=4 color="-1" )
+detail(height=68 color="-1" )
+table(column=(type=char(20) updatewhereclause=yes name=ep_codigo dbname="no_emple.ep_codigo" )
+ column=(type=char(77) updatewhereclause=yes name=nombre dbname="nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"no_emple~" ) COLUMN(NAME=~"no_emple.ep_codigo~") COMPUTE(NAME=~"~~~"NO_EMPLE~~~".~~~"EP_APEPAT~~~"||' '||~~~"NO_EMPLE~~~".~~~"EP_APEMAT~~~"||' '||~~~"NO_EMPLE~~~".~~~"EP_NOMBRE~~~" ~~~"nombre~~~"~")WHERE(    EXP1 =~"~~~"NO_EMPLE~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"NO_EMPLE~~~".~~~"CR_CODIGO~~~"~"   OP =~"in~"    EXP2 =~"('1','2','3','8','24','25','74')~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " arguments=(("empresa", string))  sort="nombre A " )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="183" y="4" height="56" width="1065" html.valueishtml="0"  name=nombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="14" y="4" height="56" width="155" format="[general]" html.valueishtml="0"  name=ep_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
