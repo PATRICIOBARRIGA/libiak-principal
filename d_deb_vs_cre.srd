@@ -1,0 +1,72 @@
+HA$PBExportHeader$d_deb_vs_cre.srd
+$PBExportComments$Si.
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=476 color="536870912" )
+summary(height=96 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=cp_pago_mp_codigo dbname="cp_pago.mp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_fp_codigo dbname="cp_pago.fp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_if_codigo dbname="cp_pago.if_codigo" )
+ column=(type=datetime updatewhereclause=yes name=cp_pago_pm_fecha dbname="cp_pago.pm_fecha" )
+ column=(type=datetime updatewhereclause=yes name=cp_pago_pm_fecpa dbname="cp_pago.pm_fecpa" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_pm_numdoc dbname="cp_pago.pm_numdoc" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_tv_codigo dbname="cp_pago.tv_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=cp_pago_tv_tipo dbname="cp_pago.tv_tipo" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_cruce_cx_valdeb dbname="cp_cruce.cx_valdeb" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_cruce_cx_valcre dbname="cp_cruce.cx_valcre" )
+ retrieve="select x.~"MP_CODIGO~",x.~"FP_CODIGO~",x.~"IF_CODIGO~",x.~"PM_FECHA~",
+       x.~"PM_FECPA~",x.~"PM_NUMDOC~",x.~"TV_CODIGO~",x.~"TV_TIPO~",y.~"CX_VALDEB~",y.~"CX_VALCRE~"
+from ~"CP_PAGO~" x,~"CP_CRUCE~" y
+where x.~"MP_CODIGO~" = y.~"MP_CODDEB~"
+and x.~"EM_CODIGO~" = y.~"EM_CODIGO~"
+and x.~"SU_CODIGO~" = y.~"SU_CODIGO~"
+and x.~"TV_CODIGO~" = y.~"TV_CODDEB~"
+and x.~"TV_TIPO~" = y.~"TV_TIPODEB~"
+and x.~"EM_CODIGO~" = :empresa
+and x.~"SU_CODIGO~" = :sucursal
+and y.~"MP_CODIGO~" in (  SELECT ~"CP_MOVIM~".~"MP_CODIGO~"  
+								FROM ~"CP_MOVIM~"  
+								WHERE ( ~"CP_MOVIM~".~"TV_CODIGO~" = '1' ) AND  
+								( ~"CP_MOVIM~".~"TV_TIPO~" = 'C' ) AND  
+								( ~"CP_MOVIM~".~"EM_CODIGO~" = :empresa ) AND  
+								( ~"CP_MOVIM~".~"SU_CODIGO~" = :sucursal) AND  
+								( ~"CP_MOVIM~".~"PV_CODIGO~" = :pvcodigo ) AND  
+								( ~"CP_MOVIM~".~"CO_NUMERO~" in (SELECT ~"IN_COMPRA~".~"CO_NUMERO~"  
+																				FROM ~"IN_COMPRA~"  
+																				WHERE ( ~"IN_COMPRA~".~"EC_CODIGO~" = '3' ) AND  
+																				( ~"IN_COMPRA~".~"EM_CODIGO~" = :empresa) AND  
+																				( ~"IN_COMPRA~".~"CO_RUCSUC~" = :sucursal) AND  
+																				( ~"IN_COMPRA~".~"PV_CODIGO~" = :pvcodigo)AND
+																				( ~"IN_COMPRA~".~"CO_FACPRO~" = :factprov ))))" arguments=(("empresa", string),("sucursal", string),("pvcodigo", string),("factprov", string)) )
+text(band=header alignment="1" text="CREDITOS VS DEBITOS" border="0" color="0" x="14" y="156" height="56" width="544"  name=t_8  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="16" height="56" width="846"  name=st_empresa  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="84" height="56" width="1376"  name=st_sucursal  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="320" y="4" height="68" width="562" format="[general]"  name=cp_pago_fp_codigo dddw.name=d_dddw_forma_pago dddw.displaycolumn=fp_descri dddw.datacolumn=fp_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="23" y="4" height="68" width="279" format="[general]"  name=cp_pago_mp_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="905" y="4" height="68" width="251" format="[general]"  name=cp_pago_pm_numdoc edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1175" y="4" height="68" width="562" format="[general]"  name=cp_pago_if_codigo dddw.name=d_dddw_entidad_financiera dddw.displaycolumn=if_nombre dddw.datacolumn=if_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="2094" y="4" height="68" width="320" format="dd/mm/yyyy"  name=cp_pago_pm_fecpa edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="2432" y="4" height="68" width="329" format="#,##0.00"  name=cp_cruce_cx_valcre edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1755" y="4" height="68" width="320" format="dd/mm/yyyy"  name=cp_pago_pm_fecha edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(cp_cruce_cx_valcre for all)"border="0" color="0" x="2427" y="20" height="68" width="329" format="#,##0.00"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="2414" y1="4" x2="2752" y2="4"  name=l_3 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Forma de pago" border="0" color="0" x="320" y="392" height="56" width="329"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Movimiento" border="0" color="0" x="23" y="392" height="56" width="251"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$Doc." border="0" color="0" x="910" y="392" height="56" width="169"  name=t_5  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Instituci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="1175" y="392" height="56" width="219"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Fecha de Pago" border="0" color="0" x="1751" y="392" height="56" width="329"  name=t_4  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Impreso:" border="0" color="0" x="1952" y="96" height="56" width="270"  name=t_7  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Proveedor:" border="0" color="0" x="14" y="224" height="56" width="242"  name=t_9  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Factura:" border="0" color="0" x="1769" y="224" height="56" width="183"  name=t_10  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" factprov "border="0" color="0" x="1966" y="224" height="56" width="398" format="[GENERAL]"  name=compute_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="274" y="224" height="56" width="1467"  name=st_prov  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="5" y1="468" x2="2761" y2="472"  name=l_1 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header x1="18" y1="368" x2="2761" y2="372"  name=l_2 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Valor" border="0" color="0" x="2642" y="396" height="56" width="119"  name=t_6  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2245" y="96" height="64" width="517" format="dd/mm/yyyy   hh:mm:ss"  name=date_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g ' + page() + ' de ' + pageCount()"border="0" color="0" x="2199" y="16" height="64" width="562" format="[general]"  name=page_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Tipo: Mercader$$HEX1$$ed00$$ENDHEX$$a" border="0" color="0" x="2395" y="224" height="56" width="366"  name=t_11  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

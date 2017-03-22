@@ -1,0 +1,111 @@
+HA$PBExportHeader$d_impresion_retenciones.srd
+$PBExportComments$Si. Para imprimir las retenciones antes de realizar el pago
+release 10;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=84 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=104 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=mp_codigo dbname="cp_movim.mp_codigo" )
+ column=(type=char(25) updatewhereclause=yes name=co_facpro dbname="cp_movim.co_facpro" )
+ column=(type=datetime updatewhereclause=yes name=mp_fecha dbname="cp_movim.mp_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_valor dbname="cp_movim.mp_valor" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_valret dbname="cp_movim.mp_valret" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_notand dbname="cp_movim.mp_notand" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_ivand dbname="cp_movim.mp_ivand" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_baseimp dbname="cp_movim.mp_baseimp" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_bseimptrf0 dbname="cp_movim.mp_bseimptrf0" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_reten dbname="cp_movim.mp_reten" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_retiva dbname="cp_movim.mp_retiva" )
+ column=(type=char(20) updatewhereclause=yes name=pv_codigo dbname="cp_movim.pv_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=in_prove_pv_razons dbname="in_prove.pv_razons" )
+ column=(type=char(13) updatewhereclause=yes name=in_prove_pv_rucci dbname="in_prove.pv_rucci" )
+ column=(type=char(101) updatewhereclause=yes name=direccion dbname="direccion" )
+ column=(type=char(1) updatewhereclause=yes name=cc_impfte dbname="cc_impfte" values="	S/	N" )
+ column=(type=char(1) updatewhereclause=yes name=cc_impiva dbname="cc_impiva" values="	S/	N" )
+ column=(type=char(20) updatewhereclause=yes name=cp_movim_tv_codigo dbname="cp_movim.tv_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=cp_movim_estado dbname="cp_movim.estado" )
+ column=(type=char(13) updatewhereclause=yes name=serie dbname="serie" )
+ column=(type=char(10) updatewhereclause=yes name=naut dbname="naut" )
+ retrieve="select ~"CP_MOVIM~". ~"MP_CODIGO~",
+ ~"CP_MOVIM~".~"CO_FACPRO~",
+ ~"CP_MOVIM~".~"MP_FECHA~",
+ ~"CP_MOVIM~".~"MP_VALOR~",
+ ~"CP_MOVIM~".~"MP_VALRET~",
+ ~"CP_MOVIM~".~"MP_NOTAND~",
+ ~"CP_MOVIM~".~"MP_IVAND~",
+ ~"CP_MOVIM~".~"MP_BASEIMP~",
+ ~"CP_MOVIM~".~"MP_BSEIMPTRF0~",
+ ~"CP_MOVIM~".~"MP_RETEN~",
+ ~"CP_MOVIM~".~"MP_RETIVA~",
+ ~"CP_MOVIM~".~"PV_CODIGO~",
+ ~"IN_PROVE~".~"PV_RAZONS~",
+ ~"IN_PROVE~".~"PV_RUCCI~", 
+ ~"IN_PROVE~".~"PV_CALLE1~"||' '||~"IN_PROVE~".~"PV_CALLE2~" DIRECCION,
+'N' cc_impfte,
+'N' cc_impiva,
+~"CP_MOVIM~".~"TV_CODIGO~",
+~"CP_MOVIM~".~"ESTADO~",
+'0000000000000' serie,
+'0000000000' naut
+from ~"CP_MOVIM~",~"IN_PROVE~"
+where ~"IN_PROVE~".~"PV_CODIGO~" = ~"CP_MOVIM~".~"PV_CODIGO~"
+and  ~"CP_MOVIM~". ~"TV_TIPO~" = 'C'
+and  ~"CP_MOVIM~".~"EM_CODIGO~" =:empresa
+and  ~"CP_MOVIM~".~"SU_CODIGO~" =:sucursal
+and trunc( ~"CP_MOVIM~".~"MP_FECHA~") between :fechaini and :fechafin" arguments=(("empresa", string),("sucursal", string),("fechaini", date),("fechafin", date))  sort="pv_codigo A " )
+text(band=header alignment="0" text="Factura N$$HEX1$$ba00$$ENDHEX$$" border="0" color="0" x="9" y="8" height="56" width="238" html.valueishtml="0"  name=in_compra_co_facpro_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Val.Prov" border="0" color="0" x="521" y="8" height="56" width="187" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="I.V.A." border="0" color="0" x="891" y="8" height="56" width="123" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="9" y1="80" x2="4713" y2="80"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Neto Grav." border="0" color="0" x="1042" y="8" height="56" width="261" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Neto O%" border="0" color="0" x="1362" y="8" height="56" width="219" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Ret.Fuente" border="0" color="0" x="1614" y="8" height="56" width="261" html.valueishtml="0"  name=cp_cruce_cx_valcre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Ret.IVA" border="0" color="0" x="2098" y="8" height="56" width="251" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="%" border="0" color="0" x="1893" y="8" height="56" width="82" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="%" border="0" color="0" x="2363" y="8" height="56" width="82" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Seleccionado" border="0" color="0" x="2592" y="8" height="56" width="603" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Proveedor" border="0" color="0" x="3227" y="8" height="56" width="347" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="1" text="Pagar" border="0" color="0" x="3717" y="8" height="56" width="137" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$de Serie" border="0" color="0" x="3881" y="8" height="56" width="270" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="14" y="8" height="56" width="407" format="[general]" html.valueishtml="0"  name=co_facpro visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="5" color="0" x="443" y="8" height="56" width="261" format="#,##0.00" html.valueishtml="0"  name=cp_movim_mp_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="5" color="0" x="722" y="4" height="56" width="283" format="#,##0.00" html.valueishtml="0"  name=mp_valret visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="5" color="0" x="1029" y="4" height="56" width="261" format="[general]" html.valueishtml="0"  name=mp_baseimp visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="5" color="0" x="1312" y="4" height="56" width="283" format="[general]" html.valueishtml="0"  name=mp_bseimptrf0 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="5" color="0" x="1614" y="4" height="56" width="261" format="[general]" html.valueishtml="0"  name=mp_reten visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=16 alignment="0" tabsequence=10 border="0" color="0" x="2007" y="4" height="56" width="59" format="[general]" html.valueishtml="0"  name=cc_impfte visible="1" checkbox.text="" checkbox.on="S" checkbox.off="N" checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="5" color="0" x="2089" y="4" height="56" width="261" format="[general]" html.valueishtml="0"  name=mp_retiva visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+compute(band=detail alignment="2" expression="round(( mp_reten  * 100)/ mp_baseimp,2) "border="0" color="0" x="1893" y="4" height="56" width="101" format="0" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+compute(band=detail alignment="2" expression="(mp_retiva *100)/(if( isNull(mp_valret),0,mp_valret) - if(isNull(mp_ivand),0,mp_ivand))"border="0" color="0" x="2373" y="4" height="56" width="110" format="0" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=17 alignment="0" tabsequence=20 border="0" color="0" x="2501" y="4" height="56" width="64" format="[general]" html.valueishtml="0"  name=cc_impiva visible="0" checkbox.text="" checkbox.on="S" checkbox.off="N" checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+compute(band=detail alignment="1" expression=" if(cc_impfte = 'S', mp_reten,0)"border="1" color="0" x="2583" y="4" height="56" width="283" format="#,##0.00" html.valueishtml="0"  name=cc_retencion visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="79741120~tif( cc_retencion <> 0,rgb(255,255,255),rgb(192,128,128))" )
+compute(band=detail alignment="1" expression="if( cc_impfte = 'S', mp_retiva ,0) "border="1" color="0" x="2898" y="4" height="56" width="293" format="#,##0.00" html.valueishtml="0"  name=cc_iva visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="79741120~tif( cc_iva <> 0,rgb(255,255,255),rgb(192,128,128))" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="255" x="3771" y="4" height="56" width="82" format="[general]" html.valueishtml="0"  name=cp_movim_estado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="3223" y="4" height="56" width="535" format="[general]" html.valueishtml="0"  name=in_prove_pv_razons visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="0" color="0~tif( cc_impfte = 'S',rgb(128,0,0),rgb(0,0,0))" x="3877" y="4" height="56" width="480" format="[general]" html.valueishtml="0"  name=serie visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=footer alignment="0" text="Total:" border="0" color="0" x="105" y="20" height="60" width="119" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="1" expression="sum(cp_movim_mp_valor for all)"border="5" color="0" x="439" y="20" height="56" width="261" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+compute(band=footer alignment="1" expression="sum(mp_valret for all)"border="5" color="0" x="722" y="20" height="56" width="283" format="#,##0.00" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+line(band=footer x1="14" y1="0" x2="2409" y2="4"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(mp_baseimp for all)"border="5" color="0" x="1029" y="20" height="56" width="261" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+compute(band=footer alignment="0" expression="sum(mp_bseimptrf0 for all)"border="5" color="0" x="1312" y="20" height="56" width="283" format="[general]" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=footer alignment="1" expression="sum(mp_reten for all)"border="5" color="0" x="1618" y="20" height="56" width="261" format="[general]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+compute(band=footer alignment="1" expression="sum(mp_retiva for all)"border="5" color="0" x="2089" y="20" height="56" width="261" format="[general]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=footer alignment="0" text="Total :" border="0" color="0" x="2423" y="24" height="56" width="137" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="1" expression="sum( if(cc_impfte = 'S', mp_reten,0) for all)"border="1" color="0" x="2583" y="28" height="56" width="283" format="#,##0.00" html.valueishtml="0"  name=cc_totalretfte visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(if( cc_impfte = 'S', mp_retiva ,0)  for all)"border="1" color="0" x="2898" y="28" height="56" width="293" format="#,##0.00" html.valueishtml="0"  name=cc_totalretiva visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=footer x1="2574" y1="0" x2="3191" y2="4"  name=l_3 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="16777215" )
+line(band=footer x1="2080" y1="4" x2="2341" y2="4"  name=l_5 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="0" x="4375" y="4" height="56" width="338" html.valueishtml="0"  name=naut visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
