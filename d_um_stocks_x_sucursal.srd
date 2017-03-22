@@ -1,0 +1,102 @@
+HA$PBExportHeader$d_um_stocks_x_sucursal.srd
+release 10;
+datawindow(units=3 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 635 print.margin.right = 635 print.margin.top = 635 print.margin.bottom = 635 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=3439 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=449 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=ingegr dbname="ingegr" )
+ column=(type=char(20) updatewhereclause=yes name=in_movim_it_codigo dbname="in_movim.it_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_movim_em_codigo dbname="in_movim.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_movim_su_codigo dbname="in_movim.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_movim_bo_codigo dbname="in_movim.bo_codigo" )
+ column=(type=char(4) updatewhereclause=yes name=year dbname="year" )
+ column=(type=char(2) updatewhereclause=yes name=mes dbname="mes" )
+ column=(type=char(8) updatewhereclause=yes name=periodo dbname="periodo" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_cl_codigo dbname="in_item.cl_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=in_item_it_kit dbname="in_item.it_kit" )
+ column=(type=char(1) updatewhereclause=yes name=in_item_it_valstk dbname="in_item.it_valstk" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_itesucur_it_stkini dbname="in_itesucur.it_stkini" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_itesucur_it_stock dbname="in_itesucur.it_stock" )
+ retrieve="SELECT SUM(DECODE( ~"IN_MOVIM~".~"TM_IOE~",'I',~"IN_MOVIM~".~"MV_CANTID~",'E' ,~"IN_MOVIM~".~"MV_CANTID~"*-1)) INGEGR,
+         ~"IN_MOVIM~".~"IT_CODIGO~",   
+         ~"IN_MOVIM~".~"EM_CODIGO~",   
+         ~"IN_MOVIM~".~"SU_CODIGO~",   
+         ~"IN_MOVIM~".~"BO_CODIGO~",   
+        to_char( ~"IN_MOVIM~".~"MV_FECHA~",'yyyy') year,
+        to_char( ~"IN_MOVIM~".~"MV_FECHA~",'mm') mes,
+        to_char( ~"IN_MOVIM~".~"MV_FECHA~",'mon-yyyy') periodo,
+        ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITEM~".~"CL_CODIGO~",   
+         ~"IN_ITEM~".~"IT_KIT~",   
+         ~"IN_ITEM~".~"IT_VALSTK~",   
+         ~"IN_ITESUCUR~".~"IT_STKINI~",   
+         ~"IN_ITESUCUR~".~"IT_STOCK~"   
+    FROM ~"IN_MOVIM~",   
+         ~"IN_ITEM~",   
+         ~"IN_ITESUCUR~"  
+   WHERE ( ~"IN_MOVIM~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+		( ~"IN_MOVIM~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITESUCUR~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_ITESUCUR~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+		( ~"IN_ITESUCUR~".~"EM_CODIGO~" = ~"IN_MOVIM~".~"EM_CODIGO~" ) and  
+		( ~"IN_ITESUCUR~".~"SU_CODIGO~" = ~"IN_MOVIM~".~"SU_CODIGO~" ) and  
+         ( ( ~"IN_ITEM~".~"IT_VALSTK~"='S') AND
+         ( ~"IN_MOVIM~".~"EM_CODIGO~" = 1 ) AND  
+         ( ~"IN_MOVIM~".~"SU_CODIGO~" = :sucursal ) AND  
+         (   ~"IN_MOVIM~".~"MV_FECHA~"  <= :ad_fcorte + 1) )
+GROUP BY           ~"IN_MOVIM~".~"IT_CODIGO~",   
+         ~"IN_MOVIM~".~"EM_CODIGO~",   
+         ~"IN_MOVIM~".~"SU_CODIGO~",   
+         ~"IN_MOVIM~".~"BO_CODIGO~",   
+          to_char( ~"IN_MOVIM~".~"MV_FECHA~",'yyyy') ,
+          to_char( ~"IN_MOVIM~".~"MV_FECHA~",'mm') ,
+         to_char( ~"IN_MOVIM~".~"MV_FECHA~",'mon-yyyy'),   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITEM~".~"CL_CODIGO~",   
+         ~"IN_ITEM~".~"IT_KIT~",   
+         ~"IN_ITEM~".~"IT_VALSTK~",   
+         ~"IN_ITESUCUR~".~"IT_STKINI~",   
+         ~"IN_ITESUCUR~".~"IT_STOCK~"  
+
+      
+
+" filter=" in_item_it_codant in ('CRCLI')"arguments=(("sucursal", string),("ad_fcorte", date))  sort="year A mes A in_item_it_nombre A " )
+group(level=1 header.height=502 trailer.height=0 by=("periodo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="1" text="Stocks por Surcursal" border="0" color="33554432" x="52" y="1111" height="529" width="4312" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="52" y="52" height="449" width="7911" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Sucursal:" border="0" color="33554432" x="52" y="582" height="423" width="1561" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="1693" y="582" height="423" width="9630" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="/* 'ERROR: El stock actual es ' + string( in_itesucur_it_stkini  + tot_ing - tot_egr,'#,##0.00') + ' indicar que hay que arreglar este stock' */"border="0" color="0" x="7990" y="52" height="370" width="11482" format="[general]" html.valueishtml="0"  name=compute_1 visible="1~tif( compute_6 =   in_itesucur_it_stock , 0, if ( in_item_it_kit = 'S',0,1))"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pageCount()"border="0" color="33554432" x="16218" y="476" height="423" width="3254" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Fecha" border="0" color="33554432" x="899" y="2857" height="370" width="1031" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="52" y1="3307" x2="28760" y2="3307"  name=l_1 visible="1" pen.style="0" pen.width="26" pen.color="33554432"  background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Stock Inicial" border="0" color="33554432" x="10636" y="2857" height="370" width="1481" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Stock Actual" border="0" color="33554432" x="12620" y="2857" height="370" width="1613" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Mov." border="0" color="33554432" x="16536" y="2910" height="370" width="714" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Saldo" border="0" color="33554432" x="18044" y="2883" height="370" width="1137" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=6 alignment="0" tabsequence=32766 border="0" color="255" x="2751" y="53" height="370" width="820" format="[general]" html.valueishtml="0"  name=year visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="0" expression="case(mes when '01' then 'Enero' when '02' then 'Febrero' when '03' then 'Marzo' when '04' then 'Abril' when '05' then 'Mayo' when '06' then 'Junio' when '07' then 'Julio 'when '08' then 'Agosto 'when '09' then 'Septiembre 'when '10' then 'Octubre 'when '11' then 'Noviembre 'when '12' then 'Diciembre')"border="0" color="255" x="899" y="79" height="370" width="1719" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="128" x="52" y="52" height="343" width="608" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="15980" y="26" height="370" width="1322" format="[general]" html.valueishtml="0"  name=ingegr visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="33554432" x="10689" y="52" height="423" width="1852" format="[general]" html.valueishtml="0"  name=in_itesucur_it_stkini_1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="0" color="255" x="13017" y="52" height="370" width="2063" format="[general]" html.valueishtml="0"  name=in_itesucur_it_stock_1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" in_itesucur_it_stkini + ingegr "border="0" color="33554432" x="19711" y="26" height="370" width="608" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="820" y="52" height="423" width="2645" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="3571" y="52" height="423" width="6958" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="cumulativeSum(  ingegr  for all )"border="0" color="128" x="18071" y="52" height="343" width="1137" format="[GENERAL]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

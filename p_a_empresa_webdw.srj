@@ -1,0 +1,13 @@
+HA$PBExportHeader$p_a_empresa_webdw.srj
+$PBExportComments$Generated Web DW Component Project
+GeneratorID:{93E9FD66-138B-11D3-BF8D-00C04F7947C2}GENBC00000000
+PROJVERS:1
+PACKAGE:a_empresa_package	
+COMPONENT:a_empresa_component	1	0	0	0	1
+SERVERINFO:JboSS	0		0	
+SERVICEOBJS:0
+CONSOLIDATEDPBD:1	unomotors.pbd
+LIBS:27	powerfilter.pbd	0	obj_basic.pbl	0	empresa.pbl	0	funcystr.pbl	0	formatos.pbl	0	drops.pbl	0	inventario.pbl	0	inventario_r.pbl	0	inventa_dw.pbl	0	inventa_dwr.pbl	0	venta.pbl	0	venta_r.pbl	0	venta_dw2.pbl	0	venta_dw.pbl	0	contabilidad.pbl	0	contabilidad_r.pbl	0	cjaban.pbl	0	cjaban_r.pbl	0	cxc.pbl	0	cxc_r.pbl	0	cxp.pbl	0	cxp_r.pbl	0	nomina.pbl	0	nomina_r.pbl	0	unomotors.pbl	0	produccion.pbl	0	powerfilterdemo.pbd	0
+PBR:
+MISC:1	1	dinamic
+SERVERPROFILE:PRUEBA_JBOSS
