@@ -1,0 +1,139 @@
+HA$PBExportHeader$d_prn_retenciones_bgr.srd
+$PBExportComments$Si
+release 11.5;
+datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 0 print.margin.bottom = 0 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=no print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=76 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(20) updatewhereclause=yes name=cp_movim_mp_codigo dbname="cp_movim.mp_codigo" )
+ column=(type=char(25) updatewhereclause=yes name=cp_movim_co_facpro dbname="cp_movim.co_facpro" )
+ column=(type=char(3) updatewhereclause=yes name=cp_movim_mp_docnroest dbname="cp_movim.mp_docnroest" )
+ column=(type=char(3) updatewhereclause=yes name=cp_movim_mp_docnropto dbname="cp_movim.mp_docnropto" )
+ column=(type=char(9) updatewhereclause=yes name=cp_movim_mp_docnrosec dbname="cp_movim.mp_docnrosec" )
+ column=(type=datetime updatewhereclause=yes name=cp_movim_mp_fecemision dbname="cp_movim.mp_fecemision" )
+ column=(type=datetime updatewhereclause=yes name=cp_movim_mp_fecha dbname="cp_movim.mp_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_valor dbname="cp_movim.mp_valor" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_valret dbname="cp_movim.mp_valret" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_notand dbname="cp_movim.mp_notand" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_ivand dbname="cp_movim.mp_ivand" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_baseimp dbname="cp_movim.mp_baseimp" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_bseimptrf0 dbname="cp_movim.mp_bseimptrf0" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_reten dbname="cp_movim.mp_reten" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_retiva dbname="cp_movim.mp_retiva" )
+ column=(type=char(20) updatewhereclause=yes name=cp_movim_pv_codigo dbname="cp_movim.pv_codigo" )
+ column=(type=char(100) updatewhereclause=yes name=cp_movim_mp_observ dbname="cp_movim.mp_observ" )
+ column=(type=char(3) updatewhereclause=yes name=cp_movim_mp_estabret dbname="cp_movim.mp_estabret" )
+ column=(type=char(3) updatewhereclause=yes name=cp_movim_mp_ptoemiret dbname="cp_movim.mp_ptoemiret" )
+ column=(type=char(9) updatewhereclause=yes name=cp_movim_mp_secret dbname="cp_movim.mp_secret" )
+ column=(type=char(10) updatewhereclause=yes name=cp_movim_mp_autret dbname="cp_movim.mp_autret" )
+ column=(type=char(50) updatewhereclause=yes name=in_prove_pv_razons dbname="in_prove.pv_razons" )
+ column=(type=char(13) updatewhereclause=yes name=in_prove_pv_rucci dbname="in_prove.pv_rucci" )
+ column=(type=char(101) updatewhereclause=yes name=direccion dbname="direccion" )
+ column=(type=char(9) updatewhereclause=yes name=in_prove_fono dbname="in_prove.fono" )
+ column=(type=char(1) updatewhereclause=yes name=cc_impfte dbname="cc_impfte" )
+ column=(type=char(1) updatewhereclause=yes name=cc_impiva dbname="cc_impiva" )
+ column=(type=char(20) updatewhereclause=yes name=cp_movim_tv_codigo dbname="cp_movim.tv_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=cp_movim_estado dbname="cp_movim.estado" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_fp_codigo dbname="cp_pago.fp_codigo" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_pago_pm_bseimp dbname="cp_pago.pm_bseimp" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_pm_codpct dbname="cp_pago.pm_codpct" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_pago_pm_porctje dbname="cp_pago.pm_porctje" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_pago_pm_valor dbname="cp_pago.pm_valor" )
+ column=(type=char(10) updatewhereclause=yes name=cp_pago_pm_naut dbname="cp_pago.pm_naut" )
+ column=(type=char(3) updatewhereclause=yes name=cp_pago_pm_nroest dbname="cp_pago.pm_nroest" )
+ column=(type=char(3) updatewhereclause=yes name=cp_pago_pm_nropto dbname="cp_pago.pm_nropto" )
+ column=(type=char(7) updatewhereclause=yes name=cp_pago_pm_nrosec dbname="cp_pago.pm_nrosec" )
+ column=(type=char(13) updatewhereclause=yes name=cp_pago_pm_preimp dbname="cp_pago.pm_preimp" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_tv_codigo dbname="cp_pago.tv_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=cp_pago_tv_tipo dbname="cp_pago.tv_tipo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_em_codigo dbname="cp_pago.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_su_codigo dbname="cp_pago.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cp_pago_mp_codigo dbname="cp_pago.mp_codigo" )
+ retrieve="select ~"CP_MOVIM~". ~"MP_CODIGO~",
+ ~"CP_MOVIM~".~"CO_FACPRO~",
+ ~"CP_MOVIM~".~"MP_DOCNROEST~",
+ ~"CP_MOVIM~".~"MP_DOCNROPTO~",
+ ~"CP_MOVIM~".~"MP_DOCNROSEC~",
+ ~"CP_MOVIM~".~"MP_FECEMISION~",
+ ~"CP_MOVIM~".~"MP_FECHA~",
+ ~"CP_MOVIM~".~"MP_VALOR~",
+ ~"CP_MOVIM~".~"MP_VALRET~",
+ ~"CP_MOVIM~".~"MP_NOTAND~",
+ ~"CP_MOVIM~".~"MP_IVAND~",
+ ~"CP_MOVIM~".~"MP_BASEIMP~",
+ ~"CP_MOVIM~".~"MP_BSEIMPTRF0~",
+ ~"CP_MOVIM~".~"MP_RETEN~",
+ ~"CP_MOVIM~".~"MP_RETIVA~",
+ ~"CP_MOVIM~".~"PV_CODIGO~",
+ ~"CP_MOVIM~".~"MP_OBSERV~",
+~"CP_MOVIM~".~"MP_ESTABRET~",
+~"CP_MOVIM~".~"MP_PTOEMIRET~",
+~"CP_MOVIM~".~"MP_SECRET~",
+~"CP_MOVIM~".~"MP_AUTRET~",
+ ~"IN_PROVE~".~"PV_RAZONS~",
+ ~"IN_PROVE~".~"PV_RUCCI~", 
+ ~"IN_PROVE~".~"PV_CALLE1~"||' '||~"IN_PROVE~".~"PV_CALLE2~" DIRECCION,
+~"IN_PROVE~".~"PV_TELEF1~" FONO,
+'N' cc_impfte,
+'N' cc_impiva,
+~"CP_MOVIM~".~"TV_CODIGO~",
+~"CP_MOVIM~".~"ESTADO~",
+~"CP_PAGO~".~"FP_CODIGO~",
+~"CP_PAGO~".~"PM_BSEIMP~",
+~"CP_PAGO~".~"PM_CODPCT~",
+~"CP_PAGO~".~"PM_PORCTJE~",
+~"CP_PAGO~".~"PM_VALOR~",
+~"CP_PAGO~".~"PM_NAUT~",
+~"CP_PAGO~".~"PM_NROEST~",
+~"CP_PAGO~".~"PM_NROPTO~",
+~"CP_PAGO~".~"PM_NROSEC~",
+~"CP_PAGO~".~"PM_PREIMP~",
+~"CP_PAGO~".~"TV_CODIGO~",
+~"CP_PAGO~".~"TV_TIPO~",
+~"CP_PAGO~".~"EM_CODIGO~",
+~"CP_PAGO~".~"SU_CODIGO~",
+~"CP_PAGO~".~"MP_CODIGO~"
+from ~"CP_MOVIM~",~"IN_PROVE~",~"CP_PAGO~",~"CP_CRUCE~"
+where  ( ~"CP_CRUCE~".~"TV_CODDEB~" = ~"CP_PAGO~".~"TV_CODIGO~" ) and  
+		  ( ~"CP_CRUCE~".~"TV_TIPODEB~" = ~"CP_PAGO~".~"TV_TIPO~" ) and  
+		  ( ~"CP_CRUCE~".~"MP_CODDEB~" = ~"CP_PAGO~".~"MP_CODIGO~" ) and  
+		  ( ~"CP_CRUCE~".~"EM_CODIGO~" = ~"CP_PAGO~".~"EM_CODIGO~" ) and  
+		  ( ~"CP_CRUCE~".~"SU_CODIGO~" = ~"CP_PAGO~".~"SU_CODIGO~" ) and 
+		  (~"CP_CRUCE~".~"MP_CODIGO~" = ~"CP_MOVIM~".~"MP_CODIGO~" )and  
+		  (~"CP_CRUCE~".~"TV_CODIGO~" = ~"CP_MOVIM~".~"TV_CODIGO~" )and  
+		  (~"CP_CRUCE~".~"TV_TIPO~" = ~"CP_MOVIM~".~"TV_TIPO~" ) and  
+            (~"IN_PROVE~".~"PV_CODIGO~" = ~"CP_MOVIM~".~"PV_CODIGO~")  and 
+            ( ~"CP_MOVIM~". ~"TV_TIPO~" = 'C')  and 
+(( ~"CP_MOVIM~".~"EM_CODIGO~" = :empresa and 
+  ~"CP_MOVIM~".~"SU_CODIGO~" =:sucursal and 
+  ~"CP_PAGO~".~"FP_CODIGO~" IN ('6','7','111') and ~"CP_PAGO~".~"PM_CODPCT~" <>  '332' AND
+  ~"CP_CRUCE~".~"MP_CODIGO~" IN (:creditos)))
+" arguments=(("empresa", string),("sucursal", string),("creditos", stringlist))  sort="cp_movim_pv_codigo A cp_movim_co_facpro A NUMBER(cp_pago_pm_preimp) A " )
+group(level=1 header.height=1208 trailer.height=532 by=("cp_movim_pv_codigo" , "cp_movim_co_facpro" ) newpage=yes header.color="536870912" header.transparency="0" header.gradient.color="8421504" header.gradient.transparency="0" header.gradient.angle="0" header.brushmode="0" header.gradient.repetition.mode="0" header.gradient.repetition.count="0" header.gradient.repetition.length="100" header.gradient.focus="0" header.gradient.scale="100" header.gradient.spread="100" trailer.color="536870912" trailer.transparency="0" trailer.gradient.color="8421504" trailer.gradient.transparency="0" trailer.gradient.angle="0" trailer.brushmode="0" trailer.gradient.repetition.mode="0" trailer.gradient.repetition.count="0" trailer.gradient.repetition.length="100" trailer.gradient.focus="0" trailer.gradient.scale="100" trailer.gradient.spread="100"  sort="count(cp_movim_co_facpro for group 1) A " )
+column(band=header.1 id=24 alignment="0" tabsequence=32766 border="0" color="0" x="526" y="820" height="56" width="1367" format="[general]" html.valueishtml="0"  name=direccion visible="1" edit.limit=35 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=header.1 id=23 alignment="0" tabsequence=32766 border="0" color="0" x="517" y="752" height="56" width="549" format="[general]" html.valueishtml="0"  name=in_prove_pv_rucci visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=header.1 alignment="0" expression="'Quito a, '+ if(month(today()) = month(date(cp_movim_mp_fecemision)), string(cp_movim_mp_fecemision,'dd/mm/yyyy'),string(cp_movim_mp_fecha,'dd/mm/yyyy' ))"border="0" color="0" x="2405" y="676" height="56" width="882" format="[General]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=header.1 id=22 alignment="0" tabsequence=32766 border="0" color="0" x="521" y="676" height="64" width="1371" format="[general]" html.valueishtml="0"  name=in_prove_pv_razons visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header.1 alignment="0" text="FACTURA" border="0" color="0" x="2405" y="756" height="60" width="265" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=header.1 alignment="0" expression=" cp_movim_mp_docnroest +'-'+ cp_movim_mp_docnropto +'-'+ cp_movim_mp_docnrosec "border="0" color="0" x="2405" y="828" height="52" width="635" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="2" expression="IF((cp_pago_pm_valor*100/cp_pago_pm_bseimp) < 1,Round(cp_pago_pm_valor*100/cp_pago_pm_bseimp,1),Round(cp_pago_pm_valor*100/cp_pago_pm_bseimp,0))"border="2" color="0" x="2213" y="80" height="60" width="407" format="0.0" html.valueishtml="0"  name=cc_percent visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=trailer.1 alignment="1" expression="sum(cp_pago_pm_valor for group 1)"border="0" color="0" x="2661" y="464" height="60" width="485" format="#,##0.00" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+bitmap(band=trailer.1 filename="Imagenes\firma.gif" x="631" y="128" height="248" width="334" border="0" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0"  name=p_1 visible="1" transparency="0" )
+compute(band=detail alignment="2" expression="year(cp_movim_mp_fecemision)"border="0" color="0" x="270" y="4" height="60" width="567" format="[General]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=31 alignment="2" tabsequence=32766 border="0" color="0" x="864" y="4" height="60" width="530" format="#,##0.00" html.valueishtml="0"  name=cp_pago_pm_bseimp visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="2" expression="IF(cp_pago_fp_codigo = '6', 'RENTA' ,'IVA')"border="0" color="0" x="1422" y="4" height="60" width="398" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=32 alignment="2" tabsequence=32766 border="0" color="0" x="1847" y="4" height="60" width="347" format="[general]" html.valueishtml="0"  name=cp_pago_pm_codpct visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=34 alignment="1" tabsequence=32766 border="0" color="0" x="2651" y="4" height="60" width="494" format="#,##0.00" html.valueishtml="0"  name=cp_pago_pm_valor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=33 alignment="2" tabsequence=32766 border="0" color="0" x="2213" y="4" height="60" width="425" format="#,##0.00" html.valueishtml="0"  name=cp_pago_pm_porctje visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

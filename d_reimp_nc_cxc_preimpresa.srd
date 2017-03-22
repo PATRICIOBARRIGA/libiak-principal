@@ -1,0 +1,89 @@
+HA$PBExportHeader$d_reimp_nc_cxc_preimpresa.srd
+$PBExportComments$Para los reportes de cr$$HEX1$$e900$$ENDHEX$$dito de cxc, esto es N/C,recibos de pago, abonos a cuentas, etc.
+release 7;
+datawindow(units=3 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 635 print.margin.right = 635 print.margin.top = 635 print.margin.bottom = 635 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=6720 color="536870912" )
+summary(height=2619 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=3677 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=pr_empre_em_logo dbname="pr_empre.em_logo" )
+ column=(type=char(50) updatewhereclause=yes name=pr_empre_em_nombre dbname="pr_empre.em_nombre" )
+ column=(type=char(40) updatewhereclause=yes name=cc_tipo_tt_descri dbname="cc_tipo.tt_descri" )
+ column=(type=datetime updatewhereclause=yes name=cc_movim_mt_fecha dbname="cc_movim.mt_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=mt_valor dbname="cc_movim.mt_valor" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_calle2 dbname="pr_sucur.su_calle2" )
+ column=(type=char(9) updatewhereclause=yes name=pr_sucur_su_telef1 dbname="pr_sucur.su_telef1" )
+ column=(type=char(9) updatewhereclause=yes name=pr_sucur_su_telef2 dbname="pr_sucur.su_telef2" )
+ column=(type=char(9) updatewhereclause=yes name=pr_sucur_su_fax dbname="pr_sucur.su_fax" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_calle1 dbname="pr_sucur.su_calle1" )
+ column=(type=char(30) updatewhereclause=yes name=pr_sucur_su_juzgado dbname="pr_sucur.su_juzgado" )
+ column=(type=char(125) updatewhereclause=yes name=ccliente dbname="cliente" )
+ column=(type=char(13) updatewhereclause=yes name=pr_sucur_su_ruc dbname="pr_sucur.su_ruc" )
+ column=(type=char(1) updatewhereclause=yes name=fa_clien_ce_tipo dbname="fa_clien.ce_tipo" )
+ column=(type=char(13) updatewhereclause=yes name=fa_clien_ce_rucic dbname="fa_clien.ce_rucic" )
+ column=(type=char(20) updatewhereclause=yes name=fp_codigo dbname="cc_cheque.fp_codigo" )
+ column=(type=decimal(2) updatewhereclause=yes name=ch_valor dbname="cc_cheque.ch_valor" )
+ retrieve=" SELECT ~"PR_EMPRE~".~"EM_LOGO~",   
+         ~"PR_EMPRE~".~"EM_NOMBRE~",   
+         ~"CC_TIPO~".~"TT_DESCRI~",   
+         ~"CC_MOVIM~".~"MT_FECHA~",   
+         ~"CC_MOVIM~".~"MT_VALOR~",   
+         ~"PR_SUCUR~".~"SU_CALLE2~",   
+         ~"PR_SUCUR~".~"SU_TELEF1~",   
+         ~"PR_SUCUR~".~"SU_TELEF2~",   
+         ~"PR_SUCUR~".~"SU_FAX~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~",   
+         ~"PR_SUCUR~".~"SU_CALLE1~",   
+         ~"PR_SUCUR~".~"SU_JUZGADO~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~"||' '||NVL(~"FA_CLIEN~".~"CE_RAZONS~",'')||' / '||DECODE(~"FA_CLIEN~".~"CE_TIPO~",'N',~"FA_CLIEN~".~"CE_NOMBRE~"||' '||~"FA_CLIEN~".~"CE_APELLI~",~"FA_CLIEN~".~"CE_NOMREP~"||' '||~"FA_CLIEN~".~"CE_APEREP~") ~"cliente~",   
+         ~"PR_SUCUR~".~"SU_RUC~",   
+         ~"FA_CLIEN~".~"CE_TIPO~",   
+         ~"FA_CLIEN~".~"CE_RUCIC~",
+         ~"CC_CHEQUE~".~"FP_CODIGO~",
+         ~"CC_CHEQUE~".~"CH_VALOR~"
+    FROM ~"CC_MOVIM~",
+         ~"CC_CHEQUE~",
+         ~"PR_EMPRE~",   
+         ~"PR_SUCUR~",   
+         ~"CC_TIPO~",   
+         ~"FA_CLIEN~"  
+   WHERE ( ~"CC_MOVIM~".~"EM_CODIGO~" = ~"PR_EMPRE~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"CC_MOVIM~".~"SU_CODIGO~" ) and  
+         ( ~"CC_TIPO~".~"TT_CODIGO~" = ~"CC_MOVIM~".~"TT_CODIGO~" ) and  
+         ( ~"CC_TIPO~".~"TT_IOE~" = ~"CC_MOVIM~".~"TT_IOE~" ) and  
+         ( ~"CC_TIPO~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"CE_CODIGO~" = ~"CC_MOVIM~".~"CE_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"EM_CODIGO~" = ~"CC_MOVIM~".~"EM_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"TT_CODIGO~" = ~"CC_CHEQUE~".~"TT_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"TT_IOE~" = ~"CC_CHEQUE~".~"TT_IOE~" ) and  
+         ( ~"CC_MOVIM~".~"EM_CODIGO~" = ~"CC_CHEQUE~".~"EM_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"SU_CODIGO~" = ~"CC_CHEQUE~".~"SU_CODIGO~" ) and  
+         ( ~"CC_MOVIM~".~"MT_CODIGO~" = ~"CC_CHEQUE~".~"MT_CODIGO~" ) and  
+         ( ( ~"CC_MOVIM~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"CC_MOVIM~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"CC_MOVIM~".~"TT_IOE~" = 'C' ) AND  
+         ( ~"CC_MOVIM~".~"TT_CODIGO~" = '5' ) AND  
+         ( ~"CC_MOVIM~".~"MT_CODIGO~" = :numero ) ) " arguments=(("empresa", string),("sucursal", string),("numero", string),("valletras", string)) )
+compute(band=detail alignment="3" expression="~"Estamos acreditando a su cuenta el valor de ~" +  string(ch_valor,~"#,##0.00~")  +  ' ( ' + valletras + ' ) d$$HEX1$$f300$$ENDHEX$$lares.~~r~~nPor concepto de : ' +   cc_tipo_tt_descri +' Con Forma de Pago:'"border="0" color="0" x="3704" y="26" height="1746" width="5688" format="[general]"  name=compute_7  font.face="Draft 17cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="0" x="3704" y="1799" height="370" width="5688" format="[general]"  name=fp_codigo dddw.name=d_dddw_forma_pago dddw.displaycolumn=fp_descri dddw.datacolumn=fp_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Draft 17cpi" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=summary x1="4947" y1="1270" x2="8255" y2="1270"  name=l_2 pen.style="0" pen.width="26" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=summary alignment="2" expression=" pr_empre_em_nombre "border="0" color="0" x="5053" y="1376" height="370" width="3122" format="[general]"  name=compute_9  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="ch_valor/1.12"border="0" color="0" x="17700" y="80" height="291" width="1957" format="#,##0.00"  name=cc_subtot  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression=" ch_valor "border="0" color="0" x="17700" y="2196" height="291" width="1957" format="#,##0.00"  name=cc_pagar  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="0"border="0" color="0" x="17700" y="503" height="291" width="1957" format="#,##0.00"  name=cc_desc  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="0"border="0" color="0" x="17700" y="926" height="291" width="1957" format="#,##0.00"  name=cc_neto  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="(ch_valor/1.12)*0.12"border="0" color="0" x="17700" y="1350" height="291" width="1957" format="#,##0.00"  name=cc_iva  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="0/* ( sum(fa_venta_ve_cargo for all)/ sum(fa_venta_ve_subtot for all)) * cc_tot */"border="0" color="0" x="17700" y="1773" height="291" width="1957" format="#,##0.00"  name=cargo  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="DESCRIPCION" border="0" color="0" x="5476" y="5265" height="370" width="2222"  name=t_3  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="VALOR" border="0" color="0" x="17674" y="5265" height="370" width="1640"  name=t_6  font.face="Draft 20cpi" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Sucursal : ' +  pr_sucur_su_nombre "border="0" color="0" x="1005" y="3942" height="264" width="8651" format="[general]"  name=compute_5  font.face="Draft 17cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Cliente : " border="0" color="0" x="1005" y="4233" height="317" width="1322"  name=t_1  font.face="Draft 17cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="if( fa_clien_ce_tipo ='N','C.I.:','RUC:')"border="0" color="0" x="1005" y="4550" height="264" width="899" format="[GENERAL]"  name=compute_1  font.face="Draft 17cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=16 alignment="0" tabsequence=32766 border="0" color="0" x="1984" y="4550" height="264" width="2301" format="[general]"  name=fa_clien_ce_rucic edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 17cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header id=13 alignment="0" tabsequence=32766 border="0" color="0" x="2460" y="4233" height="264" width="13811" format="[general]"  name=ccliente edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 17cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=4 alignment="1" tabsequence=32766 border="0" color="0" x="16589" y="4021" height="317" width="2725" format="dd/mm/yyyy  hh:mm"  name=cc_movim_mt_fecha edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Draft 17cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="1" expression="~" No. ~" +  numero "border="0" color="0" x="16589" y="4365" height="264" width="2725" format="[GENERAL]"  name=compute_2  font.face="Draft 17cpi" font.height="-7" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
