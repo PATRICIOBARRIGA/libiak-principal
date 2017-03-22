@@ -1,0 +1,48 @@
+HA$PBExportHeader$d_tf_cant_mal.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=328 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_tomfis_ts_numero dbname="in_tomfis.ts_numero" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=number updatewhereclause=yes name=cant dbname="cant" )
+ retrieve="  SELECT ~"IN_TOMFIS~".~"TS_NUMERO~",
+			~"IN_ITEM~".~"IT_CODANT~",
+         sum(~"IN_DETTOMA~".~"DS_CANTID~" * ~"IN_RELITEM~".~"RI_CANTID~") cant  
+    FROM ~"IN_TOMFIS~",   
+         ~"IN_ITEM~",   
+         ~"IN_DETTOMA~",   
+         ~"IN_RELITEM~"  
+   WHERE ( ~"IN_DETTOMA~".~"EM_CODIGO~" = ~"IN_TOMFIS~".~"EM_CODIGO~" ) and  
+         ( ~"IN_DETTOMA~".~"SU_CODIGO~" = ~"IN_TOMFIS~".~"SU_CODIGO~" ) and  
+         ( ~"IN_DETTOMA~".~"BO_CODIGO~" = ~"IN_TOMFIS~".~"BO_CODIGO~" ) and  
+         ( ~"IN_DETTOMA~".~"TS_NUMERO~" = ~"IN_TOMFIS~".~"TS_NUMERO~" ) and  
+         ( ~"IN_DETTOMA~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_RELITEM~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"IN_RELITEM~".~"IT_CODIGO1~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and
+         ( ~"IN_RELITEM~".~"TR_CODIGO~" = 1 ) and
+         ( ~"IN_TOMFIS~".~"EM_CODIGO~" = :empresa ) and
+         ( ~"IN_TOMFIS~".~"SU_CODIGO~" = :sucursal ) and
+         ( ~"IN_TOMFIS~".~"BO_CODIGO~" = :seccion ) and
+         ( ~"IN_TOMFIS~".~"TS_NUMERO~" IN (:as_numero )) 
+GROUP BY ~"IN_ITEM~".~"IT_CODANT~",~"IN_TOMFIS~".~"TS_NUMERO~"
+HAVING sum(~"IN_DETTOMA~".~"DS_CANTID~" * ~"IN_RELITEM~".~"RI_CANTID~") > 9999999" arguments=(("empresa", string),("sucursal", string),("seccion", string),("as_numero", stringlist)) )
+text(band=header alignment="0" text="" border="0" color="33554432" x="27" y="76" height="56" width="1175" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="27" y="16" height="56" width="1175" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="27" y="136" height="56" width="1175" html.valueishtml="0"  name=st_seccion visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Toma F$$HEX1$$ed00$$ENDHEX$$sica" border="0" color="33554432" x="27" y="200" height="56" width="375" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="today()"border="0" color="33554432" x="585" y="200" height="56" width="247" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="23" y1="324" x2="1243" y2="324"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="33554432" x="393" y="264" height="52" width="480" html.valueishtml="0"  name=in_item_it_codant_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cantidad" border="0" color="33554432" x="878" y="264" height="52" width="370" html.valueishtml="0"  name=cant_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="# de Toma F." border="0" color="33554432" x="23" y="264" height="56" width="366" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="878" y="4" height="56" width="370" format="#,##0" html.valueishtml="0"  name=cant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="393" y="4" height="56" width="480" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="23" y="4" height="56" width="366" format="[general]" html.valueishtml="0"  name=in_tomfis_ts_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

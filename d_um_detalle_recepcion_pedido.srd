@@ -1,0 +1,89 @@
+HA$PBExportHeader$d_um_detalle_recepcion_pedido.srd
+$PBExportComments$Si.Detalle de la recepcion de pedido (Sirve poara cargar el stock)
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=172 color="536870912" )
+summary(height=0 color="79741120" )
+footer(height=88 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="in_detco.su_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=bo_codigo dbname="in_detco.bo_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=it_codigo dbname="in_detco.it_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ec_codigo dbname="in_detco.ec_codigo" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=co_numero dbname="in_detco.co_numero" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=dc_secue dbname="in_detco.dc_secue" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=dc_cantid dbname="in_detco.dc_cantid" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=dc_costo dbname="in_detco.dc_costo" initial="0" validation="Real(gettext()) > 0" validationmsg="~"El costo del producto debe ser positivo~"" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_subtot dbname="in_detco.dc_subtot" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_total dbname="in_detco.dc_total" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_nuepre dbname="in_detco.dc_nuepre" initial="0" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=dc_actualiza dbname="in_detco.dc_actualiza" initial="N" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_preact dbname="in_detco.dc_preact" initial="0" )
+ column=(type=char(20) updatewhereclause=yes name=codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=nombre dbname="in_item.it_nombre" )
+ column=(type=char(1) updatewhereclause=yes name=it_kit dbname="in_item.it_kit" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="in_detco.em_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_desc1 dbname="in_detco.dc_desc1" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_desc3 dbname="in_detco.dc_desc3" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_desc2 dbname="in_detco.dc_desc2" initial="0" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=dc_utilidad dbname="in_detco.dc_utilidad" initial="0" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="in_detco.estado" )
+ retrieve="  SELECT ~"IN_DETCO~".~"SU_CODIGO~",   
+         ~"IN_DETCO~".~"BO_CODIGO~",   
+         ~"IN_DETCO~".~"IT_CODIGO~",   
+         ~"IN_DETCO~".~"EC_CODIGO~",   
+         ~"IN_DETCO~".~"CO_NUMERO~",   
+         ~"IN_DETCO~".~"DC_SECUE~",   
+         ~"IN_DETCO~".~"DC_CANTID~",   
+         ~"IN_DETCO~".~"DC_COSTO~",   
+         ~"IN_DETCO~".~"DC_SUBTOT~",   
+         ~"IN_DETCO~".~"DC_TOTAL~",   
+         ~"IN_DETCO~".~"DC_NUEPRE~",   
+         ~"IN_DETCO~".~"DC_ACTUALIZA~",   
+         ~"IN_DETCO~".~"DC_PREACT~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~", 
+         ~"IN_ITEM~".~"IT_KIT~",   
+         ~"IN_DETCO~".~"EM_CODIGO~",   
+         ~"IN_DETCO~".~"DC_DESC1~",   
+         ~"IN_DETCO~".~"DC_DESC3~",   
+         ~"IN_DETCO~".~"DC_DESC2~",   
+         ~"IN_DETCO~".~"DC_UTILIDAD~",   
+         ~"IN_DETCO~".~"ESTADO~"  
+    FROM ~"IN_DETCO~",   
+         ~"IN_ITEM~"  
+   WHERE ( ~"IN_DETCO~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"IT_CODIGO~" = ~"IN_DETCO~".~"IT_CODIGO~" ) and  
+         ( ( ~"IN_DETCO~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_DETCO~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_DETCO~".~"EC_CODIGO~" = :estado ) AND  
+         ( ~"IN_DETCO~".~"CO_NUMERO~" = :compra ) )    
+" update="IN_DETCO" updatewhere=1 updatekeyinplace=yes arguments=(("empresa", string),("sucursal", string),("estado", string),("compra", number))  sort="dc_secue A " )
+text(band=header alignment="1" text="No." border="0" color="128" x="46" y="88" height="56" width="78" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="155" y="88" height="56" width="151" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="41" y1="160" x2="2432" y2="160"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="12105912" )
+text(band=header alignment="2" text="Nombre" border="0" color="0" x="709" y="88" height="56" width="169" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cant." border="0" color="0" x="1874" y="88" height="56" width="114" html.valueishtml="0"  name=dc_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Costo" border="0" color="0" x="2185" y="92" height="56" width="247" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Importar archivo" border="0" color="16711680" x="41" y="12" height="52" width="366" html.valueishtml="0"  name=t_5 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="2" background.color="67108864" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="128" x="50" y="16" height="56" width="73" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=10 border="5" color="0" x="155" y="16" height="56" width="526" format="[general]" html.valueishtml="0"  name=codant visible="1" edit.limit=0 edit.case=upper edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="5" color="0" x="704" y="16" height="56" width="1106" format="[general]" html.valueishtml="0"  name=nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="0" x="2473" y="16" height="56" width="105" format="[general]" html.valueishtml="0"  name=it_kit visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="1" tabsequence=20 border="5" color="0" x="1833" y="16" height="56" width="197" format="#,##0" html.valueishtml="0"  name=dc_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=30 border="5" color="0" x="2057" y="12" height="56" width="370" format="#,##0.00" html.valueishtml="0"  name=dc_costo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.required=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(dc_costo for all)"border="5" color="0" x="2057" y="16" height="56" width="370" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=footer x1="1829" y1="0" x2="2432" y2="0"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(dc_cantid for all)"border="5" color="0" x="1838" y="16" height="56" width="197" format="#,##0" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=footer alignment="1" text="Total:" border="0" color="0" x="1696" y="16" height="56" width="119" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_vendedor_proveedor.srd
+$PBExportComments$si.
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=pv_codigo dbname="in_venpro.pv_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=vp_codigo dbname="in_venpro.vp_codigo" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=vp_nomvp dbname="in_venpro.vp_nomvp" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=vp_apevp dbname="in_venpro.vp_apevp" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="in_venpro.estado" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_venpro~" ) COLUMN(NAME=~"in_venpro.pv_codigo~") COLUMN(NAME=~"in_venpro.vp_codigo~") COLUMN(NAME=~"in_venpro.vp_nomvp~") COLUMN(NAME=~"in_venpro.vp_apevp~") COLUMN(NAME=~"in_venpro.estado~")WHERE(    EXP1 =~"~~~"IN_VENPRO~~~".~~~"PV_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":proveedor~" ) ) ARG(NAME = ~"proveedor~" TYPE = string) " update="IN_VENPRO" updatewhere=1 updatekeyinplace=yes arguments=(("proveedor", string))  sort="vp_apevp A vp_nomvp A " )
+text(band=header alignment="2" text="Nombre" border="0" color="0" x="585" y="16" height="56" width="201"  name=vp_nomvp_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Apellido" border="0" color="0" x="1321" y="16" height="56" width="206"  name=vp_apevp_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="114" y="16" height="56" width="178"  name=vp_codigo_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="119" y="12" height="56" width="178" format="[general]"  name=vp_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="5" color="0" x="1070" y="12" height="56" width="713" format="[general]"  name=vp_apevp edit.limit=25 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="0" x="329" y="12" height="56" width="713" format="[general]"  name=vp_nomvp edit.limit=25 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

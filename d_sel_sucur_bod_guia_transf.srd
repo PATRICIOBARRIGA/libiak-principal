@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_sel_sucur_bod_guia_transf.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=108 color="536870912" )
+table(column=(type=char(20) updatewhereclause=no name=sucursal dbname="sucursal" )
+ column=(type=char(20) updatewhereclause=no name=bodega dbname="bodega" )
+ column=(type=char(1) updatewhereclause=no name=motivo dbname="motivo" values="Ventas	V/Compra	C/Transformaci$$HEX1$$f300$$ENDHEX$$n	T/Consignaci$$HEX1$$f300$$ENDHEX$$n	S/Traslado entre establecimientos	E/Traslado por emisor itinerante	L/De comprobantes de venta	B/Devoluci$$HEX1$$f300$$ENDHEX$$n	D/Importaci$$HEX1$$f300$$ENDHEX$$n	I/Exportaci$$HEX1$$f300$$ENDHEX$$n	X/Otros	O/" )
+ )
+text(band=detail alignment="0" text="Sucursal" border="0" color="0" x="14" y="28" height="56" width="206"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="242" y="28" height="56" width="1051" format="[general]"  name=sucursal dddw.name=d_dddw_sucursal dddw.displaycolumn=su_nombre dddw.datacolumn=su_codigo dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Bodega" border="0" color="0" x="1477" y="28" height="56" width="178"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="1678" y="28" height="56" width="1047" format="[general]"  name=bodega dddw.name=d_dddw_bodega dddw.displaycolumn=bo_nombre dddw.datacolumn=bo_codigo dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

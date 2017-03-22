@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_unidad_base_items.srd
+$PBExportComments$Si.Mantenimineto de unidades base de los items
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=104 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=ub_codigo dbname="in_unibas.ub_codigo" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=ub_nombre dbname="in_unibas.ub_nombre" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=ub_sigla dbname="in_unibas.ub_sigla" )
+ column=(type=char(1) updatewhereclause=yes name=estado dbname="in_unibas.estado" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_unibas~" ) COLUMN(NAME=~"in_unibas.ub_codigo~") COLUMN(NAME=~"in_unibas.ub_nombre~") COLUMN(NAME=~"in_unibas.ub_sigla~") COLUMN(NAME=~"in_unibas.estado~")) " update="IN_UNIBAS" updatewhere=1 updatekeyinplace=yes  sort="ub_nombre A " )
+line(band=header x1="37" y1="92" x2="1435" y2="92"  name=l_1 pen.style="0" pen.width="9" pen.color="128"  background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="0" x="46" y="4" height="56" width="315" format="[general]"  name=ub_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="5" color="0" x="1262" y="4" height="56" width="110" format="[general]"  name=ub_sigla  tag="Sigla de la unidad base" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0" x="384" y="4" height="56" width="855" format="[general]"  name=ub_nombre  tag="Nombre de la unidad base" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo Interno" border="0" color="128" x="46" y="12" height="56" width="315"  name=ub_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Nombre" border="0" color="128" x="727" y="12" height="56" width="169"  name=ub_nombre_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Sigla" border="0" color="128" x="1266" y="12" height="56" width="105"  name=ub_sigla_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

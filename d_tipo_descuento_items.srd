@@ -1,0 +1,81 @@
+HA$PBExportHeader$d_tipo_descuento_items.srd
+$PBExportComments$Si.Mantenimiento de tipo de descuentos
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=104 color="536870912" )
+summary(height=0 color="-1" )
+footer(height=0 color="-1" )
+detail(height=92 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=td_codigo dbname="in_tippre.td_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=td_descri dbname="in_tippre.td_descri" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="in_tippre.em_codigo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=td_desc1 dbname="in_tippre.td_desc1" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=td_desc2 dbname="in_tippre.td_desc2" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=td_desc3 dbname="in_tippre.td_desc3" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=td_vigente dbname="in_tippre.td_vigente" initial="N" values="&Si	S/&No	N/" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=td_modulo dbname="in_tippre.td_modulo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="in_tippre.estado" )
+ column=(type=number updatewhereclause=yes name=contador dbname="contador" )
+ column=(type=number updatewhereclause=yes name=contador2 dbname="contador2" )
+ column=(type=number updatewhereclause=yes name=contador3 dbname="contador3" )
+ column=(type=number updatewhereclause=yes name=contador4 dbname="contador4" )
+ retrieve="  SELECT ~"IN_TIPPRE~".~"TD_CODIGO~",   
+         ~"IN_TIPPRE~".~"TD_DESCRI~",   
+         ~"IN_TIPPRE~".~"EM_CODIGO~",   
+         ~"IN_TIPPRE~".~"TD_DESC1~",   
+         ~"IN_TIPPRE~".~"TD_DESC2~",   
+         ~"IN_TIPPRE~".~"TD_DESC3~",   
+         ~"IN_TIPPRE~".~"TD_VIGENTE~",   
+         ~"IN_TIPPRE~".~"TD_MODULO~",   
+         ~"IN_TIPPRE~".~"ESTADO~" ,
+ 		COUNT(DECODE(ES_CODIGO,1,~"IN_DESCITEM~".~"TD_CODIGO~")) contador,
+ 		COUNT(DECODE(ES_CODIGO,2,~"IN_DESCITEM~".~"TD_CODIGO~")) contador2,
+   	    COUNT(DECODE(ES_CODIGO,3,~"IN_DESCITEM~".~"TD_CODIGO~")) contador3,
+ 		COUNT(DECODE(ES_CODIGO,4,~"IN_DESCITEM~".~"TD_CODIGO~")) contador4
+    FROM ~"IN_TIPPRE~"  , ~"IN_DESCITEM~"
+   WHERE (~"IN_TIPPRE~".~"TD_CODIGO~" = ~"IN_DESCITEM~".~"TD_CODIGO~" (+) AND
+			~"IN_TIPPRE~".~"EM_CODIGO~" = ~"IN_DESCITEM~".~"EM_CODIGO~" (+)) AND
+			(~"IN_TIPPRE~".~"EM_CODIGO~" = :empresa    )
+	GROUP BY ~"IN_TIPPRE~".~"TD_CODIGO~",   
+         ~"IN_TIPPRE~".~"TD_DESCRI~",   
+         ~"IN_TIPPRE~".~"EM_CODIGO~",   
+         ~"IN_TIPPRE~".~"TD_DESC1~",   
+         ~"IN_TIPPRE~".~"TD_DESC2~",   
+         ~"IN_TIPPRE~".~"TD_DESC3~",   
+         ~"IN_TIPPRE~".~"TD_VIGENTE~",   
+         ~"IN_TIPPRE~".~"TD_MODULO~",   
+         ~"IN_TIPPRE~".~"ESTADO~"" update="IN_TIPPRE" updatewhere=2 updatekeyinplace=yes arguments=(("empresa", string))  sort="number(td_codigo) A " )
+line(band=header x1="37" y1="92" x2="3058" y2="92"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo Interno" border="0" color="128" x="46" y="12" height="56" width="315" html.valueishtml="0"  name=ub_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Descuento" border="0" color="128" x="562" y="12" height="56" width="238" html.valueishtml="0"  name=ub_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Dscto 1" border="0" color="128" x="1134" y="12" height="56" width="169" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Dscto 2" border="0" color="128" x="1335" y="12" height="56" width="169" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Dscto 3" border="0" color="128" x="1531" y="12" height="56" width="169" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Vigente" border="0" color="128" x="1787" y="12" height="56" width="169" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="0" x="46" y="16" height="56" width="178" format="[general]" html.valueishtml="0"  name=td_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0" x="247" y="16" height="56" width="859" format="[general]" html.valueishtml="0"  name=td_descri  tag="Descripci$$HEX1$$f300$$ENDHEX$$n del tipo de descuento que se aplicar$$HEX2$$e1002000$$ENDHEX$$al precio de f$$HEX1$$e100$$ENDHEX$$brica de los productos" visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=50 border="0" color="0" x="1723" y="16" height="56" width="315" format="" html.valueishtml="0"  name=td_vigente visible="1" radiobuttons.columns=2 radiobuttons.scale=yes radiobuttons.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=detail alignment="1" expression="if(  contador + contador2 +contador3 +contador4 > 0 , string(contador +  contador2 + contador3 +contador4), 'Libre' )"border="0" color="0" x="2057" y="16" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=status visible="1"  font.face="Arial" font.height="-8" font.weight="700~tif (contador = 0, 0, 1)"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="Estado" border="0" color="128" x="2062" y="12" height="56" width="169" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="IND" border="0" color="128" x="2272" y="12" height="56" width="183" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="PVP" border="0" color="128" x="2482" y="12" height="56" width="183" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="COM" border="0" color="128" x="2697" y="12" height="56" width="160" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="1" text="MAY" border="0" color="128" x="2885" y="12" height="56" width="174" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="2272" y="16" height="56" width="183" format="[general]" html.valueishtml="0"  name=contador visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="0" x="2482" y="16" height="56" width="183" format="[general]" html.valueishtml="0"  name=contador2 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=12 alignment="1" tabsequence=60 border="0" color="0" x="2683" y="16" height="52" width="174" html.valueishtml="0"  name=contador3 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=13 alignment="1" tabsequence=70 border="0" color="0" x="2871" y="16" height="52" width="192" html.valueishtml="0"  name=contador4 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=4 alignment="1" tabsequence=20 border="5" color="0" x="1134" y="16" height="56" width="174" format="#,##0.00" html.valueishtml="0"  name=td_desc1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="1" tabsequence=30 border="5" color="0" x="1335" y="16" height="56" width="174" format="#,##0.00" html.valueishtml="0"  name=td_desc2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=40 border="5" color="0" x="1536" y="16" height="56" width="165" format="#,##0.00" html.valueishtml="0"  name=td_desc3 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
