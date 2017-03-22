@@ -1,0 +1,31 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cjaban.pbl" "";
+@end;
+@begin Objects
+ "d_egreso_ch_abreviado.srd" "cjaban.pbl";
+ "d_sel_cuenta_conciliar.srd" "cjaban.pbl";
+ "d_detalletarjetas.srd" "cjaban.pbl";
+ "d_comprobante_ingreso.srd" "cjaban.pbl";
+ "d_ctasbancarias.srd" "cjaban.pbl";
+ "d_registro_cobro.srd" "cjaban.pbl";
+ "d_detalle_ingreso.srd" "cjaban.pbl";
+ "d_concepto_ioe.srd" "cjaban.pbl";
+ "d_detalle_egreso.srd" "cjaban.pbl";
+ "d_opc_prn_egreso.srd" "cjaban.pbl";
+ "d_cruce_vauchers.srd" "cjaban.pbl";
+ "d_egreso_ch.srd" "cjaban.pbl";
+ "d_datos_ingresos_conciliacion.srd" "cjaban.pbl";
+ "d_ingreso_nc.srd" "cjaban.pbl";
+ "d_egreso_nd.srd" "cjaban.pbl";
+ "d_lista_ingresos.srd" "cjaban.pbl";
+ "d_datos_egresos_conciliacion.srd" "cjaban.pbl";
+ "d_instituciones_financieras.srd" "cjaban.pbl";
+ "d_lista_tarjetas_credito.srd" "cjaban.pbl";
+ "d_detingreso.srd" "cjaban.pbl";
+ "d_ingreso.srd" "cjaban.pbl";
+ "d_ingreso_otros_conceptos.srd" "cjaban.pbl";
+ "d_detalle_cobro_vauchers.srd" "cjaban.pbl";
+ "d_egreso.srd" "cjaban.pbl";
+ "d_recaps.srd" "cjaban.pbl";
+@end;
