@@ -1,0 +1,63 @@
+HA$PBExportHeader$d_rep_items_precio_dctoxtipocli.srd
+$PBExportComments$SI
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=312 color="536870912" )
+header[2](height=64 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=c$$HEX1$$f300$$ENDHEX$$digo dbname="in_item_it_codant" )
+ column=(type=char(20) updatewhereclause=yes name=producto dbname="in_item_it_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=cod_fab dbname="in_item_fb_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cod_linea dbname="in_item_cl_codigo" )
+ column=(type=number updatewhereclause=yes name=stock dbname="stock" )
+ column=(type=number updatewhereclause=yes name=precio_venta dbname="precio_venta" )
+ column=(type=number updatewhereclause=yes name=preciov_dcto_iva dbname="preciov_dcto_iva" )
+ retrieve="select it_codant ,
+it_nombre,
+fb_codigo,
+cl_codigo,
+nvl(sum(s.it_stock),0) ~"Stock~",
+decode(d.es_codigo,1,'INDUSTRIAL',2,'CONSUMIDOR F.',3,'COMERC./ DISTRIB.','MAYORISTA') ~"Tipo_dcto~",
+it_precio*1.12 ~"Precio_venta~",
+round((((it_precio * ((100 - td_desc1)/100))*((100 - td_desc2)/100))*((100 - td_desc3)/100))*1.12,2) ~"PrecioV_dcto_iva~"
+from in_item i, in_itesucur s,in_descitem d,in_tippre t
+where i.em_codigo = s.em_codigo
+and i.it_codigo = s.it_codigo
+and i.em_codigo = d.em_codigo
+and i.it_codigo = d.it_codigo
+and d.td_codigo = t.td_codigo
+and s.em_codigo = 1
+and s.su_codigo between 1 and 50
+group by it_codant,it_nombre,fb_codigo,it_precio,td_desc1,td_desc2,td_desc3,d.es_codigo,cl_codigo
+"  sort="producto A " )
+text(band=header[1] alignment="0" text="Lista de Precios incluido IVA y Descuentos por Tipo de Cliente" border="0" color="33554432" x="453" y="96" height="120" width="864" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="33554432" x="453" y="20" height="64" width="864" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression="'Impreso: '+string(today(),'dd/mm/yyyy')+'     P$$HEX1$$e100$$ENDHEX$$g: '+page()+' de '+pageCount()"border="0" color="0" x="453" y="236" height="56" width="864" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="33554432" x="9" y="4" height="56" width="434" html.valueishtml="0"  name=in_item_it_codant_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Producto" border="0" color="33554432" x="453" y="4" height="56" width="864" html.valueishtml="0"  name=in_item_it_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="C$$HEX1$$f300$$ENDHEX$$d.Fab." border="0" color="33554432" x="1326" y="4" height="56" width="114" html.valueishtml="0"  name=in_item_fb_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="C$$HEX1$$f300$$ENDHEX$$d. L$$HEX1$$ed00$$ENDHEX$$nea" border="0" color="33554432" x="1449" y="4" height="56" width="142" html.valueishtml="0"  name=in_item_cl_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="Stock" border="0" color="33554432" x="1600" y="4" height="124" width="155" html.valueishtml="0"  name=stock_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="PVP" border="0" color="33554432" x="1765" y="4" height="56" width="238" html.valueishtml="0"  name=precio_venta_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@tipo_dcto" border="0" color="33554432" x="2011" y="4" height="124" width="325" html.valueishtml="0"  name=preciov_dcto_iva_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="68" width="434" format="[general]" html.valueishtml="0"  name=c$$HEX1$$f300$$ENDHEX$$digo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="453" y="4" height="68" width="864" format="[general]" html.valueishtml="0"  name=producto visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="1326" y="4" height="68" width="114" format="[general]" html.valueishtml="0"  name=cod_fab visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1449" y="4" height="68" width="142" format="[general]" html.valueishtml="0"  name=cod_linea visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1600" y="4" height="68" width="155" format="[general]" html.valueishtml="0"  name=stock visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="1765" y="4" height="68" width="238" format="#,##0.00" html.valueishtml="0"  name=precio_venta visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="2011" y="4" height="68" width="325" format="#,##0.00" html.valueishtml="0"  name=preciov_dcto_iva visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "tipo_dcto" rows = "in_item_it_codant, in_item_it_nombre, in_item_fb_codigo, in_item_cl_codigo, stock, precio_venta" values = "sum(preciov_dcto_iva for crosstab)" sourcenames = "in_item_it_codant, in_item_it_nombre, in_item_fb_codigo, in_item_cl_codigo, stock, tipo_dcto, precio_venta, preciov_dcto_iva")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

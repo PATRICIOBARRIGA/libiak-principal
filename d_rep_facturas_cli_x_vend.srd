@@ -1,0 +1,63 @@
+HA$PBExportHeader$d_rep_facturas_cli_x_vend.srd
+$PBExportComments$despliega las cantidades totales compradas por mes de todas las facturas.
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=308 color="536870912" )
+header[2](height=64 color="536870912" )
+summary(height=64 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=vendedor dbname="vendedor" )
+ column=(type=char(20) updatewhereclause=yes name=ce_codigo dbname="ce_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cliente dbname="cliente" )
+ column=(type=number updatewhereclause=yes name=ve_valpag dbname="ve_valpag" )
+ retrieve="  SELECT	~"FA_CLIEN~".~"CE_CODIGO~",
+        DECODE(LENGTH(~"FA_CLIEN~".~"CE_RUCIC~"),13, ~"FA_CLIEN~".~"CE_RAZONS~",~"FA_CLIEN~".~"CE_NOMBRE~"||' '||~"FA_CLIEN~".~"CE_APELLI~") cliente,
+         ~"FA_VENTA~".~"EP_CODIGO~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~"||' '||~"NO_EMPLE~".~"EP_APEPAT~" vendedor,
+         ~"FA_VENTA~".~"VE_FECHA~",
+         ~"FA_VENTA~".~"VE_VALPAG~"
+    FROM ~"FA_VENTA~",   
+         ~"FA_CLIEN~",
+           ~"NO_EMPLE~"
+   WHERE ( ( ~"FA_VENTA~".~"EM_CODIGO~" = ~"FA_CLIEN~".~"EM_CODIGO~" ) and  
+   	                ( ~"FA_VENTA~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and
+                    ( ~"FA_VENTA~".~"EM_CODIGO~" = ~"NO_EMPLE~".~"EM_CODIGO~" ) and  
+   	                ( ~"FA_VENTA~".~"SU_CODIGO~" = ~"NO_EMPLE~".~"SU_CODIGO~" ) and
+   	                ( ~"FA_VENTA~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" )) and
+      	( ( ~"FA_VENTA~".~"EM_CODIGO~" = :empresa) and
+		  ( ~"FA_VENTA~".~"SU_CODIGO~" = :sucursal) and
+            ( ~"FA_VENTA~".~"ES_CODIGO~" = :estado) and
+            ( TRUNC(~"FA_VENTA~".~"VE_FECHA~") between :fec_ini and :fec_fin ))
+" arguments=(("empresa", string),("sucursal", string),("estado", string),("fec_ini", date),("fec_fin", date))  sort="vendedor A ce_codigo A cliente A " )
+group(level=1 header.height=0 trailer.height=64 by=("vendedor" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=0 trailer.height=0 by=("ce_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="0" x="9" y="8" height="56" width="654" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="0" x="9" y="92" height="56" width="658" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="2" text="Reporte de Ventas
+De Vendedores a Clientes" border="0" color="0" x="891" y="8" height="152" width="965" html.valueishtml="0"  name=t_1 visible="1"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="2" expression="'Desde:'+fec_ini+'    Hasta:'+fec_fin"border="0" color="0" x="891" y="184" height="64" width="965" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="1" text="Impreso el:" border="0" color="0" x="2149" y="8" height="56" width="343" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="0" x="2149" y="76" height="56" width="343" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g. ' + page() + ' de ' + pageCount()"border="0" color="0" x="2149" y="144" height="56" width="343" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Vendedor" border="0" color="0" x="9" y="4" height="56" width="654" html.valueishtml="0"  name=vendedor_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="672" y="4" height="56" width="210" html.valueishtml="0"  name=ce_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Cliente" border="0" color="0" x="891" y="4" height="56" width="965" html.valueishtml="0"  name=cliente_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@col" border="0" color="0" x="1865" y="4" height="56" width="274" html.valueishtml="0"  name=ve_valpag_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Total " border="0" color="0" x="2149" y="4" height="56" width="343" html.valueishtml="0"  name=grand_sum_ve_valpag_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="52" width="654" format="[general]" html.valueishtml="0"  name=vendedor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="672" y="4" height="52" width="210" format="[general]" html.valueishtml="0"  name=ce_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="891" y="4" height="52" width="965" format="[general]" html.valueishtml="0"  name=cliente visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="1865" y="4" height="52" width="274" format="#,##0.00" html.valueishtml="0"  name=ve_valpag visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes edit.imemode=0 crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="0" x="2149" y="4" height="52" width="343" format="#,##0.00" html.valueishtml="0"  name=grand_sum_ve_valpag visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(ve_valpag for group 1)"border="0" color="0" x="1865" y="4" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(grand_sum_ve_valpag for group 1)"border="0" color="0" x="2149" y="4" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="~"Total General:~""border="0" color="0" x="9" y="4" height="56" width="654" format="[general]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(ve_valpag for all )"border="0" color="0" x="1865" y="4" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_ve_valpag for all )"border="0" color="0" x="2149" y="4" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "month( ve_fecha )" rows = "vendedor, ce_codigo, cliente" values = "sum(ve_valpag for crosstab)" sourcenames = "ce_codigo, cliente, vendedor, ve_fecha, ve_valpag")
+sparse(names="vendedor	ce_codigo")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

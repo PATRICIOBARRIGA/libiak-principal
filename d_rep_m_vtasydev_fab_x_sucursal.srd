@@ -1,0 +1,87 @@
+HA$PBExportHeader$d_rep_m_vtasydev_fab_x_sucursal.srd
+$PBExportComments$(***ESTADISTICAS FABRICANTES POR SUCURSAL* VENTAS NETAS)
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=424 color="536870912" )
+header[2](height=68 color="536870912" )
+header[3](height=64 color="536870912" )
+header[4](height=68 color="536870912" )
+summary(height=68 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_item_fb_codigo dbname="in_item_fb_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_fabricante_fb_nombre dbname="in_fabricante_fb_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_codigo dbname="pr_sucur_su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur_su_nombre" )
+ column=(type=number updatewhereclause=yes name=valor dbname="valor" )
+ retrieve="SELECT ~"PR_SUCUR~".~"SU_CODIGO~",
+         ~"PR_SUCUR~".~"SU_NOMBRE~",
+         ~"FA_DETVE~".~"IT_CODIGO~",   
+         TO_CHAR(~"FA_VENTA~".~"VE_FECHA~",'mm') c_mes,   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"FB_CODIGO~",   
+         ~"IN_FABRICANTE~".~"FB_NOMBRE~",   
+         DECODE(~"FA_DETVE~".~"ES_CODIGO~",1,'VENTAS',2,'VENTAS',9,'DEVOLUCIONES',10,'DEVOLUCIONES') TIPO,
+         DECODE(~"FA_DETVE~".~"ES_CODIGO~",1,~"FA_DETVE~".~"DV_TOTAL~",2,~"FA_DETVE~".~"DV_TOTAL~",9,~"FA_DETVE~".~"DV_TOTAL~"*-1,10,~"FA_DETVE~".~"DV_TOTAL~"*-1) VALOR,
+         ~"FA_DETVE~".~"ES_CODIGO~"  
+    FROM ~"IN_FABRICANTE~",   
+         ~"IN_ITEM~",   
+         ~"FA_VENTA~",  
+         ~"FA_DETVE~",   
+         ~"PR_SUCUR~"
+   WHERE ( ~"IN_ITEM~".~"FB_CODIGO~" = ~"IN_FABRICANTE~".~"FB_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"ES_CODIGO~" = ~"FA_DETVE~".~"ES_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"EM_CODIGO~" = ~"FA_DETVE~".~"EM_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = ~"FA_DETVE~".~"SU_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"BO_CODIGO~" = ~"FA_DETVE~".~"BO_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"VE_NUMERO~" = ~"FA_DETVE~".~"VE_NUMERO~" ) and  
+         ( ~"FA_DETVE~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" )   and
+         ( ~"FA_DETVE~".~"SU_CODIGO~" = ~"PR_SUCUR~".~"SU_CODIGO~" ) and  
+         ( ( ~"FA_VENTA~".~"EM_CODIGO~" = 1 ) AND   
+		( ~"FA_VENTA~".~"ES_CODIGO~" in (:estado) ) AND
+         ( ~"FA_VENTA~".~"VE_FECHA~" between :ad_ini and :ad_fin + 1 ) ) " arguments=(("estado", numberlist),("ad_ini", date),("ad_fin", date))  sort="in_item_fb_codigo A grand_sum_valor D " )
+group(level=1 header.height=0 trailer.height=68 by=("in_item_fb_codigo" ) header.color="536870912" trailer.color="536870912" )
+text(band=header[1] alignment="0" text="FABRICANTE POR SUCURSAL (VENTAS NETAS)" border="0" color="33554432" x="174" y="92" height="180" width="544" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="" border="0" color="33554432" x="174" y="16" height="64" width="544" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g.: ' + page() + ' de ' + pageCount()"border="0" color="0" x="1623" y="44" height="56" width="407" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="0" x="1623" y="188" height="56" width="407" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[1] alignment="1" text="Impreso el:" border="0" color="0" x="1623" y="116" height="56" width="407" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="0" expression="'Desde: '+ string(ad_ini,'dd/mm/yyyy') "border="0" color="0" x="174" y="284" height="56" width="544" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="0" expression="'Hasta: '+ string(ad_fin,'dd/mm/yyyy') "border="0" color="0" x="174" y="352" height="56" width="544" format="[GENERAL]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="@c_mes" border="0" color="0" x="1248" y="4" height="52" width="361" html.valueishtml="0"  name=t_5 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[3] alignment="2" text="@tipo" border="0" color="128" x="1248" y="4" height="52" width="361" html.valueishtml="0"  name=t_8 visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="Cod.Fab." border="0" color="0" x="9" y="4" height="52" width="155" html.valueishtml="0"  name=in_item_fb_codigo_t visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="Fabricante" border="0" color="0" x="174" y="4" height="52" width="544" html.valueishtml="0"  name=in_fabricante_fb_nombre_t visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="Cod.suc." border="0" color="0" x="727" y="4" height="52" width="114" html.valueishtml="0"  name=pr_sucur_su_codigo_t visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="0" text="Sucursal" border="0" color="0" x="850" y="4" height="52" width="389" html.valueishtml="0"  name=pr_sucur_su_nombre_t visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="2" text="@fa_detve_es_codigo" border="0" color="255" x="1248" y="4" height="52" width="361" html.valueishtml="0"  name=valor_t visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="2" text="Gran Total " border="0" color="0" x="1623" y="4" height="52" width="407" html.valueishtml="0"  name=grand_sum_valor_t visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[4] alignment="2" text="%" border="0" color="0" x="2039" y="4" height="56" width="155" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="56" width="155" format="[general]" html.valueishtml="0"  name=in_item_fb_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="174" y="4" height="56" width="544" format="[general]" html.valueishtml="0"  name=in_fabricante_fb_nombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="727" y="4" height="56" width="114" format="[general]" html.valueishtml="0"  name=pr_sucur_su_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="850" y="4" height="56" width="389" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1248" y="4" height="56" width="361" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="1623" y="4" height="56" width="407" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=grand_sum_valor visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)  /  cc_total "border="0" color="33554432" x="2039" y="4" height="56" width="155" format="0.00%" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(valor for group 1)"border="0" color="33554432" x="1248" y="4" height="56" width="361" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(crosstabsum(1) /  cc_total  for group 1)"border="0" color="33554432" x="2039" y="4" height="56" width="155" format="0.00%" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(crosstabsum(1) for group 1)"border="0" color="33554432" x="1623" y="4" height="56" width="407" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"Total~""border="0" color="0" x="9" y="4" height="56" width="155" format="[general]" html.valueishtml="0"  name=compute_16 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(valor for all )"border="0" color="33554432" x="1248" y="4" height="56" width="361" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=compute_17 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(crosstabsum(1) for all )"border="0" color="33554432" x="1623" y="4" height="56" width="407" format="#,##0.00;(#,##0.00)" html.valueishtml="0"  name=cc_total visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(crosstabsum(1)  /  cc_total  for all)"border="0" color="33554432" x="2039" y="4" height="56" width="155" format="0.00%" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "c_mes, tipo, fa_detve_es_codigo" rows = "in_item_fb_codigo, in_fabricante_fb_nombre, pr_sucur_su_codigo, pr_sucur_su_nombre" values = "sum(valor for crosstab)" sourcenames = "pr_sucur_su_codigo, pr_sucur_su_nombre, fa_detve_it_codigo, c_mes, in_item_it_codant, in_item_fb_codigo, in_fabricante_fb_nombre, tipo, valor, fa_detve_es_codigo")
+sparse(names="in_item_fb_codigo	in_fabricante_fb_nombre	pr_sucur_su_codigo")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

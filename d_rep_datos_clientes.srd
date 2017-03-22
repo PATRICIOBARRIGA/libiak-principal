@@ -1,0 +1,155 @@
+HA$PBExportHeader$d_rep_datos_clientes.srd
+$PBExportComments$Listado de clientes agrupados por :Clase o Vendedor o Tipo.
+release 10;
+datawindow(units=0 timer_interval=60000 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=424 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=64 color="536870912" )
+detail(height=128 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=pa_codigo dbname="fa_clien.pa_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ce_codigo dbname="fa_clien.ce_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ca_codigo dbname="fa_clien.ca_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cu_codigo dbname="fa_clien.cu_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=ep_codigo dbname="fa_clien.ep_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=tc_codigo dbname="fa_clien.tc_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="fa_clien.em_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=ce_tipo dbname="fa_clien.ce_tipo" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=ce_nombre dbname="fa_clien.ce_nombre" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=ce_apelli dbname="fa_clien.ce_apelli" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_razons dbname="fa_clien.ce_razons" )
+ column=(type=char(13) update=yes updatewhereclause=yes name=ce_rucic dbname="fa_clien.ce_rucic" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=ce_nomrep dbname="fa_clien.ce_nomrep" )
+ column=(type=char(25) update=yes updatewhereclause=yes name=ce_aperep dbname="fa_clien.ce_aperep" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_cadom1 dbname="fa_clien.ce_cadom1" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_cadom2 dbname="fa_clien.ce_cadom2" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_secdom dbname="fa_clien.ce_secdom" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_caofi1 dbname="fa_clien.ce_caofi1" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_caof2 dbname="fa_clien.ce_caof2" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_secofi dbname="fa_clien.ce_secofi" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_caent1 dbname="fa_clien.ce_caent1" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_caent2 dbname="fa_clien.ce_caent2" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_secent dbname="fa_clien.ce_secent" )
+ column=(type=char(9) update=yes updatewhereclause=yes name=ce_teldom dbname="fa_clien.ce_teldom" )
+ column=(type=char(9) update=yes updatewhereclause=yes name=ce_telofi dbname="fa_clien.ce_telofi" )
+ column=(type=char(9) update=yes updatewhereclause=yes name=ce_telbod dbname="fa_clien.ce_telbod" )
+ column=(type=char(9) update=yes updatewhereclause=yes name=ce_fax dbname="fa_clien.ce_fax" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_email dbname="fa_clien.ce_email" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ce_cupcre dbname="fa_clien.ce_cupcre" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=ce_contesp dbname="fa_clien.ce_contesp" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=ce_exiva dbname="fa_clien.ce_exiva" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_hobby dbname="fa_clien.ce_hobby" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ce_peso dbname="fa_clien.ce_peso" )
+ column=(type=char(8) update=yes updatewhereclause=yes name=ce_estatu dbname="fa_clien.ce_estatu" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ce_fecnac dbname="fa_clien.ce_fecnac" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_ubigeo dbname="fa_clien.ce_ubigeo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=ce_firma dbname="fa_clien.ce_firma" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apepat dbname="no_emple.ep_apepat" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_apemat dbname="no_emple.ep_apemat" )
+ column=(type=char(25) updatewhereclause=yes name=no_emple_ep_nombre dbname="no_emple.ep_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=fa_clacli_ca_descri dbname="fa_clacli.ca_descri" )
+ column=(type=char(1) updatewhereclause=yes name=fa_clien_ce_estcre dbname="fa_clien.ce_estcre" )
+ column=(type=number updatewhereclause=yes name=ce_plazo dbname="fa_clien.ce_plazo" )
+ column=(type=char(1) updatewhereclause=yes name=fa_clien_ce_facturar dbname="fa_clien.ce_facturar" )
+ column=(type=datetime updatewhereclause=yes name=fa_clien_ce_fecha dbname="fa_clien.ce_fecha" )
+ retrieve="  SELECT ~"FA_CLIEN~".~"PA_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~",   
+         ~"FA_CLIEN~".~"CA_CODIGO~",   
+         ~"FA_CLIEN~".~"CU_CODIGO~",   
+         ~"FA_CLIEN~".~"EP_CODIGO~",   
+         ~"FA_CLIEN~".~"TC_CODIGO~",   
+         ~"FA_CLIEN~".~"EM_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_TIPO~",   
+         ~"FA_CLIEN~".~"CE_NOMBRE~",   
+         ~"FA_CLIEN~".~"CE_APELLI~",   
+         ~"FA_CLIEN~".~"CE_RAZONS~",   
+         ~"FA_CLIEN~".~"CE_RUCIC~",   
+         ~"FA_CLIEN~".~"CE_NOMREP~",   
+         ~"FA_CLIEN~".~"CE_APEREP~",   
+         ~"FA_CLIEN~".~"CE_CADOM1~",   
+         ~"FA_CLIEN~".~"CE_CADOM2~",   
+         ~"FA_CLIEN~".~"CE_SECDOM~",   
+         ~"FA_CLIEN~".~"CE_CAOFI1~",   
+         ~"FA_CLIEN~".~"CE_CAOF2~",   
+         ~"FA_CLIEN~".~"CE_SECOFI~",   
+         ~"FA_CLIEN~".~"CE_CAENT1~",   
+         ~"FA_CLIEN~".~"CE_CAENT2~",   
+         ~"FA_CLIEN~".~"CE_SECENT~",   
+         ~"FA_CLIEN~".~"CE_TELDOM~",   
+         ~"FA_CLIEN~".~"CE_TELOFI~",   
+         ~"FA_CLIEN~".~"CE_TELBOD~",   
+         ~"FA_CLIEN~".~"CE_FAX~",   
+         ~"FA_CLIEN~".~"CE_EMAIL~",   
+         ~"FA_CLIEN~".~"CE_CUPCRE~",   
+         ~"FA_CLIEN~".~"CE_CONTESP~",   
+         ~"FA_CLIEN~".~"CE_EXIVA~",   
+         ~"FA_CLIEN~".~"CE_HOBBY~",   
+         ~"FA_CLIEN~".~"CE_PESO~",   
+         ~"FA_CLIEN~".~"CE_ESTATU~",   
+         ~"FA_CLIEN~".~"CE_FECNAC~",   
+         ~"FA_CLIEN~".~"CE_UBIGEO~",   
+         ~"FA_CLIEN~".~"CE_FIRMA~",   
+         ~"NO_EMPLE~".~"EP_APEPAT~",   
+         ~"NO_EMPLE~".~"EP_APEMAT~",   
+         ~"NO_EMPLE~".~"EP_NOMBRE~",   
+         ~"FA_CLACLI~".~"CA_DESCRI~",   
+         ~"FA_CLIEN~".~"CE_ESTCRE~",   
+         ~"FA_CLIEN~".~"CE_PLAZO~",   
+         ~"FA_CLIEN~".~"CE_FACTURAR~",   
+         ~"FA_CLIEN~".~"CE_FECHA~"  
+    FROM ~"FA_CLIEN~",   
+         ~"NO_EMPLE~",   
+         ~"FA_CLACLI~"  
+   WHERE ( ~"FA_CLIEN~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"CA_CODIGO~" = ~"FA_CLACLI~".~"CA_CODIGO~" ) and  
+         ( ( ~"FA_CLIEN~".~"EM_CODIGO~" = :empresa ) )    
+" arguments=(("empresa", number),("tipo_reporte", string))  sort="if( tipo_reporte ='Vendedor',  no_emple_ep_apepat +' '+ no_emple_ep_nombre, if(tipo_reporte ='Clase', fa_clacli_ca_descri ,tc_codigo )) A number(ce_codigo) A if(isnull(ce_razons),ce_apelli+' '+ ce_nombre  ,  ce_razons ) A " )
+group(level=1 header.height=80 trailer.height=0 by=("if( tipo_reporte ='Vendedor', ep_codigo, if(tipo_reporte ='Tipo', tc_codigo ,  if(tipo_reporte ='Clase', fa_clacli_ca_descri  , ce_codigo  ) ))" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="0" text="Cred." border="0" color="0" x="1979" y="356" height="52" width="137" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Bloq." border="0" color="0" x="2167" y="356" height="52" width="137" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Direcci$$HEX1$$f300$$ENDHEX$$n de la Bodega
+Sector/Tel$$HEX1$$e900$$ENDHEX$$fono" border="0" color="0" x="2473" y="296" height="112" width="567" html.valueishtml="0"  name=t_1 visible="1~tif(tipo_reporte='Tipo',0,1)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="2" expression="~"R.U.C./C.I.~""border="0" color="0" x="283" y="296" height="56" width="251" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="18" y1="404" x2="3378" y2="404"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+line(band=header x1="18" y1="280" x2="3378" y2="280"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="~"Cliente~""border="0" color="0" x="622" y="296" height="56" width="1015" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Codigo" border="0" color="0" x="18" y="296" height="56" width="178" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cr$$HEX1$$e900$$ENDHEX$$dito
+C. Esp. Tarifa 0%" border="0" color="0" x="2555" y="296" height="112" width="407" html.valueishtml="0"  name=t_3 visible="1~tif(tipo_reporte='Tipo',1,0)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Plazo D$$HEX1$$ed00$$ENDHEX$$as" border="0" color="0" x="3063" y="296" height="56" width="251" html.valueishtml="0"  name=t_4 visible="1~tif(tipo_reporte='Tipo',1,0)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="if( tipo_reporte ='Vendedor', 'Clase', if(tipo_reporte ='Clase', 'Vendedor' , 'Vendedor'  ))"border="0" color="0" x="1696" y="296" height="56" width="251" format="[general]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="if( tipo_reporte ='Vendedor', 'Tipo', if(tipo_reporte ='Clase', 'Tipo' , 'Clase'  ))"border="0" color="0" x="1696" y="352" height="56" width="251" format="[general]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2821" y="100" height="56" width="562" format="[general]" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="0" expression="~"Clientes por ~"+ tipo_reporte "border="0" color="0" x="18" y="160" height="92" width="1847" format="[general]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Impreso el: '+ string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2309" y="20" height="68" width="1074" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="18" y="20" height="76" width="1445" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header.1 alignment="0" expression="if( tipo_reporte ='Vendedor', cc_vendedor, if(tipo_reporte ='Clase',  fa_clacli_ca_descri ,tc_codigo ))"border="0" color="0" x="23" y="12" height="56" width="1070" format="[general]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="ce_secent   + ' / '+if(ce_telbod='000000',' ',ce_telbod)"border="0" color="0" x="2286" y="68" height="56" width="1088" format="[general]" html.valueishtml="0"  name=compute_8 visible="1~tif(tipo_reporte='Tipo',0,1)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if(isNull(  ce_caent2  ) ,   ce_caent1   ,  ce_caent1   + ' y  ' +  ce_caent2 )"border="0" color="0" x="2281" y="4" height="56" width="1102" format="[general]" html.valueishtml="0"  name=cc_dirbodclie visible="1~tif(tipo_reporte='Tipo',0,1)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="1" tabsequence=100 border="0" color="0" x="2592" y="4" height="56" width="329" format="#,##0.00" html.valueishtml="0"  name=ce_cupcre visible="1~tif(tipo_reporte='Tipo',1,0)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2130" y="188" height="56" width="110" format="[general]" html.valueishtml="0"  name=tc_codigo visible="1~t0" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" )
+compute(band=detail alignment="0" expression="if( ce_tipo='N',  ce_apelli + ' ' +  ce_nombre ,  ce_razons )"border="0" color="0" x="2130" y="184" height="56" width="242" format="[general]" html.valueishtml="0"  name=cc_nomaperaz visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" )
+column(band=detail id=41 alignment="0" tabsequence=32766 border="0" color="0" x="2039" y="184" height="56" width="338" format="[general]" html.valueishtml="0"  name=fa_clacli_ca_descri visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" )
+compute(band=detail alignment="0" expression="if(ce_tipo='J', ce_nomrep + ' ' +ce_aperep,if(not isnull(ce_razons), ce_nombre +' '+ ce_apelli ,'' ))"border="0" color="0" x="626" y="68" height="56" width="1015" format="[general]" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="0" x="23" y="4" height="56" width="178" format="[general]" html.valueishtml="0"  name=ce_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=40 border="0" color="0" x="219" y="4" height="56" width="384" format="[general]" html.valueishtml="0"  name=ce_rucic visible="1" edit.limit=13 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if( tipo_reporte ='Vendedor', fa_clacli_ca_descri , if(tipo_reporte ='Clase', cc_vendedor ,cc_vendedor ))"border="0" color="0" x="1669" y="4" height="56" width="594" format="[general]" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if(isnull(ce_razons),ce_nombre+' ' +ce_apelli ,  ce_razons )"border="0" color="0" x="626" y="4" height="56" width="1015" format="[general]" html.valueishtml="0"  name=c_cliente visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=30 alignment="1" tabsequence=110 border="0" color="0" x="2592" y="68" height="56" width="55" format="[general]" html.valueishtml="0"  name=ce_contesp visible="1~tif(tipo_reporte='Tipo',1,0)" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=31 alignment="1" tabsequence=120 border="0" color="0" x="2866" y="68" height="56" width="55" format="[general]" html.valueishtml="0"  name=ce_exiva visible="1~tif(tipo_reporte='Tipo',1,0)" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=43 alignment="1" tabsequence=32766 border="0" color="0" x="2981" y="8" height="56" width="334" format="[general]" html.valueishtml="0"  name=ce_plazo visible="1~tif(tipo_reporte='Tipo',1,0)" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if( tipo_reporte ='Vendedor', tc_codigo , if(tipo_reporte ='Clase',  tc_codigo  , fa_clacli_ca_descri  ))"border="0" color="0" x="1669" y="68" height="56" width="338" format="[general]" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=44 alignment="0" tabsequence=32766 border="0" color="0" x="2185" y="68" height="56" width="69" format="[general]" html.valueishtml="0"  name=fa_clien_ce_facturar visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=45 alignment="0" tabsequence=32766 border="0" color="0" x="219" y="68" height="56" width="379" format="dd/mm/yyyy" html.valueishtml="0"  name=fa_clien_ce_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=42 alignment="0" tabsequence=32766 border="0" color="0" x="2039" y="68" height="56" width="82" format="[general]" html.valueishtml="0"  name=fa_clien_ce_estcre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression=" ep_codigo +' '+ no_emple_ep_apepat + ' ' + if(no_emple_ep_apemat='n/a','', no_emple_ep_apemat+' ' )  +  no_emple_ep_nombre "border="0" color="0" x="2039" y="4" height="56" width="594" format="[general]" html.valueishtml="0"  name=cc_vendedor visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65280" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
