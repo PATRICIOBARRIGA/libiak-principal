@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_tipo_movimiento_cxp.srd
+$PBExportComments$Si.
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=116 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=tv_codigo dbname="cp_tipmov.tv_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=tv_tipo dbname="cp_tipmov.tv_tipo" values="Cr$$HEX1$$e900$$ENDHEX$$dito	C/D$$HEX1$$e900$$ENDHEX$$bito	D/" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="cp_tipmov.em_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=tv_dexcri dbname="cp_tipmov.tv_dexcri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cp_tipmov~" ) COLUMN(NAME=~"cp_tipmov.tv_codigo~") COLUMN(NAME=~"cp_tipmov.tv_tipo~") COLUMN(NAME=~"cp_tipmov.em_codigo~") COLUMN(NAME=~"cp_tipmov.tv_dexcri~")WHERE(    EXP1 =~"~~~"CP_TIPMOV~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="CP_TIPMOV" updatewhere=1 updatekeyinplace=yes arguments=(("empresa", string))  sort="tv_dexcri A " )
+line(band=header x1="18" y1="104" x2="1600" y2="108"  name=l_1 pen.style="0" pen.width="9" pen.color="128"  background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="128" x="46" y="28" height="56" width="178"  name=tt_codigo_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Descripci$$HEX1$$f300$$ENDHEX$$n" border="0" color="128" x="507" y="28" height="56" width="302"  name=tt_descri_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Clase" border="0" color="128" x="1275" y="28" height="56" width="146"  name=tt_doc_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="265" y="8" height="56" width="791" format="[general]"  name=tv_dexcri edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=30 border="0" color="0" x="1102" y="8" height="56" width="494" format="[general]"  name=tv_tipo radiobuttons.columns=2 radiobuttons.scale=yes radiobuttons.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="46" y="8" height="56" width="178" format="[general]"  name=tv_codigo edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

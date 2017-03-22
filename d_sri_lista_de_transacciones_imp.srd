@@ -1,0 +1,137 @@
+HA$PBExportHeader$d_sri_lista_de_transacciones_imp.srd
+$PBExportComments$Si. Facturas de servicios movimientos de credito decxp.Vale
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=tv_codigo dbname="cp_movim.tv_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=tv_tipo dbname="cp_movim.tv_tipo" )
+ column=(type=char(20) updatewhereclause=yes name=em_codigo dbname="cp_movim.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="cp_movim.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=mp_codigo dbname="cp_movim.mp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=pv_codigo dbname="cp_movim.pv_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=ec_codigo dbname="cp_movim.ec_codigo" )
+ column=(type=number updatewhereclause=yes name=co_numero dbname="cp_movim.co_numero" )
+ column=(type=char(20) updatewhereclause=yes name=rf_codigo dbname="cp_movim.rf_codigo" )
+ column=(type=datetime updatewhereclause=yes name=mp_fecha dbname="cp_movim.mp_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_valor dbname="cp_movim.mp_valor" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_valret dbname="cp_movim.mp_valret" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_saldo dbname="cp_movim.mp_saldo" )
+ column=(type=char(25) updatewhereclause=yes name=co_facpro dbname="cp_movim.co_facpro" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_baseimp dbname="cp_movim.mp_baseimp" )
+ column=(type=char(100) updatewhereclause=yes name=mp_observ dbname="cp_movim.mp_observ" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_reten dbname="cp_movim.mp_reten" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_retiva dbname="cp_movim.mp_retiva" )
+ column=(type=char(20) updatewhereclause=yes name=cp_numero dbname="cp_movim.cp_numero" )
+ column=(type=char(10) updatewhereclause=yes name=mp_naut dbname="cp_movim.mp_naut" )
+ column=(type=char(13) updatewhereclause=yes name=mp_preimp dbname="cp_movim.mp_preimp" )
+ column=(type=datetime updatewhereclause=yes name=mp_fecemision dbname="cp_movim.mp_fecemision" )
+ column=(type=char(2) updatewhereclause=yes name=mp_codtribu dbname="cp_movim.mp_codtribu" )
+ column=(type=char(2) updatewhereclause=yes name=mp_tipoiva dbname="cp_movim.mp_tipoiva" )
+ column=(type=datetime updatewhereclause=yes name=cp_movim_mp_fecliqui dbname="cp_movim.mp_fecliqui" )
+ column=(type=char(2) updatewhereclause=yes name=mp_tipodoc dbname="cp_movim.mp_tipodoc" )
+ column=(type=char(3) updatewhereclause=yes name=cp_movim_mp_rfdodist dbname="cp_movim.mp_rfdodist" )
+ column=(type=char(4) updatewhereclause=yes name=cp_movim_mp_rfdoanio dbname="cp_movim.mp_rfdoanio" )
+ column=(type=char(2) updatewhereclause=yes name=cp_movim_mp_rfdoregi dbname="cp_movim.mp_rfdoregi" )
+ column=(type=char(6) updatewhereclause=yes name=cp_movim_mp_rfdocorr dbname="cp_movim.mp_rfdocorr" )
+ column=(type=char(1) updatewhereclause=yes name=cp_movim_mp_rfdoverif dbname="cp_movim.mp_rfdoverif" )
+ column=(type=decimal(2) updatewhereclause=yes name=cp_movim_mp_valorcif dbname="cp_movim.mp_valorcif" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_bseimptrf0 dbname="cp_movim.mp_bseimptrf0" )
+ column=(type=char(1) updatewhereclause=yes name=mp_codpctiva dbname="cp_movim.mp_codpctiva" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_montoice dbname="cp_movim.mp_montoice" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_bseimpice dbname="cp_movim.mp_bseimpice" )
+ column=(type=char(1) updatewhereclause=yes name=mp_codpctice dbname="cp_movim.mp_codpctice" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_biemntiva dbname="cp_movim.mp_biemntiva" )
+ column=(type=char(1) updatewhereclause=yes name=mp_biepctiva dbname="cp_movim.mp_biepctiva" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_bievlrret dbname="cp_movim.mp_bievlrret" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_srvmntiva dbname="cp_movim.mp_srvmntiva" )
+ column=(type=char(1) updatewhereclause=yes name=mp_srvpctiva dbname="cp_movim.mp_srvpctiva" )
+ column=(type=decimal(2) updatewhereclause=yes name=mp_srvvlrret dbname="cp_movim.mp_srvvlrret" )
+ column=(type=char(1) updatewhereclause=yes name=cp_movim_estado dbname="cp_movim.estado" )
+ column=(type=char(13) updatewhereclause=yes name=in_prove_pv_rucci dbname="in_prove.pv_rucci" )
+ column=(type=char(50) updatewhereclause=yes name=in_prove_pv_razons dbname="in_prove.pv_razons" )
+ column=(type=char(1) updatewhereclause=yes name=in_prove_pv_tipo dbname="in_prove.pv_tipo" )
+ retrieve="SELECT ~"CP_MOVIM~".~"TV_CODIGO~",   
+         ~"CP_MOVIM~".~"TV_TIPO~",   
+         ~"CP_MOVIM~".~"EM_CODIGO~",   
+         ~"CP_MOVIM~".~"SU_CODIGO~",   
+         ~"CP_MOVIM~".~"MP_CODIGO~",   
+         ~"CP_MOVIM~".~"PV_CODIGO~",   
+         ~"CP_MOVIM~".~"EC_CODIGO~",   
+         ~"CP_MOVIM~".~"CO_NUMERO~",   
+         ~"CP_MOVIM~".~"RF_CODIGO~",   
+         ~"CP_MOVIM~".~"MP_FECHA~",   
+         ~"CP_MOVIM~".~"MP_VALOR~",   
+         ~"CP_MOVIM~".~"MP_VALRET~",   
+         ~"CP_MOVIM~".~"MP_SALDO~",   
+         ~"CP_MOVIM~".~"CO_FACPRO~",   
+         ~"CP_MOVIM~".~"MP_BASEIMP~",   
+         ~"CP_MOVIM~".~"MP_OBSERV~",
+         ~"CP_MOVIM~".~"MP_RETEN~",    
+         ~"CP_MOVIM~".~"MP_RETIVA~",
+         ~"CP_MOVIM~".~"CP_NUMERO~",
+         ~"CP_MOVIM~".~"MP_NAUT~",
+         ~"CP_MOVIM~".~"MP_PREIMP~",
+         ~"CP_MOVIM~".~"MP_FECEMISION~",
+         ~"CP_MOVIM~".~"MP_CODTRIBU~",
+          ~"CP_MOVIM~".~"MP_TIPOIVA~" ,
+         ~"CP_MOVIM~".~"MP_FECLIQUI~",
+	    ~"CP_MOVIM~".~"MP_TIPODOC~",
+         ~"CP_MOVIM~".~"MP_RFDODIST~",
+         ~"CP_MOVIM~".~"MP_RFDOANIO~",
+         ~"CP_MOVIM~".~"MP_RFDOREGI~",
+          ~"CP_MOVIM~".~"MP_RFDOCORR~",
+         ~"CP_MOVIM~".~"MP_RFDOVERIF~",
+         ~"CP_MOVIM~".~"MP_VALORCIF~",
+         ~"CP_MOVIM~".~"MP_BSEIMPTRF0~",
+         ~"CP_MOVIM~".~"MP_CODPCTIVA~",
+         ~"CP_MOVIM~".~"MP_MONTOICE~",
+         ~"CP_MOVIM~".~"MP_BSEIMPICE~",
+         ~"CP_MOVIM~".~"MP_CODPCTICE~",
+         ~"CP_MOVIM~".~"MP_BIEMNTIVA~",
+         ~"CP_MOVIM~".~"MP_BIEPCTIVA~",
+         ~"CP_MOVIM~".~"MP_BIEVLRRET~",
+         ~"CP_MOVIM~".~"MP_SRVMNTIVA~",
+         ~"CP_MOVIM~".~"MP_SRVPCTIVA~",
+         ~"CP_MOVIM~".~"MP_SRVVLRRET~",
+         ~"CP_MOVIM~".~"ESTADO~",
+	    ~"IN_PROVE~".~"PV_RUCCI~",
+         ~"IN_PROVE~".~"PV_RAZONS~",
+         ~"IN_PROVE~".~"PV_TIPO~"
+FROM ~"CP_MOVIM~",~"IN_PROVE~"  
+WHERE ~"IN_PROVE~".~"PV_CODIGO~" = ~"CP_MOVIM~".~"PV_CODIGO~"
+AND  ~"CP_MOVIM~".~"TV_TIPO~" = 'C' 
+" arguments=(("ad_ini", date),("ad_fin", date)) )
+text(band=header alignment="2" text="Cod.Suc" border="0" color="33554432" x="110" y="8" height="56" width="242" html.valueishtml="0"  name=su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="N$$HEX2$$ba002000$$ENDHEX$$Mov" border="0" color="33554432" x="361" y="8" height="56" width="297" html.valueishtml="0"  name=mp_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cod Prov." border="0" color="33554432" x="667" y="8" height="56" width="270" html.valueishtml="0"  name=pv_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="N$$HEX2$$ba002000$$ENDHEX$$interno" border="0" color="33554432" x="946" y="8" height="56" width="274" html.valueishtml="0"  name=co_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha" border="0" color="33554432" x="1230" y="8" height="56" width="347" html.valueishtml="0"  name=mp_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Valor" border="0" color="33554432" x="1586" y="8" height="56" width="274" html.valueishtml="0"  name=mp_valor_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="IVA" border="0" color="33554432" x="1870" y="8" height="56" width="274" html.valueishtml="0"  name=mp_valret_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Saldo" border="0" color="33554432" x="2153" y="8" height="56" width="274" html.valueishtml="0"  name=mp_saldo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="N$$HEX2$$ba002000$$ENDHEX$$Factura" border="0" color="33554432" x="2437" y="8" height="56" width="562" html.valueishtml="0"  name=co_facpro_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Observaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="33554432" x="3008" y="8" height="56" width="731" html.valueishtml="0"  name=mp_observ_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="N$$HEX1$$ba00$$ENDHEX$$" border="0" color="33554432" x="9" y="12" height="56" width="91" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="RUC_CI" border="0" color="0" x="3749" y="4" height="56" width="288" html.valueishtml="0"  name=in_prove_pv_rucci_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Razon Social" border="0" color="33554432" x="4046" y="8" height="56" width="1143" html.valueishtml="0"  name=in_prove_pv_razons_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=10 border="0" color="33554432" x="110" y="8" height="68" width="242" format="[general]" html.valueishtml="0"  name=su_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=20 border="0" color="33554432" x="361" y="8" height="68" width="297" format="[general]" html.valueishtml="0"  name=mp_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=30 border="0" color="33554432" x="667" y="8" height="68" width="270" format="[general]" html.valueishtml="0"  name=pv_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=40 border="0" color="33554432" x="946" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=co_numero visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="2" tabsequence=50 border="0" color="33554432" x="1230" y="8" height="68" width="347" format="[shortdate]" html.valueishtml="0"  name=mp_fecha visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=60 border="0" color="33554432" x="1586" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=mp_valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=70 border="0" color="33554432" x="1870" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=mp_valret visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=80 border="0" color="33554432" x="2153" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=mp_saldo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="2" tabsequence=90 border="0" color="33554432" x="2437" y="8" height="68" width="562" format="[general]" html.valueishtml="0"  name=co_facpro visible="1" edit.limit=25 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=100 border="0" color="33554432" x="3008" y="8" height="68" width="731" format="[general]" html.valueishtml="0"  name=mp_observ visible="1" edit.limit=100 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="128" x="9" y="8" height="56" width="91" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=45 alignment="0" tabsequence=110 border="0" color="33554432" x="3749" y="8" height="56" width="288" format="[general]" html.valueishtml="0"  name=in_prove_pv_rucci visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=46 alignment="0" tabsequence=120 border="0" color="33554432" x="4046" y="8" height="56" width="1143" format="[general]" html.valueishtml="0"  name=in_prove_pv_razons visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
