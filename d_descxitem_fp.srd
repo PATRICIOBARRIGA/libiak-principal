@@ -1,0 +1,55 @@
+HA$PBExportHeader$d_descxitem_fp.srd
+$PBExportComments$Descuentos por item y por forma de pago
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=452 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=in_tippre_td_descri dbname="in_tippre.td_descri" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ column=(type=decimal(2) updatewhereclause=yes name=in_item_it_prefab dbname="in_item.it_prefab" )
+ column=(type=char(1) updatewhereclause=yes name=in_tippre_td_vigente dbname="in_tippre.td_vigente" )
+ column=(type=char(20) updatewhereclause=yes name=in_descitem_es_codigo dbname="in_descitem.es_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=fa_formpag_fp_descri dbname="fa_formpag.fp_descri" )
+ retrieve="  SELECT ~"IN_TIPPRE~".~"TD_DESCRI~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITEM~".~"IT_PREFAB~",   
+         ~"IN_TIPPRE~".~"TD_VIGENTE~",   
+         ~"IN_DESCITEM~".~"ES_CODIGO~",   
+         ~"FA_FORMPAG~".~"FP_DESCRI~"  
+    FROM ~"IN_DESCITEM~",   
+         ~"IN_ITEM~",   
+         ~"IN_TIPPRE~",   
+         ~"FA_FORMPAG~"  
+   WHERE ( ~"FA_FORMPAG~".~"FP_CODIGO~" = ~"IN_DESCITEM~".~"ES_CODIGO~" ) and  
+         ( ~"IN_DESCITEM~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_DESCITEM~".~"TD_CODIGO~" = ~"IN_TIPPRE~".~"TD_CODIGO~" ) and  
+         ( ( ~"IN_ITEM~".~"IT_CODIGO~" = :as_itcodigo ) )    
+
+" arguments=(("as_itcodigo", string)) )
+text(band=header alignment="0" text="Precio:" border="0" color="33554432" x="5" y="308" height="56" width="201" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="14" y="164" height="56" width="1358" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="14" y="232" height="56" width="1358" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="5" y="16" height="56" width="1367" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="DESCUENTOS POR FORMA DE PAGO" border="0" color="33554432" x="5" y="88" height="56" width="1367" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="14" y="8" height="68" width="1358" format="[general]" html.valueishtml="0"  name=fa_formpag_fp_descri visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="1385" y="12" height="56" width="873" format="[general]" html.valueishtml="0"  name=in_tippre_td_descri visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2272" y="12" height="56" width="215" format="[general]" html.valueishtml="0"  name=in_tippre_td_vigente visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Forma de pago" border="4" color="33554432" x="14" y="388" height="56" width="1358" html.valueishtml="0"  name=fa_formpag_fp_descri_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Descuento" border="4" color="33554432" x="1381" y="388" height="56" width="878" html.valueishtml="0"  name=in_tippre_td_descri_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Vigente" border="4" color="33554432" x="2267" y="388" height="56" width="219" html.valueishtml="0"  name=in_tippre_td_vigente_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=4 alignment="1" tabsequence=0 border="0" color="0" x="233" y="308" height="56" width="366" format="#,##0.00" html.valueishtml="0"  name=in_item_it_prefab visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,86 @@
+HA$PBExportHeader$d_rep_cheques_vencidos_pos_emp.srd
+$PBExportComments$Reporte de cheques vencidos del POS
+release 10;
+datawindow(units=0 timer_interval=60000 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=368 color="536870912" )
+summary(height=84 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=fa_recpag_if_codigo dbname="fa_recpag.if_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=su_codigo dbname="fa_recpag.su_codigo" )
+ column=(type=datetime updatewhereclause=yes name=fa_recpag_rp_fecven dbname="fa_recpag.rp_fecven" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_recpag_rp_valor dbname="fa_recpag.rp_valor" )
+ column=(type=char(20) updatewhereclause=yes name=fa_recpag_rp_numcta dbname="fa_recpag.rp_numcta" )
+ column=(type=char(20) updatewhereclause=yes name=fa_recpag_rp_numdoc dbname="fa_recpag.rp_numdoc" )
+ column=(type=datetime updatewhereclause=yes name=fa_recpag_rp_fecha dbname="fa_recpag.rp_fecha" )
+ column=(type=char(20) updatewhereclause=yes name=ce_codigo dbname="fa_clien.ce_codigo" )
+ column=(type=char(123) updatewhereclause=yes name=ccc_cliente dbname="cc_cliente" )
+ column=(type=number updatewhereclause=yes name=fa_venta_ve_numero dbname="fa_venta.ve_numero" )
+ retrieve="  SELECT ~"FA_RECPAG~".~"IF_CODIGO~",   
+         ~"FA_RECPAG~".~"SU_CODIGO~",    
+         ~"FA_RECPAG~".~"RP_FECVEN~",   
+         ~"FA_RECPAG~".~"RP_VALOR~",   
+         ~"FA_RECPAG~".~"RP_NUMCTA~",   
+         ~"FA_RECPAG~".~"RP_NUMDOC~",   
+         ~"FA_RECPAG~".~"RP_FECHA~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~"||' '||NVL(~"FA_CLIEN~".~"CE_RAZONS~",' ')||' '||~"FA_CLIEN~".~"CE_NOMBRE~"||' ' ||~"FA_CLIEN~".~"CE_APELLI~"  ~"cc_cliente~",
+         ~"FA_VENTA~".~"VE_NUMERO~"
+    FROM ~"FA_RECPAG~",   
+         ~"FA_VENTA~",
+			~"FA_CLIEN~"
+   WHERE ( ~"FA_RECPAG~".~"ES_CODIGO~" = ~"FA_VENTA~".~"ES_CODIGO~" ) and  
+         ( ~"FA_RECPAG~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ~"FA_RECPAG~".~"SU_CODIGO~" = ~"FA_VENTA~".~"SU_CODIGO~" ) and  
+         ( ~"FA_RECPAG~".~"BO_CODIGO~" = ~"FA_VENTA~".~"BO_CODIGO~" ) and  
+         ( ~"FA_RECPAG~".~"VE_NUMERO~" = ~"FA_VENTA~".~"VE_NUMERO~" ) and  
+         ( ~"FA_CLIEN~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"CE_CODIGO~" = ~"FA_VENTA~".~"CE_CODIGO~" ) and  
+         (( ~"FA_RECPAG~".~"EM_CODIGO~" = 1) AND 
+			( ~"FA_RECPAG~".~"ES_CODIGO~" = 2 ) AND  
+         ( ~"FA_RECPAG~".~"FP_CODIGO~" = 1 ) AND  
+         (~"FA_RECPAG~".~"RP_FECVEN~" between :fec_ini and :fec_fin) AND  
+         ( ~"FA_RECPAG~".~"RP_FECHA~" < TRUNC(~"FA_RECPAG~".~"RP_FECVEN~") ) )    
+" arguments=(("fec_ini", date),("fec_fin", date))  sort="number(su_codigo) A ccc_cliente A fa_recpag_rp_fecven A " )
+group(level=1 header.height=96 trailer.height=84 by=("su_codigo" ) header.color="536870912" trailer.color="536870912" )
+group(level=2 header.height=68 trailer.height=0 by=("ccc_cliente" ) header.color="536870912" trailer.color="536870912" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2775" y="96" height="56" width="466" format="[general]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Bookman Old Style" font.height="-8" font.weight="400"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="1" expression="'Impreso el: '+string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2446" y="20" height="64" width="795" format="[General]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Bookman Old Style" font.height="-8" font.weight="400"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="" border="0" color="0" x="37" y="192" height="64" width="1678" html.valueishtml="0"  name=st_fecha visible="1"  font.face="Bookman Old Style" font.height="-10" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Revisi$$HEX1$$f300$$ENDHEX$$n y Aprobaci$$HEX1$$f300$$ENDHEX$$n del Dep$$HEX1$$f300$$ENDHEX$$sito. (Punto de Venta)" border="0" color="0" x="37" y="104" height="76" width="2386" html.valueishtml="0"  name=t_1 visible="1"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="37" y="16" height="76" width="1573" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="23" y1="364" x2="3141" y2="364"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Inst.Financiera" border="0" color="0" x="82" y="292" height="56" width="320" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Cuenta No." border="0" color="0" x="1344" y="292" height="56" width="247" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Valor" border="0" color="0" x="1129" y="292" height="56" width="119" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="27" y1="268" x2="3136" y2="268"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Vencimiento" border="0" color="0" x="2875" y="292" height="56" width="270" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Emisi$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="2633" y="292" height="56" width="165" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Documento No." border="0" color="0" x="1760" y="292" height="56" width="334" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Ticket" border="0" color="0" x="2281" y="292" height="56" width="142" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=2 alignment="0" tabsequence=32766 border="0" color="0" x="41" y="16" height="60" width="128" format="[general]" html.valueishtml="0"  name=su_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=2 alignment="0" tabsequence=32766 border="0" color="0" x="187" y="16" height="60" width="681" format="[general]" html.valueishtml="0"  name=fa_recpag_su_codigo_1 visible="1" dddw.name=d_dddw_sucursal dddw.displaycolumn=su_nombre dddw.datacolumn=su_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.2 id=9 alignment="0" tabsequence=32766 border="0" color="0" x="219" y="8" height="56" width="2194" format="[general]" html.valueishtml="0"  name=ccc_cliente visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.2 alignment="0" text="Cliente:" border="0" color="0" x="41" y="8" height="56" width="160" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="0" x="1280" y="16" height="56" width="375" format="[general]" html.valueishtml="0"  name=fa_recpag_rp_numcta visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="105" y="16" height="56" width="750" format="[general]" html.valueishtml="0"  name=fa_recpag_if_codigo visible="1" dddw.name=d_dddw_ent_financiera dddw.displaycolumn=if_nombre dddw.datacolumn=if_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="887" y="16" height="56" width="361" format="#,##0.00" html.valueishtml="0"  name=fa_recpag_rp_valor visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="2875" y="16" height="56" width="270" format="dd/mm/yyyy" html.valueishtml="0"  name=fa_recpag_rp_fecven visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="2583" y="16" height="56" width="270" format="dd/mm/yyyy" html.valueishtml="0"  name=fa_recpag_rp_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="0" x="1696" y="16" height="56" width="462" format="[general]" html.valueishtml="0"  name=fa_recpag_rp_numdoc visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="2181" y="16" height="56" width="379" format="[general]" html.valueishtml="0"  name=fa_venta_ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(fa_recpag_rp_valor for group 1)"border="0" color="0" x="855" y="16" height="60" width="393" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=summary alignment="1" text="Total Cheques:" border="0" color="0" x="416" y="12" height="60" width="384" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(fa_recpag_rp_valor for all)"border="0" color="0" x="814" y="12" height="60" width="434" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="0" text="No existen datos " border="0" color="0" x="933" y="856" height="56" width="571" html.valueishtml="0"  name=t_10 visible="1~tif(rowcount() = 0,1,0)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.escapement="0~t450"  background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

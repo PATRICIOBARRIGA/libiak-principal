@@ -1,0 +1,43 @@
+HA$PBExportHeader$d_graph_ventas_x_mes.srd
+$PBExportComments$Muestra las ventas mensuales FXM graficante.Est$$HEX2$$e1002000$$ENDHEX$$por usarse.
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=304 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=0 color="536870912" )
+table(column=(type=decimal(2) updatewhereclause=yes name=ve_neto dbname="fa_venta.ve_neto" )
+ column=(type=char(2) updatewhereclause=yes name=cc_mes dbname="fecha" )
+ column=(type=char(20) updatewhereclause=yes name=tipo dbname="fa_venta.tipo" )
+ retrieve="  SELECT ~"FA_VENTA~".~"VE_NETO~",   
+         to_char(~"FA_VENTA~".~"VE_FECHA~",'MM')  FECHA,
+         ~"FA_VENTA~".~"ES_CODIGO~" TIPO
+    FROM ~"FA_VENTA~"  
+   WHERE ( ~"FA_VENTA~".~"EM_CODIGO~" = 1 ) AND  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = :sucursal ) AND  
+			(~"FA_VENTA~".~"ES_CODIGO~" IN (1,2))AND
+         ( ~"FA_VENTA~".~"VE_FECHA~" between :ad_ini and :ad_fin + 1 )    
+" arguments=(("sucursal", string),("ad_ini", date),("ad_fin", date))  sort="cc_mes A tipo A " )
+group(level=1 header.height=0 trailer.height=68 by=("cc_mes" ) header.color="536870912" trailer.color="536870912" )
+line(band=header x1="5" y1="292" x2="1147" y2="292"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="9" y="12" height="56" width="1061" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="VENTAS NETAS MENSUALES" border="0" color="0" x="9" y="148" height="56" width="681" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="9" y="80" height="56" width="1061" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Mes" border="0" color="0" x="9" y="220" height="56" width="142" html.valueishtml="0"  name=ve_valpag_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Facturaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="174" y="220" height="56" width="293" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="P.O.S" border="0" color="0" x="649" y="220" height="56" width="128" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Total" border="0" color="0" x="1001" y="220" height="56" width="128" html.valueishtml="0"  name=ve_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="14" y="4" height="56" width="142" format="[general]" html.valueishtml="0"  name=fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="526" y="0" height="56" width="210" format="[general]" html.valueishtml="0"  name=tipo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tipo = '1',  ve_neto , 0 ) "border="0" color="0" x="759" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_fxm visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(  tipo = '2',  ve_neto , 0 )"border="0" color="128" x="965" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_ptovta visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="169" y="4" height="56" width="325" format="#,##0.00" html.valueishtml="0"  name=ve_neto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=trailer.1 id=2 alignment="0" tabsequence=32766 border="0" color="0" x="23" y="4" height="56" width="123" format="[general]" html.valueishtml="0"  name=cc_mes visible="1" edit.limit=0 edit.case=any edit.format="" edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(if(  tipo = '1',  ve_neto , 0 ) for group 1) "border="0" color="0" x="165" y="4" height="56" width="302" format="#,##0.00" html.valueishtml="0"  name=fxm visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(if(  tipo = '2',  ve_neto , 0 ) for group 1) "border="0" color="128" x="485" y="4" height="56" width="293" format="#,##0.00" html.valueishtml="0"  name=pos visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="1" expression="sum(ve_neto for group 1)"border="0" color="128" x="800" y="4" height="56" width="329" format="#,##0.00" html.valueishtml="0"  name=total visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
