@@ -1,0 +1,80 @@
+HA$PBExportHeader$f_contabiliza_ingresos.srf
+global type f_contabiliza_ingresos from function_object
+end type
+
+forward prototypes
+global subroutine f_contabiliza_ingresos (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin)
+end prototypes
+
+global subroutine f_contabiliza_ingresos (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin);//string  ls_tipo,ls_observacion,ls_numing,ls_cta_contable
+//string  ls_signo,ls_observ
+//long    ll_numero,ll_secuencia
+//decimal ld_valor,ld_total_deb,ld_total_cre
+//
+//declare c1 cursor for
+//   select x.ig_numero,x.pl_codigo,x.di_valor,x.di_signo,x.di_observ
+//	  from cb_ingreso x, cb_deting y
+//	 where x.em_codigo = y.em_codigo
+//	   and x.su_codigo = y.su_codigo
+//		and x.ig_numero = y.ig_numero
+//	   and x.em_codigo = :as_empresa
+//	   and x.su_codigo = :as_sucursal
+//		and trunc(ig_fecha) between :ad_fecini and :ad_fecfin;
+//
+////begin
+//  select pr_valor
+//    into :ls_tipo
+//	 from pr_param
+//	where em_codigo = :as_empresa
+//	  and pr_nombre = 'CO_ING';
+//	  
+//  select nvl(max(cp_numero),0) + 1
+//    into :ll_numero
+//	 from co_cabcom
+//	where em_codigo = :as_empresa
+//	  and su_codigo = :as_sucursal
+//	  and ti_codigo = :ls_tipo;
+//	
+//  ls_observacion = 'Contabilizaci$$HEX1$$f300$$ENDHEX$$n autom$$HEX1$$e100$$ENDHEX$$tica de ingresos, '+string(ad_fecini,'mm/yyyy')
+//  INSERT INTO "CO_CABCOM"("EM_CODIGO","SU_CODIGO","TI_CODIGO","CP_NUMERO",
+//                          "CP_FECHA","CP_SALDO","CP_DEBITO","CP_CREDITO",
+//                          "CP_OBSERV","CP_MAYOR")  
+//                  VALUES (:as_empresa,:as_sucursal,:ls_tipo,:ll_numero,
+//                          :ad_fecfin,0,0,0,
+//                          :ls_observacion,'N');
+//
+//  ll_secuencia = 1
+//  ld_total_deb = 0
+//  ld_total_cre = 0
+//  open c1;
+//  do
+//	 fetch c1 into :ls_numing,:ls_cta_contable,:ld_valor,:ls_signo,:ls_observ;
+//	 if sqlca.sqlcode <> 0 then exit
+//	 
+//      INSERT INTO "CO_DETCOM"("EM_CODIGO","SU_CODIGO","TI_CODIGO",   
+//                              "CP_NUMERO","PL_CODIGO","CS_CODIGO",   
+//                              "DT_SECUE","DT_SIGNO","DT_VALOR",   
+//                              "DT_DETALLE")  
+//                       VALUES(:as_empresa,:as_sucursal,:ls_tipo,   
+//                              :ll_numero,:ls_cta_contable,null,   
+//                              :ll_secuencia,:ls_signo,:ld_valor,   
+//                              :ls_observ);
+//		choose case ls_tipo
+//			case 'D'
+//				ld_total_deb += ld_valor
+//			case 'C'
+//				ld_total_cre += ld_valor
+//		end choose
+//		ll_secuencia += 1
+//  loop while TRUE
+//  close c1;
+//  update co_cabcom
+//     set cp_debito  = :ld_total_deb,
+//	      cp_credito = :ld_total_cre
+//	where em_codigo = :as_empresa
+//	  and su_codigo = :as_sucursal
+//	  and ti_codigo = :ls_tipo
+//	  and cp_numero = :ll_numero;
+////end
+end subroutine
+

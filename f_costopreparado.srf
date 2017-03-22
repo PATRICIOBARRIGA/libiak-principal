@@ -1,0 +1,69 @@
+HA$PBExportHeader$f_costopreparado.srf
+global type f_costopreparado from function_object
+end type
+
+forward prototypes
+global function decimal f_costea_preparado (string as_ticket, string as_item, ref datawindow adw_costo)
+global function decimal f_costopreparado (string as_ticket, string as_item, string as_codprep, ref datawindow adw_costo)
+end prototypes
+
+global function decimal f_costea_preparado (string as_ticket, string as_item, ref datawindow adw_costo);datastore lds_preparados
+Long ll_nreg,i,ll_find,ll_nrow
+String ls_itcomp
+decimal lc_costo,lc_costocomp
+
+
+ll_nrow = adw_costo.rowcount()
+lds_preparados.DataObject = "d_preparados"
+lds_preparados.SetTransObject(sqlca)
+ll_nreg = lds_preparados.retrieve(as_ticket,as_item,str_appgeninfo.empresa,str_appgeninfo.sucursal)
+
+for i = 1 to ll_nreg
+ls_itcomp = lds_preparados.getitemString(i,"it_codigo")
+
+/*buscar el costo del componente en d_costo*/
+ll_find  = adw_costo.find("it_codigo = '"+ls_itcomp+"'",1,ll_nrow)
+
+if ll_find <> 0 then
+lc_costocomp = lc_costocomp + adw_costo.GetItemDecimal(ll_find,"cc_costo")	
+	
+end if	
+
+
+
+next
+return lc_costo
+
+end function
+
+global function decimal f_costopreparado (string as_ticket, string as_item, string as_codprep, ref datawindow adw_costo);datastore lds_preparados
+Long ll_nreg,i,ll_find,ll_nrow
+String ls_itcomp
+decimal lc_costo,lc_costocomp
+
+
+ll_nrow = adw_costo.rowcount()
+lds_preparados.DataObject = "d_componentes_preparados"
+lds_preparados.SetTransObject(sqlca)
+/*Recuperar todo el ticket y los posibles preparados para el item*/
+ll_nreg = lds_preparados.retrieve(as_ticket,as_item,str_appgeninfo.empresa,str_appgeninfo.sucursal)
+
+/*Filtramos solo los preparados encontrados en el mov*/
+lds_preparados.SetFilter("")
+lds_preparados.Filter()
+
+
+for i = 1 to ll_nreg
+ls_itcomp = lds_preparados.getitemString(i,"it_codigo")
+
+/*buscar el costo del componente en d_costo*/
+ll_find  = adw_costo.find("it_codigo = '"+ls_itcomp+"'",1,ll_nrow)
+
+if ll_find <> 0 then
+lc_costocomp = lc_costocomp + adw_costo.GetItemDecimal(ll_find,"cc_costo")	
+end if	
+next
+return lc_costo
+
+end function
+

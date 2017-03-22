@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_carga_stock_bodega_new.srf
+$PBExportComments$Carga stock en bodega.Sin Commit
+global type f_carga_stock_bodega_new from function_object
+end type
+
+forward prototypes
+global function boolean f_carga_stock_bodega_new (string as_bodega, string as_item, decimal ad_cantidad, character ach_kit, string as_atomo, decimal ac_cantatomo)
+end prototypes
+
+global function boolean f_carga_stock_bodega_new (string as_bodega, string as_item, decimal ad_cantidad, character ach_kit, string as_atomo, decimal ac_cantatomo);// Descripci$$HEX1$$f300$$ENDHEX$$n : 	Carga stock tanto del item como de sus componentes si
+// 					es kit o de su(s) kit(s) si es componente. En la Bodega
+//Ultima Modifici$$HEX1$$f300$$ENDHEX$$n:	08/09/2006
+//Cambios:	Quitar cursores
+//Autor  :	Edivas
+// NOTA.- en in_relitem, tr_codigo = '1'para KIT
+
+// busca si el item es kit o no
+if ach_kit = 'S' then
+	update in_itebod
+	set ib_stock = ib_stock + (:ad_cantidad * :ac_cantatomo)
+	where it_codigo = :as_atomo
+	and em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and bo_codigo = :as_bodega;
+	if sqlca.sqlcode <> 0 then
+		rollback using sqlca;		
+		MessageBox("ERROR en f_carga_stock_bodega","No puedo actualizar el stock del kit.");
+		return FALSE
+	end if
+end if
+// descarga el stock del item
+update in_itebod
+set ib_stock = ib_stock + :ad_cantidad
+where it_codigo = :as_item
+and em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and bo_codigo = :as_bodega;
+if sqlca.sqlcode <> 0 then
+	rollback using sqlca;	
+	MessageBox("ERROR en f_carga_stock_bodega","No puedo actualizar el stock.");
+	return FALSE
+end if
+
+return (TRUE)
+
+end function
+

@@ -1,0 +1,83 @@
+HA$PBExportHeader$f_dame_costo.srf
+global type f_dame_costo from function_object
+end type
+
+forward prototypes
+global function decimal f_dame_costo (string as_item)
+end prototypes
+
+global function decimal f_dame_costo (string as_item);decimal ld_cantidad,ld_costo,ld_costo_compra,ld_costo_inicial,ld_stock_inicial,ld_stock
+string  ls_sucursal,ls_bodega,ls_movimiento,ls_signo,ls_numero,ls_factura
+long    ll_factura_compra
+
+declare movim_cursor cursor for
+   select tm_codigo,tm_ioe,mv_numero,mv_cantid,su_codigo,
+	       bo_codigo,ve_numero
+	  from in_movim
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo = :as_item
+		and mv_usado = 'N'
+ order by mv_fecha,tm_codigo;
+		
+select it_cosini
+  into :ld_costo_inicial
+  from in_item
+ where em_codigo = :str_appgeninfo.empresa
+   and it_codigo = :as_item;
+	
+select sum(it_stkini)
+  into :ld_stock_inicial
+  from in_itesucur
+ where em_codigo = :str_appgeninfo.empresa
+   and it_codigo = :as_item;
+		
+
+ld_costo = ld_costo_inicial
+ld_stock = ld_stock_inicial
+open movim_cursor;
+do
+	fetch movim_cursor into :ls_movimiento,:ls_signo,:ls_numero,:ld_cantidad,
+	                        :ls_sucursal,:ls_bodega,:ls_factura;
+	if sqlca.sqlcode <> 0 then exit
+	if ls_movimiento = '1' and ls_signo = 'I' then //es compra
+	    select co_numero
+		   into :ll_factura_compra
+			from in_compra
+		  where em_codigo = :str_appgeninfo.empresa
+		  	 AND SU_CODIGO = :ls_sucursal
+			 AND CO_NUMPAD = to_number(:ls_factura)
+			 AND EC_CODPAD = '2';
+       SELECT ((DC_COSTO * (1 - nvl(DC_DESC1,0))) * (1 - nvl(DC_DESC2,0))) * (1 - nvl(DC_DESC3,0))
+         INTO :ld_costo  
+         FROM IN_DETCO
+        WHERE EM_CODIGO = :str_appgeninfo.empresa
+		    AND SU_CODIGO = :ls_sucursal
+			 AND CO_NUMERO = :ll_factura_compra
+			 AND EC_CODIGO = '3'
+		    AND IT_CODIGO = :as_item;
+       if sqlca.sqlcode <> 0 then
+			MessageBox("ERROR AL COSTEAR","No puedo obtener la factura de compra. " + sqlca.sqlerrtext)
+			return (-1)
+		 end if
+		 // SI QUEREMOS COSTEAR CON PROMEDIO PONDERADO
+		 // ld_stock = ld_stock + ld_cantidad
+		 // ld_costo = ((ld_costo*ld_stock) + (ld_costo_compra*ld_cantidad))/(ld_stock+ld_cantidad)
+	end if
+	update in_movim
+		set mv_costo  = :ld_costo
+    where em_codigo = :str_appgeninfo.empresa
+		and su_codigo = :ls_sucursal
+	   and bo_codigo = :ls_bodega
+		and mv_numero = :ls_numero
+		and tm_codigo = :ls_movimiento
+		and tm_ioe    = :ls_signo;
+loop while TRUE;
+close movim_cursor;
+update in_item
+   set it_costo = :ld_costo
+ where em_codigo = :str_appgeninfo.empresa
+   and it_codigo = :as_item;
+
+return(ld_costo)
+end function
+

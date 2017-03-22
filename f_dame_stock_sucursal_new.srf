@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_dame_stock_sucursal_new.srf
+$PBExportComments$Ve si hay disponible, devuelve lo disponible y lo teorico
+global type f_dame_stock_sucursal_new from function_object
+end type
+
+forward prototypes
+global function boolean f_dame_stock_sucursal_new (string as_item, ref decimal ad_cantidad, ref decimal ad_stock, character ach_kit)
+end prototypes
+
+global function boolean f_dame_stock_sucursal_new (string as_item, ref decimal ad_cantidad, ref decimal ad_stock, character ach_kit);///////////////////////////////////////////////////////////////////////
+// Descripci$$HEX1$$f300$$ENDHEX$$n : Funci$$HEX1$$f300$$ENDHEX$$n booleana para saber si hay o no stock en sucursal
+//               adem$$HEX1$$e100$$ENDHEX$$s devuelve en ad_cantidad lo que existe .
+// Encuentra it_stock de la tabla in_itesucur
+// Retorna Falso si la cantidad ingresada es mayor al stock.
+// Fecha de Ultima Revisi$$HEX1$$f300$$ENDHEX$$n : 04-10-2004   11:22 Por: Edivas
+// si es un kit encuentra el stock del kit,de acuerdo al stock de cada 
+// componete y del factor que interviene en el componente.
+
+String ls_codigo_kit
+
+if ach_kit = 'S' then
+	select TRUNC(min(it_stock / ri_cantid))
+	into :ad_stock
+	from in_itesucur x, in_relitem y
+	where x.em_codigo = y.em_codigo
+	and x.it_codigo = y.it_codigo
+	and x.em_codigo = :str_appgeninfo.empresa
+	and x.su_codigo = :str_appgeninfo.sucursal
+	and y.it_codigo1 = :as_item
+	and y.tr_codigo = '1'; //Es kit
+
+
+else // no es kit
+	select it_stock
+	into :ad_stock
+	from in_itesucur
+	where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and it_codigo = :as_item;
+end if
+
+if ad_stock > 0 then
+	if ad_cantidad > ad_stock then
+		ad_cantidad = ad_stock
+		return false
+	else
+		return true
+	end if
+else
+	ad_cantidad = 0
+	return false
+end if
+
+
+end function
+

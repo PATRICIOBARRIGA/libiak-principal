@@ -1,0 +1,51 @@
+HA$PBExportHeader$f_costocompra.srf
+global type f_costocompra from function_object
+end type
+
+forward prototypes
+global function decimal f_costocompra (string as_sucursal, long al_conumpad, string as_itcodigo)
+end prototypes
+
+global function decimal f_costocompra (string as_sucursal, long al_conumpad, string as_itcodigo);decimal{4} lc_costo
+
+/*El argumento ac_costopromedio se usara en caso de 
+que el resultado de la compra sea nulo
+*/
+SELECT avg(costo)
+INTO :lc_costo
+FROM (
+				SELECT sum("IN_DETCO"."DC_TOTAL")/sum("IN_DETCO"."DC_CANTID" * RI_CANTID) costo
+				FROM "IN_COMPRA",   
+				"IN_DETCO",   
+				"IN_RELITEM"  
+				WHERE ( "IN_DETCO"."EC_CODIGO" = "IN_COMPRA"."EC_CODIGO" )
+				AND ( "IN_DETCO"."EM_CODIGO" = "IN_COMPRA"."EM_CODIGO" )
+				AND ( "IN_DETCO"."SU_CODIGO" = "IN_COMPRA"."SU_CODIGO" )
+				AND ( "IN_DETCO"."CO_NUMERO" = "IN_COMPRA"."CO_NUMERO" )
+				AND ( "IN_DETCO"."EM_CODIGO" = "IN_RELITEM"."EM_CODIGO" )
+				AND ( "IN_DETCO"."IT_CODIGO" = "IN_RELITEM"."IT_CODIGO1" )
+				AND ( ( "IN_COMPRA"."EC_CODIGO" = '3' )
+				AND ( "IN_COMPRA"."EM_CODIGO" = :str_appgeninfo.empresa )
+				AND ( "IN_COMPRA"."SU_CODIGO" = :as_sucursal )
+				AND ( "IN_COMPRA"."EC_CODPAD" = '2' )
+				AND ( "IN_COMPRA"."CO_NUMPAD" = :al_conumpad )
+				AND ( "IN_RELITEM"."IT_CODIGO" = :as_itcodigo ) )
+				UNION 
+				SELECT sum("IN_DETCO"."DC_TOTAL")/sum("IN_DETCO"."DC_CANTID") costo
+				FROM "IN_COMPRA", 
+				"IN_DETCO"
+				WHERE ( "IN_DETCO"."EC_CODIGO" = "IN_COMPRA"."EC_CODIGO" )
+				AND ( "IN_DETCO"."EM_CODIGO" = "IN_COMPRA"."EM_CODIGO" )
+				AND ( "IN_DETCO"."SU_CODIGO" = "IN_COMPRA"."SU_CODIGO" )
+				AND ( "IN_DETCO"."CO_NUMERO" = "IN_COMPRA"."CO_NUMERO" )
+				AND ( ( "IN_COMPRA"."EC_CODIGO" = '3' )
+				AND ( "IN_COMPRA"."EM_CODIGO" = :str_appgeninfo.empresa )
+				AND ( "IN_COMPRA"."SU_CODIGO" = :as_sucursal )
+				AND ( "IN_COMPRA"."EC_CODPAD" = '2' )
+				AND ( "IN_COMPRA"."CO_NUMPAD" = :al_conumpad )
+				AND ( "IN_DETCO"."IT_CODIGO" = :as_itcodigo ) ) );
+		
+if isnull(lc_costo) then lc_costo = 0		
+return lc_costo				
+end function
+

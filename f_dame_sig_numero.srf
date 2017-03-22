@@ -1,0 +1,67 @@
+HA$PBExportHeader$f_dame_sig_numero.srf
+$PBExportComments$Toma e incrementa el numero segun parametro
+global type f_dame_sig_numero from function_object
+end type
+
+forward prototypes
+global function long f_dame_sig_numero (string tipo)
+end prototypes
+
+global function long f_dame_sig_numero (string tipo);long ll_num
+char lch_si
+
+
+select pr_sucursal
+into :lch_si
+from pr_param
+where em_codigo = :str_appgeninfo.empresa
+and pr_nombre = :tipo;
+if sqlca.sqlcode <> 0 then
+	messageBox('Error Interno', 'No se puede encontrar el parametro del tipo' + &
+				tipo + 'Funci$$HEX1$$f300$$ENDHEX$$n f_dame_sig_numero')
+	return -1
+end if  
+
+If lch_si = 'S' then
+	select ps_valor
+	into:ll_num
+	from pr_numsuc
+	where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and pr_nombre = :tipo
+	for update of ps_valor;
+	if sqlca.sqlcode <> 0 then
+		messageBox('Error Interno', 'No se puede encontrar el siguiente n$$HEX1$$fa00$$ENDHEX$$mero del' + &
+					tipo + ' de la sucursal. Funci$$HEX1$$f300$$ENDHEX$$n f_dame_sig_numero')
+		return -1
+	end if  		
+
+	update pr_numsuc
+	set ps_valor = ps_valor + 1
+	where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and pr_nombre = :tipo;
+
+else
+	select pr_valor
+	into :ll_num
+	from pr_param
+	where em_codigo = :str_appgeninfo.empresa
+	and pr_nombre = :tipo
+	for update of pr_valor;
+	if sqlca.sqlcode <> 0 then
+		messageBox('Error Interno', 'No se puede encontrar el siguiente n$$HEX1$$fa00$$ENDHEX$$mero del' + &
+					tipo + 'Funci$$HEX1$$f300$$ENDHEX$$n f_dame_sig_numero')
+		return -1
+	end if  
+
+	update pr_param
+	set pr_valor = pr_valor + 1
+	where em_codigo = :str_appgeninfo.empresa
+	and pr_nombre = :tipo;
+		
+End if
+	
+ return ll_num
+end function
+

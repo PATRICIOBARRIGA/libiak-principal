@@ -1,0 +1,154 @@
+HA$PBExportHeader$f_carga_stock_disponible_sucursal.srf
+$PBExportComments$Carga stock disponible
+global type f_carga_stock_disponible_sucursal from function_object
+end type
+
+forward prototypes
+global function boolean f_carga_stock_disponible_sucursal (string as_item, decimal ad_cantidad)
+end prototypes
+
+global function boolean f_carga_stock_disponible_sucursal (string as_item, decimal ad_cantidad);///////////////////////////////////////////////////////////////////////
+// DESCRIPCION : Carga el stock disponible tanto del item, como de sus
+//               componentes si es kit. Caso contrario:
+// Encuentra el stock disponible de todos los kits,que forma parte el item. 
+// FECHA DE REVISION : 12/02/1999
+///////////////////////////////////////////////////////////////////////
+
+// NOTA.- en in_relitem, tr_codigo = '1' para KIT
+
+decimal ld_cantidad,ld_stkdis_comp,ld_numero_kits,ld_cantidad_minima
+boolean lb_exito = TRUE, lb_es_1er_comp = TRUE
+string  ls_componente,ls_es_kit,ls_codigo_kit
+long    ll_contador
+
+// busca los componentes (hijos) y factor de conv de un kit,  para un item dado
+declare kit_cursor cursor for
+   select it_codigo,ri_cantid  
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo1 = :ls_codigo_kit
+		and tr_codigo = '1';  
+
+// busca los kits (papas) al que pertenece un item componente
+declare cursor_componente cursor for
+   select it_codigo1
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo = :as_item
+		and tr_codigo = '1';  
+		
+// actualiza en la sucursal el stock disponible del item ingresado
+update in_itesucur
+   set it_stkdis = it_stkdis + :ad_cantidad
+ where em_codigo = :str_appgeninfo.empresa
+   and su_codigo = :str_appgeninfo.sucursal
+   and it_codigo = :as_item;
+if sqlca.sqlcode <> 0 then
+   MessageBox("ERROR en f_carga_stock_disponible_sucursal","No puedo actualizar el stock.");
+	rollback using sqlca;
+   return (FALSE)
+end if
+
+// encuentra si el item es kit o no
+select it_kit
+  into :ls_es_kit
+  from in_item
+ where em_codigo = :str_appgeninfo.empresa
+   and it_codigo = :as_item;	
+	
+if ls_es_kit = 'S' then  // si el item es un kit
+	
+	ls_codigo_kit = as_item 
+	open kit_cursor;
+	
+	do
+	// se procede a cargar stock disponible en la sucursal de cada
+	// componente del kit; con el valor del factor por el valor separado
+	
+		fetch kit_cursor into :ls_componente,:ld_cantidad;
+		if sqlca.sqlcode <> 0 then exit; 
+		
+		update in_itesucur
+         set it_stkdis = it_stkdis + (:ad_cantidad*:ld_cantidad)
+       where em_codigo = :str_appgeninfo.empresa
+         and su_codigo = :str_appgeninfo.sucursal
+	      and it_codigo = :ls_componente;
+		if sqlca.sqlcode <> 0 then
+			lb_exito = FALSE
+  	   end if	
+	loop while TRUE;
+	close kit_cursor;
+	
+else // si el item no es un kit ,puede ser componente de uno o varios kit(s)
+	// encuentra de cuantos kits es componente (hijo)?
+	// para luego actualizar el stock disponible del los kits
+	select count(*)
+	  into :ll_contador
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo = :as_item
+		and tr_codigo = '1';   
+		
+	if ll_contador > 0 then  // si al menos es parte de un kit
+		open cursor_componente;
+		do
+			lb_es_1er_comp = TRUE
+			fetch cursor_componente into :ls_codigo_kit;
+			
+         // con el codigo de cada kit actualiza el stock de cada kit
+			
+			if sqlca.sqlcode <> 0 then exit
+			open kit_cursor;
+			do  // encuentra los componentes de cada kit y la cantidad
+				fetch kit_cursor into :ls_componente,:ld_cantidad;
+			   if sqlca.sqlcode <> 0 then exit
+				
+				// encuentra el stock del componente del kit en la sucursal
+				select it_stock
+				  into :ld_stkdis_comp
+				  from in_itesucur
+				 where em_codigo = :str_appgeninfo.empresa
+				   and su_codigo = :str_appgeninfo.sucursal
+					and it_codigo = :ls_componente;
+				
+//				encuentra el valor de dividir el stock de la sucursal para el factor del kit
+				ld_numero_kits = truncate(ld_stkdis_comp/ld_cantidad,0)
+				
+				// asigna a ld_cantidad_minima = ld_numero_kits solo si es 1era vez
+				if lb_es_1er_comp then
+					lb_es_1er_comp = FALSE
+					ld_cantidad_minima = ld_numero_kits
+				end if
+				
+//				encuentra el menor de todos
+				if ld_numero_kits < ld_cantidad_minima then
+					ld_cantidad_minima = ld_numero_kits
+				end if
+			loop while TRUE
+			
+			close kit_cursor;
+//       actualiza el stock disponible del kit (papa) con la minima cantidad
+//       que es el resultado de dividir el stock de cada componente para 
+//       el factor que compone del kit y actualizar con el menor de todos
+
+			update in_itesucur
+			   set it_stkdis = :ld_cantidad_minima
+			 where em_codigo = :str_appgeninfo.empresa
+			   and su_codigo = :str_appgeninfo.sucursal
+				and it_codigo = :ls_codigo_kit;
+				
+		loop while TRUE
+		close cursor_componente;
+	end if
+end if
+
+if not lb_exito then
+	MessageBox("ERROR en f_carga_stock_disponible_sucursal","No puedo actualizar el stock de los componentes");
+	rollback using sqlca;
+	return (FALSE)
+end if
+
+commit using sqlca;
+return (TRUE)
+end function
+

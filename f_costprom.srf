@@ -1,0 +1,78 @@
+HA$PBExportHeader$f_costprom.srf
+$PBExportComments$Determina el costo promedio
+global type f_costprom from function_object
+end type
+
+forward prototypes
+global function decimal f_costprom (string pepa, string as_ioe, long al_cantidad, decimal ac_costo)
+end prototypes
+
+global function decimal f_costprom (string pepa, string as_ioe, long al_cantidad, decimal ac_costo);/*Funci$$HEX1$$f300$$ENDHEX$$n que determina el costo promedio                                                                                            
+El costo promedio se lo determina a nivel de empresa  para lo cual se determina el stock total de la empresa y el costo
+total que va a depender del tipo de transaccion  que se realice                                                                                         */
+/*Argumentos que ingresan: pepa        --  codigo del item                                                                                                  */
+/*                                          ac_costo  -- costo sea el promedio o el costo nuevo; depende del tipo de transaccion        */
+/***********************************************************************************************/
+long ll_stock,ll_ioe
+decimal{4} lc_ctotal,lc_costprom
+
+
+// Consulta valores  acumulados
+select sum(nvl(x.it_stock,0)), nvl(y.it_costtotal,0)
+into :ll_stock,:lc_ctotal
+from in_itesucur x, in_item y
+where x.it_codigo = y.it_codigo
+and x.em_codigo = :str_appgeninfo.empresa
+and x.su_codigo <> '90'
+and x.it_codigo = :pepa
+group by y.it_costtotal;
+
+
+if as_ioe = 'I' then
+   lc_ctotal = lc_ctotal + al_cantidad*ac_costo  /*Costo de la transaccion que depende del tipo de transaccion a realizarse*/
+else
+   lc_ctotal = lc_ctotal - al_cantidad*ac_costo   /*Costo de la transaccion que depende del tipo de transaccion a realizarse*/
+end if
+
+if ll_stock <> 0 then
+lc_costprom = lc_ctotal/ll_stock
+else
+lc_costprom = 0	
+end if
+
+
+/*Actualiza el item para las siguientes transacciones*/
+If as_ioe = 'I' then
+	UPDATE IN_ITEM
+	SET IT_COSTPROM  = :lc_costprom
+	WHERE EM_CODIGO = :str_appgeninfo.empresa
+	AND IT_CODIGO  = :pepa;
+	
+	if sqlca.sqlcode < 0 then
+		Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al actualizar datos del item ..."+sqlca.sqlerrtext)
+		rollback;
+		return -1
+	end if
+end if
+
+UPDATE IN_ITEM
+SET       IT_COSTTOTAL = :lc_ctotal
+ WHERE EM_CODIGO = :str_appgeninfo.empresa
+AND IT_CODIGO  = :pepa;
+
+if sqlca.sqlcode < 0 then
+	Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al actualizar datos del item ..."+sqlca.sqlerrtext)
+	rollback;
+	return -1
+end if
+
+
+return lc_costprom
+
+
+
+
+
+
+end function
+

@@ -1,0 +1,89 @@
+HA$PBExportHeader$f_dame_stock_param_sucursal.srf
+global type f_dame_stock_param_sucursal from function_object
+end type
+
+forward prototypes
+global function integer f_dame_stock_param_sucursal (string as_sucursal, string as_item, ref decimal ad_cantidad, ref decimal ad_stock)
+end prototypes
+
+global function integer f_dame_stock_param_sucursal (string as_sucursal, string as_item, ref decimal ad_cantidad, ref decimal ad_stock);// Funcion entera para saber si hay o no stock disponible
+// adem$$HEX1$$e100$$ENDHEX$$s devuelve en ad_cantidad lo que existe en stock te$$HEX1$$f300$$ENDHEX$$rico
+// devuelve 0 si es que existe stock pero no lo pedido
+// devuelve 1 si es que existe stock
+// devuelve 2 si no existe stock real
+
+decimal ld_stock_disponible,ld_stock,ld_cantidad,ld_stock_disponible_comp,ld_stock_comp,ld_cantidad_dis_kit,ld_cantidad_minima
+decimal ld_stock_hijo, ld_cantidad_hijo,ld_sobrante_hijo,ld_cantidad_real_hijo,ld_cantidad_disponible
+string  ls_componente,ls_es_kit,ls_hijo
+boolean lb_hay_stock = TRUE, lb_hay_menos = FALSE, lb_es_1er_comp = TRUE,descarga
+
+declare kit_cursor cursor for
+   select it_codigo,ri_cantid
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo1 = :as_item
+		and tr_codigo = '1';   // TR_CODIGO = '1' --> ES KIT
+
+select it_kit
+  into :ls_es_kit
+  from in_item
+ where em_codigo = :str_appgeninfo.empresa
+   and it_codigo = :as_item;
+	
+if ls_es_kit = 'S' then
+	select trunc(min(it_stkdis / ri_cantid)),trunc(min(it_stock / ri_cantid))
+  	  into :ld_stock_disponible, :ad_stock
+  	  from in_itesucur x, in_relitem y
+ 	 where x.em_codigo = y.em_codigo
+   	and x.it_codigo = y.it_codigo
+   	and x.em_codigo = :str_appgeninfo.empresa
+		and x.su_codigo = :as_sucursal
+   	and y.it_codigo1 = :as_item
+   	and y.tr_codigo = '1'; //Es kit
+
+	if ls_es_kit = 'S' then
+
+	 open kit_cursor;
+	   do
+		  fetch kit_cursor into :ls_hijo,:ld_cantidad_hijo;
+		   if sqlca.sqlcode <> 0 then exit
+			  select it_stock,it_stkdis
+			    into :ld_cantidad_real_hijo,:ld_cantidad_disponible
+			    from in_itesucur
+			   where em_codigo = :str_appgeninfo.empresa
+			     and su_codigo = :as_sucursal
+				  and it_codigo = :ls_hijo;
+      			if ld_cantidad_real_hijo < ld_cantidad_disponible then 
+						f_descarga_stock_disponible_sucursal (ls_hijo,ld_cantidad_disponible - ld_cantidad_real_hijo);
+					end if	
+	   loop while TRUE;
+  close kit_cursor;
+  end if //descarga stock dsiponible si es que es mayor al real si es kit
+else
+	select it_stkdis, it_stock
+     into :ld_stock_disponible, :ad_stock
+     from in_itesucur
+    where em_codigo = :str_appgeninfo.empresa
+      and su_codigo = :as_sucursal
+	   and it_codigo = :as_item;
+end if // no es kit
+
+/*****************************************************************/
+
+if ad_stock < ld_stock_disponible then
+	descarga = f_descarga_stock_disponible_sucursal (as_item,ld_stock_disponible - ad_stock)
+end if	//actuliza los stocks en caso de no ser kit
+	
+if ad_stock >= ad_cantidad and ld_stock_disponible >= ad_cantidad then
+	return 1//retorna 1 si existe la cantidad
+else
+	if ad_stock <= 0 then
+		return 2 /* retorno cero no existe stock real*/	
+	else
+		   ad_cantidad = ld_stock_disponible
+	 		return 0 //retorna 0 no existe stock disponible para la cantidad 
+  end if
+end if 
+
+end function
+

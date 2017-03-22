@@ -1,0 +1,201 @@
+HA$PBExportHeader$f_contabiliza.srf
+$PBExportComments$Vale
+global type f_contabiliza from function_object
+end type
+
+forward prototypes
+global function long f_contabiliza (ref datawindow ad_datos, date ad_fecha, string as_tipo, long al_cpnumero)
+end prototypes
+
+global function long f_contabiliza (ref datawindow ad_datos, date ad_fecha, string as_tipo, long al_cpnumero);/**********************************************************************/
+/*Nombre      : f_contabiliza                                         */
+/*Descripcion :Funci$$HEX1$$f300$$ENDHEX$$n que contabiliza el egreso realizado en         */
+/* el modulo de Bancos.                                            .  */
+/* Crea o actualiza un asiento en contabilidad igual al creado en Bancos          */
+/*con el objetivo de no perder tiempo digitando dos veces el          */  
+/* mismo asiento                                                      */
+/* Argumentos  : datawindow  ad_datos                                 */
+/*             Date        ad_fecha                                   */
+/*				  String      as_tipo                                     */
+/* Valor de retorno :  1 realizo el Asiento                           */
+/*                   -1 no realizo                                    */
+/* Modificaci$$HEX1$$f300$$ENDHEX$$n para trabajar con sucursales en l$$HEX1$$ed00$$ENDHEX$$nea                 */
+/* El secuencial de los comprobantes es por empresa                   */
+/**********************************************************************/
+
+String  ls_tipo,&
+ 	      ls_obs,& 
+		  ls_cuenta,&
+		  ls_signo,&
+		  ls_nulo,&
+		  ls_sectipo, ls_egnumero,ls_cencos
+Long    ll_cpnumero,&
+            ll_new,ll_newm,i,ll_nreg,ll_sectipo
+Decimal {2}  lc_valor,lc_sum_debitos,lc_sum_creditos,lc_saldo
+Date   ld_fecha
+Setnull(ls_nulo)
+DatawindowChild  dwc_tipo
+
+ad_datos.Accepttext()
+
+DataStore   lds_detcom,lds_cabcom
+
+If as_tipo = 'DIN'   Then ls_tipo  = '1'
+If as_tipo = 'DEG' Then ls_tipo = '2' 
+If as_tipo = 'DIN'  THEN ls_obs = 'Depositos del d$$HEX1$$ed00$$ENDHEX$$a:' +String(ad_fecha,'dd/mm/yyyy')
+If as_tipo = 'DEG'THEN ls_obs = 'Egresos del d$$HEX1$$ed00$$ENDHEX$$a:' +String(ad_fecha,'dd/mm/yyyy')
+
+/*cabecera*/
+lds_cabcom = Create DataStore
+lds_cabcom.DataObject = 'd_cab_comprobante'
+lds_cabcom.SetTransObject(SQLCA)
+
+lds_cabcom.GetChild("ti_codigo",dwc_tipo)
+dwc_tipo.SetTransObject(sqlca)
+dwc_tipo.Retrieve(str_appgeninfo.empresa)
+
+
+/*detalle*/ 
+lds_detcom = Create DataStore
+//lds_detcom.DataObject = 'd_det_comprobante_automatico'
+lds_detcom.DataObject = 'd_det_comprobante'
+lds_detcom.SetTransObject(SQLCA)
+
+/*VERIFICA SI CREA UN NUEVO O ACTUALIZA. */
+if  (IsNull(al_cpnumero)  or al_cpnumero = 0) then
+	/*control para crear un diario en un ingreso o egreso ya existente*/	
+	if  ls_tipo  = '1' then
+		if (ad_fecha <  today() and ad_fecha >= date('12/06/2007'))  then 
+			messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Este movimiento no corresponde a la fecha actual, y modificar$$HEX2$$e1002000$$ENDHEX$$su mayor general.. <Favor Revisar>")
+		else 
+			if ad_fecha < date('12/06/2007') then return 0
+		end if
+	end if
+	/*fin control para crear un diario en un ingreso o egreso ya existente*/	
+		/*Generar el sucuencial del Asiento*/
+		ll_cpnumero = f_secuencial(str_appgeninfo.empresa,"CONTA_COMP")
+		ll_sectipo     = f_secuencial(str_appgeninfo.empresa,as_tipo)
+		//ll_cpnumero = f_secuencial_sucursal(str_appgeninfo.empresa,str_appgeninfo.sucursal,"CONTA_COMP")
+//		ll_sectipo  = f_secuencial_sucursal(str_appgeninfo.empresa,str_appgeninfo.sucursal,as_tipo)
+		ls_sectipo  = String(ll_sectipo)
+		
+			/*Insertar la cabecera*/
+		ll_newm = lds_cabcom.InsertRow(0)
+		lds_cabcom.SetItem(ll_newm,"em_codigo",str_appgeninfo.empresa)
+		lds_cabcom.SetItem(ll_newm,"su_codigo",str_appgeninfo.sucursal)
+		lds_cabcom.SetItem(ll_newm,"ti_codigo",ls_tipo)
+		lds_cabcom.SetItem(ll_newm,"cp_observ",ls_obs)
+		lds_cabcom.SetItem(ll_newm,"cp_numero",ll_cpnumero)
+		lds_cabcom.SetItem(ll_newm,"cp_numcomp",ls_sectipo)
+		lds_cabcom.SetItem(ll_newm,"cp_fecha",ad_fecha)
+		lds_cabcom.SetItem(ll_newm,"sa_login",str_appgeninfo.username)
+	
+else
+	//probando cab CUANDO ES UPDATE
+				long ll_countdet,ll_countcab,ll_rowact
+				lds_cabcom.retrieve ('1',str_appgeninfo.sucursal,string(al_cpnumero))
+				ll_countcab	= lds_cabcom.RowCount()
+				ll_rowact = lds_cabcom.getrow()
+				ll_cpnumero = al_cpnumero
+				/*Actualiza la cabecera*/ 
+				lds_cabcom.SetItem(lds_cabcom.getrow(),"cp_observ",ls_obs)
+				lds_cabcom.SetItem(lds_cabcom.getrow(),"cp_fecha",ad_fecha)
+				lds_cabcom.SetItem(lds_cabcom.getrow(),"sa_login",str_appgeninfo.username)
+				lds_detcom.retrieve ('1',str_appgeninfo.sucursal,ls_tipo,al_cpnumero)
+				ll_countdet = lds_detcom.RowCount()
+				/*Actualiza el Detalle*/
+				lds_detcom.rowsmove(1,lds_detcom.rowcount(),primary!,lds_detcom,1,delete!)
+//													delete from co_detcom 
+//													where em_codigo = '1'
+//													and su_codigo = :str_appgeninfo.sucursal
+//													and cp_numero = :al_cpnumero;
+//													if sqlca.sqlcode < 0 then
+//														messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al eliminar el detalle"+sqlca.sqlerrtext)
+//														rollback;
+//														return -1
+//												end if
+end if
+
+		
+		/*Insertar ahora el detalle del Asiento*/
+		for i = 1 to   ad_datos.RowCount()
+			ls_cuenta  = ad_datos.GetItemString(i,"pl_codigo")
+			ls_cencos  = ad_datos.GetItemString(i,"cs_codigo") 
+			if ls_tipo = '2' then
+				ls_signo   = ad_datos.GetItemString(i,"dg_signo")
+				lc_valor   = ad_datos.GetItemDecimal(i,"dg_valor")
+				ls_obs     = ad_datos.GetItemString(i,"dg_observ")
+			else
+				ls_signo   = ad_datos.GetItemString(i,"di_signo")
+				lc_valor   = ad_datos.GetItemDecimal(i,"di_valor")
+				ls_obs     = ad_datos.GetItemString(i,"di_observ")
+			end if
+			
+			ll_new = lds_detcom.InsertRow(0)
+			lds_detcom.SetItem(ll_new,"em_codigo",str_appgeninfo.empresa)
+			lds_detcom.SetItem(ll_new,"su_codigo",str_appgeninfo.sucursal)
+			lds_detcom.SetItem(ll_new,"ti_codigo",ls_tipo)
+			lds_detcom.SetItem(ll_new,"cp_numero",ll_cpnumero)
+			lds_detcom.SetItem(ll_new,"cs_codigo",ls_cencos)
+			lds_detcom.SetItem(ll_new,"dt_signo",ls_signo)
+			lds_detcom.SetItem(ll_new,"dt_secue",String(i))
+			lds_detcom.SetItem(ll_new,"pl_codigo",ls_cuenta)
+			lds_detcom.SetItem(ll_new,"dt_valor",lc_valor)
+			lds_detcom.SetItem(ll_new,"dt_detalle",ls_obs)
+			If ls_signo = 'D' &
+			Then
+			lc_sum_debitos = lc_sum_debitos + lc_valor
+			else
+			lc_sum_creditos = lc_sum_creditos + lc_valor	 
+			end if 
+		next
+
+			
+		/*Actualizar la cabecera con los datos totales de debito y credito */
+		lc_saldo = lc_sum_debitos - lc_sum_creditos
+		lds_cabcom.SetItem(lds_cabcom.getrow(),"cp_saldo",lc_saldo)
+		lds_cabcom.SetItem(lds_cabcom.getrow(),"cp_debito",lc_sum_debitos)
+		lds_cabcom.SetItem(lds_cabcom.getrow(),"cp_credito",lc_sum_creditos)
+		
+		/*Borrar  los registros que tengan valor del detalle */
+		lds_detcom.AcceptText()
+		ll_nreg = lds_detcom.RowCount()
+		For i = 1 to  lds_detcom.RowCount()
+			 lc_valor = lds_detcom.GetItemDecimal(i,"dt_valor")
+			 If lc_valor = 0 &
+			 Then 
+			 lds_detcom.DeleteRow(i)	
+			 i --
+			 End if	
+		Next	
+		
+		/*Verificar que el asiento cuadre*/
+		If lc_saldo <> 0 &
+		Then
+		Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","El Asiento no cuadra ~r~n No se contabilizar$$HEX1$$e100$$ENDHEX$$")
+		Return -1
+		End if
+		
+		/*Actualizar si el asiento cuadra*/
+		If lds_cabcom.update() = 1 &
+		Then
+			 If  lds_detcom.update() <> 1 &
+			 Then 
+			 Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","No se pudo grabar el detalle del comprobante." +sqlca.sqlerrtext,Exclamation!)
+			 rollback;
+			 Return -1
+			 End if 
+		else	
+		Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","No se pudo grabar el comprobante." +sqlca.sqlerrtext,Exclamation!)	
+		Rollback;
+		Return -1
+		End if	  
+		
+		Destroy lds_cabcom
+		Destroy lds_detcom
+		Return ll_cpnumero
+
+
+
+end function
+

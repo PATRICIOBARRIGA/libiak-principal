@@ -1,0 +1,139 @@
+HA$PBExportHeader$f_carga_stock_inicial.srf
+global type f_carga_stock_inicial from function_object
+end type
+
+forward prototypes
+global function integer f_carga_stock_inicial ()
+end prototypes
+
+global function integer f_carga_stock_inicial ();string   ls_kit,ls_item,ls_bodega,ls_componente,ls_item_kit
+decimal  ld_cantidad,ld_cantkit,ld_cantidad_kit_sucursal,ld_cantidad_kit_bodega
+
+declare c1 cursor for
+select it_codigo,ds_cantid,bo_codigo
+from in_dettoma
+where em_codigo = :str_appgeninfo.empresa;
+
+	  
+declare cursor_items_kit cursor for
+select *
+from in_item
+where em_codigo = '1'
+and it_kit = 'S';
+		 
+declare c2 cursor for
+select bo_codigo
+from in_bode
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal;
+
+// begin
+open c1;
+//for reg in c1 loop
+  do
+	  fetch c1 into :ls_item,:ld_cantidad,:ls_bodega;
+	  if sqlca.sqlcode <> 0 then exit; 
+          select it_kit
+          into :ls_kit
+          from in_item
+          where em_codigo = :str_appgeninfo.empresa
+          and it_codigo = :ls_item;
+          update in_itesucur
+          set it_stkini  = it_stkini + :ld_cantidad,
+               it_stock   = it_stock + :ld_cantidad,
+               it_stkdis  = it_stkdis + :ld_cantidad,
+               it_stkreal = it_stkreal + :ld_cantidad
+         where em_codigo = :str_appgeninfo.empresa
+         and su_codigo = :str_appgeninfo.sucursal
+         and it_codigo = :ls_item;
+         update in_itebod
+         set ib_stock  = ib_stock + :ld_cantidad,
+               ib_stkini = ib_stkini + :ld_cantidad,
+               ib_fecini = sysdate
+         where em_codigo = :str_appgeninfo.empresa
+         and su_codigo = :str_appgeninfo.sucursal
+         and bo_codigo = :ls_bodega
+         and it_codigo = :ls_item;
+     if ls_kit = 'S' then
+		  select it_codigo,ri_cantid
+           into :ls_componente,:ld_cantkit
+           from in_relitem
+           where em_codigo  = :str_appgeninfo.sucursal
+           and it_codigo1 = :ls_item
+           and tr_codigo  = '1'; //es kit
+           update in_itesucur
+           set it_stkini  = it_stkini + :ld_cantidad*:ld_cantkit,
+               it_stock   = it_stock + :ld_cantidad*:ld_cantkit,
+               it_stkdis  = it_stkdis + :ld_cantidad*:ld_cantkit,
+               it_stkreal = it_stkreal + :ld_cantidad*:ld_cantkit
+         where em_codigo = :str_appgeninfo.empresa
+         and su_codigo = :str_appgeninfo.sucursal
+         and it_codigo = :ls_componente;
+
+        update in_itebod
+        set ib_stock  = ib_stock + :ld_cantidad*:ld_cantkit,
+               ib_stkini = ib_stkini + :ld_cantidad*:ld_cantkit,
+               ib_fecini = sysdate
+        where em_codigo = :str_appgeninfo.empresa
+        and su_codigo = :str_appgeninfo.sucursal
+        and bo_codigo = :ls_bodega
+        and it_codigo = :ls_componente;
+     end if
+  loop while TRUE
+  close c1;
+  
+// SEGUNDA PARTE
+  open cursor_items_kit;
+  do
+    //for reg in c1 loop
+	  fetch cursor_items_kit into :ls_item_kit;
+	  if sqlca.sqlcode <> 0 then exit
+          select it_codigo,ri_cantid
+          into :ls_componente,:ld_cantkit
+          from in_relitem
+          where em_codigo = :str_appgeninfo.empresa
+          and it_codigo1 = :ls_item_kit
+          and tr_codigo = '1';
+          select trunc(it_stock/:ld_cantkit,0)
+          into :ld_cantidad_kit_sucursal
+          from in_itesucur
+          where em_codigo = :str_appgeninfo.empresa
+          and su_codigo = :str_appgeninfo.sucursal
+          and it_codigo = :ls_componente;
+          update in_itesucur
+          set it_stkini  = it_stkini  + :ld_cantidad_kit_sucursal,
+               it_stock   = it_stock   + :ld_cantidad_kit_sucursal,
+               it_stkdis  = it_stkdis  + :ld_cantidad_kit_sucursal,
+               it_stkreal = it_stkreal + :ld_cantidad_kit_sucursal
+         where em_codigo = :str_appgeninfo.empresa
+         and su_codigo = :str_appgeninfo.sucursal
+         and it_codigo = :ls_item_kit;
+			  
+		do
+//        for reg1 in c2 loop
+			 fetch c2 into :ls_bodega;
+			 if sqlca.sqlcode <> 0 then exit
+             select trunc(ib_stock/:ld_cantkit,0)
+             into :ld_cantidad_kit_bodega
+             from in_itebod
+             where em_codigo = :str_appgeninfo.empresa
+             and su_codigo = :str_appgeninfo.sucursal
+             and bo_codigo = :ls_bodega
+             and it_codigo = :ls_item_kit;
+             update in_itebod
+             set  ib_stock = ib_stock + :ld_cantidad_kit_bodega,
+                   ib_stkini = ib_stkini + :ld_cantidad_kit_bodega,
+                   ib_fecini = sysdate
+             where em_codigo = :str_appgeninfo.empresa
+             and su_codigo = :str_appgeninfo.sucursal
+             and bo_codigo = :ls_bodega
+             and it_codigo = :ls_item_kit;
+		  loop while TRUE
+		  close c2;
+	loop while TRUE
+	close cursor_items_kit;
+//end
+commit using sqlca;
+return (1)
+end function
+

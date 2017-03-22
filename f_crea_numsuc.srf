@@ -1,0 +1,43 @@
+HA$PBExportHeader$f_crea_numsuc.srf
+global type f_crea_numsuc from function_object
+end type
+
+forward prototypes
+global function integer f_crea_numsuc ()
+end prototypes
+
+global function integer f_crea_numsuc ();string ls_sucur, ls_nombre
+long ll_valor
+DECLARE C1 CURSOR FOR  
+SELECT "PR_SUCUR"."SU_CODIGO"
+  FROM "PR_SUCUR";
+
+DECLARE C2 CURSOR FOR  
+SELECT "PR_PARAM"."PR_NOMBRE",
+       "PR_PARAM"."PR_VALOR"
+  FROM "PR_PARAM"
+ WHERE "PR_PARAM"."PR_SUCURSAL" = 'S';
+
+open c1;
+    do 
+      fetch c1 into :ls_sucur;
+        if sqlca.sqlcode <> 0 then exit
+      open c2;
+       do
+          fetch c2 into :ls_nombre, :ll_valor;
+           if sqlca.sqlcode <> 0 then exit
+           if ls_sucur = '1' then
+              INSERT INTO "PR_NUMSUC" ( "PS_VALOR", "SU_CODIGO", "PR_NOMBRE", "EM_CODIGO" ) 
+                   VALUES (:ll_valor, :ls_sucur, :ls_nombre,'1');
+           else
+              INSERT INTO "PR_NUMSUC" ( "PS_VALOR", "SU_CODIGO", "PR_NOMBRE", "EM_CODIGO" ) 
+                   VALUES (99000001, :ls_sucur, :ls_nombre,'1');
+           end if
+       loop while true
+      close c2;
+    loop while true
+close c1;
+commit using sqlca;
+return 1
+end function
+
