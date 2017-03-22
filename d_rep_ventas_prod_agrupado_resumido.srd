@@ -1,0 +1,91 @@
+HA$PBExportHeader$d_rep_ventas_prod_agrupado_resumido.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=532 color="536870912" )
+summary(height=76 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=codigo_producto dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=producto dbname="in_item.it_nombre" )
+ column=(type=number updatewhereclause=yes name=cantidad dbname="cantidad" )
+ column=(type=number updatewhereclause=yes name=neto dbname="neto" )
+ column=(type=datetime updatewhereclause=yes name=fecha dbname="fa_venta.ve_fecha" )
+ column=(type=char(72) updatewhereclause=yes name=clien_vend dbname="clien_vend" )
+ column=(type=char(20) updatewhereclause=yes name=cod_depart dbname="in_item.cl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cod_fabricante dbname="in_item.fb_codigo" )
+ retrieve="SELECT ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+		sum(~"FA_DETVE~".~"DV_CANDES~") ~"cantidad~",   
+         sum(~"FA_DETVE~".~"DV_TOTAL~") ~"neto~",   
+         ~"FA_VENTA~".~"VE_FECHA~",   
+         decode(:grupo,'Vendedor',~"NO_EMPLE~".~"EP_CODIGO~"||' '||~"NO_EMPLE~".~"EP_APEPAT~"||' '||~"NO_EMPLE~".~"EP_NOMBRE~",
+				   decode(~"FA_CLIEN~".~"CE_CODIGO~",'1','1 Consumidor Final',decode(length(~"FA_CLIEN~".~"CE_RUCIC~"),13,~"FA_CLIEN~".~"CE_CODIGO~"||' '||~"FA_CLIEN~".~"CE_RAZONS~",
+							~"FA_CLIEN~".~"CE_CODIGO~"||' '||~"FA_CLIEN~".~"CE_NOMBRE~"||' '||~"FA_CLIEN~".~"CE_APELLI~"))) ~"clien_vend~",
+         ~"IN_ITEM~".~"CL_CODIGO~",   
+         ~"IN_ITEM~".~"FB_CODIGO~"
+    FROM ~"FA_DETVE~",   
+         ~"IN_ITEM~",   
+         ~"FA_VENTA~",   
+         ~"FA_CLIEN~",   
+         ~"NO_EMPLE~"
+   WHERE ( ~"FA_DETVE~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"EM_CODIGO~" = ~"FA_VENTA~".~"EM_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"SU_CODIGO~" = ~"FA_VENTA~".~"SU_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"BO_CODIGO~" = ~"FA_VENTA~".~"BO_CODIGO~" ) and  
+         ( ~"FA_DETVE~".~"VE_NUMERO~" = ~"FA_VENTA~".~"VE_NUMERO~" ) and  
+         ( ~"FA_DETVE~".~"ES_CODIGO~" = ~"FA_VENTA~".~"ES_CODIGO~" ) and  
+         ( ~"FA_CLIEN~".~"CE_CODIGO~" = ~"FA_VENTA~".~"CE_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"EM_CODIGO~" = ~"FA_CLIEN~".~"EM_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"EM_CODIGO~" = ~"NO_EMPLE~".~"EM_CODIGO~" ) and  
+         ( ~"FA_VENTA~".~"EP_CODIGO~" = ~"NO_EMPLE~".~"EP_CODIGO~" ) and  
+         ( ( ~"FA_VENTA~".~"EM_CODIGO~" = :empresa ) and  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = :sucursal) and  
+         ( ~"FA_VENTA~".~"ES_CODIGO~" in (:estado)) and  
+			( ~"FA_VENTA~".~"VE_FECHA~" between :fec_ini and :fec_fin ) and
+	     (~"FA_DETVE~".~"DV_CANDES~" <> 0 ) )
+	GROUP BY  ~"IN_ITEM~".~"CL_CODIGO~",   
+		~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"FA_VENTA~".~"VE_FECHA~",   
+         ~"FA_CLIEN~".~"CE_CODIGO~",   
+         ~"FA_CLIEN~".~"CE_NOMBRE~",   
+         ~"FA_CLIEN~".~"CE_APELLI~",   
+         ~"FA_CLIEN~".~"CE_RUCIC~",   
+         ~"FA_CLIEN~".~"CE_RAZONS~",   
+         ~"NO_EMPLE~".~"EP_APEMAT~",   
+         ~"NO_EMPLE~".~"EP_APEPAT~",   
+         ~"NO_EMPLE~".~"EP_NOMBRE~",   
+         ~"NO_EMPLE~".~"EP_CODIGO~",   
+         ~"IN_ITEM~".~"FB_CODIGO~"
+" arguments=(("estado", stringlist),("empresa", string),("sucursal", string),("grupo", string),("fec_ini", date),("fec_fin", date))  sort="number(clien_vend) A " )
+group(level=1 header.height=64 trailer.height=0 by=("clien_vend" ) header.color="536870912" trailer.color="536870912" )
+compute(band=header alignment="0" expression="'Resumen de facturas (POS) por '+grupo"border="0" color="0" x="14" y="188" height="76" width="2231" format="[GENERAL]" html.valueishtml="0"  name=st_nv visible="1~t0"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Resumen de Ventas por '+grupo"border="0" color="0" x="14" y="188" height="76" width="2231" format="[GENERAL]" html.valueishtml="0"  name=st_nvyf visible="1~t0"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Resumen de Facturas por Mayor por '+grupo"border="0" color="0" x="14" y="188" height="76" width="2231" format="[GENERAL]" html.valueishtml="0"  name=st_f visible="1~t0"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression=" grupo "border="0" color="0" x="14" y="464" height="56" width="393" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="16" height="68" width="1129" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="100" height="72" width="1769" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Bookman Old Style" font.height="-12" font.weight="700"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Del '+string( fec_ini ,'dd/mm/yyyy')+' Al '+string( relativedate(fec_fin , - 1) ,'dd/mm/yyyy')"border="0" color="0" x="14" y="276" height="68" width="1595" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="" border="0" color="0" x="2546" y="188" height="64" width="759" html.valueishtml="0"  name=st_bodega visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'Impreso el: '+string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2606" y="28" height="76" width="699" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$g. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2807" y="116" height="60" width="498" format="[GENERAL]" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Cantidad" border="0" color="0" x="2359" y="464" height="56" width="197" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Valor Neto" border="0" color="0" x="2702" y="468" height="56" width="233" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Fecha" border="0" color="0" x="2981" y="468" height="56" width="233" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header.1 alignment="1" expression="sum(  cantidad for group 1) "border="0" color="0" x="2213" y="4" height="56" width="343" format="#,##0" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header.1 alignment="1" expression="sum(  neto   for group 1)"border="0" color="0" x="2574" y="4" height="56" width="361" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=6 alignment="0" tabsequence=32766 border="0" color="0" x="18" y="4" height="56" width="1915" format="[general]" html.valueishtml="0"  name=clien_vend visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="73" y="4" height="56" width="462" format="[general]" html.valueishtml="0"  name=codigo_producto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="553" y="4" height="56" width="1504" format="[general]" html.valueishtml="0"  name=producto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="2213" y="4" height="56" width="343" format="[general]" html.valueishtml="0"  name=cantidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="2574" y="4" height="56" width="361" format="[general]" html.valueishtml="0"  name=neto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="2958" y="4" height="56" width="256" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="0" text="Total en Ventas" border="0" color="0" x="1714" y="16" height="56" width="393" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(  cantidad for all) "border="0" color="0" x="2213" y="16" height="56" width="343" format="#,##0" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(  neto for all) "border="0" color="0" x="2574" y="16" height="56" width="361" format="#,##0.00" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

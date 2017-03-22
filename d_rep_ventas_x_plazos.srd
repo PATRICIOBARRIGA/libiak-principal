@@ -1,0 +1,69 @@
+HA$PBExportHeader$d_rep_ventas_x_plazos.srd
+$PBExportComments$VENTAS POR RANGO
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=4 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no  crosstab.dynamic = yes grid.lines=0 grid.columnmove=no selected.mouse=no )
+header[1](height=312 color="536870912" )
+header[2](height=72 color="536870912" )
+summary(height=80 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_codigo dbname="pr_sucur_su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur_su_nombre" )
+ column=(type=number updatewhereclause=yes name=dias dbname="dias" )
+ retrieve="  SELECT s.~"SU_CODIGO~",
+s.~"SU_NOMBRE~",
+r.~"ES_CODIGO~",
+r.~"RP_FECHA~",
+
+decode(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,8),(r.rp_valor/1.12),
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,30),(r.rp_valor/1.12),
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,60),(r.rp_valor/1.12),
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,90),(r.rp_valor/1.12),
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,120),(r.rp_valor/1.12),
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,150),(r.rp_valor/1.12),
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,180),(r.rp_valor/1.12),(r.rp_valor/1.12)) neto,
+
+decode(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,8),'CONT',
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,30),'.30',
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,60),'.60',
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,90),'.90',
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,120),'120',
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,150),'150',
+least(trunc(r.rp_fecven) - trunc(r.rp_fecha) ,180),'180',' > 180') rango
+
+FROM ~"FA_RECPAG~" R,~"PR_SUCUR~" S
+WHERE s.~"SU_CODIGO~" = r.~"SU_CODIGO~"
+AND TRUNC(r.~"RP_FECHA~") between :ad_ini and :ad_fin
+AND r.~"ES_CODIGO~" IN (1,2,9,10)" arguments=(("ad_ini", date),("ad_fin", date))  sort="pr_sucur_su_codigo A pr_sucur_su_nombre A " )
+text(band=header[1] alignment="0" text="" border="0" color="33554432" x="9" y="20" height="56" width="681" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[1] alignment="0" text="VENTAS  POR PLAZO" border="0" color="33554432" x="9" y="96" height="56" width="686" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="0" expression="'Desde: '+ ad_ini + ' Hasta: '+ ad_fin "border="0" color="0" x="9" y="160" height="144" width="686" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[1] alignment="1" text="Impreso:" border="0" color="33554432" x="1550" y="68" height="56" width="434" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header[1] alignment="1" expression="today()"border="0" color="0" x="1550" y="140" height="56" width="434" format="[general]" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header[1] alignment="1" expression="'Pag ' + page() + ' de ' + pageCount()"border="0" color="0" x="1550" y="12" height="56" width="434" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="68" width="681" format="[general]" html.valueishtml="0"  name=pr_sucur_su_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="699" y="4" height="68" width="512" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="~"Gran Total~""border="0" color="33554432" x="9" y="4" height="68" width="681" format="[general]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="Sucursal" border="0" color="33554432" x="699" y="4" height="56" width="512" html.valueishtml="0"  name=pr_sucur_su_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo Sucursal" border="0" color="33554432" x="9" y="4" height="56" width="681" html.valueishtml="0"  name=pr_sucur_su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="1" text="Gran Total " border="0" color="33554432" x="1550" y="4" height="56" width="434" html.valueishtml="0"  name=grand_sum_neto_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header[2] alignment="2" text="@rango" border="0" color="128" x="1221" y="4" height="56" width="320" html.valueishtml="0"  name=dias_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="1221" y="4" height="68" width="320" format="#,##0.00" html.valueishtml="0"  name=dias visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="1550" y="4" height="68" width="434" format="#,##0.00" html.valueishtml="0"  name=grand_sum_neto visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(dias for all )"border="0" color="33554432" x="1221" y="4" height="72" width="320" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(grand_sum_neto for all )"border="0" color="33554432" x="1550" y="4" height="72" width="434" format="#,##0.00" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "rango" rows = "pr_sucur_su_codigo, pr_sucur_su_nombre" values = "sum(neto for crosstab)" sourcenames = "pr_sucur_su_codigo, pr_sucur_su_nombre, fa_recpag_es_codigo, fa_recpag_rp_fecha, neto, rango")
+sparse(names="pr_sucur_su_codigo")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

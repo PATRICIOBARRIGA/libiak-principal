@@ -1,0 +1,83 @@
+HA$PBExportHeader$d_rep_ventas_fp_x_empresa.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=284 color="536870912" )
+summary(height=88 color="-1" )
+footer(height=0 color="-1" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=compute_0001 dbname="compute_0001" )
+ column=(type=number updatewhereclause=yes name=total dbname="total" )
+ column=(type=char(19) updatewhereclause=yes name=fa_formpag_fpago dbname="fa_formpag.fpago" )
+ retrieve="select y.fp_codigo ~"Forma de Pago~",nvl(sum(y.rp_valor),0) ~"Total~",z.fp_descorta ~"Fpago~"
+from fa_venta x, fa_recpag y, fa_formpag z
+where x.es_codigo = y.es_codigo and
+x.em_codigo = y.em_codigo and
+x.su_codigo = y.su_codigo and
+x.bo_codigo = y.bo_codigo and
+x.ve_numero = y.ve_numero and
+y.em_codigo = z.em_codigo and
+y.fp_codigo = z.fp_codigo and
+x.em_codigo = 1 and
+x.es_codigo = 2 and
+x.ve_fecha between :fec_ini and :fec_fin + 1
+group by y.fp_codigo,z.fp_descorta
+union all
+select 'Cambio',nvl(sum(ve_cambio),0),''
+from fa_venta
+where em_codigo = 1 and
+es_codigo = 2 and
+ve_fecha between :fec_ini and :fec_fin + 1
+union all
+select 'Ch Post',nvl(sum(y.rp_valor),0),z.fp_descorta ~"Fpago~"
+from fa_venta x, fa_recpag y, fa_formpag z
+where x.es_codigo = y.es_codigo and
+x.em_codigo = y.em_codigo and
+x.su_codigo = y.su_codigo and
+x.bo_codigo = y.bo_codigo and
+x.ve_numero = y.ve_numero and
+y.em_codigo = z.em_codigo and
+y.fp_codigo = z.fp_codigo and
+x.em_codigo = 1 and
+x.es_codigo = 2 and
+y.fp_codigo = 1 and
+x.ve_fecha between :fec_ini and :fec_fin + 1 and
+trunc(y.rp_fecven) > trunc(y.rp_fecha)
+group by z.fp_descorta" arguments=(("fec_ini", date),("fec_fin", date))  sort="compute_3 A " )
+compute(band=header alignment="0" expression="today()"border="0" color="0" x="1778" y="8" height="64" width="247" format="dd/mm/yyyy" html.valueishtml="0"  name=date_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="now()"border="0" color="0" x="2039" y="8" height="64" width="247" format="h:mm" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Impreso:" border="0" color="0" x="1563" y="8" height="64" width="201" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="18" y="12" height="80" width="1376" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Ventas por formas de pago POS" border="0" color="0" x="18" y="104" height="92" width="1266" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-14" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="'Desde : ' +fec_ini + ' Hasta : '+ fec_fin "border="0" color="0" x="18" y="208" height="64" width="1289" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if( compute_0001 not in('Cambio','Ch Post'), fa_formpag_fpago ,if( compute_0001 ='Cambio','Cambio','Cheque Diferido'))"border="0" color="0" x="123" y="8" height="56" width="526" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1~tIf(  compute_0001 ='Cambio',0,1)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=detail alignment="0" expression="if( compute_0001 ='Cambio',total,0)"border="0" color="8388608" x="2139" y="12" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_cambio visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=detail alignment="0" expression="if( compute_0001 ='Ch Post',total,0)"border="0" color="8388608" x="2359" y="12" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cc_chdif visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=detail alignment="1" expression="if( compute_0001 ='0',total - cambio,if( compute_0001 ='1',total - chdif,total))"border="0" color="8388608" x="667" y="8" height="56" width="411" format="#,##0.00" html.valueishtml="0"  name=compute_9 visible="1~tIf( compute_0001 ='Cambio',0,1)"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=detail alignment="0" expression="if( compute_0001 ='0',total,0)"border="0" color="8388608" x="1925" y="8" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_10 visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=detail alignment="0" expression="if( compute_0001 ='1',total,0)"border="0" color="8388608" x="1659" y="8" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_11 visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+line(band=summary x1="663" y1="8" x2="1083" y2="8"  name=l_5 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=summary alignment="0" text="TOTAL VENTAS:" border="0" color="0" x="256" y="24" height="56" width="393" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="0" expression="sum(if( compute_0001 ='Cambio',total,0) for all)"border="0" color="8388608" x="2167" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cambio visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=summary alignment="0" expression="sum(if( compute_0001 ='Ch Post',total,0) for all)"border="0" color="8388608" x="2377" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=chdif visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=summary alignment="1" expression="sum(if( compute_0001 ='0',total - cambio,if( compute_0001 ='1',total - chdif,total)) for all) - cambio"border="0" color="8388608" x="667" y="20" height="56" width="411" format="#,##0.00" html.valueishtml="0"  name=cc_tot_ventas visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=summary alignment="0" expression="sum(if( compute_0001 ='0',total,0) for all)"border="0" color="8388608" x="1925" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=efectivo visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=summary alignment="0" expression="sum(if( compute_0001 ='1',total,0) for all)"border="0" color="8388608" x="1655" y="4" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=cheque visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=summary alignment="0" expression=" efectivo  -  cambio "border="0" color="8388608" x="1138" y="8" height="60" width="128" format="#,##0.00" html.valueishtml="0"  name=cc_efectivo visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=footer alignment="0" text="Banco:" border="0" color="0" x="151" y="116" height="60" width="174" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="DETALLE DEL DEPOSITO" border="0" color="0" x="206" y="192" height="60" width="631" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="Cheques Pagados:...$." border="0" color="0" x="329" y="420" height="60" width="594" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="Efectivo:........................$." border="0" color="0" x="329" y="264" height="60" width="599" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="Cheques a la Fecha:.$." border="0" color="0" x="329" y="340" height="60" width="599" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="DEPOSITO:" border="0" color="0" x="119" y="44" height="60" width="283" html.valueishtml="0"  name=t_16 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="TOTAL A DEPOSITAR" border="0" color="0" x="759" y="496" height="60" width="539" html.valueishtml="0"  name=t_17 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,99 @@
+HA$PBExportHeader$d_rep_venta_fpos_anuladas.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=400 color="536870912" )
+summary(height=68 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=ve_numero dbname="fa_venta.ve_numero" )
+ column=(type=char(20) updatewhereclause=yes name=ve_numpre dbname="fa_venta.ve_numpre" )
+ column=(type=datetime updatewhereclause=yes name=fa_venta_ve_fecha dbname="fa_venta.ve_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_subtot dbname="fa_venta.ve_subtot" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_descue dbname="fa_venta.ve_descue" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_neto dbname="fa_venta.ve_neto" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_iva dbname="fa_venta.ve_iva" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_cargo dbname="fa_venta.ve_cargo" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_valpag dbname="fa_venta.ve_valpag" )
+ column=(type=char(100) updatewhereclause=yes name=fa_venta_ve_observ dbname="fa_venta.ve_observ" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_efectivo dbname="fa_venta.ve_efectivo" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_valotros dbname="fa_venta.ve_valotros" )
+ column=(type=decimal(2) updatewhereclause=yes name=fa_venta_ve_cambio dbname="fa_venta.ve_cambio" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_cj_caja dbname="fa_venta.cj_caja" )
+ column=(type=char(102) updatewhereclause=yes name=ccliente dbname="cliente" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_es_codigo dbname="fa_venta.es_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ce_codigo dbname="fa_venta.ce_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=fa_venta_ep_codigo dbname="fa_venta.ep_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=fa_venta_ve_motivo dbname="fa_venta.ve_motivo" )
+ retrieve="  SELECT ~"FA_VENTA~".~"VE_NUMERO~",   
+         ~"FA_VENTA~".~"VE_NUMPRE~",   
+         ~"FA_VENTA~".~"VE_FECHA~",   
+         ~"FA_VENTA~".~"VE_SUBTOT~",   
+         ~"FA_VENTA~".~"VE_DESCUE~",   
+         ~"FA_VENTA~".~"VE_NETO~",   
+         ~"FA_VENTA~".~"VE_IVA~",   
+         ~"FA_VENTA~".~"VE_CARGO~",   
+         ~"FA_VENTA~".~"VE_VALPAG~",   
+         ~"FA_VENTA~".~"VE_OBSERV~",   
+         ~"FA_VENTA~".~"VE_EFECTIVO~",   
+         ~"FA_VENTA~".~"VE_VALOTROS~",   
+         ~"FA_VENTA~".~"VE_CAMBIO~",   
+         ~"FA_VENTA~".~"CJ_CAJA~",   
+         ~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_NOMBRE~"||' '||~"FA_CLIEN~".~"CE_APELLI~" ~"cliente~",   
+         ~"FA_VENTA~".~"ES_CODIGO~",  
+         ~"FA_VENTA~".~"CE_CODIGO~",  
+         ~"FA_VENTA~".~"EP_CODIGO~",
+         ~"FA_VENTA~".~"VE_MOTIVO~"
+    FROM ~"FA_VENTA~",
+		~"FA_CLIEN~"
+   WHERE ( ~"FA_VENTA~".~"CE_CODIGO~" = ~"FA_CLIEN~".~"CE_CODIGO~" ) and  
+         ( ( ~"FA_VENTA~".~"EM_CODIGO~" = 1 ) AND  
+         ( ~"FA_VENTA~".~"SU_CODIGO~" = :sucursal ) AND  
+         (~"FA_VENTA~".~"ES_CODIGO~" in (2 , 6)) AND
+         (~"FA_VENTA~".~"VE_FECHA~" between :fec_ini and :fec_fin + 1 ))    
+" arguments=(("sucursal", number),("fec_ini", date),("fec_fin", date))  sort="ve_numero A " )
+line(band=header x1="5" y1="396" x2="3333" y2="396"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Int." border="0" color="0" x="32" y="324" height="56" width="64" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cliente" border="0" color="0" x="997" y="324" height="56" width="146" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Fecha" border="0" color="0" x="690" y="324" height="56" width="142" html.valueishtml="0"  name=fa_venta_ve_numpre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Factura" border="0" color="0" x="302" y="324" height="56" width="169" html.valueishtml="0"  name=fa_venta_ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Subtotal" border="0" color="0" x="1769" y="324" height="56" width="178" html.valueishtml="0"  name=fa_venta_ve_subtot_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Descuento" border="0" color="0" x="1966" y="324" height="56" width="238" html.valueishtml="0"  name=fa_venta_ve_descue_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Neto" border="0" color="0" x="2391" y="324" height="56" width="105" html.valueishtml="0"  name=fa_venta_ve_neto_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="IVA" border="0" color="0" x="2688" y="324" height="56" width="82" html.valueishtml="0"  name=fa_venta_ve_iva_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cargo" border="0" color="0" x="2880" y="324" height="56" width="133" html.valueishtml="0"  name=fa_venta_ve_cargo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Total" border="0" color="0" x="3223" y="324" height="56" width="105" html.valueishtml="0"  name=fa_venta_ve_valpag_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Pag. ' + page() + ' de ' + pagecount()"border="0" color="0" x="2697" y="164" height="56" width="649" format="[general]" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Desde: ' + string( fec_ini ,'dd/mm/yyyy') + ' Hasta: ' +  string( fec_fin ,'dd/mm/yyyy')"border="0" color="0" x="2176" y="20" height="56" width="1170" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Fecha de Impresi$$HEX1$$f300$$ENDHEX$$n : ' + string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="2176" y="92" height="56" width="1170" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="204" height="80" width="2469" html.valueishtml="0"  name=st_estado visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="20" height="80" width="1659" html.valueishtml="0"  name=st_empresa visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="" border="0" color="0" x="14" y="112" height="80" width="1655" html.valueishtml="0"  name=st_sucursal visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="8" height="56" width="279" format="[general]" html.valueishtml="0"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="if( fa_venta_es_codigo ='6','ANULADA',ccliente)"border="0" color="0" x="1001" y="8" height="56" width="654" format="[general]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="306" y="8" height="56" width="279" format="[general]" html.valueishtml="0"  name=ve_numpre visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="603" y="8" height="56" width="379" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=fa_venta_ve_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( fa_venta_es_codigo ='5' or  fa_venta_es_codigo ='6',0,fa_venta_ve_subtot)"border="0" color="0" x="1673" y="8" height="56" width="279" format="#,##0.00" html.valueishtml="0"  name=subtotal visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( fa_venta_es_codigo ='5' or  fa_venta_es_codigo ='6',0,fa_venta_ve_descue)"border="0" color="0" x="1970" y="8" height="56" width="238" format="#,##0.00" html.valueishtml="0"  name=descuento visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( fa_venta_es_codigo ='5' or  fa_venta_es_codigo ='6',0,fa_venta_ve_neto)"border="0" color="0" x="2222" y="8" height="56" width="279" format="#,##0.00" html.valueishtml="0"  name=neto visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( fa_venta_es_codigo ='5' or  fa_venta_es_codigo ='6',0, fa_venta_ve_iva )"border="0" color="0" x="2519" y="8" height="56" width="256" format="#,##0.00" html.valueishtml="0"  name=iva visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( fa_venta_es_codigo ='5' or  fa_venta_es_codigo ='6',0,  fa_venta_ve_cargo )"border="0" color="0" x="2789" y="8" height="56" width="229" format="#,##0.00" html.valueishtml="0"  name=cargo visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( fa_venta_es_codigo ='5' or  fa_venta_es_codigo ='6',0,  fa_venta_ve_valpag)"border="0" color="0" x="3031" y="8" height="56" width="306" format="#,##0.00" html.valueishtml="0"  name=total visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="0" x="3355" y="8" height="56" width="32" format="[general]" html.valueishtml="0"  name=fa_venta_ve_motivo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="2" text="Total :" border="0" color="0" x="1495" y="8" height="56" width="133" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(SUBTOTAL for all)"border="0" color="0" x="1673" y="4" height="60" width="279" format="#,##0.00" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(descuento for all)"border="0" color="0" x="1970" y="4" height="60" width="238" format="#,##0.00" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(neto for all)"border="0" color="0" x="2222" y="4" height="60" width="279" format="#,##0.00" html.valueishtml="0"  name=cc_neto visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(iva for all)"border="0" color="0" x="2519" y="4" height="60" width="256" format="#,##0.00" html.valueishtml="0"  name=cc_iva visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(cargo for all)"border="0" color="0" x="2789" y="4" height="60" width="229" format="#,##0.00" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(total for all)"border="0" color="0" x="3026" y="4" height="60" width="306" format="#,##0.00" html.valueishtml="0"  name=cc_total visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
