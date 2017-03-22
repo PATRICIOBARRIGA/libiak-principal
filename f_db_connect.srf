@@ -1,0 +1,104 @@
+HA$PBExportHeader$f_db_connect.srf
+global type f_db_connect from function_object
+end type
+
+forward prototypes
+global function boolean f_db_connect (ref transaction ato_transobject, string as_username, string as_password, string as_dbms, string as_servername, string as_database)
+end prototypes
+
+global function boolean f_db_connect (ref transaction ato_transobject, string as_username, string as_password, string as_dbms, string as_servername, string as_database);string ls_dbparm
+
+setPointer(HourGlass!)
+
+choose case as_dbms
+	case "O90"
+		ato_transobject.dbms = "O90"
+		ato_transobject.database = as_database
+		ato_transobject.logid = as_username
+		ato_transobject.logpass = as_password
+		ato_transobject.servername = as_servername
+		ato_transobject.DBParm = profileString(str_appgeninfo.ini_file, "database", "dbparm", "NCharBind=1")
+	case "O10"
+		ato_transobject.dbms = "O10"
+		ato_transobject.database = as_database
+		ato_transobject.logid = as_username
+		ato_transobject.logpass = as_password
+		ato_transobject.servername = as_servername
+		ato_transobject.DBParm = profileString(str_appgeninfo.ini_file, "database", "dbparm", "NCharBind=1")
+	case "ODBC"
+		ato_transobject.dbms = "ODBC"
+		ato_transobject.database = as_database
+		ato_transobject.userid = as_username
+		ato_transobject.dbpass = as_password
+		ato_transobject.servername = as_servername
+		ls_dbparm = profileString(str_appgeninfo.ini_file, &
+										"database", "dbparm", &
+										"ConnectString='DSN=" + as_database + "'")
+		ato_transobject.DBParm = left(ls_dbparm, len(ls_dbparm) - 1) + &
+								";UID=" + as_username+";PWD=" + as_password + &
+								right(ls_dbparm, 1)
+	case "SYBASE"
+		ato_transobject.dbms = "SYBASE"
+		ato_transobject.database = as_database
+		ato_transobject.logid = as_username
+		ato_transobject.logpass = as_password
+		ato_transobject.servername = as_servername
+		ato_transobject.DBParm = profileString(str_appgeninfo.ini_file, "database", "dbparm", "")
+
+	case "O73"
+		ato_transobject.dbms = "O73"
+		ato_transobject.database = as_database
+		ato_transobject.logid = as_username
+		ato_transobject.logpass = as_password
+		ato_transobject.servername = as_servername
+		ato_transobject.DBParm = profileString(str_appgeninfo.ini_file, "database", "dbparm", "")
+	case "O84"
+		ato_transobject.dbms = "O84"
+		ato_transobject.database = as_database
+		ato_transobject.logid = as_username
+		ato_transobject.logpass = as_password
+		ato_transobject.servername = as_servername
+		ato_transobject.DBParm = profileString(str_appgeninfo.ini_file, "database", "dbparm", "")
+	
+   case "O11"
+         //Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Conectando con Oracle 11g")
+	    ato_transobject.dbms = "ORA Oracle"
+		ato_transobject.database = as_database
+		ato_transobject.logid = as_username
+		ato_transobject.logpass = as_password
+		ato_transobject.servername = as_servername
+		ato_transobject.DBParm = profileString(str_appgeninfo.ini_file, "database", "dbparm", "")
+	case "11g"
+		    Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Conectando con Oracle 11g")
+			ato_transobject.DBMS = "ORA Oracle"
+			ato_transobject.LogPass = as_password
+			ato_transobject.ServerName = as_servername
+			ato_transobject.LogId = as_username
+			ato_transobject.AutoCommit = False
+			ato_transobject.DBParm = "PBCatalogOwner='DINAMIC'"
+	
+	 case "TRACE O11"
+         //Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Conectando con Oracle 11g")
+	    ato_transobject.dbms = "TRACE ORA Oracle"
+		ato_transobject.database = as_database
+		ato_transobject.logid = as_username
+		ato_transobject.logpass = as_password
+		ato_transobject.servername = as_servername
+		ato_transobject.DBParm = profileString(str_appgeninfo.ini_file, "database", "dbparm", "")
+		
+   case else
+		f_error("N/D", "Motor de base datos no soportado: " + as_dbms, &
+						"database", "fatal", "")
+		return False
+end choose
+
+connect using ato_transobject;
+if ato_transobject.SQLCode = 0 then
+	return True
+else
+	f_dbError(ato_transObject, "Tratando de conectarnos al motor")
+	return False
+end if
+
+end function
+

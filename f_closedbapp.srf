@@ -1,0 +1,19 @@
+HA$PBExportHeader$f_closedbapp.srf
+global type f_closedbapp from function_object
+end type
+
+forward prototypes
+global function integer f_closedbapp ()
+end prototypes
+
+global function integer f_closedbapp ();if str_appGenInfo.db_connected then
+	disconnect using sqlca;
+	if sqlca.sqlcode <> 0 then
+		f_dberror(sqlca, "Tratando de desconectarme del motor")
+	end if
+end if
+
+return 1
+
+end function
+

@@ -1,0 +1,16 @@
+HA$PBExportHeader$f_dberror.srf
+global type f_dberror from function_object
+end type
+
+forward prototypes
+global function integer f_dberror (transaction as_tranobj, string as_message)
+end prototypes
+
+global function integer f_dberror (transaction as_tranobj, string as_message);messageBox("Error de base de datos: " + string(as_tranobj.sqldbcode), &
+				as_message + "~n" + as_tranobj.sqlErrText, StopSign!)
+
+return 1
+
+
+end function
+
