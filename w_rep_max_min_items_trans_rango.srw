@@ -15,8 +15,6 @@ type dw_detalle from datawindow within w_rep_max_min_items_trans_rango
 end type
 type dw_ubica from datawindow within w_rep_max_min_items_trans_rango
 end type
-type dw_report from datawindow within w_rep_max_min_items_trans_rango
-end type
 type dw_datos from uo_dw_basic within w_rep_max_min_items_trans_rango
 end type
 type dw_item from datawindow within w_rep_max_min_items_trans_rango
@@ -24,6 +22,8 @@ end type
 type dw_cabecera from datawindow within w_rep_max_min_items_trans_rango
 end type
 type dw_2 from datawindow within w_rep_max_min_items_trans_rango
+end type
+type dw_report from datawindow within w_rep_max_min_items_trans_rango
 end type
 end forward
 
@@ -56,11 +56,11 @@ dw_kits dw_kits
 dw_1 dw_1
 dw_detalle dw_detalle
 dw_ubica dw_ubica
-dw_report dw_report
 dw_datos dw_datos
 dw_item dw_item
 dw_cabecera dw_cabecera
 dw_2 dw_2
+dw_report dw_report
 end type
 global w_rep_max_min_items_trans_rango w_rep_max_min_items_trans_rango
 
@@ -613,11 +613,11 @@ this.dw_kits=create dw_kits
 this.dw_1=create dw_1
 this.dw_detalle=create dw_detalle
 this.dw_ubica=create dw_ubica
-this.dw_report=create dw_report
 this.dw_datos=create dw_datos
 this.dw_item=create dw_item
 this.dw_cabecera=create dw_cabecera
 this.dw_2=create dw_2
+this.dw_report=create dw_report
 iCurrent=UpperBound(this.Control)
 this.Control[iCurrent+1]=this.dw_subclases
 this.Control[iCurrent+2]=this.dw_aux
@@ -625,11 +625,11 @@ this.Control[iCurrent+3]=this.dw_kits
 this.Control[iCurrent+4]=this.dw_1
 this.Control[iCurrent+5]=this.dw_detalle
 this.Control[iCurrent+6]=this.dw_ubica
-this.Control[iCurrent+7]=this.dw_report
-this.Control[iCurrent+8]=this.dw_datos
-this.Control[iCurrent+9]=this.dw_item
-this.Control[iCurrent+10]=this.dw_cabecera
-this.Control[iCurrent+11]=this.dw_2
+this.Control[iCurrent+7]=this.dw_datos
+this.Control[iCurrent+8]=this.dw_item
+this.Control[iCurrent+9]=this.dw_cabecera
+this.Control[iCurrent+10]=this.dw_2
+this.Control[iCurrent+11]=this.dw_report
 end on
 
 on w_rep_max_min_items_trans_rango.destroy
@@ -640,11 +640,11 @@ destroy(this.dw_kits)
 destroy(this.dw_1)
 destroy(this.dw_detalle)
 destroy(this.dw_ubica)
-destroy(this.dw_report)
 destroy(this.dw_datos)
 destroy(this.dw_item)
 destroy(this.dw_cabecera)
 destroy(this.dw_2)
+destroy(this.dw_report)
 end on
 
 event open;ib_inReportMode = true
@@ -709,8 +709,8 @@ end event
 
 type dw_subclases from datawindow within w_rep_max_min_items_trans_rango
 boolean visible = false
-integer x = 645
-integer y = 1520
+integer x = 1701
+integer y = 1556
 integer width = 1408
 integer height = 360
 integer taborder = 70
@@ -825,7 +825,7 @@ end type
 
 type dw_detalle from datawindow within w_rep_max_min_items_trans_rango
 boolean visible = false
-integer x = 1614
+integer x = 1243
 integer width = 2341
 integer height = 2460
 integer taborder = 20
@@ -842,8 +842,8 @@ end type
 type dw_ubica from datawindow within w_rep_max_min_items_trans_rango
 event ue_keydown pbm_dwnkey
 boolean visible = false
-integer x = 402
-integer y = 452
+integer x = 398
+integer y = 540
 integer width = 2592
 integer height = 264
 integer taborder = 40
@@ -916,21 +916,6 @@ dw_datos.Setrow(0)
 end if   
 end if
 end event
-
-type dw_report from datawindow within w_rep_max_min_items_trans_rango
-boolean visible = false
-integer x = 1102
-integer y = 276
-integer width = 535
-integer height = 168
-integer taborder = 60
-boolean bringtotop = true
-boolean enabled = false
-string dataobject = "d_prn_pedido_maxmin"
-boolean hscrollbar = true
-boolean vscrollbar = true
-boolean livescroll = true
-end type
 
 type dw_datos from uo_dw_basic within w_rep_max_min_items_trans_rango
 integer x = 407
@@ -1467,8 +1452,8 @@ end event
 
 type dw_2 from datawindow within w_rep_max_min_items_trans_rango
 boolean visible = false
-integer x = 411
-integer y = 1024
+integer x = 425
+integer y = 916
 integer width = 1504
 integer height = 536
 integer taborder = 60
@@ -1515,4 +1500,18 @@ choose case dwo.name
 		ldwc_aux.Filter()
 end choose	
 end event
+
+type dw_report from datawindow within w_rep_max_min_items_trans_rango
+boolean visible = false
+integer x = 1102
+integer y = 276
+integer width = 535
+integer height = 168
+integer taborder = 60
+boolean enabled = false
+string dataobject = "d_prn_pedido_maxmin"
+boolean hscrollbar = true
+boolean vscrollbar = true
+boolean livescroll = true
+end type
 
