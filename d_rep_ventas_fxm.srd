@@ -1,0 +1,61 @@
+HA$PBExportHeader$d_rep_ventas_fxm.srd
+$PBExportComments$Si.
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=sucursal dbname="fa_venta.sucursal" )
+ column=(type=number updatewhereclause=yes name=ccosto dbname="ccosto" )
+ column=(type=number updatewhereclause=yes name=neto dbname="neto" )
+ column=(type=number updatewhereclause=yes name=iva dbname="iva" )
+ column=(type=number updatewhereclause=yes name=cargo dbname="cargo" )
+ column=(type=number updatewhereclause=yes name=valpag dbname="valpag" )
+ column=(type=char(18) updatewhereclause=yes name=obs dbname="obs" )
+ retrieve="select su_codigo SUCURSAL,
+          decode(su_codigo,1,4
+                   ,2,6,
+                   3,7,
+                   4,8,
+                   5,9,
+                   6,10,
+                   7,13,
+                   8,11,
+                   9,14,
+                   10,21,
+                   11,17,
+                   12,15,
+                   13,22,
+                    14,30,
+                   15,31,16,32,17,26,18,27,19,25,20,28,21,29,22,37,
+                   23,37,24,3,25,40,26,38) ccosto,  
+          sum(ve_neto) NETO,
+          sum(ve_iva) IVA,
+          sum(ve_cargo) CARGO,
+          sum(ve_valpag) VALPAG,
+         'Resumen ventas fxm' OBS
+from fa_venta
+where em_codigo = 1
+and es_codigo = 1
+and ve_fecha between :ad_ini and :ad_fin
+group by su_codigo" arguments=(("ad_ini", date),("ad_fin", date)) )
+text(band=header alignment="2" text="Sucursal" border="0" color="33554432" x="9" y="8" height="56" width="334" html.valueishtml="0"  name=sucursal_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ccosto" border="0" color="33554432" x="352" y="8" height="56" width="274" html.valueishtml="0"  name=ccosto_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Neto" border="0" color="33554432" x="635" y="8" height="56" width="274" html.valueishtml="0"  name=neto_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Iva" border="0" color="33554432" x="919" y="8" height="56" width="274" html.valueishtml="0"  name=iva_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cargo" border="0" color="33554432" x="1202" y="8" height="56" width="274" html.valueishtml="0"  name=cargo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Valpag" border="0" color="33554432" x="1486" y="8" height="56" width="274" html.valueishtml="0"  name=valpag_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Obs" border="0" color="33554432" x="1769" y="8" height="56" width="613" html.valueishtml="0"  name=obs_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="68" width="334" format="[general]" html.valueishtml="0"  name=sucursal visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="352" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=ccosto visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="635" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=neto visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="919" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=iva visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1202" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=cargo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="1486" y="8" height="68" width="274" format="[general]" html.valueishtml="0"  name=valpag visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="1769" y="8" height="68" width="613" format="[general]" html.valueishtml="0"  name=obs visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

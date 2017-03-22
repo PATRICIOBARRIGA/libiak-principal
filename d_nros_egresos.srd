@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_nros_egresos.srd
+$PBExportComments$Si. Para contabilizar los comprobantes de ingreso en Bancos.Vale
+release 7;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=nro dbname="cb_detegr.eg_numero" )
+ retrieve="SELECT DISTINCT ~"CB_DETEGR~".~"EG_NUMERO~"
+    FROM ~"CB_DETEGR~",   
+         ~"CB_EGRESO~"  
+   WHERE ( ~"CB_EGRESO~".~"EM_CODIGO~" = ~"CB_DETEGR~".~"EM_CODIGO~" ) and  
+         ( ~"CB_EGRESO~".~"SU_CODIGO~" = ~"CB_DETEGR~".~"SU_CODIGO~" ) and  
+         ( ~"CB_EGRESO~".~"EG_NUMERO~" = ~"CB_DETEGR~".~"EG_NUMERO~" ) and  
+         ( ( trunc(~"CB_EGRESO~".~"EG_FECEGR~" ) = :AD_FECHA) AND  
+         ( ~"CB_EGRESO~".~"EM_CODIGO~" = :EMPRESA) AND  
+         (NVL( ~"CB_EGRESO~".~"EG_ND~",'N') = :TIPO ) AND
+         (NVL( ~"CB_EGRESO~".~"EG_CONTAB~",'N') <>'S' ) AND
+ 			(NVL(~"CB_EGRESO~".~"EG_ANULADO~",'N')<>'S'))" arguments=(("AD_FECHA", date),("EMPRESA", string),("TIPO", string)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="14" y="0" height="60" width="329" format="[general]"  name=nro edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

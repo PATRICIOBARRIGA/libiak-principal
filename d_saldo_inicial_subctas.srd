@@ -1,0 +1,46 @@
+HA$PBExportHeader$d_saldo_inicial_subctas.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=120 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=co_detcom_pl_codigo dbname="co_detcom.pl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=co_detcom_cs_codigo dbname="co_detcom.cs_codigo" )
+ column=(type=number updatewhereclause=yes name=saldo_ini dbname="compute_0003" )
+ retrieve="SELECT ~"CO_DETCOM~".~"PL_CODIGO~",~"CO_DETCOM~".~"CS_CODIGO~",
+sum(decode(~"CO_DETCOM~".~"DT_SIGNO~",'D',~"CO_DETCOM~".~"DT_VALOR~",'C',~"CO_DETCOM~".~"DT_VALOR~"*-1))
+ FROM ~"CO_CABCOM~",   
+         ~"CO_DETCOM~"
+   WHERE ( ~"CO_DETCOM~".~"EM_CODIGO~" = ~"CO_CABCOM~".~"EM_CODIGO~" ) and  
+         ( ~"CO_DETCOM~".~"SU_CODIGO~" = ~"CO_CABCOM~".~"SU_CODIGO~" ) and  
+         ( ~"CO_DETCOM~".~"TI_CODIGO~" = ~"CO_CABCOM~".~"TI_CODIGO~" ) and  
+         ( ~"CO_DETCOM~".~"CP_NUMERO~" = ~"CO_CABCOM~".~"CP_NUMERO~" ) and 
+         ( ( ~"CO_CABCOM~".~"CP_FECHA~" < :f_ini) and    
+         (NVL(~"CO_CABCOM~".~"CP_ANULADO~",'N') <> 'S')) and  
+         ( ( ~"CO_CABCOM~".~"EM_CODIGO~" = 1 ) and  
+         ( ~"CO_DETCOM~".~"PL_CODIGO~" between :cuenta_ini and :cuenta_fin ) )
+GROUP BY  ~"CO_DETCOM~".~"PL_CODIGO~",~"CO_DETCOM~".~"CS_CODIGO~"
+
+
+
+
+" arguments=(("empresa", string),("cuenta_ini", string),("cuenta_fin", string),("f_ini", date))  sort="co_detcom_pl_codigo A NUMBER(co_detcom_cs_codigo) A " )
+text(band=header alignment="2" text="Co Detcom
+Pl Codigo" border="0" color="33554432" x="5" y="4" height="112" width="480" html.valueishtml="0"  name=co_detcom_pl_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sum(decode(~"co Detcom~".~"dt Signo~",'d',~"co Detcom~".~"dt Valor~",'c',~"co Detcom~".~"dt Valor~"* 1))" border="0" color="33554432" x="489" y="4" height="112" width="864" html.valueishtml="0"  name=compute_0002_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=co_detcom_pl_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="498" y="8" height="56" width="462" format="[general]" html.valueishtml="0"  name=co_detcom_cs_codigo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="983" y="8" height="56" width="370" format="[general]" html.valueishtml="0"  name=saldo_ini visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
