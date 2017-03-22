@@ -1,0 +1,127 @@
+HA$PBExportHeader$f_genera_estado_cta_acumulado.srf
+$PBExportComments$Genera el estado de cuenta acumulado
+global type f_genera_estado_cta_acumulado from function_object
+end type
+
+forward prototypes
+global function integer f_genera_estado_cta_acumulado (string cliente, date fec_ini, date fec_fin)
+end prototypes
+
+global function integer f_genera_estado_cta_acumulado (string cliente, date fec_ini, date fec_fin);string ls_mt_codigo, ls_tt_ioe, ls_tt_codigo, ls_observ, ls_aux, ls_pendiente
+long ll_ve_numero
+decimal lc_saldo, lc_valor, lc_ch_valor
+datetime ld_mt_fecha, ld_ch_fecha
+
+//CURSOR DE LOS DEBITOS 
+ DECLARE cur_movim CURSOR FOR  
+  SELECT "CC_MOVIM"."MT_CODIGO",   
+         "CC_MOVIM"."TT_IOE",   
+         "CC_MOVIM"."TT_CODIGO",   
+         "CC_MOVIM"."VE_NUMERO",
+			"CC_MOVIM"."MT_VALOR",
+		   "CC_MOVIM"."MT_SALDO",
+         "CC_MOVIM"."MT_FECHA"
+    FROM "CC_MOVIM"  
+   WHERE ( "CC_MOVIM"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+         ( "CC_MOVIM"."SU_CODIGO" = :str_appgeninfo.sucursal) AND  
+         ( "CC_MOVIM"."CE_CODIGO" = :cliente  ) AND  
+			( "CC_MOVIM"."TT_IOE" = 'D' ) AND
+         ( TRUNC("CC_MOVIM"."MT_FECHA") between :fec_ini and :fec_fin );
+
+//CURSOR DE LOS CREDITOS
+ DECLARE cur_mov_cre CURSOR FOR  
+  SELECT "CC_MOVIM"."MT_CODIGO",
+		   "CC_MOVIM"."TT_CODIGO",   
+         "CC_MOVIM"."TT_IOE",   
+         "CC_CHEQUE"."CH_FECHA", 
+         "CC_CHEQUE"."CH_VALOR",   
+         "CC_MOVIM"."MT_VALOR",   
+         "CC_MOVIM"."MT_SALDO",   
+         "CC_MOVIM"."MT_FECHA",
+			"CC_CHEQUE"."CH_PENDIENTE"
+    FROM "CC_CHEQUE",   
+         "CC_MOVIM"  
+   WHERE ( cc_movim.tt_codigo = cc_cheque.tt_codigo (+)) and  
+         ( cc_movim.tt_ioe = cc_cheque.tt_ioe (+)) and  
+         ( cc_movim.em_codigo = cc_cheque.em_codigo (+)) and  
+         ( cc_movim.su_codigo = cc_cheque.su_codigo (+)) and  
+         ( cc_movim.mt_codigo = cc_cheque.mt_codigo (+)) and  
+         ( "CC_MOVIM"."EM_CODIGO" =:str_appgeninfo.empresa  ) AND  
+         ( "CC_MOVIM"."SU_CODIGO" =:str_appgeninfo.sucursal ) AND  
+         ( "CC_MOVIM"."TT_IOE" = 'C' ) AND  
+         ("CC_MOVIM"."CE_CODIGO" = :cliente )  AND
+        ( TRUNC("CC_MOVIM"."MT_FECHA") between :fec_ini and :fec_fin )
+		  ORDER BY cc_movim.mt_fecha, cc_cheque.ch_fecha;
+
+
+delete from RP_EST_CUENTA;
+open cur_movim;
+  do
+	fetch cur_movim into :ls_mt_codigo, :ls_tt_ioe, :ls_tt_codigo, 
+	                     :ll_ve_numero, :lc_saldo,:lc_valor,  :ld_mt_fecha;
+	   if sqlca.sqlcode <> 0 then exit; 
+			  if lc_saldo < lc_valor then
+					  ls_observ = 'Saldo '
+				  else
+					  ls_observ = ''
+				  end if
+				  Select tt_descri
+				    into :ls_aux
+					 from cc_tipo
+					where em_codigo = :str_appgeninfo.empresa 
+					  and tt_codigo = :ls_tt_codigo
+					  and tt_ioe  = 'D';
+					ls_observ += ls_aux + ' No. ' 
+					if ls_tt_codigo  = '1' then
+					   ls_aux  = string(ll_ve_numero)
+					else
+						ls_aux  = ls_mt_codigo
+					end if
+					ls_observ += ls_aux
+			  INSERT INTO "RP_EST_CUENTA"  
+                      ( "RE_CODCLI", "RE_FECMOV", "RE_DESCDET",   
+                        "RE_VALD", "RE_VALC", "RE_NUMMOV" )  
+		     VALUES (:cliente,:ld_mt_fecha,:ls_observ,:lc_saldo,0,:ls_mt_codigo)  ;
+  loop while TRUE;
+close cur_movim;
+
+open cur_mov_cre;
+  do
+	fetch cur_mov_cre into :ls_mt_codigo, :ls_tt_codigo, :ls_tt_ioe, :ld_ch_fecha,
+	                     :lc_ch_valor, :lc_saldo,:lc_valor, :ld_mt_fecha, :ls_pendiente;
+	   if sqlca.sqlcode <> 0 then exit; 
+		   if isnull(ld_ch_fecha) then
+				  if lc_saldo < lc_valor then
+					  ls_observ = 'Saldo '
+				  else
+					  ls_observ = ''
+				  end if
+				  Select tt_descri
+				    into :ls_aux
+					 from cc_tipo
+					where em_codigo = :str_appgeninfo.empresa 
+					  and tt_codigo = :ls_tt_codigo
+					  and tt_ioe  = 'C';
+					ls_observ += ls_aux + ' No. ' + ls_mt_codigo
+			  INSERT INTO "RP_EST_CUENTA"  
+                      ( "RE_CODCLI", "RE_FECMOV", "RE_DESCDET",   
+                        "RE_VALD", "RE_VALC", "RE_NUMMOV" )  
+		     VALUES (:cliente,:ld_mt_fecha,:ls_observ,0,:lc_saldo,:ls_mt_codigo)  ;
+			else
+				//Es un cheque postfechado
+				if isnull(ls_pendiente) or ls_pendiente = 'S' then
+				  ls_observ = 'Cheque pendiente de pago. Se efectiviza ' + string(ld_ch_fecha,'dd/mm/yyyy')+ ' CR.' + ls_mt_codigo
+			   else
+				  ls_observ = 'Cheque efectivizado el ' + string(ld_ch_fecha,'dd/mm/yyyy')+ ' CR.' + ls_mt_codigo
+				end if
+			  INSERT INTO "RP_EST_CUENTA"  
+                      ( "RE_CODCLI", "RE_FECMOV", "RE_DESCDET",   
+                        "RE_VALD", "RE_VALC", "RE_NUMMOV" )  
+		     VALUES (:cliente,:ld_mt_fecha,:ls_observ,0,:lc_ch_valor,:ls_mt_codigo)  ;
+	     end if
+  loop while TRUE;
+close cur_mov_cre;
+
+return 1
+end function
+

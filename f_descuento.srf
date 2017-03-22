@@ -1,0 +1,21 @@
+HA$PBExportHeader$f_descuento.srf
+global type f_descuento from function_object
+end type
+
+forward prototypes
+global function decimal f_descuento ()
+end prototypes
+
+global function decimal f_descuento ();dec{2} lc_descuento
+
+
+Select pr_valor
+into :lc_descuento
+from pr_param
+where em_codigo = :str_appgeninfo.empresa
+and pr_nombre = 'DSC_SIF';
+
+lc_descuento = lc_descuento/100
+Return lc_descuento
+end function
+

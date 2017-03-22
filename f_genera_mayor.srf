@@ -1,0 +1,278 @@
+HA$PBExportHeader$f_genera_mayor.srf
+global type f_genera_mayor from function_object
+end type
+
+forward prototypes
+global function integer f_genera_mayor (string as_empresa, string as_sucursal, string as_cuenta_inicial, string as_cuenta_final, date ad_fecha_corte, window aw_frame)
+end prototypes
+
+global function integer f_genera_mayor (string as_empresa, string as_sucursal, string as_cuenta_inicial, string as_cuenta_final, date ad_fecha_corte, window aw_frame);string   ls_pl_codigo,ls_pl_nombre,ls_pl_mayor,ls_pl_padre,ls_sigla,ls_numero
+string   ls_cuenta,ls_padre,ls_fecha,ls_detalle,ls_fecha_concepto
+decimal  ld_valor_total_debito,ld_valor_total_credito,ld_valor_debito,ld_valor_credito,ld_numero
+decimal  ld_debito_ant,ld_credito_ant
+long     ll_contador,ll_tot,ll_total,ll_indicador,i
+date     ld_fecha
+boolean  bandera
+
+
+
+
+ls_fecha= string(ad_fecha_corte,'dd/mm/yyyy')
+
+DELETE FROM "RP_MAYOR"  ;
+commit;
+
+DECLARE C1 CURSOR FOR  
+SELECT "CO_PLACTA"."PL_CODIGO",   
+       "CO_PLACTA"."PL_NOMBRE",
+       "CO_PLACTA"."PL_PADRE"
+  FROM "CO_PLACTA",   
+       "CO_PLANSUC"  
+ WHERE ( "CO_PLANSUC"."EM_CODIGO" = "CO_PLACTA"."EM_CODIGO" ) and  
+       ( "CO_PLANSUC"."PL_CODIGO" = "CO_PLACTA"."PL_CODIGO" ) and  
+       ( "CO_PLACTA"."EM_CODIGO"  = :as_empresa ) AND  
+       ( "CO_PLANSUC"."SU_CODIGO" = :as_sucursal ) AND
+		 ( "CO_PLACTA"."PL_MAYOR"   = 'A' ) AND
+       ( "CO_PLANSUC"."PL_CODIGO" between :as_cuenta_inicial and :as_cuenta_final);
+
+
+DECLARE	C2 CURSOR FOR
+SELECT to_char("CO_CABCOM"."CP_FECHA",'dd/mm/yyyy'),   
+        "CO_TIPCOM"."TI_SIGLA",   
+        "CO_CABCOM"."CP_NUMERO",
+        "CO_DETCOM"."DT_DETALLE",
+       	DECODE("CO_DETCOM"."DT_SIGNO",'D',CO_DETCOM.DT_VALOR,0),
+        DECODE("CO_DETCOM"."DT_SIGNO",'C',CO_DETCOM.DT_VALOR,0)
+   FROM "CO_CABCOM",   
+        "CO_DETCOM",   
+        "CO_TIPCOM"  
+  WHERE ( "CO_DETCOM"."TI_CODIGO" = "CO_CABCOM"."TI_CODIGO" ) and  
+        ( "CO_DETCOM"."EM_CODIGO" = "CO_CABCOM"."EM_CODIGO" ) and 
+        ( "CO_DETCOM"."SU_CODIGO" = "CO_CABCOM"."SU_CODIGO" ) and  
+        ( "CO_DETCOM"."CP_NUMERO" = "CO_CABCOM"."CP_NUMERO" ) and  
+        ( "CO_TIPCOM"."TI_CODIGO" = "CO_CABCOM"."TI_CODIGO" ) and  
+        ( "CO_TIPCOM"."EM_CODIGO" = "CO_DETCOM"."EM_CODIGO" ) and  
+        ( "CO_DETCOM"."PL_CODIGO" = :ls_pl_codigo ) and
+		  ( "CO_CABCOM"."SU_CODIGO" = :as_sucursal)and
+        ( trunc("CO_CABCOM"."CP_FECHA") BETWEEN LAST_DAY (ADD_MONTHS (TO_DATE(:ls_fecha,'dd/mm/yyyy'), -1)) +1
+                                AND TO_DATE(:ls_fecha,'dd/mm/yyyy'));	
+										  
+		
+   select count(*)
+     into :ll_tot
+  FROM "CO_PLACTA",   
+       "CO_PLANSUC"  
+ WHERE ( "CO_PLANSUC"."EM_CODIGO" = "CO_PLACTA"."EM_CODIGO" ) and  
+       ( "CO_PLANSUC"."PL_CODIGO" = "CO_PLACTA"."PL_CODIGO" ) and  
+       ( "CO_PLACTA"."EM_CODIGO"  = :as_empresa ) AND  
+ 		 ( "CO_PLACTA"."PL_MAYOR"   = 'A' ) AND
+       ( "CO_PLANSUC"."SU_CODIGO" = :as_sucursal ) AND
+       ( "CO_PLANSUC"."PL_CODIGO" between :as_cuenta_inicial and :as_cuenta_final);
+	  
+   aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' items. Espere un momento...')
+   ll_contador = 0
+
+
+
+open c1;
+    do 
+      fetch c1 into :ls_pl_codigo,:ls_pl_nombre,:ls_pl_padre;
+        if sqlca.sqlcode <> 0 then exit
+		  ll_contador ++
+   	  aw_frame.SetMicroHelp('El sistema est$$HEX2$$e1002000$$ENDHEX$$procesando: '+ string(ll_contador) + ' de un total de '&
+		                      +string(ll_tot)+ ' cuentas. Espere un momento...')
+
+		  ld_valor_total_debito  = 0
+		  ld_valor_total_credito = 0
+
+        open c2;
+		    do
+		    fetch c2 into :ls_fecha_concepto,:ls_sigla,:ld_numero,:ls_detalle,:ld_valor_debito,:ld_valor_credito;
+			   if sqlca.sqlcode <> 0 then exit
+//				ls_fecha_concepto = string(l_fecha,'dd/mm/yyyy')
+				ls_numero = string(ld_numero)
+			   ld_valor_total_debito = ld_valor_total_debito + ld_valor_debito
+			   ld_valor_total_credito = ld_valor_total_credito + ld_valor_credito
+
+			     INSERT INTO "RP_MAYOR"  
+              ( "SU_CODIGO",   
+                "CC_CUENTA",   
+                "CC_CONCEPTO",   
+                "CC_MAYOR",   
+                "CC_FECHA",   
+                "CC_DOCUMENTO",   
+             	 "CC_TIPO",   
+           		 "CC_DEBITO",   
+           		 "CC_CREDITO",   
+           		 "CC_SALDO",
+					 "CC_PADRE",
+					 "CC_INDICADOR")  
+				 VALUES 
+				 ( :as_sucursal,   
+               :ls_pl_codigo,   
+               :ls_detalle,   
+					'A',   
+   				TO_DATE(:ls_fecha_concepto,'dd/mm/yyyy'),   
+               :ls_numero,   
+               :ls_sigla,   
+               :ld_valor_debito,   
+               :ld_valor_credito,   
+               0,
+					:ls_pl_padre,
+					1);
+			 loop while TRUE			 
+       close c2;
+		 
+       INSERT INTO "RP_MAYOR"  
+           ( "SU_CODIGO",   
+             "CC_CUENTA",   
+             "CC_NOMBRE",   
+             "CC_MAYOR",   
+             "CC_FECHA",   
+             "CC_DOCUMENTO",   
+           	 "CC_TIPO",   
+        		 "CC_DEBITO",   
+        		 "CC_CREDITO",   
+        		 "CC_SALDO",
+		   	 "CC_PADRE",
+			    "CC_INDICADOR")  
+		 VALUES 
+			 ( :as_sucursal,   
+            :ls_pl_codigo,   
+            :ls_pl_nombre,   
+		   	'A',   
+            :ad_fecha_corte,   
+            '0',   
+            'N',   
+            :ld_valor_total_debito,   
+            :ld_valor_total_credito,   
+            0,
+			   :ls_pl_padre,
+				2);
+		 
+    loop while TRUE
+close c1;
+ll_contador = 2
+commit;
+
+ DECLARE c3 CURSOR FOR  
+  select distinct("RP_MAYOR"."CC_PADRE")
+   FROM "RP_MAYOR"  
+  WHERE "RP_MAYOR"."CC_INDICADOR" = :ll_contador;
+
+bandera =true
+
+
+
+DO WHILE bandera
+   ls_padre = ls_pl_padre
+   open c3;
+      do
+	     fetch c3 into :ls_padre; 
+	     if sqlca.sqlcode<>0 then exit
+   		   SELECT sum(nvl("RP_MAYOR"."CC_DEBITO",0)),   
+                   sum(nvl("RP_MAYOR"."CC_CREDITO",0))  
+			     INTO :ld_valor_debito,
+			          :ld_valor_credito
+   		     FROM "RP_MAYOR"  
+		       WHERE "RP_MAYOR"."CC_PADRE" = :ls_padre and 
+			          "RP_MAYOR"."CC_INDICADOR" =:ll_contador;
+
+     		SELECT "CO_PLACTA"."PL_CODIGO",   
+                "CO_PLACTA"."PL_NOMBRE",
+					 "CO_PLACTA"."PL_PADRE"
+          INTO  :ls_pl_codigo,   
+                :ls_pl_nombre,
+					 :ls_pl_padre
+	       FROM  "CO_PLACTA"  
+         WHERE  "CO_PLACTA"."PL_CODIGO" = :ls_padre;    
+
+		    select  count(*)
+			   into  :ll_total
+				FROM "RP_MAYOR"
+           WHERE ("RP_MAYOR"."CC_CUENTA" = :ls_pl_codigo);
+			  
+          if ll_total <>0 then
+            select  "CC_DEBITO",   
+        		        "CC_CREDITO",
+						  "CC_INDICADOR"
+			     into  :ld_debito_ant,
+				        :ld_credito_ant
+				   FROM "RP_MAYOR"
+             WHERE ("RP_MAYOR"."CC_CUENTA" = :ls_pl_codigo);
+
+			    UPDATE "RP_MAYOR"  
+                SET "CC_DEBITO" = :ld_debito_ant + :ld_valor_debito,   
+                    "CC_CREDITO" = :ld_credito_ant + :ld_valor_credito
+             WHERE ("RP_MAYOR"."CC_CUENTA" = :ls_pl_codigo);
+	
+            else 
+ 
+
+         INSERT INTO "RP_MAYOR"  
+                  ( "SU_CODIGO",   
+                    "CC_CUENTA",   
+                    "CC_NOMBRE",   
+             		  "CC_MAYOR",   
+             		  "CC_FECHA",   
+             		  "CC_DOCUMENTO",   
+           	 		  "CC_TIPO",   
+        		 		  "CC_DEBITO",   
+        		 		  "CC_CREDITO",   
+        		 		  "CC_SALDO",
+		   	 		  "CC_PADRE",
+			    		  "CC_INDICADOR")  
+    		 VALUES 
+		      	 ( :as_sucursal,   
+                  :ls_pl_codigo,   
+                  :ls_pl_nombre,   
+		   	      'M',   
+                  :ad_fecha_corte,   
+                  '0',   
+                  'N',   
+                  :ld_valor_debito,   
+                  :ld_valor_credito,   
+                  0,
+			         :ls_pl_padre,
+				      :ll_contador+1);
+				end if
+        loop while true
+  close c3;
+  commit;
+  ll_contador = ll_contador + 1  
+  if ((ls_pl_padre <= as_cuenta_inicial) or (ls_pl_padre >= as_cuenta_final)) or isnull(ls_pl_padre) then
+      bandera = false
+  end if		
+LOOP
+
+ DECLARE c4 CURSOR FOR  
+  select distinct("RP_MAYOR"."CC_PADRE")
+   FROM "RP_MAYOR"  
+  WHERE "RP_MAYOR"."CC_INDICADOR" > 2
+  order by "RP_MAYOR"."CC_PADRE" desc;
+
+open c4;
+      do
+	     fetch c4 into :ls_padre; 
+	     if sqlca.sqlcode<>0 then exit
+   		   SELECT sum(nvl("RP_MAYOR"."CC_DEBITO",0)),   
+                   sum(nvl("RP_MAYOR"."CC_CREDITO",0))  
+			     INTO :ld_valor_debito,
+			          :ld_valor_credito
+   		     FROM "RP_MAYOR"  
+		       WHERE "RP_MAYOR"."CC_PADRE" = :ls_padre;
+			    
+				 UPDATE "RP_MAYOR"  
+                SET "CC_DEBITO" = :ld_debito_ant + :ld_valor_debito,   
+                    "CC_CREDITO" = :ld_credito_ant + :ld_valor_credito
+             WHERE ("RP_MAYOR"."CC_CUENTA" = :ls_padre);
+	
+	  loop while true
+close c4;
+
+commit;
+return 1
+ 
+
+end function
+

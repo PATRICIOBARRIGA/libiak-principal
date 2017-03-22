@@ -1,0 +1,271 @@
+HA$PBExportHeader$f_diario_mov_inventario.srf
+global type f_diario_mov_inventario from function_object
+end type
+
+forward prototypes
+global function integer f_diario_mov_inventario (string as_empresa, string as_sucursal, decimal ad_mes, decimal ad_anio, string as_tabla, window aw_frame)
+end prototypes
+
+global function integer f_diario_mov_inventario (string as_empresa, string as_sucursal, decimal ad_mes, decimal ad_anio, string as_tabla, window aw_frame);string   ls_mv_cantidad,ls_mv_costo, ls_tm_ioe1,ls_tm_codigo1,ls_em_codigo,ls_su_codigo,ls_it_codigo
+string   sqlstatement
+string   ls_fecini,ls_fecfin,ls_clase,ls_item,ls_tm_ioe,ls_tm_codigo
+string   ls_clasedes,ls_lineamayor,ls_clasehija,ls_codant,ls_nomitem,ls_feccorte
+decimal  ld_cantidad,ld_costo,ld_saldo_inicial
+decimal 	ld_compra_i,ld_ajuste_i,ld_devolucion_venta_i,ld_transferencias_i, ld_preparacion_i,ld_ingresos
+decimal  ld_venta_e,ld_ajuste_e,ld_devolucion_compra_e,ld_transferencia_e,ld_perdida_transporte_e,ld_preparacion_e,ld_egresos,ld_anula_recepcion_e
+long     ll_tot,ll_contador
+
+declare c1 cursor for
+ SELECT "IN_CLASE"."CL_CODIGO",   
+         "IN_CLASE"."CL_DESCRI"  
+    FROM "IN_CLASE"  
+   WHERE ( "IN_CLASE"."EM_CODIGO" = :as_empresa) AND  
+         ( "IN_CLASE"."CL_CODPAD" is null )
+	ORDER BY "IN_CLASE"."CL_CODIGO"
+	using sqlca;
+			
+declare c2 cursor for
+  select it_codigo,it_codant,it_nombre
+    from in_item
+	where cl_codigo = :ls_clase
+	  and em_codigo = :as_empresa
+  	  and it_kit = 'N'
+	ORDER BY it_codigo;
+ 
+ ls_mv_cantidad= '"'+as_tabla+'"."MV_CANTID"'
+ ls_mv_costo='"'+as_tabla+'"."MV_COSTO"'
+ ls_tm_ioe1 ='"'+as_tabla+'"."TM_IOE"'
+ ls_tm_codigo1='"'+as_tabla+'"."TM_CODIGO"'
+ ls_em_codigo='"'+as_tabla+'"."EM_CODIGO"'
+ ls_su_codigo='"'+as_tabla+'"."SU_CODIGO"'
+ ls_it_codigo='"'+as_tabla+'"."IT_CODIGO"'
+ 
+
+DELETE FROM "RP_MOVIMIENTO"  ;
+commit;	
+
+DECLARE c3 DYNAMIC CURSOR FOR SQLSA ;
+
+//DECLARE c3 CURSOR FOR 
+//SELECT 
+//	HI_IMJAN98.MV_CANTID
+//	HI_IMJAN98.MV_COSTO
+//	HI_IMJAN98.TM_IOE
+//	HI_IMJAN98.TM_CODIGO
+//FROM HI_IMJAN98
+//WHERE
+//HI_IMJAN98.EM_CODIGO = :as_empresa and
+//HI_IMJAN98.SU_CODIGO = :as_sucursal and
+//HI_IMJAN98.IT_CODIGO = :ls_item;
+//
+//		sqlstatement = "SELECT "+ls_mv_cantidad+", "&
+//                               +ls_mv_costo+", "&
+//				                   +ls_tm_ioe1+", "&
+//          							 +ls_tm_codigo1&
+//   				       +" FROM  "+as_tabla &
+//                      +" WHERE "+ls_em_codigo+" = '"+as_empresa+"' and "&
+//					                 +ls_su_codigo+" = '"+as_sucursal+"' and "&
+//								        +ls_it_codigo+" = '"+ls_item+"'"
+//		PREPARE SQLSA FROM :sqlstatement ;
+//		
+open c1;
+do
+	fetch c1 INTO :ls_clase,:ls_clasedes;
+	
+	if sqlca.sqlcode <> 0 then exit
+	ls_lineamayor = ls_clase
+	ls_clasehija = ls_clase
+	select cl_codigo
+  	  into :ls_clase
+     from in_clase
+	 where cl_codpad = :ls_clasehija;
+	 
+   select count(*)
+     into :ll_tot
+     from in_item
+	 where em_codigo = :as_empresa
+	   and cl_codigo = :ls_clase;
+	  
+   aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' items. Espere un momento...')
+   ll_contador = 0
+	open c2;
+	  do
+   		ld_compra_i = 0
+			ld_ajuste_i = 0
+			ld_devolucion_venta_i = 0
+			ld_transferencias_i = 0
+			ld_preparacion_i = 0
+			ld_ingresos = 0
+			ld_egresos = 0
+			ld_venta_e = 0
+			ld_ajuste_e = 0
+			ld_devolucion_compra_e = 0
+			ld_transferencia_e = 0
+			ld_perdida_transporte_e = 0
+			ld_preparacion_e = 0
+			ld_egresos = 0
+		  fetch c2 into :ls_item,:ls_codant,:ls_nomitem;
+		  if sqlca.sqlcode <> 0 then exit
+	
+		ll_contador ++
+	  aw_frame.SetMicroHelp('El sistema est$$HEX2$$e1002000$$ENDHEX$$procesando: '+ string(ll_contador) + ' de un total de '&
+		                      +string(ll_tot)+ ' items. Espere un momento...')
+
+									 
+	 	sqlstatement = "SELECT "+ls_mv_cantidad+", "&
+                               +ls_mv_costo+", "&
+				                   +ls_tm_ioe1+", "&
+          							 +ls_tm_codigo1&
+   				       +" FROM  "+as_tabla &
+                      +" WHERE "+ls_em_codigo+" = '"+as_empresa+"' and "&
+					                 +ls_su_codigo+" = '"+as_sucursal+"' and "&
+								        +ls_it_codigo+" = '"+ls_item+"'"
+		PREPARE SQLSA FROM :sqlstatement ;
+
+		OPEN DYNAMIC c3 ;
+//		OPEN c3 ;
+ 	        do 
+	           fetch c3 into :ld_cantidad,:ld_costo,:ls_tm_ioe,:ls_tm_codigo;
+	           if sqlca.sqlcode <> 0 then exit
+				  if ls_tm_ioe = 'I' then
+				     CHOOSE CASE ls_tm_codigo
+						
+					      CASE '1'
+								//Ingreso por compra
+                        ld_compra_i = ld_compra_i + ld_cantidad * ld_costo
+   							ld_ingresos = ld_ingresos + ld_cantidad * ld_costo
+
+                     CASE '3'
+								//Ajuste de ingreso
+          					ld_ajuste_i = ld_ajuste_i + ld_cantidad * ld_costo
+								ld_ingresos = ld_ingresos + ld_cantidad * ld_costo
+
+							CASE '5'
+								//Devoluci$$HEX1$$f300$$ENDHEX$$n en factura de Venta si
+								ld_devolucion_venta_i = ld_devolucion_venta_i + ld_cantidad * ld_costo
+								ld_ingresos = ld_ingresos + ld_cantidad * ld_costo
+							
+						   CASE '8'
+								//Transferencia entre Bodegas
+   							ld_transferencias_i = ld_transferencias_i + ld_cantidad * ld_costo	
+								ld_ingresos = ld_ingresos + ld_cantidad * ld_costo
+
+						   CASE '11'
+								//Preparacion de colores
+								ld_preparacion_i = ld_preparacion_i +  ld_cantidad * ld_costo	
+								ld_ingresos = ld_ingresos + ld_cantidad * ld_costo
+
+                 END CHOOSE
+
+	 		     else
+						
+					  CHOOSE CASE ls_tm_codigo
+						
+					      CASE '2'
+								//Egreso por venta
+                        ld_venta_e = ld_venta_e + ld_cantidad * ld_costo
+   							ld_egresos = ld_egresos + ld_cantidad * ld_costo
+								
+                     CASE '4'
+								//Ajuste de egreso
+								ld_ajuste_e = ld_ajuste_e + ld_cantidad * ld_costo
+   							ld_egresos = ld_egresos + ld_cantidad * ld_costo
+							
+/*							CASE '6'
+								//Devoluci$$HEX1$$a200$$ENDHEX$$n en compra no
+ 							   ld_devolucion_compra_e = ld_devolucion_compra_e + ld_cantidad * ld_costo
+   							ld_egresos = ld_egresos +ld_devolucion_compra_e
+*/
+						   CASE '7'
+								//Transferencia entre bodegas
+								ld_transferencia_e = ld_transferencia_e + ld_cantidad * ld_costo
+   							ld_egresos = ld_egresos + ld_cantidad * ld_costo
+								
+	/*						CASE '9'
+								//P$$HEX1$$e900$$ENDHEX$$rdida por transporte no
+								ld_perdida_transporte_e = ld_perdida_transporte_e + ld_cantidad * ld_costo
+   							ld_egresos = ld_egresos +ld_perdida_transporte_e
+		*/						
+							CASE '10'
+								//Preparaci$$HEX1$$f300$$ENDHEX$$n de colores
+								ld_preparacion_e =ld_preparacion_e + ld_cantidad * ld_costo
+								ld_egresos = ld_egresos + ld_cantidad * ld_costo
+																
+			/*			   CASE '11'
+								//Anula Recepci$$HEX1$$f300$$ENDHEX$$n de Compra no
+								ld_anula_recepcion_e = ld_anula_recepcion_e + ld_cantidad * ld_costo
+								ld_egresos = ld_egresos + ld_anula_recepcion_e
+*/
+                END CHOOSE
+					  
+              end if	  
+					
+           loop while TRUE
+        close c3;
+          //ld_saldo_inicial = f_stock_valorado_a_fecha(as_empresa,as_sucursal,ls_item,ad_fecini)
+
+//			   SELECT DISTINCT("IN_SALDOITEM"."SI_SALINISUC")  
+//              INTO :ld_saldo_inicial
+//              FROM "IN_SALDOITEM"  
+//             WHERE ( "IN_SALDOITEM"."EM_CODIGO" = :as_empresa ) AND  
+//                   ( "IN_SALDOITEM"."SU_CODIGO" = :as_sucursal ) AND  
+//                   ( "IN_SALDOITEM"."IT_CODIGO" = :ls_item ) AND  
+//                   ( "IN_SALDOITEM"."SI_ANIO" = :ad_anio ) AND  
+//                   ( "IN_SALDOITEM"."SI_MES" = :ad_mes );
+
+			
+   		 ld_saldo_inicial = 0
+			 ld_ingresos = ld_ingresos + ld_saldo_inicial
+
+		    INSERT INTO "RP_MOVIMIENTO"  
+         (
+			  "MV_SALDO_INICIAL",   
+           "MV_INGRESOS",   
+           "MV_EGRESOS",   
+           "MV_COMPRAS",   
+           "MV_VENTAS",   
+           "MV_DEVOLUCION_VENTAS",   
+           "MV_AJUSTE_I",   
+           "MV_AJUSTE_E",   
+           "MV_TRANSFERENCIA_I",   
+           "MV_TRANSFERENCIA_E",   
+           "MV_PREPARADOS_I",   
+           "MV_PREPARADOS_E",
+			  "CL_CODIGO",   
+           "IT_CODIGO",   
+           "CL_DESCRI",   
+           "IT_NOMBRE",   
+           "IT_CODANT",
+			  "SU_CODIGO")  
+  VALUES ( :ld_saldo_inicial,   
+           :ld_ingresos,   
+           :ld_egresos,   
+           :ld_compra_i,   
+           :ld_venta_e,   
+           :ld_devolucion_venta_i,   
+           :ld_ajuste_i,   
+           :ld_ajuste_e,   
+           :ld_transferencias_i,   
+           :ld_transferencia_e,   
+           :ld_preparacion_i,   
+           :ld_preparacion_e,
+			  :ls_lineamayor,
+			  :ls_item,
+			  :ls_clasedes,
+			  :ls_nomitem,
+			  :ls_codant ,
+			  :as_sucursal)  ;
+//IF LL_CONTADOR = 50 THEN
+//	COMMIT;
+//END IF
+     loop while TRUE
+   close c2;
+loop while TRUE
+close c1;
+
+commit;
+
+
+return 1
+end function
+

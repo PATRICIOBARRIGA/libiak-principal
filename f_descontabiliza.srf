@@ -1,0 +1,11 @@
+HA$PBExportHeader$f_descontabiliza.srf
+global type f_descontabiliza from function_object
+end type
+
+forward prototypes
+global function integer f_descontabiliza (integer ai_cpnumero, string as_tipcom)
+end prototypes
+
+global function integer f_descontabiliza (integer ai_cpnumero, string as_tipcom);return 1
+end function
+

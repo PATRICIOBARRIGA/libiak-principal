@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_descarga_stock_rt_sucursal.srf
+$PBExportComments$Descarga stock teorico, sin commit
+global type f_descarga_stock_rt_sucursal from function_object
+end type
+
+forward prototypes
+global function boolean f_descarga_stock_rt_sucursal (string as_item, decimal ad_cantidad, character ach_kit, string as_atomo, decimal ac_cantatomo)
+end prototypes
+
+global function boolean f_descarga_stock_rt_sucursal (string as_item, decimal ad_cantidad, character ach_kit, string as_atomo, decimal ac_cantatomo);//Funcion:	Descarga stock real tanto del item como de sus componentes si es kit o de su(s) kit(s) si es componente
+//Modific:	03/02/2004
+//Cambios:	ordernar selects y desabilitar cursores
+//Autor  : Edivas
+//Retorna:	boolean
+// NOTA.- en in_relitem, tr_codigo = '1'para KIT
+
+// busca si el item es kit o no
+if ach_kit = 'S' then
+	update in_itesucur
+	set it_stock = it_stock - (:ad_cantidad * :ac_cantatomo),
+		it_stkreal = it_stkreal - (:ad_cantidad * :ac_cantatomo),
+		it_stkdis = it_stkdis - (:ad_cantidad * :ac_cantatomo)		
+	where it_codigo = :as_atomo
+	and em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal;
+	if sqlca.sqlcode <> 0 then
+		rollback using sqlca;
+		MessageBox("ERROR en f_descarga_stock_rt_sucursal","No puedo actualizar el stock del kit." +sqlca.sqlerrtext);
+		return (FALSE)
+	end if	
+End if	
+// descarga el stock del item
+update in_itesucur
+set it_stock = it_stock - :ad_cantidad,
+	it_stkreal = it_stkreal - :ad_cantidad,
+	it_stkdis = it_stkdis - :ad_cantidad
+where it_codigo = :as_item
+and em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal;
+if sqlca.sqlcode <> 0 then
+	rollback using sqlca;	
+	MessageBox("ERROR en f_descarga_stock_rt_sucursal","No puedo actualizar el stock." + sqlca.sqlerrtext);
+	return (FALSE)
+end if
+return (TRUE)
+end function
+

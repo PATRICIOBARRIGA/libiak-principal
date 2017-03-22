@@ -1,0 +1,280 @@
+HA$PBExportHeader$f_efectiviza_cheque.srf
+global type f_efectiviza_cheque from function_object
+end type
+
+forward prototypes
+global function integer f_efectiviza_cheque (readonly w_frame_basic aw_frame, date ad_fecha, string as_ctacor, string as_deposit, string as_deposit2)
+end prototypes
+
+global function integer f_efectiviza_cheque (readonly w_frame_basic aw_frame, date ad_fecha, string as_ctacor, string as_deposit, string as_deposit2);/**********************************************************************/
+// Descripci$$HEX1$$f300$$ENDHEX$$n : 
+// Par$$HEX1$$e100$$ENDHEX$$metros : aw_frame marco principal ,ad_fecha fecha del deposito,
+//              as_ctacor Cuenta a depositar,as_deposit deposito efectivo,
+//              as_deposit2 deposito cheque, as_deposit dep$$HEX1$$f300$$ENDHEX$$sito en efectivo
+// Ultima Revisi$$HEX1$$f300$$ENDHEX$$n : 30/01/1999
+/**********************************************************************/
+//f_efectiviza_cheque(w_marco,ld_fec_fin,cuenta,dep2,dep1)
+
+
+decimal ld_ch_valor, ld_efectivo, ld_cheque, ld_retefe, ld_retche
+string ls_tt_codigo, ls_tt_ioe, ls_mt_codigo, ls_clien, ls_mensaje, ls_num
+string ls_insfin, ls_ctabco, ls_ctaret, ls_ctacli, ls_observ
+long ll, ll_num_reg, ll_num_ig
+datetime ld_fecmov, ld_fecche, ld_fecha
+
+//cursor de cheques pendientes hasta la fecha final
+declare kit_cheques cursor for
+   select tt_codigo, tt_ioe, mt_codigo, ch_valor, ch_fecha
+	  from cc_cheque
+	 where em_codigo = :str_appgeninfo.empresa
+	   and su_codigo = :str_appgeninfo.sucursal
+		and TRUNC(ch_fecha) <= :ad_fecha
+		and (CH_PENDIENTE is null OR  
+           CH_PENDIENTE = 'S');
+//	 se puede cambiar las $$HEX1$$fa00$$ENDHEX$$ltimas 2 l$$HEX1$$ed00$$ENDHEX$$neas por esta -->  " and nvl(ch_pendiente,'S') = 'S' "
+
+SetPointer(HourGlass!)
+
+// encuentra el n$$HEX1$$fa00$$ENDHEX$$mero de cheques pendientes hasta la fecha inclusive
+select count(ch_secue)
+  into :ll_num_reg
+  from cc_cheque
+ where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and TRUNC(ch_fecha) <= :ad_fecha
+   and (CH_PENDIENTE is null OR  
+        CH_PENDIENTE = 'S');
+
+// encuentra el secuencial que le corresponde al ingreso
+SELECT pr_valor
+  into :ll_num_ig
+  from pr_param 
+ where em_codigo = :str_appgeninfo.empresa
+   and pr_nombre = 'INGRESO';
+
+// encuentra la institucion financiera y la cuenta en el banco	
+SELECT if_codigo, pl_codigo
+  into :ls_insfin, :ls_ctabco
+  from cb_ctains
+ where em_codigo = :str_appgeninfo.empresa
+   and su_codigo = :str_appgeninfo.sucursal
+	and cn_codigo = :as_ctacor;
+
+//encuentra la Cuenta contable de Retenciones en la Fuente de clientes
+SELECT pr_descri
+  into :ls_ctaret
+  from pr_param 
+ where em_codigo = :str_appgeninfo.empresa
+   and pr_nombre = 'CTA_RETCLI';
+
+//encuentra la Cuenta contable de clientes
+SELECT pr_descri
+  into :ls_ctacli
+  from pr_param 
+ where em_codigo = :str_appgeninfo.empresa
+   and pr_nombre = 'CTA_CLIEN';
+
+ls_num = string(ll_num_ig)
+ld_fecha = datetime(ad_fecha)
+
+//Valor del dinero recibido en efectivo 
+  SELECT NVL(SUM("CC_MOVIM"."MT_VALOR" - NVL("CC_MOVIM"."MT_VALRET",0) - NVL("CC_MOVIM"."MT_VALIVA",0) ),0),
+         NVL(SUM(NVL("CC_MOVIM"."MT_VALRET",0) + NVL("CC_MOVIM"."MT_VALIVA",0)),0)
+    INTO :ld_efectivo, :ld_retefe
+    FROM "CC_MOVIM" 
+   WHERE ( ( "CC_MOVIM"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+         ( "CC_MOVIM"."SU_CODIGO" = :str_appgeninfo.sucursal ) AND  
+         ( TRUNC("CC_MOVIM"."MT_FECHA") <= :ad_fecha ) AND  
+         ( "CC_MOVIM"."TT_CODIGO" = '2' ) AND  
+         ( "CC_MOVIM"."TT_IOE" = 'C' )  AND  
+         ( "CC_MOVIM"."IG_NUMERO" is null )   )   ;
+
+if ld_efectivo > 0 then
+	//registra el ingreso del pago en efectivo del cliente
+
+	ls_observ = 'Pagos en efectivo, clientes hasta: ' + string(ld_fecha,'dd/mm/yyyy') 
+	
+	INSERT INTO CB_INGRESO ( EM_CODIGO, SU_CODIGO, IG_NUMERO,IF_CODIGO,   
+					CN_CODIGO, RF_CODIGO, TN_CODIGO, IG_FECHA,IG_VALOR,IG_VALRET,   
+					IG_VALTOT,IG_DEPOSIT, IG_CONCILIA,IG_OBSERV )  
+		  VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num, :ls_insfin,
+					 :as_ctacor,null,'0',:ld_fecha,:ld_efectivo,:ld_retefe,
+					 :ld_efectivo+:ld_retefe,:as_deposit,'N',:ls_observ);
+
+	UPDATE pr_param
+   	set pr_valor = pr_valor + 1
+ 	 where em_codigo = :str_appgeninfo.empresa
+      and pr_nombre = 'INGRESO';	
+
+	//CONTABILIZAR DETALLE INGRESO
+	ls_observ = 'Dep$$HEX1$$f300$$ENDHEX$$sito No. ' + string(as_deposit)
+	INSERT INTO CB_DETING ( EM_CODIGO, SU_CODIGO, IG_NUMERO, PL_CODIGO,   
+                            DI_SECUE, DI_VALOR, DI_SIGNO, DI_OBSERV )  
+   VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num,:ls_ctabco,
+	        1,:ld_efectivo,'D', :ls_observ)  ;
+	  
+	if ld_retefe > 0 then				 
+  		ls_observ = 'Retenciones de clientes hasta ' + string(ld_fecha,'dd/mm/yyyy')
+     	INSERT INTO CB_DETING ( EM_CODIGO, SU_CODIGO, IG_NUMERO, PL_CODIGO,   
+                            DI_SECUE, DI_VALOR, DI_SIGNO, DI_OBSERV )  
+      VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num,
+	                :ls_ctaret,2,:ld_retefe,'D',:ls_observ);
+	end if
+     
+	ls_observ = 'Pagos en efectivo, clientes hasta: ' + string(ld_fecha,'dd/mm/yyyy')
+   INSERT INTO CB_DETING ( EM_CODIGO, SU_CODIGO, IG_NUMERO, PL_CODIGO,   
+                           DI_SECUE, DI_VALOR, DI_SIGNO, DI_OBSERV )  
+   VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num,
+	        :ls_ctacli,3,:ld_efectivo + :ld_retefe,'C',:ls_observ);
+   ls_num = string(ll_num_ig +1)
+end if
+			
+//Valor de los cheques que se efectivizan y retenciones
+SELECT NVL(SUM("CC_CHEQUE"."CH_VALOR"),0),
+       NVL(SUM(NVL("CC_MOVIM"."MT_VALRET",0) + NVL("CC_MOVIM"."MT_VALIVA",0)),0)  
+  INTO :ld_cheque, :ld_retche
+  FROM "CC_CHEQUE",   
+       "CC_MOVIM"   
+ WHERE ( "CC_MOVIM"."EM_CODIGO" = "CC_CHEQUE"."EM_CODIGO" ) and  
+       ( "CC_MOVIM"."SU_CODIGO" = "CC_CHEQUE"."SU_CODIGO" ) and  
+       ( "CC_MOVIM"."MT_CODIGO" = "CC_CHEQUE"."MT_CODIGO" ) and  
+       ( "CC_MOVIM"."TT_IOE" = "CC_CHEQUE"."TT_IOE" ) and  
+       ( "CC_MOVIM"."TT_CODIGO" = "CC_CHEQUE"."TT_CODIGO" ) and  
+       ( ( "CC_CHEQUE"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+       ( "CC_CHEQUE"."SU_CODIGO" = :str_appgeninfo.sucursal ) AND  
+       ( TRUNC("CC_CHEQUE"."CH_FECHA") <= :ad_fecha ) AND  
+       ("CC_CHEQUE"."CH_PENDIENTE" is null OR  
+        "CC_CHEQUE"."CH_PENDIENTE" = 'S') )  ;
+
+if ld_cheque > 0 then
+
+	ls_observ = 'Efectivizaci$$HEX1$$f300$$ENDHEX$$n de cheques, clientes hasta: ' + string(ld_fecha,'dd/mm/yyyy')
+	
+	INSERT INTO CB_INGRESO ( EM_CODIGO, SU_CODIGO, IG_NUMERO,IF_CODIGO,   
+            CN_CODIGO, RF_CODIGO, TN_CODIGO, IG_FECHA,IG_VALOR,IG_VALRET,   
+            IG_VALTOT,IG_DEPOSIT, IG_CONCILIA,IG_OBSERV )  
+     VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num, :ls_insfin,
+	          :as_ctacor,null,'0',:ld_fecha,:ld_cheque,:ld_retche,
+				 :ld_cheque+:ld_retche,:as_deposit2,'N', :ls_observ);
+	
+	UPDATE pr_param
+		set pr_valor = pr_valor + 1
+	 where em_codigo = :str_appgeninfo.empresa
+		and pr_nombre = 'INGRESO';	
+		
+	//CONTABILIZAR DETALLE INGRESO
+	
+	ls_observ = 'Dep$$HEX1$$f300$$ENDHEX$$sito No. ' + string(as_deposit2)	
+	
+	INSERT INTO CB_DETING ( EM_CODIGO, SU_CODIGO, IG_NUMERO, PL_CODIGO,   
+                             DI_SECUE, DI_VALOR, DI_SIGNO, DI_OBSERV )  
+          VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num,
+	  		          :ls_ctabco,1,:ld_cheque,'D',:ls_observ)  ;
+	if ld_retche > 0 then
+   	ls_observ = 'Retenciones de clientes hasta ' + string(ld_fecha,'dd/mm/yyyy')
+		INSERT INTO CB_DETING ( EM_CODIGO, SU_CODIGO, IG_NUMERO, PL_CODIGO,   
+                             DI_SECUE, DI_VALOR, DI_SIGNO, DI_OBSERV )  
+      VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num,
+	                :ls_ctaret,2,:ld_retche,'D', :ls_observ);
+	end if
+   ls_observ = 'Efectivizaci$$HEX1$$f300$$ENDHEX$$n de cheques, clientes hasta: ' + string(ld_fecha,'dd/mm/yyyy')
+   INSERT INTO CB_DETING ( EM_CODIGO, SU_CODIGO, IG_NUMERO, PL_CODIGO,   
+                           DI_SECUE, DI_VALOR, DI_SIGNO, DI_OBSERV )  
+   	    VALUES (:str_appgeninfo.empresa, :str_appgeninfo.sucursal,:ls_num,
+	                :ls_ctacli,3,:ld_cheque + :ld_retche,'C', :ls_observ);
+end if
+
+//abre el cursor con cada cheque y detalle hasta la fecha
+// para incrementar el cupo de cr$$HEX1$$e900$$ENDHEX$$dito del cliente si el cheque es postfechado
+
+open kit_cheques ;
+do
+	fetch kit_cheques  into :ls_tt_codigo, :ls_tt_ioe, :ls_mt_codigo, :ld_ch_valor, :ld_fecche;
+	if sqlca.sqlcode <> 0 then exit
+	ll++
+	ls_mensaje = 'Procesando Reg. ' + string(ll) + ' de ' + string(ll_num_reg)
+	aw_frame.SetMicroHelp(ls_mensaje)
+	
+	// encuentra el cliente y fecha del movimiento que gener$$HEX2$$f3002000$$ENDHEX$$el cheque
+	Select ce_codigo, mt_fecha
+	  into :ls_clien, :ld_fecmov
+	  from cc_movim
+    where em_codigo = :str_appgeninfo.empresa
+      and su_codigo = :str_appgeninfo.sucursal
+	   and tt_codigo = :ls_tt_codigo
+		and tt_ioe = :ls_tt_ioe
+		and mt_codigo = :ls_mt_codigo;
+	
+	if sqlca.sqlcode <> 0 then
+		messageBox('Error Interno', 'No se encuentra movimiento '+ sqlca.sqlerrtext)
+		return -1
+	end if
+	
+	// si la fecha del movimiento es menor a la fecha del cheque es postfechado
+	// por lo tanto incremento el saldo del cliente
+//	if date(ld_fecmov) < date(ld_fecche) then
+		Update fa_clien
+			set ce_salcre = ce_salcre + :ld_ch_valor
+		 where em_codigo = :str_appgeninfo.empresa
+			and ce_codigo = :ls_clien;
+//	end if 
+		
+loop while TRUE
+	
+close kit_cheques;		
+aw_frame.SetMicroHelp('Procesando Cheques ...')
+
+//Actualizo los movimientos de efectivo (si los hay) con el n$$HEX1$$fa00$$ENDHEX$$mero de ingreso
+
+if ld_efectivo > 0 then
+    ls_num = string(ll_num_ig)
+	 UPDATE "CC_MOVIM" 
+	    SET "CC_MOVIM"."IG_NUMERO" = :ls_num
+	  WHERE ( ( "CC_MOVIM"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+		     ( "CC_MOVIM"."SU_CODIGO" = :str_appgeninfo.sucursal ) AND  
+			  ( TRUNC("CC_MOVIM"."MT_FECHA") <= :ad_fecha ) AND  
+			  ( "CC_MOVIM"."TT_CODIGO" = '2' ) AND  
+			  ( "CC_MOVIM"."TT_IOE" = 'C' )  AND  
+			  ( "CC_MOVIM"."IG_NUMERO" is null )   )   ;
+    ls_num = string(ll_num_ig +1)
+end if
+
+// Actualiza el campo Ingreso con el n$$HEX1$$fa00$$ENDHEX$$mero de ingreso de todos os movimientos 
+// que tienen cheques y "TT_IOE" = 'C'
+
+// UPDATE "CC_MOVIM"
+//    SET "CC_MOVIM"."IG_NUMERO" = :ls_num
+//  WHERE "CC_MOVIM"."EM_CODIGO" = :str_appgeninfo.empresa
+//	 AND "CC_MOVIM"."SU_CODIGO" = :str_appgeninfo.sucursal
+//	 AND "CC_MOVIM"."MT_CODIGO" IN ( SELECT DISTINCT ("CC_MOVIM"."MT_CODIGO")
+//		 								      FROM "CC_CHEQUE",   
+//											           "CC_MOVIM"   
+//													WHERE ( "CC_MOVIM"."EM_CODIGO" = "CC_CHEQUE"."EM_CODIGO" ) and  
+//															( "CC_MOVIM"."SU_CODIGO" = "CC_CHEQUE"."SU_CODIGO" ) and  
+//															( "CC_MOVIM"."MT_CODIGO" = "CC_CHEQUE"."MT_CODIGO" ) and  
+//															( "CC_MOVIM"."TT_IOE" = "CC_CHEQUE"."TT_IOE" ) and  
+//															( "CC_MOVIM"."TT_CODIGO" = "CC_CHEQUE"."TT_CODIGO" ) and  
+//															( ( "CC_CHEQUE"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+//															( "CC_CHEQUE"."SU_CODIGO" = :str_appgeninfo.sucursal ) AND  
+//															( TRUNC("CC_CHEQUE"."CH_FECHA") <= :ad_fecha ) AND  
+//															("CC_CHEQUE"."CH_PENDIENTE" is null OR  
+//															"CC_CHEQUE"."CH_PENDIENTE" = 'S') ) ) 
+//	 AND "CC_MOVIM"."TT_IOE" = 'C';
+
+// actualiza todos los cheques pendientes a 'N' y numero de ingreso
+
+Update cc_cheque
+   set ch_pendiente = 'N',
+	    ig_numero = :ls_num
+ where em_codigo = :str_appgeninfo.empresa		
+   and su_codigo = :str_appgeninfo.sucursal
+	and TRUNC(ch_fecha) <= :ad_fecha
+   and (CH_PENDIENTE is null OR  
+         CH_PENDIENTE = 'S');	 
+commit;
+
+aw_frame.SetMicroHelp('Listo')
+SetPointer(Arrow!)
+return 1
+end function
+

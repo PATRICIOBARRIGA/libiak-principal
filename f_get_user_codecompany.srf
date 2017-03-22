@@ -1,0 +1,82 @@
+HA$PBExportHeader$f_get_user_codecompany.srf
+global type f_get_user_codecompany from function_object
+end type
+
+forward prototypes
+global function integer f_get_user_codecompany ()
+end prototypes
+
+global function integer f_get_user_codecompany ();string ls_caja,ls_tipo,ls_seccion
+boolean lb_res
+//Para verificar la existencia de motor de base de datos
+lb_res = f_db_connect(sqlca,str_appgeninfo.username,str_appgeninfo.password,str_appgeninfo.dbms,str_appgeninfo.servername,"")
+if lb_res = false then
+	return -1
+end if
+
+SetPointer(HourGlass!)
+
+//select sa_tipo
+//into :ls_tipo
+//from sg_acceso
+//where sa_login = :str_appgeninfo.username
+//and sa_passwd = :str_appgeninfo.password
+//and sa_activo = 'S';
+// 
+//if sqlca.sqlcode <> 0 then
+//	MessageBox("ERROR","No tiene autorizaci$$HEX1$$f300$$ENDHEX$$n para ingresar al SIF",StopSign!);
+//	return -1
+//	
+//else
+	select bo_codigo,cj_nombre
+	into:ls_seccion,:ls_caja
+	from fa_caja
+	where cj_caja = :str_appgeninfo.caja
+	and em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal;
+
+     str_appgeninfo.seccion = ls_seccion	
+	
+	
+	select to_date(pr_valor,'dd/mm/yyyy')
+	into  :gdt_mescerrado
+	from pr_param
+	where pr_nombre = 'MES_CIERRE';
+		
+	
+	select pr_letras
+	into :str_appgeninfo.rescontesp
+	from pr_param
+	where pr_nombre = 'RESOLUCION';
+	
+	
+	select em_nombre
+	into :gs_empresa
+	from pr_empre
+	where em_codigo = :str_appgeninfo.empresa;
+	
+	
+	select su_nombre
+	into :gs_su_nombre
+	from pr_sucur
+	where em_codigo = :str_appgeninfo.empresa
+	 and su_codigo = :str_appgeninfo.sucursal;
+	
+	select bo_nombre
+	into :gs_bo_nombre
+	from in_bode
+	where em_codigo = :str_appgeninfo.empresa
+	 and su_codigo = :str_appgeninfo.sucursal
+	 and bo_codigo = :ls_seccion;
+	 
+	select ep_saludo||' '||ep_apepat
+	into :gs_empleado
+	from no_emple
+	where sa_login = :str_appgeninfo.username
+	and em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal;
+	
+//end if
+return 1
+end function
+

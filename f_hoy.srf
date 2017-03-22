@@ -1,0 +1,24 @@
+HA$PBExportHeader$f_hoy.srf
+global type f_hoy from function_object
+end type
+
+forward prototypes
+global function datetime f_hoy ()
+end prototypes
+
+global function datetime f_hoy ();/*Funci$$HEX1$$f300$$ENDHEX$$n que retorna la fecha del servidor
+en el formato fecha y hora*/
+
+datetime ld_hoy
+
+select sysdate into :ld_hoy from dual;
+
+if sqlca.sqlcode < 0 then
+	messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al determinar la fecha "+sqlca.sqlerrtext)
+	rollback;
+end if
+
+return ld_hoy
+  
+end function
+

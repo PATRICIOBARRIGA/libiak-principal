@@ -1,0 +1,74 @@
+HA$PBExportHeader$f_genera_ingreso_clientes.srf
+global type f_genera_ingreso_clientes from function_object
+end type
+
+forward prototypes
+global function integer f_genera_ingreso_clientes (date fec_ini, date fec_fin, string cta_cor)
+end prototypes
+
+global function integer f_genera_ingreso_clientes (date fec_ini, date fec_fin, string cta_cor);//decimal ld_ch_valor, ld_efectivo
+//long ll_numero
+//datetime ld_fecmov, ld_fecche
+//string ls_instfin, ls_ctaclien
+//
+// //Obtengo el valor total de los cheques que se efectivizar$$HEX1$$e100$$ENDHEX$$n
+//  select NVL(sum("CC_CHEQUE"."CH_VALOR" ),0)
+//    into :ld_ch_valor
+//    FROM "CC_CHEQUE", "CC_MOVIM"  
+//   WHERE "CC_CHEQUE"."EM_CODIGO" = :str_appgeninfo.empresa
+//     and "CC_CHEQUE"."SU_CODIGO" = :str_appgeninfo.sucursal
+//	  and TRUNC("CC_CHEQUE"."CH_FECHA") <= :fec_fin
+//	  and "CC_CHEQUE"."CH_PENDIENTE" is null OR  "CC_CHEQUE"."CH_PENDIENTE" = 'S')	  
+//	  and "CC_MOVIM"."MT_CTACOR" = :cta_cor	  
+//	  and "CC_MOVIM"."TT_CODIGO" = "CC_CHEQUE"."TT_CODIGO"
+//     and "CC_MOVIM"."TT_IOE" = "CC_CHEQUE"."TT_IOE"
+//     and "CC_MOVIM"."EM_CODIGO" = "CC_CHEQUE"."EM_CODIGO"
+//     and "CC_MOVIM"."SU_CODIGO" = "CC_CHEQUE"."SU_CODIGO"
+//     and "CC_MOVIM"."MT_CODIGO" = "CC_CHEQUE"."MT_CODIGO" ;
+//
+////Obtengo el valor total del dinero en efectivo que se debe depositar
+//  SELECT NVL(SUM("CC_MOVIM"."MT_VALOR"),0)
+//    INTO :ld_efectivo
+//    FROM "CC_MOVIM"  
+//   WHERE ( "CC_MOVIM"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+//         ( "CC_MOVIM"."SU_CODIGO" = :str_appgeninfo.sucursal ) AND  
+//         ( "CC_MOVIM"."TT_CODIGO" = '2' ) AND  
+//         ( "CC_MOVIM"."TT_IOE" = 'C' ) AND  
+//	      ( "CC_MOVIM"."MT_CTACOR" = :cta_cor) AND
+//         ( TRUNC("CC_MOVIM"."MT_FECHA") between  :fec_ini AND :fec_fin);
+//
+//if ld_ch_valor <> 0 or ld_efectivo <> 0 then
+//   select pr_numero
+//     into :ll_numero
+//     from pr_param
+//    where em_codigo = :str_appgeninfo.empresa
+//      and pr_nombre = 'INGRESO';
+//		messageBox('Error Interno','No se puede encontrar el siguiente n$$HEX1$$fa00$$ENDHEX$$mero de ingreso ' +sqlca.sqlerrtext)
+//		return -1
+//	end if
+//Update pr_param
+//   set pr_numero = pr_numero +1
+// where em_codigo = :str_appgeninfo.empresa
+//   and pr_nombre = 'INGRESO';
+//	
+//Select if_codigo
+//  Into :ls_instfin
+//  from cb_ctaban
+// where em_codigo = :str_appgeninfo.empresa
+//   and cn_codigo = :cta_cor;
+//
+////Select 
+////
+////  INSERT INTO "CB_INGRESO"  
+////         ( "EM_CODIGO", "SU_CODIGO","IG_NUMERO", "RF_CODIGO",   
+////           "IF_CODIGO", "CN_CODIGO","PL_CODIGO","IG_FECHA",   
+////           "IG_VALOR","IG_VALRET","IG_VALTOT","IG_OBSERV",   
+////           "TN_CODIGO","IG_DEPOSIT","IG_CONCILIA",   
+////           "IG_VALIVA" )  
+////  VALUES (:str_appgeninfo.empresa,:str_appgeninfo.sucursal,:ll_numero, null
+////          :ls_instfin, :cta_cor, :ls_ctaclien)  ;
+//
+//
+return 1
+end function
+

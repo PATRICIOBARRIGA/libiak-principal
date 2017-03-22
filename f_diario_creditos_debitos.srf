@@ -1,0 +1,187 @@
+HA$PBExportHeader$f_diario_creditos_debitos.srf
+global type f_diario_creditos_debitos from function_object
+end type
+
+forward prototypes
+global function integer f_diario_creditos_debitos (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin, window aw_frame)
+end prototypes
+
+global function integer f_diario_creditos_debitos (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin, window aw_frame);string   ls_fecini,ls_fecfin,ls_tt_ioe,ls_tt_codigo
+decimal  ld_valor,ld_saldo_inicial
+long     ll_tot,ll_contador
+string	ls_codigo_cliente,ls_nombre,ls_tipo
+decimal  ld_factura_efectivo_C,ld_factura_devolucion_C,ld_pronto_pago_C,ld_factura_cheque_C 
+decimal  ld_limpieza_saldo_C,ld_descuento_adicional_C,ld_factura_D,ld_cheque_devuelto_D 
+decimal	ld_interes_D,ld_saldo_inicial_D,ld_creditos,ld_debitos
+
+ls_fecini= string(ad_fecini,'dd/mm/yyyy')
+ls_fecfin= string(ad_fecfin,'dd/mm/yyyy')
+
+DELETE FROM "RP_CRE_DEB"  ;
+commit;
+
+ DECLARE C1 CURSOR FOR  
+  SELECT "FA_CLIEN"."CE_CODIGO",   
+         "FA_CLIEN"."CE_TIPO"  
+    FROM "FA_CLIEN"  
+   WHERE "FA_CLIEN"."EM_CODIGO" = '1'   
+	  AND "FA_CLIEN"."CE_CODIGO" <> '1';
+	
+ DECLARE C2 CURSOR FOR  
+  SELECT "CC_MOVIM"."MT_VALOR",   
+         "CC_MOVIM"."TT_IOE",   
+         "CC_MOVIM"."TT_CODIGO"  
+    FROM "CC_MOVIM"  
+
+   WHERE "CC_MOVIM"."EM_CODIGO" = :as_empresa 
+     AND "CC_MOVIM"."SU_CODIGO" = :as_sucursal
+	  AND  (trunc("CC_MOVIM"."MT_FECHA") between TO_DATE(:ls_fecini,'dd/mm/yyyy') and to_date(:ls_fecfin,'dd/mm/yyyy'))
+     AND  "CC_MOVIM"."CE_CODIGO" = :ls_codigo_cliente ;
+
+  SELECT count(*)
+    into :ll_tot
+    FROM "FA_CLIEN"  
+   WHERE "FA_CLIEN"."EM_CODIGO" = '1'   
+	  AND "FA_CLIEN"."CE_CODIGO" <> '1';
+ 
+ aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' items. Espere un momento...')
+  ll_contador = 0
+ 
+ open c1;
+	do 
+      fetch c1 into 	:ls_codigo_cliente,:ls_tipo;
+	  	if sqlca.sqlcode <> 0 then exit
+   	ll_contador ++
+   	aw_frame.SetMicroHelp('El sistema est$$HEX2$$e1002000$$ENDHEX$$procesando: '+ string(ll_contador) + ' de un total de '&
+	                         +string(ll_tot)+ ' items. Espere un momento...')
+		ld_factura_efectivo_C = 0 
+		ld_factura_devolucion_C = 0 
+		ld_pronto_pago_C = 0
+		ld_factura_cheque_C = 0
+		ld_limpieza_saldo_C = 0
+		ld_descuento_adicional_C = 0
+		ld_factura_D = 0
+		ld_cheque_devuelto_D  = 0
+		ld_interes_D = 0
+		ld_saldo_inicial_D  = 0
+		ld_creditos = 0
+		ld_debitos  = 0
+
+	  open C2;
+       do
+ 	      fetch C2 INTO :ld_valor,:ls_tt_ioe,:ls_tt_codigo;
+	      if sqlca.sqlcode <> 0 then exit
+	      if ls_tt_ioe = 'C' then
+		      CHOOSE CASE ls_tt_codigo
+						
+					      CASE '2'
+								//Abono/Cancelaci$$HEX1$$f300$$ENDHEX$$n Factura con Efectivo
+								ld_factura_efectivo_C = ld_factura_efectivo_C +ld_valor
+								ld_creditos = ld_creditos + ld_valor
+      						
+                     CASE '3'
+								//Devolucion de factura
+      						ld_factura_devolucion_C = ld_factura_devolucion_C +ld_valor
+								ld_creditos = ld_creditos + ld_valor
+								
+							CASE '4'
+								//Nota de Cr$$HEX1$$e900$$ENDHEX$$dito (Pronto pago)
+								ld_pronto_pago_C = ld_pronto_pago_C +ld_valor
+								ld_creditos = ld_creditos + ld_valor
+							
+						   CASE '5'
+								//Abono/Cancelaci$$HEX1$$f300$$ENDHEX$$n Factura con Cheque
+								ld_factura_cheque_C = ld_factura_cheque_C +ld_valor
+								ld_creditos = ld_creditos + ld_valor
+   	
+						   CASE '6'
+								//Nota de Cr$$HEX1$$e900$$ENDHEX$$dito (Limpieza Saldo)
+								ld_limpieza_saldo_C = ld_limpieza_saldo_C +ld_valor
+								ld_creditos = ld_creditos + ld_valor
+								
+							CASE '7'
+								//Nota de Cr$$HEX1$$e900$$ENDHEX$$dito (Descuento Adicional)		
+								ld_descuento_adicional_C = ld_descuento_adicional_C +ld_valor
+								ld_creditos = ld_creditos + ld_valor
+		
+            END CHOOSE
+
+	 		   else
+						
+					  CHOOSE CASE ls_tt_codigo
+						
+					      CASE '1'
+								//Factura
+								ld_factura_D = ld_factura_D +ld_valor
+								ld_debitos = ld_debitos + ld_valor
+      						
+                     CASE '2'
+								//Nota de D$$HEX1$$e900$$ENDHEX$$bito (Cheque devuelto)
+								ld_cheque_devuelto_D = ld_cheque_devuelto_D +ld_valor
+								ld_debitos = ld_debitos + ld_valor
+							
+							CASE '3'
+								//Nota de D$$HEX1$$e900$$ENDHEX$$bito (Inter$$HEX1$$e900$$ENDHEX$$s)
+								ld_interes_D = ld_interes_D +ld_valor
+								ld_debitos = ld_debitos + ld_valor
+
+						   CASE '8'
+								//Saldo Inicial
+								ld_saldo_inicial_D = ld_saldo_inicial_D +ld_valor
+								ld_debitos = ld_debitos + ld_valor
+								
+                END CHOOSE
+					  
+              end if	  
+					
+           loop while TRUE
+        close c2;
+		  
+       ld_saldo_inicial = f_saldo_valorado_fecha (as_empresa,as_sucursal,ls_codigo_cliente,ad_fecini)    		  
+//		 ld_saldo_inicial_D = ld_saldo_inicial_D + ld_saldo_inicial
+
+	    INSERT INTO "RP_CRE_DEB"  
+         ( "SU_CODIGO",   
+           "CE_CODIGO",   
+           "CC_FACTURA_EFECTIVO_C",   
+           "CC_FACTURA_DEVOLUCION_C",   
+           "CC_PRONTO_PAGO_C",   
+           "CC_FACTURA_CHEQUE_C",   
+           "CC_LIMPIEZA_SALDO_C",   
+           "CC_DESCUENTO_ADICIONAL_C",   
+           "CC_FACTURA_D",   
+           "CC_CHEQUE_DEVUELTO_D",   
+           "CC_INTERES_D",   
+           "CC_SALDO_INICIAL_D",   
+           "CC_CREDITOS",   
+           "CC_DEBITOS" ,
+			  "CC_SALDO_INICIAL"
+			  )  
+  VALUES ( :as_sucursal,   
+           :ls_codigo_cliente,   
+           :ld_factura_efectivo_C, 
+			  :ld_factura_devolucion_C,
+			  :ld_pronto_pago_C,
+			  :ld_factura_cheque_C,
+			  :ld_limpieza_saldo_C,
+			  :ld_descuento_adicional_C,
+			  :ld_factura_D,
+			  :ld_cheque_devuelto_D,
+			  :ld_interes_D,
+			  :ld_saldo_inicial_D,
+			  :ld_creditos,
+			  :ld_debitos ,
+			  :ld_saldo_inicial)  ;
+		
+     if ll_contador = 10 then
+		  commit;
+	  end if
+	loop while TRUE
+close C1;
+
+
+commit;
+
+return 1
+end function
+

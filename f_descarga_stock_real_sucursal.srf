@@ -1,0 +1,134 @@
+HA$PBExportHeader$f_descarga_stock_real_sucursal.srf
+$PBExportComments$Descarga stock real, sin commit
+global type f_descarga_stock_real_sucursal from function_object
+end type
+
+forward prototypes
+global function boolean f_descarga_stock_real_sucursal (string as_item, decimal ad_cantidad)
+end prototypes
+
+global function boolean f_descarga_stock_real_sucursal (string as_item, decimal ad_cantidad);///////////////////////////////////////////////////////////////////////
+// Descripci$$HEX1$$f300$$ENDHEX$$n : Descarga stock real tanto del item como de sus  
+//               componentes si es kit o de su(s) kit(s) si es componente
+// en una sucursal
+// Descarga it_stkreal de la tabla in_itesucur
+// NOTA.- en in_relitem, tr_codigo = '1'para KIT
+// Si todo sali$$HEX2$$f3002000$$ENDHEX$$bien retorna Verdadero
+// Fecha de Ultima Revisi$$HEX1$$f300$$ENDHEX$$n : 17-02-1999
+///////////////////////////////////////////////////////////////////////
+
+decimal ld_cantidad,ld_stkreal_comp,ld_numero_kits,ld_cantidad_minima
+boolean lb_exito = TRUE, lb_es_1er_comp = TRUE
+string  ls_componente,ls_es_kit,ls_codigo_kit
+long    ll_contador
+
+// busca los componentes de un item kit
+declare kit_cursor cursor for
+   select it_codigo,ri_cantid
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo1 = :ls_codigo_kit
+		and tr_codigo = '1';  
+
+// busca los kits al que pertenece un item componente
+declare cursor_componente cursor for
+   select it_codigo1
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo = :as_item
+		and tr_codigo = '1';  
+
+// descarga el stock real del item
+update in_itesucur
+   set it_stkreal = it_stkreal - :ad_cantidad
+ where em_codigo = :str_appgeninfo.empresa
+   and su_codigo = :str_appgeninfo.sucursal
+   and it_codigo = :as_item;
+if sqlca.sqlcode <> 0 then
+   MessageBox("ERROR en f_descarga_stock_real_sucursal","No puedo actualizar el stock.");
+	rollback using sqlca;
+   return (FALSE)
+end if
+
+// busca si el item es kit o no
+select it_kit
+  into :ls_es_kit
+  from in_item
+ where em_codigo = :str_appgeninfo.empresa
+   and it_codigo = :as_item;	
+
+if ls_es_kit = 'S' then
+	// el item es un kit
+	ls_codigo_kit = as_item 
+	open kit_cursor;
+	do
+		// se procede a descargar stock de cada componente
+		fetch kit_cursor into :ls_componente,:ld_cantidad;
+		if sqlca.sqlcode <> 0 then exit; 
+		update in_itesucur
+         set it_stkreal = it_stkreal - (:ad_cantidad*:ld_cantidad)
+       where em_codigo = :str_appgeninfo.empresa
+         and su_codigo = :str_appgeninfo.sucursal
+	      and it_codigo = :ls_componente;
+		if sqlca.sqlcode <> 0 then
+			lb_exito = FALSE
+  	   end if	
+	loop while TRUE;
+	close kit_cursor;
+else // el item no es un kit, por tanto puede ser componente de kits
+	select count(*)
+	  into :ll_contador
+	  from in_relitem
+	 where em_codigo = :str_appgeninfo.empresa
+	   and it_codigo = :as_item
+		and tr_codigo = '1';   
+		
+	if ll_contador > 0 then  // Si al menos es parte de un kit
+		open cursor_componente;
+		do
+			lb_es_1er_comp = TRUE
+			fetch cursor_componente into :ls_codigo_kit;
+			if sqlca.sqlcode <> 0 then exit
+			open kit_cursor;
+			do
+				fetch kit_cursor into :ls_componente,:ld_cantidad;
+			   if sqlca.sqlcode <> 0 then exit
+				select it_stkreal
+				  into :ld_stkreal_comp
+				  from in_itesucur
+				 where em_codigo = :str_appgeninfo.empresa
+				   and su_codigo = :str_appgeninfo.sucursal
+					and it_codigo = :ls_componente;
+				ld_numero_kits = truncate(ld_stkreal_comp/ld_cantidad,0)
+				if lb_es_1er_comp then
+					lb_es_1er_comp = FALSE
+					ld_cantidad_minima = ld_numero_kits
+				end if
+				if ld_numero_kits < ld_cantidad_minima then
+					ld_cantidad_minima = ld_numero_kits
+				end if
+			loop while TRUE
+			
+			close kit_cursor;
+			
+			// actualiza el stock real de la sucursal
+			update in_itesucur
+			   set it_stkreal = :ld_cantidad_minima
+			 where em_codigo = :str_appgeninfo.empresa
+			   and su_codigo = :str_appgeninfo.sucursal
+				and it_codigo = :ls_codigo_kit;
+		loop while TRUE
+		close cursor_componente;
+	end if
+end if // fin del si es kit o no
+
+if not lb_exito then
+	MessageBox("ERROR en f_descarga_stock_real_sucursal","No puedo actualizar stock");
+	rollback using sqlca;
+	return (FALSE)
+end if
+
+//commit using sqlca;PB 07/04/03
+return (TRUE)
+end function
+

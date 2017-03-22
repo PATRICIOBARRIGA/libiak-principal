@@ -1,0 +1,153 @@
+HA$PBExportHeader$f_genera_credito_cxp.srf
+global type f_genera_credito_cxp from function_object
+end type
+
+forward prototypes
+global function integer f_genera_credito_cxp (date fec_ini, date fec_fin, string cuenta, window aw_frame)
+end prototypes
+
+global function integer f_genera_credito_cxp (date fec_ini, date fec_fin, string cuenta, window aw_frame);decimal ld_total,ld_valpag
+long ll, ll_tot, li= 0, ll_numero, ll_numpag, lj, ll_plazo
+string ls_factura, ls_proveedor, ls_sucur, ls_formpag,ls, ls_insfin
+datetime ld_fecha,ld_fecven
+
+SetPointer(HourGlass!)
+
+// encuentra los datos de las compras
+ DECLARE cur_compras CURSOR FOR  
+  SELECT sum("IN_COMPRA"."CO_TOTAL" ),   
+         max(trunc("IN_COMPRA"."CO_FECHA")),   
+         max("IN_COMPRA"."CO_NUMERO"),   			
+         "IN_COMPRA"."CO_FACPRO",   
+         "IN_COMPRA"."PV_CODIGO",   
+         "IN_COMPRA"."SU_CODIGO"  
+    FROM "IN_COMPRA"  
+   WHERE ( "IN_COMPRA"."EM_CODIGO" = :str_appgeninfo.empresa)
+	  AND ( "IN_COMPRA"."SU_CODIGO" = :str_appgeninfo.sucursal) AND
+			( "IN_COMPRA"."EC_CODIGO" = '3'  ) AND  
+         ( trunc("IN_COMPRA"."CO_FECHA") between :fec_ini and :fec_fin  ) AND  
+         ("IN_COMPRA"."CO_ENCXP" is null OR  
+         "IN_COMPRA"."CO_ENCXP" = 'N')   
+GROUP BY "IN_COMPRA"."SU_CODIGO",   
+         "IN_COMPRA"."CO_FACPRO",   
+         "IN_COMPRA"."PV_CODIGO"  ;
+
+// cuenta cuantos registros van a ser procesados
+  SELECT count(distinct("IN_COMPRA"."CO_FACPRO"))
+    INTO :ll_tot
+    FROM "IN_COMPRA"  
+   WHERE ( "IN_COMPRA"."EM_CODIGO" = :str_appgeninfo.empresa  )
+	  AND ( "IN_COMPRA"."SU_CODIGO" = :str_appgeninfo.sucursal) AND	
+			( "IN_COMPRA"."EC_CODIGO" = '3'  ) AND  	
+         ( trunc("IN_COMPRA"."CO_FECHA") between :fec_ini and :fec_fin  ) AND  
+         ("IN_COMPRA"."CO_ENCXP" is null OR  
+         "IN_COMPRA"."CO_ENCXP" = 'N');
+			
+aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' registros. Espere un momento...')
+
+open cur_compras;
+  do
+	fetch cur_compras into :ld_total, :ld_fecha, :ll_numero, :ls_factura, 
+	                       :ls_proveedor, :ls_sucur;
+	if sqlca.sqlcode <> 0 then exit; 
+	li++
+	aw_frame.SetMicroHelp('Procesando: '+ string(li) + ' de ' + string(ll_tot) + ' registros. Espere un momento...')
+
+//	encuentra el Numero secuencial de notas de credito de un proveedor
+		Select pr_valor
+		  into :ll
+		  from pr_param
+		  where em_codigo = :str_appgeninfo.empresa
+		    and pr_nombre = 'NUM_NP';
+
+ 	    Update pr_param
+		    set pr_valor = pr_valor +1
+		  where em_codigo = :str_appgeninfo.empresa
+		    and pr_nombre = 'NUM_NP';
+			 ls = string(ll)
+//if li <> 20 and li <> 78 and li<>83 then
+//	if ll<> 78 then
+	
+	//registra en los movimientos la compra
+	
+	  INSERT INTO "CP_MOVIM"  
+         ( "TV_CODIGO","TV_TIPO","EM_CODIGO","SU_CODIGO",   
+           "MP_CODIGO","PV_CODIGO","EC_CODIGO","CO_NUMERO",   
+           "RF_CODIGO","MP_FECHA","MP_VALOR","MP_VALRET",   
+           "MP_SALDO" )  
+         VALUES ('1','C',:str_appgeninfo.empresa,:ls_sucur, :ls,
+			        :ls_proveedor,:ls_factura,:ll_numero,null,:ld_fecha,
+					   :ld_total,0,:ld_total)  ;
+	
+		if sqlca.sqlcode <> 0 then
+			messagebox('Error Interno',sqlca.sqlerrtext)
+			rollback;
+			return -1
+		end if
+	//Inserto el n$$HEX1$$fa00$$ENDHEX$$mero de detalles dependiendo de la forma de pago
+	
+	//	 encuentra el c$$HEX1$$f300$$ENDHEX$$digo de la forma de pago
+	   Select fp_codigo
+		  into :ls_formpag
+		  from in_compra
+		 where em_codigo = :str_appgeninfo.empresa 
+		   and su_codigo = :str_appgeninfo.sucursal
+			and ec_codigo = '3'
+			and co_numero = :ll_numero;
+			
+	//	encuentra los cuantos pagos se van a realizar y los plazos
+		Select fp_numpag, fp_plazo
+		  into :ll_numpag, :ll_plazo
+		  from fa_formpag
+		 where em_codigo = :str_appgeninfo.empresa 
+		   and fp_codigo = :ls_formpag;
+			
+	//	encuentra el c$$HEX1$$f300$$ENDHEX$$digo de la instituci$$HEX1$$f300$$ENDHEX$$n financiera del cheque a ejecutar
+	   SELECT if_codigo
+	     into :ls_insfin
+	     from cb_ctains
+	    where em_codigo = :str_appgeninfo.empresa
+		   and cn_codigo = :cuenta;
+			
+		
+		if isnull(ll_numpag) or ll_numpag = 0 then ll_numpag = 1
+		ld_valpag = round(ld_total / ll_numpag,0)
+		ld_fecven=ld_fecha
+		
+// inserta los pagos a realizar
+		for lj = 1 to ll_numpag
+			  if ll_plazo > 0 then
+		       ld_fecven = datetime(relativedate(date(ld_fecven),round(ll_plazo/ll_numpag,0)))
+			  end if
+			  INSERT INTO "CP_PAGO"  ( "TV_CODIGO", "TV_TIPO", "EM_CODIGO",   
+           "SU_CODIGO", "MP_CODIGO", "PM_SECUENCIA", "PM_FECHA",   
+           "PM_VALOR",  "PM_FECPA", "PM_INTER", "PM_CXP", "IF_CODIGO",   
+           "CN_CODIGO", "PM_DESCUE" )  
+           VALUES ('1','C',:str_appgeninfo.empresa,:ls_sucur, :ls, :lj, :ld_fecven,
+		            :ld_valpag, null ,0,'S',:ls_insfin,:cuenta,0)  ;
+			if sqlca.sqlcode <> 0 then
+				messagebox('Error Interno',sqlca.sqlerrtext)
+			rollback;
+			return -1
+		end if
+		next
+	//end if
+//end if
+
+	loop while TRUE;
+close cur_compras;
+
+//actualiza las compras
+
+UPDATE "IN_COMPRA"
+   SET "IN_COMPRA"."CO_ENCXP" = 'S' 
+ WHERE ( "IN_COMPRA"."EM_CODIGO" = :str_appgeninfo.empresa  ) AND  
+       ( "IN_COMPRA"."SU_CODIGO" = :str_appgeninfo.sucursal) AND
+		 ( "IN_COMPRA"."EC_CODIGO" = '3'  ) AND  	
+       ( trunc("IN_COMPRA"."CO_FECHA") between :fec_ini and :fec_fin  );
+commit;
+SetPointer(Arrow!)
+aw_frame.SetMicroHelp('Listo.')
+return 1
+end function
+

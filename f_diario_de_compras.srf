@@ -1,0 +1,195 @@
+HA$PBExportHeader$f_diario_de_compras.srf
+global type f_diario_de_compras from function_object
+end type
+
+forward prototypes
+global function integer f_diario_de_compras (string as_empresa, string as_sucursal, long al_anio, long al_mes, ref window aw_frame)
+end prototypes
+
+global function integer f_diario_de_compras (string as_empresa, string as_sucursal, long al_anio, long al_mes, ref window aw_frame);//string   ls_clase,ls_clasedes,ls_item,ls_codant,ls_lineamayor,ls_nomitem
+//string   ls_clasehija,ls_fecini,ls_fecfin,ls_factura, ls_es_codigo,ls_estado
+//decimal  ld_costo,ld_cantidad,ld_preciototal,ld_precio_descuento, ld_precio_iva
+//decimal 	ld_precio_descuento_factura ,ld_iva_total,ld_precio_factura, ld_desc1, ld_desc2,ld_desc3
+//decimal  ld_iva_factura,ld_descuento_factura,ld_cantidad_factura,ld_precio_total_factura,ld_total_descuento_factura
+//decimal  ld_valor_final,ld_costo_total,ld_valor_neto
+//long     ll_tot,ll_contador,ll_num_factura,n,ll_num_codpad
+//string   ls_select,ls_tabla
+//date     ld_fecfin
+//
+//declare c1 cursor for
+// SELECT "IN_CLASE"."CL_CODIGO",   
+//        "IN_CLASE"."CL_DESCRI"  
+//   FROM "IN_CLASE"  
+//  WHERE ( "IN_CLASE"."EM_CODIGO" = :as_empresa) AND  
+//        ( "IN_CLASE"."CL_CODPAD" is null ) 
+//  using sqlca;
+//			
+//declare c2 cursor for
+//  select it_codigo,it_codant,it_nombre
+//    from in_item
+//	where em_codigo = :as_empresa
+//	  and cl_codigo = :ls_clase
+//	  and it_kit = 'N';
+// 
+//DECLARE c3 CURSOR FOR  
+//   SELECT "IN_COMPRA"."CO_IVA",   
+//          "IN_COMPRA"."CO_DESCUP",
+//          "IN_DETCO"."DC_CANTID",
+//          "IN_DETCO"."DC_COSTO",
+//			 "IN_DETCO"."DC_DESC1" ,
+//			 "IN_DETCO"."DC_DESC2" ,
+//			 "IN_DETCO"."DC_DESC3" ,
+//  			 "IN_DETCO"."CO_NUMERO",
+//			 "IN_COMPRA"."CO_NUMPAD"
+//     FROM "IN_COMPRA","IN_DETCO"  
+//    WHERE IN_COMPRA.em_codigo = IN_DETCO.em_codigo
+//   	and IN_COMPRA.su_codigo = IN_DETCO.su_codigo
+//  	   and IN_COMPRA.co_numero = IN_DETCO.co_numero
+//		and IN_COMPRA.ec_codigo = IN_DETCO.ec_codigo
+//		and IN_COMPRA.em_codigo = :as_empresa
+//		and IN_COMPRA.su_codigo = :as_sucursal
+//		and (trunc(IN_COMPRA.co_fecha) between TO_DATE(:ls_fecini,'dd/mm/yyyy') and to_date(:ls_fecfin,'dd/mm/yyyy'))
+//		and IN_DETCO.it_codigo = :ls_item
+//		and IN_DETCO.ec_codigo = :ls_estado;
+//		
+//DECLARE c4 DYNAMIC CURSOR FOR SQLSA ;
+//
+////begin
+//
+//ls_fecini = '1/'+string(al_mes)+'/'+string(al_anio)
+////ls_fecfin = '31/'+string(al_mes)+'/'+string(al_anio)
+//
+//ld_fecfin = RelativeDate(date('1/'+string(al_mes+1)+'/'+string(al_anio)),-1)
+//ls_fecfin = string(ld_fecfin,"dd/mm/yyyy")
+//
+//DELETE FROM "RP_COMPRAS";
+//commit;
+//
+//choose case al_mes
+//	case 1
+//		ls_tabla = 'hi_imjan'
+//	case 2
+//		ls_tabla = 'hi_imfeb'
+//	case 3
+//		ls_tabla = 'hi_immar'
+//	case 4
+//		ls_tabla = 'hi_imapr'
+//	case 5
+//		ls_tabla = 'hi_immay'
+//	case 6
+//		ls_tabla = 'hi_imjun'
+//	case 7
+//		ls_tabla = 'hi_imjul'
+//	case 8
+//		ls_tabla = 'hi_imaug'
+//	case 9
+//		ls_tabla = 'hi_imsep'
+//	case 10
+//		ls_tabla = 'hi_imoct'
+//	case 11
+//		ls_tabla = 'hi_imnov'
+//	case 11
+//		ls_tabla = 'hi_imdec'
+//end choose
+//ls_tabla = ls_tabla + right(string(al_anio),2)
+//ls_select = "select mv_costo"+&
+//            "  from " + ls_tabla +&
+//            " where em_codigo = ?"+&
+//            "   and su_codigo = ?"+&
+//            "   and tm_codigo = '1'"+&
+//            "   and tm_ioe    = 'I'"+&
+//            "   and ve_numero = ?"+&
+//            "   and es_codigo is null"+&
+//            "   and it_codigo = ?"
+//PREPARE SQLSA FROM :ls_select;
+//
+//ls_estado = '3'
+//
+//open c1;
+//do
+//	fetch c1 INTO :ls_clase,:ls_clasedes;
+//	if sqlca.sqlcode <> 0 then exit
+//	ls_lineamayor = ls_clase
+//	ls_clasehija = ls_clase
+//	select cl_codigo
+//  	  into :ls_clase
+//     from in_clase
+//	 where cl_codpad = :ls_clasehija;
+//	 
+//  select count(*)
+//    into :ll_tot
+//    from in_item
+//	where em_codigo = :as_empresa
+//	  and cl_codigo = :ls_clase;
+//	  
+//  aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' items. Espere un momento...')
+//   ll_contador = 0
+//	open c2;
+//	do
+//
+//		fetch c2 into :ls_item,:ls_codant,:ls_nomitem;
+//		if sqlca.sqlcode <> 0 then exit
+//		ll_contador ++
+//		aw_frame.SetMicroHelp('El sistema est$$HEX2$$e1002000$$ENDHEX$$procesando: '+ string(ll_contador) + ' de un total de '&
+//		                      +string(ll_tot)+ ' items. Espere un momento...')
+//      ld_cantidad = 0
+//		ld_preciototal = 0
+//      ld_precio_descuento = 0
+//		ld_precio_descuento_factura = 0
+//		ld_iva_total = 0
+//		ld_descuento_factura = 0
+//		ld_total_descuento_factura = 0
+//		ld_costo_total = 0
+//   open c3;
+//	do 
+//	  fetch c3 into :ld_iva_factura,:ld_descuento_factura,:ld_cantidad_factura,:ld_precio_factura,:ld_desc1,:ld_desc2,:ld_desc3,:ll_num_factura,:ll_num_codpad;
+//	  if sqlca.sqlcode <> 0 then exit
+//	  
+//	  open dynamic c4 using :as_empresa,:as_sucursal,:ll_num_codpad,:ls_item;
+//     fetch c4 into :ld_costo;
+//	  close c4;
+//
+//	  ld_precio_total_factura = ld_cantidad_factura * ld_precio_factura
+//     ld_precio_descuento_factura = (((ld_precio_total_factura * ( 1 - ld_desc1)) * ( 1 - ld_desc2)) * ( 1 - ld_desc3))
+////			    nvl(sum(((("FA_DETVE"."DV_CANDES"*"FA_DETVE"."DV_PRECIO" *(1 -nvl("FA_DETVE"."DV_DESC1" ,0)))*(1 -nvl("FA_DETVE"."DV_DESC1",0)))*(1 - nvl("FA_DETVE"."DV_DESC3",0)))),0)
+//     ld_cantidad = ld_cantidad +ld_cantidad_factura
+//	  ld_preciototal = ld_preciototal +ld_precio_total_factura
+//	  ld_precio_descuento = ld_precio_descuento + ld_precio_descuento_factura
+//	  ld_costo_total = ld_costo_total + ld_cantidad_factura*ld_costo
+//	  if ld_iva_factura > 0 then
+//        ld_iva_total = ld_iva_total +ld_precio_descuento_factura* 0.1 
+//	  end if	  
+//	  if ld_descuento_factura > 0 then
+//		  ld_total_descuento_factura = ld_total_descuento_factura + ld_precio_descuento_factura* 0.1 
+//	  end if  		     
+//	  loop while TRUE
+//  
+//  close c3;
+//   
+//   ld_valor_final = ld_precio_descuento + ld_iva_total - ld_total_descuento_factura
+//	ld_valor_neto =  ld_precio_descuento - ld_total_descuento_factura
+//	insert into rp_compras(cl_codigo,it_codigo,cl_descri,it_nombre,
+//	                       it_codant,it_costo, it_cantidad,it_precio_total,
+//								  it_precio, it_costo_total,it_precio_descuento, 
+//								  it_precio_iva, it_descuento_global,su_codigo,
+//								  it_descuento_linea, it_precio_final,it_estado,
+//								  it_precio_neto,it_margen_bruto)
+//                   values(:ls_lineamayor,:ls_item,:ls_clasedes,:ls_nomitem,
+//						        :ls_codant,:ld_costo,:ld_cantidad,:ld_preciototal,
+//								  0,:ld_costo_total,:ld_precio_descuento,
+//								  :ld_iva_total,:ld_total_descuento_factura,:as_sucursal,
+//								  :ld_preciototal - :ld_precio_descuento,:ld_valor_final,:ls_estado,
+//								  :ld_valor_neto,:ld_valor_final - :ld_costo_total);
+////	if ll_contador = 10 then
+////		commit;
+////	end if	
+//	loop while TRUE
+//close c2;
+//
+//loop while TRUE
+//close c1;
+//commit;
+//
+return 1
+end function
+

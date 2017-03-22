@@ -1,0 +1,90 @@
+HA$PBExportHeader$f_diario_compras_proveedor.srf
+global type f_diario_compras_proveedor from function_object
+end type
+
+forward prototypes
+global function integer f_diario_compras_proveedor (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin, window aw_frame)
+end prototypes
+
+global function integer f_diario_compras_proveedor (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin, window aw_frame);string  ls_fecini, ls_fecfin,ls_codigo_proveedor,ls_razon_proveedor,ls_nombre_proveedor;
+decimal ld_sum_subtotal,ld_sum_iva,ld_sum_descup,ld_sum_total,ld_transporte
+long    ll_contador,ll_tot
+
+ls_fecini= string(ad_fecini,'dd/mm/yyyy')
+ls_fecfin= string(ad_fecfin,'dd/mm/yyyy')
+
+ DELETE FROM "RP_COMPRAS_PROVEEDOR"  ;
+ commit;
+ 
+ DECLARE c1 CURSOR FOR  
+  SELECT "IN_PROVE"."PV_CODIGO",
+         "IN_PROVE"."PV_RAZONS" ,
+			"IN_PROVE"."PV_NOMBRE"
+    FROM "IN_PROVE"  
+   WHERE ( "IN_PROVE"."EM_CODIGO" = :as_empresa);
+	
+  select count(*)
+    into :ll_tot
+    FROM "IN_PROVE"  
+   WHERE ( "IN_PROVE"."EM_CODIGO" = :as_empresa);
+	  
+  aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' items. Espere un momento...')
+   ll_contador = 0
+	
+ open c1;
+	do 
+	  fetch c1 into :ls_codigo_proveedor,:ls_razon_proveedor,:ls_nombre_proveedor;
+	  if sqlca.sqlcode <> 0 then exit
+	  ll_contador = ll_contador + 1
+	  ld_sum_subtotal = 0
+     ld_sum_iva = 0
+     ld_sum_total = 0  
+     ld_transporte = 0
+	  aw_frame.SetMicroHelp('El sistema est$$HEX2$$e1002000$$ENDHEX$$procesando: '+ string(ll_contador) + ' de un total de '&
+		                      +string(ll_tot)+ ' items. Espere un momento...')
+         SELECT nvl(sum(nvl("IN_COMPRA"."CO_SUBTOT",0)),0),   
+                nvl(sum(nvl("IN_COMPRA"."CO_IVA",0)),0),
+                nvl(sum(nvl("IN_COMPRA"."CO_TOTAL",0)),0),   
+                nvl(sum(nvl("IN_COMPRA"."CO_TRANSPOR",0)),0)
+           INTO :ld_sum_subtotal,   
+                :ld_sum_iva,
+                :ld_sum_total,  
+                :ld_transporte
+    FROM "IN_COMPRA"  
+   WHERE ("IN_COMPRA"."EM_CODIGO" = :as_empresa ) AND  
+         ("IN_COMPRA"."SU_CODIGO" = :as_sucursal) AND  
+			(trunc("IN_COMPRA"."CO_FECHA") between TO_DATE(:ls_fecini,'dd/mm/yyyy') and to_date(:ls_fecfin,'dd/mm/yyyy')) AND
+         ("IN_COMPRA"."PV_CODIGO" = :ls_codigo_proveedor ) AND
+			("IN_COMPRA"."EC_CODIGO" = '3');
+			
+ 	INSERT INTO "RP_COMPRAS_PROVEEDOR"  
+             ( "PV_SUBTOTAL",   
+               "PV_IVA",   
+               "PV_TOTAL",   
+               "PV_TRANSPORTE",   
+               "SU_CODIGO",   
+               "PV_CODIGO",   
+               "PV_RAZONS",   
+               "PV_NOMBRE" )  
+     VALUES ( :ld_sum_subtotal,   
+              :ld_sum_iva,   
+              :ld_sum_total,   
+              :ld_transporte,   
+              :as_sucursal,   
+              :ls_codigo_proveedor,   
+              :ls_razon_proveedor,   
+              :ls_nombre_proveedor ) ;
+				  
+//if ll_contador = 10 then
+//	commit;
+//end if
+//
+    loop while TRUE
+
+  
+ close c1;
+		
+commit;
+return 1			
+end function
+

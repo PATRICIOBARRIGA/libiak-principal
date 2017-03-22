@@ -1,0 +1,104 @@
+HA$PBExportHeader$f_genera_estado_cta_prv.srf
+global type f_genera_estado_cta_prv from function_object
+end type
+
+forward prototypes
+global function integer f_genera_estado_cta_prv (string proveedor, date fec_ini, date fec_fin)
+end prototypes
+
+global function integer f_genera_estado_cta_prv (string proveedor, date fec_ini, date fec_fin);string ls_MP_codigo, ls_TV_TIPO, ls_TV_codigo, ls_observ, ls_aux, ls_pendiente
+string ll_ve_numero
+decimal lc_saldo, lc_valor, lc_ch_valor
+datetime ld_MP_fecha, ld_ch_fecha
+
+//CURSOR DE LOS CREDITOS
+ DECLARE cur_movim CURSOR FOR  
+  SELECT "CP_MOVIM"."MP_CODIGO",   
+         "CP_MOVIM"."TV_TIPO",   
+         "CP_MOVIM"."TV_CODIGO",   
+         "CP_MOVIM"."EC_CODIGO",
+			"CP_MOVIM"."MP_VALOR",
+		   "CP_MOVIM"."MP_SALDO",
+         "CP_MOVIM"."MP_FECHA"
+    FROM "CP_MOVIM"  
+   WHERE ( "CP_MOVIM"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+         ( "CP_MOVIM"."SU_CODIGO" = :str_appgeninfo.sucursal) AND  
+         ( "CP_MOVIM"."PV_CODIGO" = :proveedor  ) AND  
+			( "CP_MOVIM"."TV_TIPO" = 'C' ) AND
+         ( TRUNC("CP_MOVIM"."MP_FECHA") between :fec_ini and :fec_fin );
+
+//CURSOR DE LOS DEBITOS
+ DECLARE cur_mov_cre CURSOR FOR  
+  SELECT "CP_MOVIM"."MP_CODIGO",   
+         "CP_MOVIM"."TV_TIPO",   
+         "CP_MOVIM"."TV_CODIGO",   
+         "CP_MOVIM"."EC_CODIGO",
+			"CP_MOVIM"."MP_VALOR",
+		   "CP_MOVIM"."MP_SALDO",
+         "CP_MOVIM"."MP_FECHA"
+    FROM "CP_MOVIM"  
+   WHERE ( "CP_MOVIM"."EM_CODIGO" = :str_appgeninfo.empresa ) AND  
+         ( "CP_MOVIM"."SU_CODIGO" = :str_appgeninfo.sucursal) AND  
+         ( "CP_MOVIM"."PV_CODIGO" = :proveedor  ) AND  
+			( "CP_MOVIM"."TV_TIPO" = 'D' ) AND
+         ( TRUNC("CP_MOVIM"."MP_FECHA") between :fec_ini and :fec_fin );
+			
+delete from RP_EST_CUENTA;
+open cur_movim;
+  do
+	fetch cur_movim into :ls_MP_codigo, :ls_TV_TIPO, :ls_TV_codigo, 
+	                     :ll_ve_numero, :lc_saldo,:lc_valor,  :ld_MP_fecha;
+	   if sqlca.sqlcode <> 0 then exit; 
+			  if lc_saldo < lc_valor then
+					  ls_observ = 'Saldo '
+				  else
+					  ls_observ = ''
+				  end if
+				  Select TV_dexcri
+				    into :ls_aux
+					 from CP_tipmov
+					where em_codigo = :str_appgeninfo.empresa 
+					  and TV_codigo = :ls_TV_codigo
+					  and TV_TIPO  = 'C';
+					ls_observ += ls_aux + ' No. ' 
+					if ls_TV_codigo  = '1' then
+					   ls_aux  = ll_ve_numero
+					else
+						ls_aux  = ls_MP_codigo
+					end if
+					ls_observ += ls_aux
+			  INSERT INTO "RP_EST_CUENTA"  
+                      ( "RE_CODCLI", "RE_FECMOV", "RE_DESCDET",   
+                        "RE_VALD", "RE_VALC", "RE_NUMMOV" )  
+		     VALUES (:proveedor,:ld_MP_fecha,:ls_observ,0,:lc_saldo,:ls_MP_codigo)  ;
+  loop while TRUE;
+close cur_movim;
+
+open cur_mov_cre;
+  do
+	fetch cur_mov_cre into :ls_MP_codigo, :ls_TV_TIPO, :ls_TV_codigo, 
+	                     :ll_ve_numero, :lc_saldo,:lc_valor,  :ld_MP_fecha;
+		  
+	   if sqlca.sqlcode <> 0 then exit; 
+				  if lc_saldo < lc_valor then
+					  ls_observ = 'Saldo '
+				  else
+					  ls_observ = ''
+				  end if
+				  Select TV_dexcri
+				    into :ls_aux
+					 from CP_tipmov
+					where em_codigo = :str_appgeninfo.empresa 
+					  and TV_codigo = :ls_TV_codigo
+					  and TV_TIPO  = 'D';
+					ls_observ += ls_aux + ' No. ' + ls_MP_codigo
+			  INSERT INTO "RP_EST_CUENTA"  
+                      ( "RE_CODCLI", "RE_FECMOV", "RE_DESCDET",   
+                        "RE_VALD", "RE_VALC", "RE_NUMMOV" )  
+		     VALUES (:proveedor,:ld_MP_fecha,:ls_observ,:lc_saldo,0,:ls_MP_codigo)  ;
+  loop while TRUE;
+close cur_mov_cre;
+
+return 1
+end function
+

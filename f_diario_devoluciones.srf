@@ -1,0 +1,149 @@
+HA$PBExportHeader$f_diario_devoluciones.srf
+global type f_diario_devoluciones from function_object
+end type
+
+forward prototypes
+global function integer f_diario_devoluciones (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin, window aw_frame)
+end prototypes
+
+global function integer f_diario_devoluciones (string as_empresa, string as_sucursal, date ad_fecini, date ad_fecfin, window aw_frame);string   ls_clase,ls_clasedes,ls_item,ls_codant,ls_lineamayor,ls_nomitem
+string   ls_clasehija,ls_fecini,ls_fecfin,ls_factura, ls_es_codigo,ls_estado
+decimal  ld_cantidad_devolucion,ld_descuento_factura,ld_iva_factura,ld_precio
+decimal  ld_desc1,ld_desc2,ld_desc3,ld_precio_devolucion_total,ld_costo
+decimal  ld_cantidad,ld_descuento_global,ld_iva_total,ld_valor_linea_total
+decimal  ld_descuento_linea,ld_valor_linea,ld_precio_devolucion,ld_valor_final
+decimal  ld_precio_neto,ld_margen_bruto,ld_costo_total
+long     ll_tot,ll_contador,n,ll_num_factura
+
+ls_fecini= string(ad_fecini,'dd/mm/yyyy')
+ls_fecfin= string(ad_fecfin,'dd/mm/yyyy')
+declare c1 cursor for
+ SELECT "IN_CLASE"."CL_CODIGO",   
+         "IN_CLASE"."CL_DESCRI"  
+    FROM "IN_CLASE"  
+   WHERE ( "IN_CLASE"."EM_CODIGO" = :as_empresa) AND  
+         ( "IN_CLASE"."CL_CODPAD" is null ) 
+
+	using sqlca;
+			
+declare c2 cursor for
+  select it_codigo,it_codant,it_nombre
+    from in_item
+	where em_codigo = :as_empresa
+	  and cl_codigo = :ls_clase
+  	  and it_kit = 'N';
+ 
+declare c3 cursor for
+      SELECT nvl("FA_DETVE"."DV_DEVOLU",0),
+             nvl("FA_DETDEVOL"."VE_DESDEVO",0), 
+				 nvl("FA_DETDEVOL"."VE_IVADEVO",0),
+             "FA_DETVE"."DV_PRECIO",
+				 "FA_DETVE"."DV_DESC1",
+				 "FA_DETVE"."DV_DESC2",
+				 "FA_DETVE"."DV_DESC3",
+				 "FA_DETVE"."VE_NUMERO"
+		FROM "FA_DETDEVOL",   
+           "FA_DETVE"  
+      WHERE ( "FA_DETDEVOL"."ES_CODIGO" = "FA_DETVE"."ES_CODIGO" ) and  
+            ( "FA_DETDEVOL"."VE_NUMERO" = "FA_DETVE"."VE_NUMERO" ) and  
+            ( "FA_DETVE"."EM_CODIGO" = "FA_DETDEVOL"."EM_CODIGO" ) and  
+            ( "FA_DETDEVOL"."SU_CODIGO" = "FA_DETVE"."SU_CODIGO" ) and  
+            ( "FA_DETDEVOL"."BO_CODIGO" = "FA_DETVE"."BO_CODIGO" ) and
+            ( "FA_DETVE"."EM_CODIGO" = :as_empresa ) and  
+            ( "FA_DETDEVOL"."SU_CODIGO" = :as_sucursal ) and  
+		      ( trunc("FA_DETDEVOL"."VE_FECDEVO") between TO_DATE(:ls_fecini,'dd/mm/yyyy') and to_date(:ls_fecfin,'dd/mm/yyyy')) and
+            ( "FA_DETVE"."IT_CODIGO" = :ls_item) and
+			   ( "FA_DETVE"."ES_CODIGO" = :ls_estado);
+
+
+  DELETE FROM "RP_VENTAS"  ;
+  commit;
+
+ls_estado='1'// saca las devoluciones de punto de venta
+
+for n=1 to 2
+	
+open c1;
+ do
+	fetch c1 INTO :ls_clase,:ls_clasedes;
+	if sqlca.sqlcode <> 0 then exit
+	ls_lineamayor = ls_clase
+	ls_clasehija = ls_clase
+	select cl_codigo
+  	  into :ls_clase
+     from in_clase
+	 where cl_codpad = :ls_clasehija;
+	 
+  select count(*)
+    into :ll_tot
+    from in_item
+	where em_codigo = :as_empresa
+	  and cl_codigo = :ls_clase;
+	  
+  aw_frame.SetMicroHelp('El sistema procesar$$HEX1$$e100$$ENDHEX$$: '+ string(ll_tot) + ' items. Espere un momento...')
+   ll_contador = 0
+	open c2;
+	do
+		fetch c2 into :ls_item,:ls_codant,:ls_nomitem;
+		if sqlca.sqlcode <> 0 then exit
+		ll_contador ++
+		aw_frame.SetMicroHelp('El sistema est$$HEX2$$e1002000$$ENDHEX$$procesando: '+ string(ll_contador) + ' de un total de '&
+		                      +string(ll_tot)+ ' items. Espere un momento...')
+		ld_cantidad = 0
+		ld_descuento_global = 0
+		ld_iva_total = 0
+		ld_valor_linea_total = 0
+		ld_precio_devolucion_total = 0
+		ld_costo_total = 0
+     open c3;			    						 
+	   do 
+  	     fetch c3 into :ld_cantidad_devolucion,:ld_descuento_factura,:ld_iva_factura,:ld_precio,:ld_desc1,:ld_desc2,:ld_desc3,:ll_num_factura;
+	     if sqlca.sqlcode <> 0 then exit
+  	  select unique mv_costo
+	    into :ld_costo
+	    from in_movim
+	   where em_codigo = :as_empresa
+		  and su_codigo = :as_sucursal
+		  and tm_codigo = '2'
+		  and tm_ioe    = 'E'
+		  and ve_numero = :ll_num_factura
+		  and es_codigo = :ls_estado
+		  and it_codigo = :ls_item;
+
+	     ld_cantidad = ld_cantidad_devolucion + ld_cantidad
+		  ld_costo_total = ld_costo_total + (ld_costo * ld_cantidad_devolucion)
+		  ld_precio_devolucion = ld_cantidad_devolucion * ld_precio 
+		  ld_precio_devolucion_total = ld_precio_devolucion_total + ld_precio_devolucion
+        ld_valor_linea = (((ld_precio_devolucion * ( 1 - ld_desc1)) * ( 1 - ld_desc2)) * ( 1 - ld_desc3))
+		  ld_valor_linea_total = ld_valor_linea_total + ld_valor_linea
+		  if ld_descuento_factura > 0 then
+			  ld_descuento_global = ld_descuento_global + ld_valor_linea *0.1
+		  end if	  
+		  if ld_iva_factura > 0 then
+			  ld_iva_total = ld_iva_total + ld_valor_linea *0.1
+		  end if	  
+	     loop while TRUE
+  
+      close c3;
+		 ld_descuento_linea = ld_precio_devolucion_total - ld_valor_linea_total
+		 ld_valor_final = ld_valor_linea_total + ld_iva_total - ld_descuento_global
+		 ld_precio_neto= ld_valor_linea_total - ld_descuento_global
+		 ld_margen_bruto = ld_valor_final - ld_costo_total
+	    insert into rp_ventas(cl_codigo ,it_codigo,cl_descri  ,it_nombre,  it_codant,  it_costo, it_cantidad, it_precio_total            ,it_precio, it_costo_total        ,it_precio_descuento  , it_precio_iva, it_descuento_global,su_codigo     ,it_descuento_linea, it_precio_final, it_estado, it_precio_neto, it_margen_bruto)
+       values(          :ls_lineamayor,:ls_item, :ls_clasedes,:ls_nomitem,:ls_codant,:ld_costo, :ld_cantidad,:ld_precio_devolucion_total,        0, :ld_costo_total,:ld_valor_linea_total, :ld_iva_total,:ld_descuento_global, :as_sucursal ,:ld_descuento_linea, :ld_valor_final, :ls_estado, :ld_precio_neto, :ld_margen_bruto );
+
+	if ll_contador = 10 then
+		commit;
+	end if	
+	loop while TRUE
+   close c2;
+
+loop while TRUE
+close c1;
+ls_estado = '2'
+next
+commit;
+
+return 1
+end function
+
