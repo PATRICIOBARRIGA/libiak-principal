@@ -1,0 +1,12 @@
+HA$PBExportHeader$d_nr_proveedores.srd
+$PBExportComments$Nested Report de proveedores.
+release 5;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="536870912" )
+table(column=(type=char(52) updatewhereclause=yes name=cc_proveedor dbname="c_proveedor" )
+ column=(type=char(52) updatewhereclause=yes name=cc_ordende dbname="c_ordende" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_itepro~" )  TABLE(NAME=~"in_prove~" ) COMPUTE(NAME=~"decode(~~~"IN_PROVE~~~".~~~"PV_TIPO~~~",'J',~~~"IN_PROVE~~~".~~~"PV_RAZONS~~~",~~~"IN_PROVE~~~".~~~"PV_APELLI~~~"||'  '||~~~"IN_PROVE~~~".~~~"PV_NOMBRE~~~") ~~~"c_proveedor~~~"~") COMPUTE(NAME=~"decode(~~~"IN_PROVE~~~".~~~"PV_TIPO~~~",'J',~~~"IN_PROVE~~~".~~~"PV_RAZONS~~~",~~~"IN_PROVE~~~".~~~"PV_NOMBRE~~~"||'  '||~~~"IN_PROVE~~~".~~~"PV_APELLI~~~") ~~~"c_ordende~~~"~")    JOIN (LEFT=~"in_prove.pv_codigo~"    OP =~"=~"RIGHT=~"in_itepro.pv_codigo~" )    JOIN (LEFT=~"in_itepro.em_codigo~"    OP =~"=~"RIGHT=~"in_prove.em_codigo~" )WHERE(    EXP1 =~"~~~"IN_ITEPRO~~~".~~~"IT_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":it_codigo~" ) ) ARG(NAME = ~"it_codigo~" TYPE = string) " arguments=(("it_codigo", string))  sort="cc_ordende A " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1" y="4" height="61" width="1454" format="[general]"  name=cc_proveedor edit.limit=52 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

@@ -1,0 +1,17 @@
+HA$PBExportHeader$d_lista_descuentos.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=td_codigo dbname="in_tippre.td_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=td_descri dbname="in_tippre.td_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_tippre~" ) COLUMN(NAME=~"in_tippre.td_codigo~") COLUMN(NAME=~"in_tippre.td_descri~")WHERE(    EXP1 =~"~~~"IN_TIPPRE~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="IN_TIPPRE" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string)) )
+text(band=header alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="14" y="8" height="52" width="192"  name=td_codigo_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="14" y1="72" x2="640" y2="72"  name=l_1 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="18" y="8" height="52" width="128" format="[general]"  name=td_codigo edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.displayonly=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="187" y="8" height="52" width="443" format="[general]"  name=td_descri edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Descripci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="219" y="8" height="52" width="416"  name=td_descri_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

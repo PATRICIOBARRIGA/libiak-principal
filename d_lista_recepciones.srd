@@ -1,0 +1,43 @@
+HA$PBExportHeader$d_lista_recepciones.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=76 color="12632256" )
+summary(height=0 color="536870912" )
+footer(height=84 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(52) updatewhereclause=yes name=cc_proveedor dbname="c_proveedor" )
+ column=(type=decimal(0) updatewhereclause=yes name=co_numero dbname="in_compra.co_numero" )
+ column=(type=char(1) updatewhereclause=yes name=marca dbname="marca" values="	S/	N" )
+ column=(type=char(25) updatewhereclause=yes name=co_facpro dbname="in_compra.co_facpro" )
+ column=(type=char(20) updatewhereclause=yes name=pv_codigo dbname="in_prove.pv_codigo" )
+ column=(type=char(42) updatewhereclause=yes name=busca_nombre dbname="busca_nombre" )
+ retrieve="  SELECT decode(~"IN_PROVE~".~"PV_TIPO~",'J',~"IN_PROVE~".~"PV_RAZONS~",~"IN_PROVE~".~"PV_APELLI~"||'  '||~"IN_PROVE~".~"PV_NOMBRE~") ~"c_proveedor~",   
+         ~"IN_COMPRA~".~"CO_NUMERO~",'X' MARCA,
+         ~"IN_COMPRA~".~"CO_FACPRO~",
+        ~"IN_PROVE~".~"PV_CODIGO~",
+        '                                          ' busca_nombre      
+    FROM ~"IN_COMPRA~",   
+         ~"IN_PROVE~"  
+   WHERE ( ~"IN_COMPRA~".~"EM_CODIGO~" = ~"IN_PROVE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_PROVE~".~"PV_CODIGO~" = ~"IN_COMPRA~".~"PV_CODIGO~" ) and  
+         ( ( ~"IN_COMPRA~".~"EM_CODIGO~" = '1' ) AND  
+         ( ~"IN_COMPRA~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_COMPRA~".~"EC_CODIGO~" = :tipo ) AND  
+         (~"IN_COMPRA~".~"CO_COMPLETA~" is null OR  ~"IN_COMPRA~".~"CO_COMPLETA~" = 'N') AND  
+        (~"IN_COMPRA~".~"CO_FECHA~") >= sysdate - 30 )    
+" arguments=(("sucursal", string),("tipo", string))  sort="cc_proveedor A co_numero A " )
+text(band=header alignment="0" text="N$$HEX1$$fa00$$ENDHEX$$mero" border="0" color="0" x="1385" y="8" height="56" width="169" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Proveedor" border="0" color="0" x="50" y="8" height="56" width="229" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Referencia" border="0" color="0" x="1829" y="8" height="56" width="242" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+button(band=footer text="Aceptar" enabled=yes action="0" border="0" color="0" x="841" y="4" height="80" width="297" vtextalign="0" htextalign="0"  name=b_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+button(band=footer text=" Cancelar" enabled=yes action="3" border="0" color="0" x="1166" y="4" height="80" width="320" vtextalign="0" htextalign="0"  name=b_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1385" y="4" height="56" width="293" format="[general]" html.valueishtml="0"  name=co_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="46" y="8" height="56" width="1317" format="[general]" html.valueishtml="0"  name=cc_proveedor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" cc_proveedor +string( co_numero )"border="0" color="0" x="2267" y="0" height="64" width="261" format="[general]" html.valueishtml="0"  name=proveedor visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12105912" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="1691" y="4" height="56" width="69" format="[general]" html.valueishtml="0"  name=marca visible="1" checkbox.text="" checkbox.on="S" checkbox.off="N" checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1833" y="4" height="56" width="434" format="[general]" html.valueishtml="0"  name=co_facpro visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

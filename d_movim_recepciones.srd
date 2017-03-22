@@ -1,0 +1,74 @@
+HA$PBExportHeader$d_movim_recepciones.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=64 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes key=yes name=tm_codigo dbname="in_movim.tm_codigo" )
+ column=(type=char(1) updatewhereclause=yes key=yes name=tm_ioe dbname="in_movim.tm_ioe" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=it_codigo dbname="in_movim.it_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=em_codigo dbname="in_movim.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=su_codigo dbname="in_movim.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=bo_codigo dbname="in_movim.bo_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=mv_numero dbname="in_movim.mv_numero" )
+ column=(type=decimal(3) updatewhereclause=yes name=mv_cantid dbname="in_movim.mv_cantid" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=mv_costo dbname="in_movim.mv_costo" )
+ column=(type=datetime updatewhereclause=yes name=mv_fecha dbname="in_movim.mv_fecha" )
+ column=(type=number updatewhereclause=yes name=ve_numero dbname="in_movim.ve_numero" )
+ column=(type=char(20) updatewhereclause=yes name=es_codigo dbname="in_movim.es_codigo" )
+ retrieve="  SELECT ~"IN_MOVIM~".~"TM_CODIGO~",   
+         ~"IN_MOVIM~".~"TM_IOE~",   
+         ~"IN_MOVIM~".~"IT_CODIGO~",   
+         ~"IN_MOVIM~".~"EM_CODIGO~",   
+         ~"IN_MOVIM~".~"SU_CODIGO~",   
+         ~"IN_MOVIM~".~"BO_CODIGO~",   
+         ~"IN_MOVIM~".~"MV_NUMERO~",   
+         ~"IN_MOVIM~".~"MV_CANTID~",   
+         ~"IN_MOVIM~".~"MV_COSTO~",   
+         ~"IN_MOVIM~".~"MV_FECHA~",   
+         ~"IN_MOVIM~".~"VE_NUMERO~",   
+         ~"IN_MOVIM~".~"ES_CODIGO~"  
+    FROM ~"IN_MOVIM~"  
+   WHERE ( ~"IN_MOVIM~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_MOVIM~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_MOVIM~".~"BO_CODIGO~" = :seccion ) AND  
+         ( ~"IN_MOVIM~".~"VE_NUMERO~" in ( :numero ) ) AND  
+         ( ~"IN_MOVIM~".~"TM_CODIGO~" = :tmcodigo ) AND  
+         ( ~"IN_MOVIM~".~"TM_IOE~" = :tmioe )    
+" update="IN_MOVIM" updatewhere=0 updatekeyinplace=yes arguments=(("tmcodigo", string),("tmioe", string),("empresa", string),("sucursal", string),("seccion", string),("numero", numberlist)) )
+text(band=header alignment="2" text="Tm Codigo" border="0" color="33554432" x="5" y="4" height="56" width="274" html.valueishtml="0"  name=tm_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mv Cantid" border="0" color="33554432" x="2871" y="4" height="56" width="274" html.valueishtml="0"  name=mv_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mv Costo" border="0" color="33554432" x="3150" y="4" height="56" width="274" html.valueishtml="0"  name=mv_costo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mv Fecha" border="0" color="33554432" x="3429" y="4" height="56" width="503" html.valueishtml="0"  name=mv_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ve Numero" border="0" color="33554432" x="3936" y="4" height="56" width="274" html.valueishtml="0"  name=ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Es Codigo" border="0" color="33554432" x="4215" y="4" height="56" width="480" html.valueishtml="0"  name=es_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tm Ioe" border="0" color="33554432" x="297" y="4" height="56" width="142" html.valueishtml="0"  name=tm_ioe_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="It Codigo" border="0" color="33554432" x="443" y="4" height="56" width="480" html.valueishtml="0"  name=it_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Em Codigo" border="0" color="33554432" x="928" y="4" height="56" width="480" html.valueishtml="0"  name=em_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Su Codigo" border="0" color="33554432" x="1417" y="4" height="56" width="480" html.valueishtml="0"  name=su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Bo Codigo" border="0" color="33554432" x="1902" y="4" height="56" width="480" html.valueishtml="0"  name=bo_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Mv Numero" border="0" color="33554432" x="2386" y="4" height="56" width="480" html.valueishtml="0"  name=mv_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="33554432" x="5" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=tm_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=80 border="0" color="33554432" x="2871" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=mv_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=90 border="0" color="33554432" x="3150" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=mv_costo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=100 border="0" color="33554432" x="3429" y="4" height="68" width="503" format="[shortdate] [time]" html.valueishtml="0"  name=mv_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=110 border="0" color="33554432" x="3936" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=120 border="0" color="33554432" x="4215" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=es_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="33554432" x="338" y="4" height="68" width="78" format="[general]" html.valueishtml="0"  name=tm_ioe visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="33554432" x="443" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=it_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=40 border="0" color="33554432" x="928" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=em_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="0" color="33554432" x="1417" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=su_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="0" color="33554432" x="1902" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=bo_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="0" color="33554432" x="2386" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=mv_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
