@@ -1,0 +1,28 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "venta.pbl" "";
+@end;
+@begin Objects
+ "w_obsequio.srw" "venta.pbl";
+ "w_caja.srw" "venta.pbl";
+ "w_res_cliente_generico.srw" "venta.pbl";
+ "w_actividad_cliente.srw" "venta.pbl";
+ "w_descuento_cliente.srw" "venta.pbl";
+ "w_tipo_mov_caja.srw" "venta.pbl";
+ "w_factura_standard.srw" "venta.pbl";
+ "w_actualiza_desctos.srw" "venta.pbl";
+ "w_res_ubicaclientes.srw" "venta.pbl";
+ "w_consulta_factura.srw" "venta.pbl";
+ "w_consulta_ventas.srw" "venta.pbl";
+ "w_ventas_vehiculos.srw" "venta.pbl";
+ "w_clase_cliente.srw" "venta.pbl";
+ "w_factura_std.srw" "venta.pbl";
+ "w_notaentrega.srw" "venta.pbl";
+ "w_devolucion_nveces_vehiculos.srw" "venta.pbl";
+ "w_forma_pago.srw" "venta.pbl";
+ "w_consulta_ticket_venta.srw" "venta.pbl";
+ "w_devolucion.srw" "venta.pbl";
+ "w_listado_ventavehiculos_sri.srw" "venta.pbl";
+ "w_proforma.srw" "venta.pbl";
+ "w_factura.srw" "venta.pbl";
+@end;
