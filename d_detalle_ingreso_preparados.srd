@@ -1,0 +1,90 @@
+HA$PBExportHeader$d_detalle_ingreso_preparados.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=168 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=8 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="in_preparado.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="in_preparado.su_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=pr_numero dbname="in_preparado.pr_numero" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=it_codigo dbname="in_preparado.it_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=it_codprep dbname="in_preparado.it_codprep" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=pr_secuencia dbname="in_preparado.pr_secuencia" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=pr_cantidad dbname="in_preparado.pr_cantidad" )
+ column=(type=char(20) updatewhereclause=yes name=ub_codigo dbname="in_item.ub_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=nombre dbname="in_item.it_nombre" )
+ column=(type=decimal(4) updatewhereclause=yes name=it_costo dbname="in_item.it_costo" )
+ column=(type=char(1) updatewhereclause=yes name=it_kit dbname="in_item.it_kit" )
+ column=(type=char(20) updatewhereclause=yes name=codant_prep dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=nombre_prep dbname="in_item.it_nombre" )
+ column=(type=decimal(4) updatewhereclause=yes name=it_costo_p dbname="in_item.it_costo" )
+ column=(type=char(1) updatewhereclause=yes name=it_kit_p dbname="in_item.it_kit" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=bo_codigo dbname="in_preparado.bo_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="in_preparado.estado" )
+ retrieve="  SELECT ~"IN_PREPARADO~".~"EM_CODIGO~",   
+         ~"IN_PREPARADO~".~"SU_CODIGO~",   
+         ~"IN_PREPARADO~".~"PR_NUMERO~",   
+         ~"IN_PREPARADO~".~"IT_CODIGO~",   
+         ~"IN_PREPARADO~".~"IT_CODPREP~",   
+         ~"IN_PREPARADO~".~"PR_SECUENCIA~",   
+         ~"IN_PREPARADO~".~"PR_CANTIDAD~",   
+         ~"IN_ITEM_A~".~"UB_CODIGO~",   
+         ~"IN_ITEM_A~".~"IT_CODANT~",   
+         ~"IN_ITEM_A~".~"IT_NOMBRE~",   
+         ~"IN_ITEM_A~".~"IT_COSTO~",   
+         ~"IN_ITEM_A~".~"IT_KIT~",   
+         ~"IN_ITEM_B~".~"IT_CODANT~",   
+         ~"IN_ITEM_B~".~"IT_NOMBRE~",  
+         ~"IN_ITEM_B~".~"IT_COSTO~",    
+         ~"IN_ITEM_B~".~"IT_KIT~",   
+         ~"IN_PREPARADO~".~"BO_CODIGO~",   
+         ~"IN_PREPARADO~".~"ESTADO~"  
+    FROM ~"IN_PREPARADO~",   
+         ~"IN_ITEM~" ~"IN_ITEM_A~",   
+         ~"IN_ITEM~" ~"IN_ITEM_B~"  
+   WHERE ( ~"IN_PREPARADO~".~"EM_CODIGO~" = ~"IN_ITEM_A~".~"EM_CODIGO~" ) and  
+         ( ~"IN_PREPARADO~".~"IT_CODIGO~" = ~"IN_ITEM_A~".~"IT_CODIGO~" ) and  
+         ( ~"IN_PREPARADO~".~"EM_CODIGO~" = ~"IN_ITEM_B~".~"EM_CODIGO~" ) and  
+         ( ~"IN_PREPARADO~".~"IT_CODPREP~" = ~"IN_ITEM_B~".~"IT_CODIGO~" ) and  
+         ( ( ~"IN_PREPARADO~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_PREPARADO~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_PREPARADO~".~"BO_CODIGO~" = :bodega ) AND  
+         ( ~"IN_PREPARADO~".~"PR_NUMERO~" = :numero ) )    
+" update="IN_PREPARADO" updatewhere=2 updatekeyinplace=yes arguments=(("empresa", string),("sucursal", string),("bodega", string),("numero", string)) )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="178" y="104" height="56" width="151" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nombre" border="0" color="0" x="727" y="104" height="56" width="169" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="No." border="0" color="128" x="18" y="104" height="56" width="73" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="0" text="Productos" border="0" color="0" x="635" y="8" height="80" width="370" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Cantidad" border="0" color="0" x="1833" y="104" height="56" width="192" html.valueishtml="0"  name=pr_cantidad_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="2053" y1="4" x2="2053" y2="296"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="2135" y="104" height="56" width="151" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Convertir en" border="0" color="0" x="2345" y="8" height="80" width="430" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Nombre" border="0" color="0" x="2798" y="104" height="56" width="169" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="getrow()"border="0" color="128" x="14" y="8" height="56" width="82" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=9 alignment="0" tabsequence=10 border="5" color="0" x="123" y="8" height="56" width="393" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=codant  tag="" visible="1" edit.limit=0 edit.case=upper edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="5" color="0" x="539" y="8" height="56" width="1230" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=detail x1="2053" y1="0" x2="2053" y2="292"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=30 border="5" color="0" x="2080" y="8" height="56" width="384" format="[general]" html.valueishtml="0" protect="0~tif(isNull( codant ) or  trim(codant)='',1,if(isrownew(),0,1))"  name=codant_prep  tag="<F2 para consultar>" visible="1" edit.limit=0 edit.case=upper edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="5" color="0" x="2487" y="8" height="56" width="1047" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=nombre_prep visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="1" tabsequence=20 border="5" color="0" x="1792" y="8" height="56" width="233" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=pr_cantidad visible="1" editmask.mask="####,###.00"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="3561" y="4" height="68" width="50" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=it_codigo visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0" x="3630" y="4" height="68" width="50" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=it_costo visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0" x="3698" y="4" height="68" width="50" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=it_kit visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="3767" y="4" height="68" width="50" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=it_codprep visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="0" x="3835" y="4" height="68" width="50" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=it_costo_p visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="0" x="3904" y="4" height="68" width="50" format="[general]" html.valueishtml="0" protect="0~tif(isrownew(),0,1)"  name=it_kit_p visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="2729" y1="4" x2="2729" y2="28"  name=l_3 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="12632256" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,122 @@
+HA$PBExportHeader$d_devolucion_compra.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=80 color="81324524" )
+summary(height=300 color="-1" )
+footer(height=0 color="-1" )
+detail(height=80 color="-1" )
+table(column=(type=char(20) updatewhereclause=yes key=yes name=ec_codigo dbname="in_detco.ec_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=it_codigo dbname="in_detco.it_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_detco_em_codigo dbname="in_detco.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_detco_su_codigo dbname="in_detco.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_detco_bo_codigo dbname="in_detco.bo_codigo" )
+ column=(type=decimal(3) updatewhereclause=yes name=dc_cantid dbname="in_detco.dc_cantid" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=dc_devolu dbname="in_detco.dc_devolu" validation="number(gettext()) >= 0 and number(gettext()) <=  dc_cantid" validationmsg="'Dato de devoluci$$HEX1$$f300$$ENDHEX$$n incorrecto.....<verifique>'" )
+ column=(type=decimal(4) updatewhereclause=yes name=dc_costo dbname="in_detco.dc_costo" )
+ column=(type=decimal(2) updatewhereclause=yes name=dc_desc1 dbname="in_detco.dc_desc1" )
+ column=(type=decimal(2) updatewhereclause=yes name=dc_desc2 dbname="in_detco.dc_desc2" )
+ column=(type=decimal(2) updatewhereclause=yes name=dc_desc3 dbname="in_detco.dc_desc3" )
+ column=(type=char(13) updatewhereclause=yes name=barras dbname="in_item.it_codbar" )
+ column=(type=char(20) updatewhereclause=yes name=codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=nombre dbname="in_item.it_nombre" )
+ column=(type=char(1) updatewhereclause=yes name=it_kit dbname="in_item.it_kit" )
+ column=(type=char(1) updatewhereclause=yes name=it_valstk dbname="in_item.it_valstk" )
+ column=(type=decimal(0) updatewhereclause=yes key=yes name=in_detco_co_numero dbname="in_detco.co_numero" )
+ column=(type=decimal(0) updatewhereclause=yes key=yes name=dc_secue dbname="in_detco.dc_secue" )
+ column=(type=decimal(4) updatewhereclause=yes name=co_descup dbname="in_compra.co_descup" )
+ column=(type=char(20) updatewhereclause=yes name=pv_codigo dbname="in_compra.pv_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=vp_codigo dbname="in_compra.vp_codigo" )
+ column=(type=datetime updatewhereclause=yes name=co_fecha dbname="in_compra.co_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=co_iva dbname="in_compra.co_iva" )
+ column=(type=decimal(2) updatewhereclause=yes name=in_compra_co_total dbname="in_compra.co_total" )
+ column=(type=decimal(2) updatewhereclause=yes name=co_subtot dbname="in_compra.co_subtot" )
+ column=(type=char(25) updatewhereclause=yes name=co_facpro dbname="in_compra.co_facpro" )
+ column=(type=decimal(0) updatewhereclause=yes name=co_numpad dbname="in_compra.co_numpad" )
+ column=(type=char(20) updatewhereclause=yes name=fp_codigo dbname="in_compra.fp_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=co_rucsuc dbname="in_compra.co_rucsuc" )
+ column=(type=datetime updatewhereclause=yes name=in_detco_dc_dfecha dbname="in_detco.dc_dfecha" )
+ column=(type=char(20) updatewhereclause=yes name=in_detco_dc_numnd dbname="in_detco.dc_numnd" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_cl_codigo dbname="in_item.cl_codigo" )
+ retrieve="  SELECT ~"IN_DETCO~".~"EC_CODIGO~",   
+         ~"IN_DETCO~".~"IT_CODIGO~",   
+         ~"IN_DETCO~".~"EM_CODIGO~",   
+         ~"IN_DETCO~".~"SU_CODIGO~",   
+         ~"IN_DETCO~".~"BO_CODIGO~",   
+         ~"IN_DETCO~".~"DC_CANTID~",   
+         ~"IN_DETCO~".~"DC_DEVOLU~",   
+         ~"IN_DETCO~".~"DC_COSTO~",   
+         ~"IN_DETCO~".~"DC_DESC1~",   
+         ~"IN_DETCO~".~"DC_DESC2~",   
+         ~"IN_DETCO~".~"DC_DESC3~",
+         ~"IN_ITEM~".~"IT_CODBAR~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITEM~".~"IT_NOMBRE~",   
+         ~"IN_ITEM~".~"IT_KIT~",   
+         ~"IN_ITEM~".~"IT_VALSTK~",   
+         ~"IN_DETCO~".~"CO_NUMERO~",   
+         ~"IN_DETCO~".~"DC_SECUE~",   
+         ~"IN_COMPRA~".~"CO_DESCUP~",   
+         ~"IN_COMPRA~".~"PV_CODIGO~",   
+         ~"IN_COMPRA~".~"VP_CODIGO~",   
+         ~"IN_COMPRA~".~"CO_FECHA~",   
+         ~"IN_COMPRA~".~"CO_IVA~",   
+         ~"IN_COMPRA~".~"CO_TOTAL~",   
+         ~"IN_COMPRA~".~"CO_SUBTOT~",   
+         ~"IN_COMPRA~".~"CO_FACPRO~",   
+         ~"IN_COMPRA~".~"CO_NUMPAD~",   
+         ~"IN_COMPRA~".~"FP_CODIGO~",   
+         ~"IN_COMPRA~".~"CO_RUCSUC~",   
+         ~"IN_DETCO~".~"DC_DFECHA~",   
+         ~"IN_DETCO~".~"DC_NUMND~",   
+         ~"IN_ITEM~".~"CL_CODIGO~"  
+    FROM ~"IN_DETCO~",   
+         ~"IN_ITEM~",   
+         ~"IN_COMPRA~"  
+   WHERE ( ~"IN_DETCO~".~"EM_CODIGO~" = ~"IN_ITEM~".~"EM_CODIGO~" ) and  
+         ( ~"IN_DETCO~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_COMPRA~".~"EC_CODIGO~" = ~"IN_DETCO~".~"EC_CODIGO~" ) and  
+         ( ~"IN_COMPRA~".~"EM_CODIGO~" = ~"IN_DETCO~".~"EM_CODIGO~" ) and  
+         ( ~"IN_COMPRA~".~"SU_CODIGO~" = ~"IN_DETCO~".~"SU_CODIGO~" ) and  
+         ( ~"IN_COMPRA~".~"CO_NUMERO~" = ~"IN_DETCO~".~"CO_NUMERO~" ) and  
+         ( ( ~"IN_COMPRA~".~"EC_CODIGO~" = '3' ) AND  
+         ( ~"IN_COMPRA~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_COMPRA~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_COMPRA~".~"CO_NUMERO~" = :numero ) AND  
+         (~"IN_DETCO~".~"DC_DEVOLU~" is null OR  
+         ~"IN_DETCO~".~"DC_DEVOLU~" = 0) )    
+" update="IN_DETCO" updatewhere=2 updatekeyinplace=yes arguments=(("empresa", string),("sucursal", string),("numero", number))  sort="left(in_item_cl_codigo,2) A codant A " )
+line(band=header x1="9" y1="76" x2="2871" y2="76"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="No." border="0" color="128" x="9" y="8" height="56" width="78" html.valueishtml="0"  name=dv_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="233" y="8" height="56" width="151" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Producto" border="0" color="0" x="942" y="8" height="56" width="197" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Devol." border="0" color="0" x="1627" y="8" height="56" width="137" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Costo" border="0" color="0" x="1838" y="8" height="56" width="137" html.valueishtml="0"  name=dv_precio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="D1" border="0" color="0" x="2117" y="8" height="56" width="59" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="D2" border="0" color="0" x="2318" y="8" height="56" width="59" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Subtotal" border="0" color="0" x="2688" y="8" height="56" width="178" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="Cantid." border="0" color="0" x="1449" y="8" height="56" width="151" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=header alignment="2" text="D3" border="0" color="0" x="2514" y="8" height="56" width="59" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=detail alignment="2" expression="getrow()"border="0" color="128" x="9" y="8" height="60" width="78" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=7 alignment="1" tabsequence=10 border="5" color="0" x="1623" y="12" height="56" width="151" format="#,##0" html.valueishtml="0"  name=dc_devolu visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="( dc_devolu  *  dc_costo ) - (( dc_devolu  *  dc_costo ) *  dc_desc1 / 100) "border="0" color="0" x="3136" y="12" height="56" width="174" format="#,##0.00" html.valueishtml="0"  name=cc_subtdesc1 visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="cc_subtdesc1 - ( cc_subtdesc1 *  dc_desc2  / 100)"border="0" color="0" x="3328" y="12" height="56" width="183" format="#,##0.00" html.valueishtml="0"  name=cc_subtdesc2 visible="1~t0"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="5" color="0" x="105" y="12" height="56" width="430" format="[general]" html.valueishtml="0"  name=codant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="5" color="0" x="558" y="12" height="56" width="869" format="[general]" html.valueishtml="0"  name=nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="5" color="0" x="1449" y="12" height="56" width="151" format="[General]" html.valueishtml="0"  name=dc_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="5" color="0" x="1797" y="12" height="56" width="288" format="#,##0.0000" html.valueishtml="0"  name=dc_costo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="5" color="0" x="2107" y="12" height="56" width="137" format="#,##0.00" html.valueishtml="0"  name=dc_desc1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="5" color="0" x="2267" y="12" height="56" width="137" format="#,##0.00" html.valueishtml="0"  name=dc_desc2 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="5" color="0" x="2432" y="12" height="56" width="137" format="#,##0.00" html.valueishtml="0"  name=dc_desc3 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=detail alignment="1" expression="cc_subtdesc2 - ( cc_subtdesc2 *  dc_desc3  / 100)"border="5" color="0" x="2601" y="12" height="56" width="274" format="#,##0.00" html.valueishtml="0"  name=cc_subtdesc3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+line(band=summary x1="9" y1="16" x2="2871" y2="16"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="128"  background.mode="2" background.color="12632256" )
+compute(band=summary alignment="1" expression=" cc_tot  +  cc_iva "border="2" color="128" x="2345" y="200" height="72" width="530" format="#,##0.00" html.valueishtml="0"  name=cc_total visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=summary alignment="0" text="IVA:" border="0" color="0" x="2405" y="112" height="56" width="96" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=summary alignment="0" text="Total Devoluci$$HEX1$$f300$$ENDHEX$$n:" border="2" color="128" x="1751" y="200" height="72" width="571" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=summary alignment="0" text="Subtotal:" border="0" color="0" x="2309" y="36" height="56" width="192" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=summary alignment="1" expression="sum(cc_subtdesc2 - ( cc_subtdesc2 *  dc_desc3  / 100) for all)"border="2" color="0" x="2523" y="36" height="56" width="347" format="#,##0.00" html.valueishtml="0"  name=cc_tot visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+compute(band=summary alignment="1" expression=" cc_tot  * f_iva()"border="2" color="0" x="2523" y="112" height="56" width="347" format="#,##0.00" html.valueishtml="0"  name=cc_iva visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

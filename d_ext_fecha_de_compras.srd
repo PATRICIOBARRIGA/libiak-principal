@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_ext_fecha_de_compras.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=112 color="536870912" )
+table(column=(type=date updatewhereclause=no name=fecini dbname="fecini" )
+ column=(type=date updatewhereclause=no name=fecfin dbname="fecfin" )
+ )
+text(band=detail alignment="0" text="Desde:" border="0" color="0" x="37" y="32" height="56" width="155"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="2" tabsequence=10 border="5" color="0" x="224" y="32" height="56" width="329" format="dd/mm/yyyy"  name=fecini editmask.autoskip=yes editmask.mask="dd/mm/yyyy"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="2" tabsequence=20 border="5" color="0" x="837" y="32" height="56" width="329" format="dd/mm/yyyy"  name=fecfin editmask.mask="dd/mm/yyyy"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Hasta:" border="0" color="0" x="663" y="32" height="56" width="142"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="2" text="[dd/mm/aaaa]" border="0" color="0" x="1207" y="32" height="56" width="293"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

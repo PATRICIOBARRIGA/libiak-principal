@@ -1,0 +1,52 @@
+HA$PBExportHeader$d_despachos_pendientes.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=176 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=ve_numpre dbname="fa_venta.ve_numpre" )
+ column=(type=char(102) updatewhereclause=yes name=cliente dbname="compute_0002" )
+ column=(type=char(101) updatewhereclause=yes name=cc_direccion dbname="compute_0003" )
+ column=(type=char(100) updatewhereclause=yes name=ve_observ dbname="fa_venta.ve_observ" )
+ column=(type=number updatewhereclause=yes name=ve_numero dbname="fa_venta.ve_numero" )
+ column=(type=datetime updatewhereclause=yes name=ve_fecha dbname="fa_venta.ve_fecha" )
+ column=(type=decimal(2) updatewhereclause=yes name=ve_valpag dbname="fa_venta.ve_valpag" )
+ retrieve="SELECT ~"FA_VENTA~".~"VE_NUMPRE~",   
+          decode(~"FA_CLIEN~".~"CE_RAZONS~",null,~"FA_CLIEN~".~"CE_NOMBRE~"||'  '||~"FA_CLIEN~".~"CE_APELLI~",
+         ~"FA_CLIEN~".~"CE_RAZONS~"||' '||~"FA_CLIEN~".~"CE_NOMREP~"||' '||~"FA_CLIEN~".~"CE_APEREP~"),
+         ~"FA_CLIEN~".~"CE_CADOM1~"||' '||~"FA_CLIEN~".~"CE_SECDOM~",
+         ~"FA_VENTA~".~"VE_OBSERV~",   
+         ~"FA_VENTA~".~"VE_NUMERO~",   
+         ~"FA_VENTA~".~"VE_FECHA~",   
+         ~"FA_VENTA~".~"VE_VALPAG~"
+  FROM ~"FA_VENTA~",~"FA_CLIEN~"  
+  WHERE (~"FA_VENTA~".~"CE_CODIGO~"= ~"FA_CLIEN~".~"CE_CODIGO~")AND 
+(( ~"FA_VENTA~".~"EM_CODIGO~" = '1') AND
+(~"FA_VENTA~".~"SU_CODIGO~" = :sucursal) AND
+(~"FA_VENTA~".~"ES_CODIGO~" = '1' ) AND  
+( ~"FA_VENTA~".~"VE_FECHA~" > :ld_fecha)) and
+(~"FA_VENTA~".~"GU_NUMERO~" is null ) 
+  
+" arguments=(("SUCURSAL", string),("ld_fecha", date))  sort="cliente A ve_numero A " )
+text(band=header alignment="0" text="N$$HEX1$$fa00$$ENDHEX$$mero" border="0" color="0" x="14" y="108" height="56" width="206" html.valueishtml="0"  name=ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Direcci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="1376" y="108" height="56" width="233" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cliente" border="0" color="0" x="370" y="112" height="56" width="206" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Observaci$$HEX1$$f300$$ENDHEX$$n" border="0" color="0" x="2469" y="112" height="56" width="951" html.valueishtml="0"  name=ve_observ_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="'Filas : '+rowcount()"border="0" color="0" x="14" y="16" height="60" width="512" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="14" y="8" height="60" width="343" format="[general]" html.valueishtml="0"  name=ve_numero visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="370" y="8" height="60" width="992" format="[general]" html.valueishtml="0"  name=cliente visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="1376" y="8" height="60" width="1074" format="[general]" html.valueishtml="0"  name=cc_direccion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="2469" y="8" height="60" width="955" format="[general]" html.valueishtml="0"  name=ve_observ visible="1" edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

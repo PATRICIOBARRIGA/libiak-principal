@@ -1,0 +1,66 @@
+HA$PBExportHeader$d_detalle_items.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=80 color="536870912" )
+summary(height=80 color="536870912" )
+footer(height=92 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=it_codant dbname="in_itedet.it_codant" )
+ column=(type=char(30) updatewhereclause=yes name=di_ref1 dbname="in_itedet.di_ref1" )
+ column=(type=char(30) updatewhereclause=yes name=di_ref2 dbname="in_itedet.di_ref2" )
+ column=(type=char(30) updatewhereclause=yes name=di_ref3 dbname="in_itedet.di_ref3" )
+ column=(type=char(4) updatewhereclause=yes name=di_ref4 dbname="in_itedet.di_ref4" )
+ column=(type=char(20) updatewhereclause=yes name=di_docref dbname="in_itedet.di_docref" )
+ column=(type=char(20) updatewhereclause=yes name=it_codigo dbname="in_itedet.it_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=co_recep dbname="in_itedet.co_recep" )
+ column=(type=char(1) updatewhereclause=yes name=estado dbname="in_itedet.estado" values="	N/	R" )
+ column=(type=char(1) updatewhereclause=yes name=cc_opcion dbname="compute_0010" values="	1/	0" )
+ retrieve="  SELECT ~"IN_ITEDET~".~"IT_CODANT~",   
+         ~"IN_ITEDET~".~"DI_REF1~",   
+         ~"IN_ITEDET~".~"DI_REF2~",   
+         ~"IN_ITEDET~".~"DI_REF3~",   
+         ~"IN_ITEDET~".~"DI_REF4~",   
+         ~"IN_ITEDET~".~"DI_DOCREF~",   
+         ~"IN_ITEDET~".~"IT_CODIGO~",   
+         ~"IN_ITEDET~".~"CO_RECEP~",   
+         ~"IN_ITEDET~".~"ESTADO~",
+          'A'  
+    FROM ~"IN_ITEDET~"  
+   WHERE ( ~"IN_ITEDET~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_ITEDET~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_ITEDET~".~"ESTADO~" <> 'V' ) AND  
+         ( ~"IN_ITEDET~".~"CO_RECEP~" = :recep )    
+" arguments=(("empresa", string),("sucursal", string),("recep", string)) )
+text(band=header alignment="0" text="CODIGO" border="0" color="33554432" x="9" y="16" height="56" width="453" html.valueishtml="0"  name=it_codant_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="MOTOR" border="0" color="33554432" x="471" y="16" height="56" width="576" html.valueishtml="0"  name=di_ref1_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="CHASIS" border="0" color="33554432" x="1056" y="16" height="56" width="649" html.valueishtml="0"  name=di_ref2_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="COLOR" border="0" color="33554432" x="1714" y="16" height="56" width="329" html.valueishtml="0"  name=di_ref3_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="A$$HEX1$$d100$$ENDHEX$$O FAB." border="0" color="33554432" x="2053" y="16" height="56" width="261" html.valueishtml="0"  name=di_ref4_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="REFERENCIA" border="0" color="33554432" x="2322" y="16" height="60" width="462" html.valueishtml="0"  name=di_docref_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="N$$HEX2$$ba002000$$ENDHEX$$RECEPCION" border="0" color="33554432" x="2793" y="16" height="56" width="357" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="DEVOLVER" border="0" color="33554432" x="3159" y="16" height="56" width="288" html.valueishtml="0"  name=compute_0010_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="64" width="453" format="[general]" html.valueishtml="0"  name=it_codant visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="471" y="8" height="64" width="576" format="[general]" html.valueishtml="0"  name=di_ref1 visible="1" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1056" y="8" height="64" width="649" format="[general]" html.valueishtml="0"  name=di_ref2 visible="1" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1714" y="8" height="64" width="329" format="[general]" html.valueishtml="0"  name=di_ref3 visible="1" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="2053" y="8" height="64" width="261" format="[general]" html.valueishtml="0"  name=di_ref4 visible="1" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="2322" y="8" height="64" width="462" format="[general]" html.valueishtml="0"  name=di_docref visible="1" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="2793" y="8" height="64" width="357" format="[general]" html.valueishtml="0"  name=co_recep visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="2" tabsequence=10 border="0" color="33554432" x="3159" y="8" height="64" width="288" format="[general]" html.valueishtml="0"  name=cc_opcion visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=yes checkbox.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if( cc_opcion = '1',1,0)"border="0" color="33554432" x="3456" y="8" height="56" width="151" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="0" expression="'N$$HEX1$$ba00$$ENDHEX$$. Regs.:'+rowcount()"border="0" color="0" x="9" y="8" height="68" width="453" format="[General]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="1" expression="sum(if( cc_opcion = '1',1,0) for all)"border="0" color="33554432" x="3456" y="16" height="56" width="151" format="[GENERAL]" html.valueishtml="0"  name=total visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+button(band=footer text="Aceptar" enabled=yes action="0" border="0" color="0" x="2025" y="12" height="76" width="320" vtextalign="0" htextalign="0"  name=b_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+button(band=footer text="Cancel" enabled=yes action="0" border="0" color="0" x="2359" y="12" height="76" width="366" vtextalign="0" htextalign="0"  name=b_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
