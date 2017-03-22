@@ -1,0 +1,47 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "contabilidad_r.pbl" "";
+@end;
+@begin Objects
+ "d_rep_balance_general.srd" "contabilidad_r.pbl";
+ "d_rep_plan_cuentas_sucursal.srd" "contabilidad_r.pbl";
+ "d_rep_mayor_general.srd" "contabilidad_r.pbl";
+ "w_rep_mayor_general.srw" "contabilidad_r.pbl";
+ "d_rep_balance_pyg.srd" "contabilidad_r.pbl";
+ "d_reporte_diario_general_fecha_x_suc.srd" "contabilidad_r.pbl";
+ "d_rep_bal_comprobacion_agrup.srd" "contabilidad_r.pbl";
+ "d_rep_bal_comprob_gasto_agrup.srd" "contabilidad_r.pbl";
+ "d_rep_bal_comprobacion_cc_x_suc.srd" "contabilidad_r.pbl";
+ "d_rep_plan_cuentas.srd" "contabilidad_r.pbl";
+ "d_reporte_diario_general_fecha.srd" "contabilidad_r.pbl";
+ "w_reporte_diario_general_fecha.srw" "contabilidad_r.pbl";
+ "d_sel_rep_diario_contable_fecha.srd" "contabilidad_r.pbl";
+ "w_rep_balances.srw" "contabilidad_r.pbl";
+ "d_rep_bal_comprobacion_cc.srd" "contabilidad_r.pbl";
+ "d_balance_consolidado_pyg_niffs.srd" "contabilidad_r.pbl";
+ "d_reporte_diario_general_x_suc.srd" "contabilidad_r.pbl";
+ "d_reporte_diario_general.srd" "contabilidad_r.pbl";
+ "w_reporte_diario_general.srw" "contabilidad_r.pbl";
+ "d_balance_consolidado_pyg_niffs_comparativo.srd" "contabilidad_r.pbl";
+ "d_balance_resultados_integrales_niffs.srd" "contabilidad_r.pbl";
+ "d_sel_rep_diario_contable.srd" "contabilidad_r.pbl";
+ "d_rep_balances_financieros.srd" "contabilidad_r.pbl";
+ "d_sp_balances_financieros.srd" "contabilidad_r.pbl";
+ "w_rep_balances_financieros.srw" "contabilidad_r.pbl";
+ "d_rep_balance_general_x_suc.srd" "contabilidad_r.pbl";
+ "d_rep_balances_financieros_niff.srd" "contabilidad_r.pbl";
+ "w_rep_resultados_integrales_niff.srw" "contabilidad_r.pbl";
+ "d_balance_resultados_integrales_comparativo_niffs.srd" "contabilidad_r.pbl";
+ "d_rep_bal_comprob_resumido.srd" "contabilidad_r.pbl";
+ "w_rep_balance_situacion_niff.srw" "contabilidad_r.pbl";
+ "w_rep_balance_comprobacion.srw" "contabilidad_r.pbl";
+ "d_rep_balance_general_resumido.srd" "contabilidad_r.pbl";
+ "d_external_cuentas_sucursal_fecha.srd" "contabilidad_r.pbl";
+ "d_rep_balance_pyg_x_suc.srd" "contabilidad_r.pbl";
+ "d_rep_mayor_general_x_suc.srd" "contabilidad_r.pbl";
+ "d_rep_balance_general_resumido_x_suc.srd" "contabilidad_r.pbl";
+ "d_rep_balance_pyg_resumido.srd" "contabilidad_r.pbl";
+ "w_reporte_plan_cuentas_sucursal.srw" "contabilidad_r.pbl";
+ "d_rep_bal_comprob_resumido_x_suc.srd" "contabilidad_r.pbl";
+ "d_rep_balance_pyg_resumido_x_suc.srd" "contabilidad_r.pbl";
+@end;
