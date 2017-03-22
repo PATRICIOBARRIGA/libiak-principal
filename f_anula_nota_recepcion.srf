@@ -1,0 +1,141 @@
+HA$PBExportHeader$f_anula_nota_recepcion.srf
+global type f_anula_nota_recepcion from function_object
+end type
+
+forward prototypes
+global function integer f_anula_nota_recepcion (long al_numero)
+end prototypes
+
+global function integer f_anula_nota_recepcion (long al_numero);////////////////////////////////////////////////////////////////////////
+// Descripci$$HEX1$$f300$$ENDHEX$$n : Controla que la Nota de recepci$$HEX1$$f300$$ENDHEX$$n no est$$HEX2$$e9002000$$ENDHEX$$asociada con
+// 				  una factura de compra, inserta en in_compra la nota de
+// recepci$$HEX1$$f300$$ENDHEX$$n pero con cero para decir anulada, actualiza a anulada el 
+// detalle de la nota de recepci$$HEX1$$f300$$ENDHEX$$n, borra la nota de recepci$$HEX1$$f300$$ENDHEX$$n
+// Revisado    : ING HUGO V OROZCO CH ... 06/04/1999   12:51
+////////////////////////////////////////////////////////////////////////
+
+string   ls_proveedor,ls_vendedor,ls_factura,ls_codpad,ls_completa
+string   ls_formapago
+datetime ldt_fecha,ldt_hora,ldt_fecrep,ldt_fecha_entrega
+decimal  ld_subtotal,ld_descuento,ld_iva,ld_total,ld_transporte
+long     ll_numpad, ll_contador
+
+//verificamos si esta nota de recepci$$HEX1$$f300$$ENDHEX$$n est$$HEX2$$e1002000$$ENDHEX$$asociada a una compra
+select count(*)
+into :ll_contador
+from in_compra
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and co_numpad = :al_numero
+and ec_codpad = '2'
+and ec_codigo = '3';
+
+if ll_contador > 0 then
+MessageBox("ERROR","No se puede anular esta N/R porque tiene factura de compra. "+sqlca.sqlerrtext)
+return(-1)
+end if
+
+
+//encuentra los datos de la Nota de Recepci$$HEX1$$f300$$ENDHEX$$n
+
+select PV_CODIGO,VP_CODIGO,CO_FACPRO,CO_FECHA,CO_FECREP,
+	 CO_SUBTOT,CO_IVA,CO_DESCUP,CO_TOTAL,EC_CODPAD,CO_NUMPAD,
+	 CO_COMPLETA,FP_CODIGO,CO_TRANSPOR,CO_FECENT      
+into :ls_proveedor,:ls_vendedor,:ls_factura,:ldt_fecha,
+	 :ldt_fecrep,:ld_subtotal,:ld_iva,:ld_descuento,:ld_total,
+	 :ls_codpad,:ll_numpad,:ls_completa,:ls_formapago,:ld_transporte,
+	 :ldt_fecha_entrega
+from in_compra
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and co_numero = :al_numero
+and ec_codigo = '2';
+
+if sqlca.sqlcode < 0 then
+MessageBox("ERROR","Al tomar los datos de la nota de recepci$$HEX1$$f300$$ENDHEX$$n. "+sqlca.sqlerrtext)
+Rollback;
+return(-1)
+end if
+
+// inserta en In_Compra los datos de la Nota de recepci$$HEX1$$f300$$ENDHEX$$n con ec_codigo = 0  de
+// anulada
+insert into in_compra (PV_CODIGO,VP_CODIGO,CO_FACPRO,CO_FECHA,CO_FECREP,
+						  CO_SUBTOT,CO_IVA,CO_DESCUP,CO_TOTAL,EC_CODPAD,
+						  CO_NUMPAD,CO_COMPLETA,FP_CODIGO,CO_TRANSPOR,
+						  CO_FECENT,EM_CODIGO,SU_CODIGO,CO_NUMERO,EC_CODIGO)
+values(:ls_proveedor,:ls_vendedor,:ls_factura,:ldt_fecha,:ldt_fecrep,
+	 :ld_subtotal,:ld_iva,:ld_descuento,:ld_total,:ls_codpad,
+	 :ll_numpad,:ls_completa,:ls_formapago,:ld_transporte,
+	 :ldt_fecha_entrega,:str_appgeninfo.empresa,:str_appgeninfo.sucursal,
+	 :al_numero,'0');
+	 
+if sqlca.sqlcode < 0 then
+MessageBox("ERROR","Al crear la nota de recepci$$HEX1$$f300$$ENDHEX$$n anulada. "+sqlca.sqlerrtext)
+Rollback;
+return(-1)
+end if
+
+// actualiza el campo ec_codigo = "0" de "in_detco" que quiere decir anulada,
+// cuando ec_codigo = "2"
+
+update in_detco
+set ec_codigo = '0'
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and bo_codigo = :str_appgeninfo.seccion
+and co_numero = :al_numero
+and ec_codigo = '2';
+
+if sqlca.sqlcode < 0 then
+MessageBox("ERROR","Al actualizar el detalle de la nota de recepci$$HEX1$$f300$$ENDHEX$$n anulada. "+sqlca.sqlerrtext)
+Rollback;
+return(-1)
+end if
+
+//verificamos si esta nota de recepci$$HEX1$$f300$$ENDHEX$$n est$$HEX2$$e1002000$$ENDHEX$$asociada a una compra anulada
+
+select count(*)
+into :ll_contador
+from in_compra
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and co_numpad = :al_numero
+and ec_codpad = '2'
+and ec_codigo = '4';
+
+if ll_contador > 0 then
+// actualizo el padre de la compra anulada a la nota de recepci$$HEX1$$f300$$ENDHEX$$n anulada
+update in_compra
+	set ec_codpad = '0'
+ where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and co_numpad = :al_numero
+	and ec_codpad = '2'
+	and ec_codigo = '4';
+
+if sqlca.sqlcode < 0 then
+	MessageBox("ERROR","Al actualizar la factura de compra anulada. "+sqlca.sqlerrtext)
+	Rollback;
+	return(-1)
+end if
+
+end if
+
+// borro de in_compra la nota de recepci$$HEX1$$f300$$ENDHEX$$n
+delete from in_compra
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and co_numero = :al_numero
+and ec_codigo = '2';
+
+if sqlca.sqlcode < 0 then
+MessageBox("ERROR","Al borrar la nota de recepci$$HEX1$$f300$$ENDHEX$$n anulada. "+sqlca.sqlerrtext)
+Rollback;
+return(-1)
+end if
+
+//commit using sqlca;
+
+return(1)
+end function
+

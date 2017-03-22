@@ -1,0 +1,50 @@
+HA$PBExportHeader$f_calcula_rol.srf
+global type f_calcula_rol from function_object
+end type
+
+forward prototypes
+global function integer f_calcula_rol (string as_epcodigo, string as_periodo, string as_numrol)
+end prototypes
+
+global function integer f_calcula_rol (string as_epcodigo, string as_periodo, string as_numrol);Decimal lc_ingresos,lc_egresos
+
+select round(SUM(y.lq_total),2)
+into :lc_ingresos
+from   no_cabrol  x,  no_rolpago y, no_rubro z
+where  x. ep_codigo = y.ep_codigo
+and    x.rr_codigo = y.rr_codigo
+and    z.ru_codigo = y.ru_codigo
+and   x.rr_tipo = 'R'
+and   z.ru_ioe = 'I'
+and    to_char(x.rr_fecha,'MM-YYYY') = :as_periodo 
+and    x.ep_codigo = :as_epcodigo ;
+
+
+select round(SUM(y.lq_total),2)
+into :lc_egresos
+from   no_cabrol  x,  no_rolpago y, no_rubro z
+where  x. ep_codigo = y.ep_codigo
+and    x.rr_codigo = y.rr_codigo
+and    z.ru_codigo = y.ru_codigo
+and  x.rr_tipo  = 'R'
+and   z.ru_ioe = 'E'
+and    to_char(x.rr_fecha,'MM-YYYY') = :as_periodo 
+and    x.ep_codigo = :as_epcodigo ;
+
+
+UPDATE NO_CABROL
+SET RR_TOTINGR = :lc_ingresos,
+       RR_TOTEGRE = :lc_egresos,
+	  RR_LIQUIDO = :lc_ingresos - :lc_egresos
+WHERE RR_CODIGO = :as_numrol
+AND EP_CODIGO = :as_epcodigo;
+
+If sqlca.sqlcode < 0 then
+Messagebox("Atencion","Problemas al actualizar el ROL ...."+sqlca.sqlerrtext)	
+Rollback;
+Return -1
+End if
+Return 1
+
+end function
+

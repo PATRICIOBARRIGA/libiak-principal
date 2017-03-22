@@ -1,0 +1,20 @@
+HA$PBExportHeader$f_aporteiess.srf
+global type f_aporteiess from function_object
+end type
+
+forward prototypes
+global function decimal f_aporteiess (string epcodigo, string rubro)
+end prototypes
+
+global function decimal f_aporteiess (string epcodigo, string rubro);Decimal lc_total
+
+select lq_total
+into  :lc_total
+from no_rolpago
+where ep_codigo = :epcodigo
+and rr_codigo =:rubro
+and ru_codigo = '18';
+
+return lc_total
+end function
+

@@ -1,0 +1,141 @@
+HA$PBExportHeader$f_asiento_automatico.srf
+global type f_asiento_automatico from function_object
+end type
+
+forward prototypes
+global function integer f_asiento_automatico (string as_movimiento, decimal ac_valores[], decimal ac_total)
+end prototypes
+
+global function integer f_asiento_automatico (string as_movimiento, decimal ac_valores[], decimal ac_total);/**/
+String ls_tipo,&
+            ls_obs,&
+		 ls_cuenta,&
+		 ls_signo,&
+		 ls_colum,&
+		 ls_nulo
+Long   ll_cpnumero,&
+            ll_new,i,ll_nreg,j
+Decimal lc_valor				
+Setnull(ls_nulo)
+
+
+DataStore   lds_cabasiento, lds_asiento,lds_detcom,lds_cabcom
+lds_cabasiento = Create DataStore
+lds_cabasiento.DataObject = 'd_cabasiento_liqui_caja'
+lds_cabasiento.SetTransObject(SQLCA)
+ll_nreg = lds_cabasiento.Retrieve(str_appgeninfo.empresa,str_appgeninfo.sucursal,as_movimiento)
+
+If ll_nreg = 0 &
+Then
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","No existe definido el asiento automatico para '"+as_movimiento+"' ")
+Return -1
+End if
+
+ls_tipo = lds_cabasiento.GetItemString(1,"ti_codigo")
+ls_obs = lds_cabasiento.GetItemString(1,"ct_observ")
+
+
+lds_asiento = Create DataStore
+lds_asiento.DataObject = 'd_asiento_liqui_caja'
+lds_asiento.SetTransObject(SQLCA)
+lds_asiento.Retrieve(str_appgeninfo.empresa,str_appgeninfo.sucursal,as_movimiento)
+
+lds_cabcom = Create DataStore
+lds_cabcom.DataObject = 'd_cab_comprobante'
+lds_cabcom.SetTransObject(SQLCA)
+
+lds_detcom = Create DataStore
+lds_detcom.DataObject = 'd_det_comprobante_automatico'
+lds_detcom.SetTransObject(SQLCA)
+
+
+/*Generar el sucuencial del Asiento*/
+ll_cpnumero = f_secuencial_sucursal(str_appgeninfo.empresa,str_appgeninfo.sucursal,"CONTA_COMP")
+
+/*Insertar la cabecera*/
+ll_new = lds_cabcom.InsertRow(0)
+lds_cabcom.SetItem(ll_new,"em_codigo",str_appgeninfo.empresa)
+lds_cabcom.SetItem(ll_new,"su_codigo",str_appgeninfo.sucursal)
+lds_cabcom.SetItem(ll_new,"ti_codigo",ls_tipo)
+lds_cabcom.SetItem(ll_new,"cp_observ",ls_obs)
+lds_cabcom.SetItem(ll_new,"cp_numero",ll_cpnumero)
+lds_cabcom.SetItem(ll_new,"cp_fecha",today())
+lds_cabcom.SetItem(ll_new,"cp_saldo",0)
+lds_cabcom.SetItem(ll_new,"cp_debito",ac_total)
+lds_cabcom.SetItem(ll_new,"cp_credito",ac_total)
+
+
+/*Insertar ahora el detalle del Asiento*/
+/*Recorrer la plantilla de Asientos automaticos*/
+ll_nreg = lds_asiento.RowCount()
+For i = 1 to lds_asiento.RowCount()
+ls_cuenta = lds_asiento.GetItemString(i,"pl_codigo")
+ls_signo   = lds_asiento.GetItemString(i,"ct_debcre")
+ls_colum   = lds_asiento.GetItemString(i,"ct_colum")
+
+ll_new = lds_detcom.InsertRow(0)
+lds_detcom.SetItem(ll_new,"em_codigo",str_appgeninfo.empresa)
+lds_detcom.SetItem(ll_new,"su_codigo",str_appgeninfo.sucursal)
+lds_detcom.SetItem(ll_new,"ti_codigo",ls_tipo)
+lds_detcom.SetItem(ll_new,"cp_numero",ll_cpnumero)
+lds_detcom.SetItem(ll_new,"cs_codigo",ls_nulo)
+lds_detcom.SetItem(ll_new,"dt_signo",ls_signo)
+lds_detcom.SetItem(ll_new,"dt_secue",String(i))
+lds_detcom.SetItem(ll_new,"pl_codigo",ls_cuenta)
+
+CHOOSE CASE ls_colum  
+	CASE '1' 
+     lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[1])
+	CASE '2'
+     lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[2])	
+     CASE '3'
+	lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[3])
+	CASE '4'
+	lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[4])
+	CASE '5'
+	 lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[5])
+ 	CASE '6'
+	 lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[6])
+ 	CASE '7'
+	 lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[7])
+	CASE '8'
+	 lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[8])
+	CASE '9'
+	 lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[9])
+	CASE '10'
+	 lds_detcom.SetItem(ll_new,"dt_valor",ac_valores[10])
+	 END CHOOSE
+NEXT
+
+/*Borrar  los registros que tengan valor del detalle */
+lds_detcom.AcceptText()
+ll_nreg = lds_detcom.RowCount()
+
+For i = 1 to  lds_detcom.RowCount()
+      lc_valor = lds_detcom.GetItemDecimal(i,"dt_valor")
+	 If lc_valor = 0 &
+	 Then 
+	 lds_detcom.DeleteRow(i)	
+	 i --
+	 End if	
+Next	
+
+If lds_cabcom.update() = 1 &
+Then
+      If   lds_detcom.update() = 1&
+	 Then 
+	 commit;
+      else	
+	 Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","No se realiz$$HEX2$$f3002000$$ENDHEX$$el asiento autom$$HEX1$$e100$$ENDHEX$$tico",Exclamation!)
+	 rollback;
+	 Return -1
+      End if 
+End if	
+
+Destroy lds_asiento
+Destroy lds_cabasiento
+Destroy lds_cabcom
+Destroy lds_detcom
+Return 1
+end function
+

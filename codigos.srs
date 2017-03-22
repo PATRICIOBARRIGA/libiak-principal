@@ -1,0 +1,5 @@
+HA$PBExportHeader$codigos.srs
+global type codigos from structure
+	string		codigo
+end type
+

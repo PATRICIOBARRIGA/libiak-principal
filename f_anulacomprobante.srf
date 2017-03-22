@@ -1,0 +1,68 @@
+HA$PBExportHeader$f_anulacomprobante.srf
+global type f_anulacomprobante from function_object
+end type
+
+forward prototypes
+global function integer f_anulacomprobante (long al_cpnumero)
+end prototypes
+
+global function integer f_anulacomprobante (long al_cpnumero);/* Funcion que Anula el comprobante contable
+   Elimina fisicamente el asiento de las tablas
+   co_cabcom y co_detcom 
+	Argumentos : al_cpnumero ... Nro de comprobante
+
+   Retorna: -1 si existe error
+          :  1 bien                              */
+			 
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","El comprobante '"+string(al_cpnumero)+"' ser$$HEX2$$e1002000$$ENDHEX$$anulado")
+
+//delete from co_detcom
+//where cp_numero = :al_cpnumero
+//and em_codigo = :str_appgeninfo.empresa
+//and su_codigo = :str_appgeninfo.sucursal;
+//if sqlca.sqlcode < 0 &
+//then
+//Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al borrar el detalle del egreso"+sqlca.sqlerrtext)
+//rollback;
+//return -1
+//end if 
+//
+//
+//delete from co_cabcom
+//where cp_numero = :al_cpnumero
+//and em_codigo = :str_appgeninfo.empresa
+//and su_codigo = :str_appgeninfo.sucursal;
+//if sqlca.sqlcode < 0 &
+//then
+//Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al borrar la cabecera del egreso"+sqlca.sqlerrtext)
+//rollback;
+//return -1
+//end if 
+
+update co_cabcom
+set cp_anulado = 'S',
+cp_fecanu = sysdate
+where cp_numero = :al_cpnumero
+and em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal;
+
+if sqlca.sqlcode < 0 &
+then
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al anular el comprobante.   "+sqlca.sqlerrtext)
+rollback;
+return -1
+end if 
+
+commit;		 
+Return 1
+		 
+
+					 
+					 
+					 
+
+					 
+	
+	
+end function
+

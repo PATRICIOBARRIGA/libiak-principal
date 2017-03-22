@@ -1,0 +1,94 @@
+HA$PBExportHeader$f_arregla_stock.srf
+global type f_arregla_stock from function_object
+end type
+
+forward prototypes
+global subroutine f_arregla_stock (string as_item)
+end prototypes
+
+global subroutine f_arregla_stock (string as_item);decimal ld_saldo_inicial,ld_saldo_inicial_bod,ld_saldo,ld_saldo_bod,ld_cantid
+string  ls_bodega,ls_ioe
+
+declare c1 cursor for
+   select tm_ioe,mv_cantid
+     from in_movim
+    where em_codigo = :str_appgeninfo.empresa
+      and su_codigo = :str_appgeninfo.sucursal
+      and it_codigo = :as_item;
+
+declare c3 cursor for
+   select bo_codigo
+     from in_bode
+    where em_codigo = :str_appgeninfo.empresa
+      and su_codigo = :str_appgeninfo.sucursal;
+
+declare c4 cursor for
+   select tm_ioe,mv_cantid
+     from in_movim
+    where em_codigo = :str_appgeninfo.empresa
+      and su_codigo = :str_appgeninfo.sucursal
+      and bo_codigo = :ls_bodega
+      and it_codigo = :as_item;
+
+
+//begin
+    select nvl(it_stkini,0)
+      into :ld_saldo_inicial
+      from in_itesucur
+     where em_codigo = :str_appgeninfo.empresa
+       and su_codigo = :str_appgeninfo.sucursal
+       and it_codigo = :as_item;
+    ld_saldo = ld_saldo_inicial
+	 open c1;
+	 do
+      fetch c1 into :ls_ioe,:ld_cantid;
+		if sqlca.sqlcode <> 0 then exit
+      if ls_ioe = 'I' then
+        ld_saldo = ld_saldo + ld_cantid
+	   elseif ls_ioe = 'E' then
+        ld_saldo = ld_saldo - ld_cantid
+      end if
+    loop while TRUE
+	 close c1;
+    update in_itesucur
+       set it_stock   = :ld_saldo,
+           it_stkdis  = :ld_saldo,
+           it_stkreal = :ld_saldo
+     where em_codigo = :str_appgeninfo.empresa
+       and su_codigo = :str_appgeninfo.sucursal
+       and it_codigo = :as_item;
+	 open c3;
+	 do
+	    fetch c3 into :ls_bodega;
+		 if sqlca.sqlcode <> 0 then exit
+       select nvl(ib_stkini,0)
+         into :ld_saldo_inicial_bod
+         from in_itebod
+        where em_codigo = :str_appgeninfo.empresa
+          and su_codigo = :str_appgeninfo.sucursal
+          and bo_codigo = :ls_bodega
+          and it_codigo = :as_item;
+       ld_saldo_bod = ld_saldo_inicial_bod
+		 open c4;
+		 do
+			fetch c4 into :ls_ioe,:ld_cantid;
+			if sqlca.sqlcode <> 0 then exit
+         if ls_ioe = 'I' then
+           ld_saldo_bod = ld_saldo_bod + ld_cantid
+		   elseif ls_ioe = 'E' then
+           ld_saldo_bod = ld_saldo_bod - ld_cantid
+         end if
+		 loop while TRUE;
+		 close c4;
+       update in_itebod
+          set ib_stock = :ld_saldo_bod
+        where em_codigo = :str_appgeninfo.empresa
+          and su_codigo = :str_appgeninfo.sucursal
+          and bo_codigo = :ls_bodega
+          and it_codigo = :as_item;
+    loop while TRUE
+    close c3;
+	 
+
+end subroutine
+

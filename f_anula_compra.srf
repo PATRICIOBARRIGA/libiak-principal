@@ -1,0 +1,144 @@
+HA$PBExportHeader$f_anula_compra.srf
+global type f_anula_compra from function_object
+end type
+
+forward prototypes
+global function integer f_anula_compra (long al_numero)
+end prototypes
+
+global function integer f_anula_compra (long al_numero);string   ls_proveedor,ls_vendedor,ls_factura,ls_codpad,ls_completa
+string   ls_formapago
+datetime ldt_fecha,ldt_hora,ldt_fecrep,ldt_fecha_entrega
+decimal  ld_subtotal,ld_descuento,ld_iva,ld_total,ld_transporte
+long     ll_numpad,ll_numero
+
+//Cursor para determinar los nros de recepcion de una misma compra
+//en el caso de que existan dos o mas recepciones por compra
+DECLARE C1 CURSOR FOR
+select co_numero,co_numpad
+from in_detco
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and co_numero = :al_numero
+and ec_codigo = '3'
+order by to_number(co_numpad);
+
+
+
+// encuentra los datos de la cabecera de la factura de compra 
+select PV_CODIGO,VP_CODIGO,CO_FACPRO,CO_FECHA,CO_FECREP,
+       CO_SUBTOT,CO_IVA,CO_DESCUP,CO_TOTAL,EC_CODPAD,CO_NUMPAD,
+		 CO_COMPLETA,FP_CODIGO,CO_TRANSPOR,CO_FECENT      
+  into :ls_proveedor,:ls_vendedor,:ls_factura,:ldt_fecha,
+       :ldt_fecrep,:ld_subtotal,:ld_iva,:ld_descuento,:ld_total,
+		 :ls_codpad,:ll_numpad,:ls_completa,:ls_formapago,:ld_transporte,
+		 :ldt_fecha_entrega
+  from in_compra
+ where em_codigo = :str_appgeninfo.empresa
+   and su_codigo = :str_appgeninfo.sucursal
+	and co_numero = :al_numero
+	and ec_codigo = '3';
+	
+if sqlca.sqlcode <> 0 then
+	MessageBox("ERROR","Al tomar los datos de la compra. "+sqlca.sqlerrtext)
+	rollback;
+	return(-1)
+end if
+
+// inserta los datos de la fatura de compra con ec_codigo = 4 de Anulaci$$HEX1$$f300$$ENDHEX$$n
+// de facturas de Compra
+insert into in_compra (PV_CODIGO,VP_CODIGO,CO_FACPRO,CO_FECHA,CO_FECREP,
+       					  CO_SUBTOT,CO_IVA,CO_DESCUP,CO_TOTAL,EC_CODPAD,
+							  CO_NUMPAD,CO_COMPLETA,FP_CODIGO,CO_TRANSPOR,
+							  CO_FECENT,EM_CODIGO,SU_CODIGO,CO_NUMERO,EC_CODIGO)
+values(:ls_proveedor,:ls_vendedor,:ls_factura,:ldt_fecha,:ldt_fecrep,
+       :ld_subtotal,:ld_iva,:ld_descuento,:ld_total,:ls_codpad,
+		 :ll_numpad,:ls_completa,:ls_formapago,:ld_transporte,
+		 :ldt_fecha_entrega,:str_appgeninfo.empresa,:str_appgeninfo.sucursal,
+		 :al_numero,'4');
+		 
+if sqlca.sqlcode <> 0 then
+	MessageBox("ERROR","Al crear la factura de compra anulada. "+sqlca.sqlerrtext)
+	rollback;
+	return(-1)
+end if
+
+
+
+
+
+// actualiza co_completa = 'N' cuando ec_codigo es una Nota de Recepci$$HEX1$$f300$$ENDHEX$$n 
+//Determina los nros de las notas de recepcion en caso de que en una 
+//compra existan u o mas recepciones
+
+Setnull(ll_numpad)
+
+OPEN C1;
+do
+	fetch c1 
+	into :ll_numero,:ll_numpad;	
+	
+	if sqlca.sqlcode <> 0 then exit
+	
+	if isnull(ll_numpad) then
+		select co_numpad
+		into  :ll_numpad	from in_compra
+		where em_codigo = :str_appgeninfo.empresa
+		and su_codigo = :str_appgeninfo.sucursal
+		and co_numero = :al_numero
+		and ec_codigo = '3';
+	end if
+	
+	
+	update in_compra
+	set co_completa = null
+	where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and co_numero = :ll_numpad
+	and ec_codigo = '2';
+		
+	if sqlca.sqlcode <> 0 then
+		MessageBox("ERROR","Al actualizar la nota de recepci$$HEX1$$f300$$ENDHEX$$n. "+sqlca.sqlerrtext)
+		rollback;
+		return(-1)
+	end if
+
+loop while true
+CLOSE C1;
+
+
+// actualizo en el detalle de la compra ec_codigo de Factura a Anulaci$$HEX1$$f300$$ENDHEX$$n 
+update in_detco
+set ec_codigo = '4'
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and bo_codigo = :str_appgeninfo.seccion
+and co_numero = :al_numero
+and ec_codigo = '3';
+	
+if sqlca.sqlcode <> 0 then
+	MessageBox("ERROR","Al actualizar el detalle de la factura de compra anulada. "+sqlca.sqlerrtext)
+	rollback;
+	return(-1)
+end if
+
+
+// borra la cabecera de compras
+delete from in_compra
+where em_codigo = :str_appgeninfo.empresa
+and su_codigo = :str_appgeninfo.sucursal
+and co_numero = :al_numero
+and ec_codigo = '3';
+	
+if sqlca.sqlcode <> 0 then
+	MessageBox("ERROR","Al borrar la factura de compra anulada. "+sqlca.sqlerrtext)
+	rollback;
+	return(-1)
+end if
+
+
+commit using sqlca;
+
+return(1)
+end function
+

@@ -1,0 +1,22 @@
+HA$PBExportHeader$f_borra_filas_en_blanco.srf
+global type f_borra_filas_en_blanco from function_object
+end type
+
+forward prototypes
+global function integer f_borra_filas_en_blanco (ref datawindow adw_aux, string as_column)
+end prototypes
+
+global function integer f_borra_filas_en_blanco (ref datawindow adw_aux, string as_column);Long ll_nreg ,li_i,i
+string ls
+ll_nreg = adw_aux.rowcount()
+
+for li_i = 1 to ll_nreg
+  ls = adw_aux.GetItemString(li_i - i,as_column)
+  if isnull(ls) or ls = '' then
+	  adw_aux.DeleteRow(li_i - i )
+	  i=i+1	  
+  end if
+next
+return 1
+end function
+

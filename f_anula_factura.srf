@@ -1,0 +1,98 @@
+HA$PBExportHeader$f_anula_factura.srf
+global type f_anula_factura from function_object
+end type
+
+forward prototypes
+global function integer f_anula_factura (string as_sucursal, string as_bodega, long al_numero, string as_estado, string as_nuevoestado)
+end prototypes
+
+global function integer f_anula_factura (string as_sucursal, string as_bodega, long al_numero, string as_estado, string as_nuevoestado);string   ls_caja,ls_cliente,ls_empleado,ls_preimpreso,ls_preimprant
+string   ls_letras,ls_motivo,ls_observacion,ls_leyenda
+datetime ldt_fecha,ldt_hora
+decimal  ld_subtotal,ld_descuento,ld_neto,ld_iva,ld_cargo,ld_pagado
+decimal  ld_efectivo,ld_valotros,ld_cambio
+
+select CJ_CAJA,CE_CODIGO,EP_CODIGO,VE_NUMPRE,VE_FECHA,
+		 VE_HORA,VE_SUBTOT,VE_DESCUE,VE_NETO,VE_IVA,VE_CARGO,
+		 VE_VALPAG,VE_OBSERV,VE_LEYENDA,VE_EFECTIVO,VE_VALOTROS,
+		 VE_CAMBIO,VE_PREANT,VE_VALLETRAS,VE_MOTIVO
+  into :ls_caja,:ls_cliente,:ls_empleado,:ls_preimpreso,:ldt_fecha,
+       :ldt_hora,:ld_subtotal,:ld_descuento,:ld_neto,:ld_iva,:ld_cargo,
+		 :ld_pagado,:ls_observacion,:ls_leyenda,:ld_efectivo,:ld_valotros,
+		 :ld_cambio,:ls_preimprant,:ls_letras,:ls_motivo
+from fa_venta
+where em_codigo = '1'
+and su_codigo = :as_sucursal
+and bo_codigo = :as_bodega
+and es_codigo = :as_estado	
+and ve_numero = :al_numero;
+
+	
+if sqlca.sqlcode <> 0 then
+	MessageBox("ERROR","Al tomar los datos de la factura. "+sqlca.sqlerrtext)
+	return(-1)
+end if
+	
+INSERT INTO FA_VENTA (ES_CODIGO,EM_CODIGO,SU_CODIGO,BO_CODIGO,VE_NUMERO,
+								 CJ_CAJA,CE_CODIGO,EP_CODIGO,VE_NUMPRE,VE_FECHA,
+								 VE_HORA,VE_SUBTOT,VE_DESCUE,VE_NETO,VE_IVA,VE_CARGO,
+								 VE_VALPAG,VE_OBSERV,VE_LEYENDA,VE_EFECTIVO,VE_VALOTROS,
+								 VE_CAMBIO,VE_PREANT,VE_VALLETRAS,VE_MOTIVO)
+VALUES(:as_nuevoestado,:str_appgeninfo.empresa,:as_sucursal,:as_bodega,:al_numero,
+		 :ls_caja,:ls_cliente,:ls_empleado,:ls_preimpreso,:ldt_fecha,
+           sysdate,:ld_subtotal,:ld_descuento,:ld_neto,:ld_iva,:ld_cargo,
+		 :ld_pagado,:ls_observacion,:ls_leyenda,:ld_efectivo,:ld_valotros,
+		 :ld_cambio,:ls_preimprant,:ls_letras,:ls_motivo);
+		 
+if sqlca.sqlcode <> 0 then
+	rollback using sqlca;
+	MessageBox("ERROR","Al crear la factura anulada. "+sqlca.sqlerrtext)
+	return(-1)
+end if
+
+update fa_detve
+set es_codigo = :as_nuevoestado
+where em_codigo = '1'
+and su_codigo = :as_sucursal
+and bo_codigo = :as_bodega
+and es_codigo = :as_estado	
+and ve_numero = :al_numero;
+
+	
+if sqlca.sqlcode <> 0 then
+	rollback using sqlca;
+	MessageBox("ERROR","Al actualizar el detalle de la factura anulada. "+sqlca.sqlerrtext)
+	return(-1)
+end if
+
+update fa_recpag
+set es_codigo = :as_nuevoestado
+where em_codigo = '1'
+and su_codigo = :as_sucursal
+and bo_codigo = :as_bodega
+and es_codigo = :as_estado	
+and ve_numero = :al_numero;
+
+	
+if sqlca.sqlcode <> 0 then
+	rollback using sqlca;
+	MessageBox("ERROR","Al actualizar el detalle de pago de la factura anulada. "+sqlca.sqlerrtext)
+	return(-1)
+end if
+
+delete from fa_venta
+where em_codigo = '1'
+and su_codigo = :as_sucursal
+and bo_codigo = :as_bodega
+and es_codigo = :as_estado	
+and ve_numero = :al_numero;
+
+	
+if sqlca.sqlcode <> 0 then
+	rollback using sqlca;
+	MessageBox("ERROR","Al borrar la cabecera de la factura que se anular$$HEX1$$e100$$ENDHEX$$. "+sqlca.sqlerrtext)
+	return(-1)
+end if
+return(1)
+end function
+

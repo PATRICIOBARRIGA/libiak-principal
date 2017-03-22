@@ -1,0 +1,142 @@
+HA$PBExportHeader$f_asiento_automatico2.srf
+$PBExportComments$Sin plantilla contable.Vale
+global type f_asiento_automatico2 from function_object
+end type
+
+forward prototypes
+global function any f_asiento_automatico2 (ref datastore ads_datos, date ad_fecha, string as_tipo)
+end prototypes
+
+global function any f_asiento_automatico2 (ref datastore ads_datos, date ad_fecha, string as_tipo);/*Modificado para trabajar con sucursales en l$$HEX1$$ed00$$ENDHEX$$nea
+  El secuencial de los comprobantes ser$$HEX2$$e1002000$$ENDHEX$$por empresa*/
+String ls_tipo,&
+       ls_obs,&
+		 ls_cuenta,&
+		 ls_signo,&
+		 ls_nulo,&
+		 ls_sectipo,&
+		 ls_cscodigo
+Long  ll_cpnumero,&
+           ll_newm,ll_new,i,ll_nreg,ll_sectipo
+Decimal {2}  lc_valor,lc_sum_debitos,lc_sum_creditos,lc_saldo
+Date   ld_fecha
+DatawindowChild ldwc_tipo
+Setnull(ls_nulo)
+
+DataStore   lds_detcom,lds_cabcom
+
+If as_tipo = 'DIN' Then ls_tipo  = '1'
+If as_tipo = 'DEG' Then ls_tipo = '2' 
+If as_tipo = 'DIN'  THEN ls_obs = 'Dep$$HEX1$$f300$$ENDHEX$$sitos del d$$HEX1$$ed00$$ENDHEX$$a:' +String(ad_fecha,'dd/mm/yyyy')
+If as_tipo = 'DEG' THEN ls_obs = 'Egresos del d$$HEX1$$ed00$$ENDHEX$$a:' +String(ad_fecha,'dd/mm/yyyy')
+
+lds_cabcom = Create DataStore
+lds_cabcom.DataObject = 'd_cab_comprobante'
+lds_cabcom.SetTransObject(SQLCA)
+
+
+lds_cabcom.Getchild("ti_codigo",ldwc_tipo)
+ldwc_tipo.SetTransObject(sqlca)
+ldwc_tipo.Retrieve(str_appgeninfo.empresa)
+
+lds_detcom = Create DataStore
+lds_detcom.DataObject = 'd_det_comprobante_automatico'
+lds_detcom.SetTransObject(SQLCA)
+
+/*Generar el sucuencial del Asiento por empresa*/
+
+//ll_cpnumero = f_secuencial_sucursal(str_appgeninfo.empresa,str_appgeninfo.sucursal,"CONTA_COMP")
+//ll_sectipo  = f_secuencial_sucursal(str_appgeninfo.empresa,str_appgeninfo.sucursal,as_tipo)
+ll_cpnumero = f_secuencial(str_appgeninfo.empresa,"CONTA_COMP")
+ll_sectipo  = f_secuencial(str_appgeninfo.empresa,as_tipo)
+
+ls_sectipo  = String(ll_sectipo)
+
+
+/*Insertar la cabecera*/
+ll_newm = lds_cabcom.InsertRow(0)
+lds_cabcom.SetItem(ll_newm,"em_codigo",str_appgeninfo.empresa)
+lds_cabcom.SetItem(ll_newm,"su_codigo",str_appgeninfo.sucursal)
+lds_cabcom.Setitem(ll_newm,"sa_login",str_appgeninfo.username)
+lds_cabcom.SetItem(ll_newm,"ti_codigo",ls_tipo)
+lds_cabcom.SetItem(ll_newm,"cp_observ",ls_obs)
+lds_cabcom.SetItem(ll_newm,"cp_numero",ll_cpnumero)
+lds_cabcom.SetItem(ll_newm,"cp_numcomp",ls_sectipo)
+lds_cabcom.SetItem(ll_newm,"cp_fecha",ad_fecha)
+
+
+/*Insertar ahora el detalle del Asiento*/
+for i = 1 to   ads_datos.RowCount()
+	ls_cuenta = ads_datos.GetItemString(i,"pl_codigo")
+	ls_cscodigo = ads_datos.GetItemString(i,"cs_codigo")
+	ls_signo  = ads_datos.GetItemString(i,"signo")
+	lc_valor  = ads_datos.GetItemDecimal(i,"cc_valor")
+	
+	ll_new = lds_detcom.InsertRow(0)
+	lds_detcom.SetItem(ll_new,"em_codigo",str_appgeninfo.empresa)
+	lds_detcom.SetItem(ll_new,"su_codigo",str_appgeninfo.sucursal)
+	lds_detcom.SetItem(ll_new,"ti_codigo",ls_tipo)
+	lds_detcom.SetItem(ll_new,"cp_numero",ll_cpnumero)
+	lds_detcom.SetItem(ll_new,"cs_codigo",ls_cscodigo)
+	lds_detcom.SetItem(ll_new,"dt_signo",ls_signo)
+	lds_detcom.SetItem(ll_new,"dt_secue",String(i))
+	lds_detcom.SetItem(ll_new,"pl_codigo",ls_cuenta)
+	lds_detcom.SetItem(ll_new,"dt_valor",lc_valor)
+	lds_detcom.SetItem(ll_new,"dt_detalle",ls_obs)
+	If ls_signo = 'D' &
+	Then
+	lc_sum_debitos = lc_sum_debitos + lc_valor
+	else
+	lc_sum_creditos = lc_sum_creditos + lc_valor	 
+	end if 
+next
+
+/*Actualizar la cabecera con los datos totales de debito y credito */
+lc_saldo = lc_sum_debitos - lc_sum_creditos
+lds_cabcom.SetItem(ll_newm,"cp_saldo",lc_saldo)
+lds_cabcom.SetItem(ll_newm,"cp_debito",lc_sum_debitos)
+lds_cabcom.SetItem(ll_newm,"cp_credito",lc_sum_creditos)
+
+/*Borrar  los registros que tengan valor del detalle */
+lds_detcom.AcceptText()
+ll_nreg = lds_detcom.RowCount()
+For i = 1 to  lds_detcom.RowCount()
+    lc_valor = lds_detcom.GetItemDecimal(i,"dt_valor")
+	 If lc_valor = 0 &
+	 Then 
+	 lds_detcom.DeleteRow(i)	
+	 i --
+	 End if	
+Next	
+
+/*Verificar que el asiento cuadre*/
+If lc_saldo <> 0 &
+Then
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","El Asiento no cuadra ~r~n No se contabilizar$$HEX1$$e100$$ENDHEX$$")
+Return -1
+End if
+
+/*Actualizar si el asiento cuadra*/
+If lds_cabcom.update(true,false) = 1 &
+Then
+     If lds_detcom.update(true,false) = 1&
+	 Then 
+	 lds_cabcom.resetupdate()
+	 lds_detcom.resetupdate()
+	 commit;
+    else	
+	 Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","No se realiz$$HEX2$$f3002000$$ENDHEX$$el asiento autom$$HEX1$$e100$$ENDHEX$$tico" +SQLCA.SQLERRTEXT,Exclamation!)
+	 rollback;
+	 Return -1
+    End if 
+else	 
+Rollback;
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Error al grabar el asiento" +SQLCA.SQLERRTEXT,Exclamation!)
+Return -1
+End if	
+
+Destroy lds_cabcom
+Destroy lds_detcom
+Return 1
+end function
+
