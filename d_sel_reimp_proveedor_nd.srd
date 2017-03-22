@@ -1,0 +1,19 @@
+HA$PBExportHeader$d_sel_reimp_proveedor_nd.srd
+$PBExportComments$Si. Seleccionar cliente de para reportes o consultas
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=160 color="536870912" )
+table(column=(type=char(10) updatewhereclause=no name=proveedor dbname="proveedor" )
+ column=(type=date updatewhereclause=no name=fec_ini dbname="fec_ini" initial="today" )
+ column=(type=date updatewhereclause=no name=fec_fin dbname="fec_fin" initial="today" )
+ )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="32" y="80" height="60" width="1371" format="cial_o_nombre"  name=proveedor dddw.name=d_dddw_proveedor dddw.displaycolumn=pv_razons dddw.datacolumn=pv_codigo dddw.percentwidth=150 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="1" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Proveedor:" border="0" color="0" x="32" y="4" height="56" width="293"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Desde" border="0" color="0" x="1490" y="4" height="52" width="146"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Hasta" border="0" color="0" x="1865" y="4" height="52" width="128"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=20 border="5" color="0" x="1499" y="80" height="56" width="334" format="dd/mm/yyyy"  name=fec_ini editmask.autoskip=yes editmask.mask="dd/mm/yyyy"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="2" tabsequence=30 border="5" color="0" x="1870" y="80" height="56" width="334" format="dd/mm/yyyy"  name=fec_fin editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

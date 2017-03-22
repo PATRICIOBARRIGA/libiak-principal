@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_sel_rep_pagos_proveedor.srd
+$PBExportComments$Si.
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=228 color="536870912" )
+table(column=(type=char(20) updatewhereclause=no name=pv_codigo dbname="pv_codigo" )
+ column=(type=date updatewhereclause=no name=fecha_ini dbname="fecha_ini" )
+ column=(type=date updatewhereclause=no name=fecha_fin dbname="fecha_fin" initial="today" )
+ column=(type=char(20) updatewhereclause=no name=tipo dbname="tipo" initial="T" values="Pendientes	P/Cancelados	C/Todos	T/" )
+ )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="1600" y="28" height="64" width="539" format="[general]"  name=tipo ddlb.limit=0 ddlb.allowedit=yes ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Pagos:" border="0" color="0" x="1413" y="32" height="56" width="151"  name=t_4  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="366" y="32" height="60" width="919" format="[general]"  name=pv_codigo dddw.name=d_dddw_proveedor dddw.displaycolumn=pv_razons dddw.datacolumn=pv_codigo dddw.percentwidth=180 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.nilisnull=yes dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Proveedor:" border="0" color="0" x="87" y="32" height="60" width="242"  name=t_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=2 alignment="0" tabsequence=30 border="5" color="0" x="361" y="132" height="56" width="270" format="[general]"  name=fecha_ini edit.name="DD/MM/YYYY" editmask.mask="DD/MM/YYYY" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=40 border="5" color="0" x="997" y="132" height="56" width="270" format="[general]"  name=fecha_fin edit.name="DD/MM/YYYY" editmask.mask="DD/MM/YYYY" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Hasta:" border="0" color="0" x="809" y="132" height="56" width="142"  name=t_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="0" text="Desde:" border="0" color="0" x="174" y="132" height="56" width="155"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

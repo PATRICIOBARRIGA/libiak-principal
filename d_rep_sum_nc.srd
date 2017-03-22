@@ -1,0 +1,45 @@
+HA$PBExportHeader$d_rep_sum_nc.srd
+$PBExportComments$Si.
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=fp_descri dbname="fa_formpag.fp_descri" )
+ column=(type=number updatewhereclause=yes name=compute_0002 dbname="compute_0002" )
+ retrieve="SELECT FP_DESCRI, SUM(CX_VALCRE)
+FROM CP_MOVIM X, CP_CRUCE Y, CP_PAGO Z, FA_FORMPAG F
+WHERE Z.FP_CODIGO = F.FP_CODIGO
+AND X.MP_CODIGO = Y.MP_CODIGO
+AND X.TV_CODIGO = Y.TV_CODIGO
+AND X.TV_TIPO = Y.TV_TIPO
+AND Y.EM_CODIGO = '1'
+AND Y.SU_CODIGO = '1'  
+AND Y.TV_TIPODEB = 'D'
+AND Y.TV_CODDEB = '2'
+and X.CO_FACPRO = :ra_cofacpro
+and X.PV_CODIGO = :ra_pvcodigo
+and Y.TV_CODDEB = Z.TV_CODIGO
+AND Y.TV_TIPODEB = Z.TV_TIPO
+AND Y.EM_CODIGO = Z.EM_CODIGO
+AND Y.SU_CODIGO = Z.SU_CODIGO
+AND Y.MP_CODDEB = Z.MP_CODIGO 
+GROUP BY F.FP_DESCRI
+
+
+" arguments=(("ra_cofacpro", string),("ra_pvcodigo", string)) )
+text(band=header alignment="0" text="Fa Formpag Fp Descri" border="0" color="0" x="9" y="4" height="76" width="585" html.valueishtml="0"  name=fa_formpag_fp_descri_t visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Compute 0002" border="0" color="33554432" x="603" y="4" height="56" width="338" html.valueishtml="0"  name=compute_0002_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="0" height="56" width="585" format="[general]" html.valueishtml="0"  name=fp_descri visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="603" y="0" height="56" width="338" format="[general]" html.valueishtml="0"  name=compute_0002 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0  template=(comment="" encoding="UTF-16LE" name="1" xml="<?xml version=~"1.0~" encoding=~"UTF-16LE~" standalone=~"no~"?><untitled><untitled_row __pbband=~"detail~"><cp_pago_fp_codigo/><compute_0002/></untitled_row></untitled>"))
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml( template=(comment="" name="1" xhtml="$$HEX1$$fffe$$ENDHEX$$<form name=~"d_rep_sum_nc_dataForm~"><div class=~"d_rep_sum_nc_band_0~"><div class=~"d_rep_sum_nc_fa_formpag_fp_descri_t~"/><div class=~"d_rep_sum_nc_compute_0002_t~"/><div class=~"d_rep_sum_nc_vr1_0~"/></div><div class=~"d_rep_sum_nc_detail_0~" __pbband=~"detail~"><input name=~"d_rep_sum_nc_fa_formpag_fp_descri~" type=~"text~" value=~"fp_descri~"/><input name=~"d_rep_sum_nc_compute_0002~" type=~"text~" value=~"compute_0002~"/></div></form>"))
+ 
