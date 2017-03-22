@@ -1,0 +1,10 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "desarrollo.pbl" "";
+@end;
+@begin Objects
+ "d_cabecera_venta_ce.srd" "desarrollo.pbl";
+ "w_factura_standard_funcionando.srw" "desarrollo.pbl";
+ "w_ventas_ce.srw" "desarrollo.pbl";
+ "w_factura_standard_ce.srw" "desarrollo.pbl";
+@end;
