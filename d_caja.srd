@@ -1,0 +1,76 @@
+HA$PBExportHeader$d_caja.srd
+$PBExportComments$Cajas del punto de venta
+release 10;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=676 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cj_caja dbname="fa_caja.cj_caja" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="fa_caja.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="fa_caja.su_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=cj_estado dbname="fa_caja.cj_estado" initial="L" values="Libre	L/En uso	U/Bloqueada	B/" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cj_feccam dbname="fa_caja.cj_feccam" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cj_minche dbname="fa_caja.cj_minche" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cj_maxche dbname="fa_caja.cj_maxche" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cj_vuelche dbname="fa_caja.cj_vuelche" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cj_mintar dbname="fa_caja.cj_mintar" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=cj_maxtar dbname="fa_caja.cj_maxtar" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=bo_codigo dbname="fa_caja.bo_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=cj_nombre dbname="fa_caja.cj_nombre" )
+ column=(type=number update=yes updatewhereclause=yes name=cj_ticket dbname="fa_caja.cj_ticket" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cj_fecanu dbname="fa_caja.cj_fecanu" )
+ retrieve="  SELECT ~"FA_CAJA~".~"CJ_CAJA~",   
+         ~"FA_CAJA~".~"EM_CODIGO~",   
+         ~"FA_CAJA~".~"SU_CODIGO~",   
+         ~"FA_CAJA~".~"CJ_ESTADO~",   
+         ~"FA_CAJA~".~"CJ_FECCAM~",   
+         ~"FA_CAJA~".~"CJ_MINCHE~",   
+         ~"FA_CAJA~".~"CJ_MAXCHE~",   
+         ~"FA_CAJA~".~"CJ_VUELCHE~",   
+         ~"FA_CAJA~".~"CJ_MINTAR~",   
+         ~"FA_CAJA~".~"CJ_MAXTAR~",   
+         ~"FA_CAJA~".~"BO_CODIGO~",   
+         ~"FA_CAJA~".~"CJ_NOMBRE~",   
+         ~"FA_CAJA~".~"CJ_TICKET~",   
+         ~"FA_CAJA~".~"CJ_FECANU~"  
+    FROM ~"FA_CAJA~"  
+   WHERE ( ~"FA_CAJA~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"FA_CAJA~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"FA_CAJA~".~"BO_CODIGO~" = :seccion )    
+" update="FA_CAJA" updatewhere=2 updatekeyinplace=yes arguments=(("empresa", string),("sucursal", string),("seccion", string)) )
+text(band=detail alignment="1" text="C$$HEX1$$f300$$ENDHEX$$digo:" border="0" color="0" x="46" y="32" height="56" width="165" html.valueishtml="0"  name=cj_caja_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Estado:" border="0" color="0" x="46" y="116" height="56" width="165" html.valueishtml="0"  name=cj_estado_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Caja Nombre:" border="0" color="0" x="1115" y="32" height="56" width="293" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Cambio Estado fue:" border="0" color="0" x="983" y="116" height="56" width="425" html.valueishtml="0"  name=cj_feccam_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=30 border="5" color="0" x="1435" y="116" height="56" width="411" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=cj_feccam visible="1" editmask.mask="dd/mm/yyyy hh:mm" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="0" tabsequence=20 border="5" color="0" x="1435" y="32" height="56" width="411" format="[general]" html.valueishtml="0"  name=cj_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="2" tabsequence=40 border="5" color="0" x="722" y="280" height="56" width="320" format="dd/mm/yyyy" html.valueishtml="0"  name=cj_fecanu visible="1" editmask.mask="dd/mm/yyyy"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Inicia numeraci$$HEX1$$f300$$ENDHEX$$n en:" border="0" color="0" x="1065" y="280" height="56" width="466" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=50 border="5" color="0" x="1559" y="280" height="56" width="421" format="[general]" html.valueishtml="0"  name=cj_ticket visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Control de facturas autorizadas por el SRI:" border="0" color="128" x="41" y="200" height="56" width="937" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="V$$HEX1$$e100$$ENDHEX$$lido para su emisi$$HEX1$$f300$$ENDHEX$$n hasta:" border="0" color="0" x="41" y="280" height="56" width="654" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Valores M$$HEX1$$ed00$$ENDHEX$$nimos que puede aceptar en:" border="0" color="128" x="41" y="360" height="56" width="873" html.valueishtml="0"  name=cj_minche_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Valores M$$HEX1$$e100$$ENDHEX$$ximo que puede aceptar en:" border="0" color="128" x="41" y="520" height="56" width="864" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Cheque:" border="0" color="0" x="41" y="440" height="56" width="183" html.valueishtml="0"  name=cj_mintar_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Tarjeta:" border="0" color="0" x="622" y="440" height="56" width="165" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=70 border="5" color="0" x="809" y="440" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=cj_mintar visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Cheque:" border="0" color="0" x="41" y="600" height="56" width="183" html.valueishtml="0"  name=cj_maxche_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=80 border="5" color="0" x="247" y="600" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=cj_maxche visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Tarjeta:" border="0" color="0" x="622" y="600" height="56" width="165" html.valueishtml="0"  name=cj_maxtar_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=90 border="5" color="0" x="809" y="600" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=cj_maxtar visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Vuelto cheques:" border="0" color="0" x="1184" y="600" height="56" width="361" html.valueishtml="0"  name=cj_vuelche_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=100 border="5" color="0" x="1568" y="600" height="56" width="283" format="#,##0.00" html.valueishtml="0"  name=cj_vuelche visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=60 border="5" color="0" x="247" y="440" height="56" width="343" format="#,##0.00" html.valueishtml="0"  name=cj_minche visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=10 border="5" color="0" x="247" y="116" height="56" width="421" format="[general]" html.valueishtml="0"  name=cj_estado visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.nilisnull=yes ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="247" y="32" height="56" width="192" format="[general]" html.valueishtml="0"  name=cj_caja visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16776960" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
