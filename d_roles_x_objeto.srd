@@ -1,0 +1,48 @@
+HA$PBExportHeader$d_roles_x_objeto.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=176 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=sg_menu_mn_codigo dbname="sg_menu.mn_codigo" )
+ column=(type=char(40) updatewhereclause=yes name=sg_menu_mn_opcion dbname="sg_menu.mn_opcion" )
+ column=(type=char(50) updatewhereclause=yes name=sg_menu_mn_nombre dbname="sg_menu.mn_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=sg_rol_rs_nombre dbname="sg_rol.rs_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=sg_acceso_sa_login dbname="sg_acceso.sa_login" )
+ retrieve="  SELECT ~"SG_MENU~".~"MN_CODIGO~",   
+         ~"SG_MENU~".~"MN_OPCION~",   
+         ~"SG_MENU~".~"MN_NOMBRE~",   
+         ~"SG_ROL~".~"RS_NOMBRE~",
+        ~"SG_ACCESO~".~"SA_LOGIN~"  
+    FROM ~"SG_MENU~",   
+         ~"SG_ROL~",   
+         ~"SG_ROLMENU~",
+         ~"SG_ACCESO~" 
+   WHERE ( ~"SG_MENU~".~"MN_CODIGO~" = ~"SG_ROLMENU~".~"MN_CODIGO~" ) and  
+         ( ~"SG_ROL~".~"RS_NOMBRE~" = ~"SG_ROLMENU~".~"RS_NOMBRE~" ) and  
+         ( ~"SG_ACCESO~".~"RS_NOMBRE~" = ~"SG_ROLMENU~".~"RS_NOMBRE~" ) and  
+         (~"SG_ROLMENU~".~"RM_HABILITADO~" <> 'N') and
+         ( ( upper(replace(~"SG_MENU~".~"MN_NOMBRE~",'&')) =:opcionmenu))
+" arguments=(("opcionmenu", string))  sort="sg_menu_mn_opcion A sg_rol_rs_nombre A sg_acceso_sa_login A " )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="68" width="302" format="[general]" html.valueishtml="0"  name=sg_menu_mn_codigo visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="320" y="8" height="68" width="878" format="[general]" html.valueishtml="0"  name=sg_menu_mn_opcion visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1207" y="8" height="68" width="421" format="[general]" html.valueishtml="0"  name=sg_menu_mn_nombre visible="1" edit.limit=50 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1637" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=sg_rol_rs_nombre visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="2126" y="8" height="68" width="480" format="[general]" html.valueishtml="0"  name=sg_acceso_sa_login visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="C$$HEX1$$f300$$ENDHEX$$digo" border="4" color="33554432" x="9" y="108" height="56" width="302" html.valueishtml="0"  name=sg_menu_mn_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nombre Objeto" border="4" color="33554432" x="320" y="108" height="56" width="878" html.valueishtml="0"  name=sg_menu_mn_opcion_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Men$$HEX1$$fa00$$ENDHEX$$" border="4" color="33554432" x="1207" y="108" height="56" width="421" html.valueishtml="0"  name=sg_menu_mn_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Rol" border="4" color="33554432" x="1637" y="108" height="56" width="480" html.valueishtml="0"  name=sg_rol_rs_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Sa Login" border="4" color="33554432" x="2126" y="108" height="56" width="480" html.valueishtml="0"  name=sg_acceso_sa_login_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

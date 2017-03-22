@@ -1,0 +1,45 @@
+HA$PBExportHeader$d_habilitar_opciones_menu.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=120 color="536870912" )
+summary(height=56 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=mn_padre dbname="sg_menu.mn_padre" )
+ column=(type=char(50) updatewhereclause=yes name=mn_nombre dbname="sg_menu.mn_nombre" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=mn_codigo dbname="sg_rolmenu.mn_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=sg_rolmenu_rs_nombre dbname="sg_rolmenu.rs_nombre" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=rm_habilitado dbname="sg_rolmenu.rm_habilitado" )
+ column=(type=number updatewhereclause=yes name=largo dbname="largo" )
+ retrieve="SELECT ~"SG_MENU~".~"MN_PADRE~",   
+         ~"SG_MENU~".~"MN_NOMBRE~",   
+         ~"SG_ROLMENU~".~"MN_CODIGO~",   
+         ~"SG_ROLMENU~".~"RS_NOMBRE~",   
+         ~"SG_ROLMENU~".~"RM_HABILITADO~",
+         LENGTH(NVL(~"SG_MENU~".~"MN_PADRE~",0)) largo
+    FROM ~"SG_MENU~",   
+         ~"SG_ROLMENU~"  
+   WHERE ( ~"SG_MENU~".~"MN_CODIGO~" = ~"SG_ROLMENU~".~"MN_CODIGO~" ) and  
+         ( ( ~"SG_ROLMENU~".~"RS_NOMBRE~" = :ROL ) )" update="SG_ROLMENU" updatewhere=1 updatekeyinplace=yes arguments=(("ROL", string))  sort="number(mn_codigo) A " )
+text(band=header alignment="2" text="Sg Menu
+Mn Nombre" border="0" color="33554432" x="841" y="4" height="112" width="1166" html.valueishtml="0"  name=sg_menures_mn_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sg Rolmenu
+Mn Codigo" border="0" color="33554432" x="2011" y="4" height="112" width="480" html.valueishtml="0"  name=sg_rolmenures_mn_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sg Rolmenu
+Rs Nombre" border="0" color="33554432" x="2496" y="4" height="112" width="480" html.valueishtml="0"  name=sg_rolmenures_rs_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sg Rolmenu
+Rm Habilitado" border="0" color="33554432" x="503" y="4" height="112" width="334" html.valueishtml="0"  name=sg_rolmenures_rm_habilitado_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sg Menu
+Mn Padre" border="0" color="33554432" x="18" y="4" height="112" width="480" html.valueishtml="0"  name=sg_menures_mn_padre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="2999" y="12" height="56" width="78" format="[general]" html.valueishtml="0"  name=largo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="min(  largo  for all )"border="0" color="33554432" x="3104" y="12" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=ccc_min visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="841" y="12" height="56" width="1152" format="[general]" html.valueishtml="0"  name=mn_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="2011" y="12" height="56" width="462" format="[general]" html.valueishtml="0"  name=mn_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="2496" y="12" height="56" width="462" format="[general]" html.valueishtml="0"  name=sg_rolmenu_rs_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="635" y="12" height="56" width="50" format="[general]" html.valueishtml="0"  name=rm_habilitado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="18" y="12" height="56" width="462" format="[general]" html.valueishtml="0"  name=mn_padre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

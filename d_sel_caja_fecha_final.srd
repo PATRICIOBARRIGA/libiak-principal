@@ -1,0 +1,19 @@
+HA$PBExportHeader$d_sel_caja_fecha_final.srd
+$PBExportComments$Seleccionar una caja con fecha final
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=164 color="536870912" )
+table(column=(type=char(20) updatewhereclause=no name=cajero dbname="cajero" )
+ column=(type=date updatewhereclause=no name=fecha dbname="fecha" initial="today" )
+ column=(type=char(20) updatewhereclause=no name=caja dbname="caja" )
+ )
+column(band=detail id=3 alignment="0" tabsequence=10 border="5" color="0" x="242" y="52" height="56" width="379" format="[general]"  name=caja dddw.name=d_dddw_caja dddw.displaycolumn=cj_nombre dddw.datacolumn=cj_caja dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=20 border="5" color="0" x="873" y="52" height="56" width="613" format="[general]"  name=cajero dddw.name=d_dddw_cajero dddw.displaycolumn=cajero dddw.datacolumn=ep_codigo dddw.percentwidth=140 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="2" tabsequence=30 border="5" color="0" x="1934" y="52" height="56" width="311" format="[general]"  name=fecha editmask.mask="dd/mm/yyyy"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text="Caja:" border="0" color="0" x="101" y="52" height="56" width="119"  name=t_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Cajero:" border="0" color="0" x="672" y="52" height="56" width="178"  name=cajero_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Procesar Hasta:" border="0" color="0" x="1513" y="52" height="56" width="393"  name=fecha_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

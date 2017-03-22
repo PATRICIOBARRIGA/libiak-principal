@@ -1,0 +1,94 @@
+HA$PBExportHeader$d_iva_sri_ventas_a_tabla.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(2) update=yes updatewhereclause=yes name=tpidcliente dbname="sri_ventas.tpidcliente" )
+ column=(type=char(13) update=yes updatewhereclause=yes key=yes name=idcliente dbname="sri_ventas.idcliente" )
+ column=(type=char(2) update=yes updatewhereclause=yes key=yes name=tipocomprobante dbname="sri_ventas.tipocomprobante" )
+ column=(type=char(10) update=yes updatewhereclause=yes key=yes name=fecharegistro dbname="sri_ventas.fecharegistro" )
+ column=(type=char(12) update=yes updatewhereclause=yes name=numcomprob dbname="sri_ventas.numcomprob" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=fechaemision dbname="sri_ventas.fechaemision" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=baseimponible dbname="sri_ventas.baseimponible" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=ivapresuntivo dbname="sri_ventas.ivapresuntivo" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=baseimpgrav dbname="sri_ventas.baseimpgrav" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=porcentajeiva dbname="sri_ventas.porcentajeiva" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=montoiva dbname="sri_ventas.montoiva" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=baseimpice dbname="sri_ventas.baseimpice" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=porcentajeice dbname="sri_ventas.porcentajeice" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=montoice dbname="sri_ventas.montoice" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=montoivabienes dbname="sri_ventas.montoivabienes" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=porretbienes dbname="sri_ventas.porretbienes" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=valorretbienes dbname="sri_ventas.valorretbienes" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=montoivaservicios dbname="sri_ventas.montoivaservicios" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=porretservicios dbname="sri_ventas.porretservicios" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=valorretservicios dbname="sri_ventas.valorretservicios" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=retpresuntiva dbname="sri_ventas.retpresuntiva" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=codretair dbname="sri_ventas.codretair" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=baseimpair dbname="sri_ventas.baseimpair" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=porcentajeair dbname="sri_ventas.porcentajeair" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=valretair dbname="sri_ventas.valretair" )
+ retrieve="  SELECT ~"SRI_VENTAS~".~"TPIDCLIENTE~" ,
+         ~"SRI_VENTAS~".~"IDCLIENTE~" ,
+         ~"SRI_VENTAS~".~"TIPOCOMPROBANTE~" ,
+         ~"SRI_VENTAS~".~"FECHAREGISTRO~" ,
+         ~"SRI_VENTAS~".~"NUMCOMPROB~" ,
+         ~"SRI_VENTAS~".~"FECHAEMISION~" ,
+         ~"SRI_VENTAS~".~"BASEIMPONIBLE~" ,
+         ~"SRI_VENTAS~".~"IVAPRESUNTIVO~" ,
+         ~"SRI_VENTAS~".~"BASEIMPGRAV~" ,
+         ~"SRI_VENTAS~".~"PORCENTAJEIVA~" ,
+         ~"SRI_VENTAS~".~"MONTOIVA~" ,
+         ~"SRI_VENTAS~".~"BASEIMPICE~" ,
+         ~"SRI_VENTAS~".~"PORCENTAJEICE~" ,
+         ~"SRI_VENTAS~".~"MONTOICE~" ,
+         ~"SRI_VENTAS~".~"MONTOIVABIENES~" ,
+         ~"SRI_VENTAS~".~"PORRETBIENES~" ,
+         ~"SRI_VENTAS~".~"VALORRETBIENES~" ,
+         ~"SRI_VENTAS~".~"MONTOIVASERVICIOS~" ,
+         ~"SRI_VENTAS~".~"PORRETSERVICIOS~" ,
+         ~"SRI_VENTAS~".~"VALORRETSERVICIOS~" ,
+         ~"SRI_VENTAS~".~"RETPRESUNTIVA~" ,
+         ~"SRI_VENTAS~".~"CODRETAIR~" ,
+         ~"SRI_VENTAS~".~"BASEIMPAIR~" ,
+         ~"SRI_VENTAS~".~"PORCENTAJEAIR~" ,
+         ~"SRI_VENTAS~".~"VALRETAIR~" 
+    FROM ~"SRI_VENTAS~"   
+" update="SRI_VENTAS" updatewhere=1 updatekeyinplace=yes )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="33554432" x="9" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=tpidcliente visible="1" edit.limit=2 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="33554432" x="128" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=idcliente visible="1" edit.limit=13 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="33554432" x="247" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=tipocomprobante visible="1" edit.limit=2 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="0" color="33554432" x="366" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=fecharegistro visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="0" color="33554432" x="603" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=fechaemision visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=70 border="0" color="33554432" x="722" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=baseimponible visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="0" color="33554432" x="841" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=ivapresuntivo visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=90 border="0" color="33554432" x="960" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=baseimpgrav visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=100 border="0" color="33554432" x="1079" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=porcentajeiva visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=110 border="0" color="33554432" x="1198" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=montoiva visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=120 border="0" color="33554432" x="1317" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=baseimpice visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=130 border="0" color="33554432" x="1435" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=porcentajeice visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=140 border="0" color="33554432" x="1554" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=montoice visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="1" tabsequence=150 border="0" color="33554432" x="1673" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=montoivabienes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="1" tabsequence=160 border="0" color="33554432" x="1792" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=porretbienes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="1" tabsequence=170 border="0" color="33554432" x="1911" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=valorretbienes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="1" tabsequence=180 border="0" color="33554432" x="2034" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=montoivaservicios visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="1" tabsequence=190 border="0" color="33554432" x="2153" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=porretservicios visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="1" tabsequence=200 border="0" color="33554432" x="2272" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=valorretservicios visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="0" tabsequence=210 border="0" color="33554432" x="2391" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=retpresuntiva visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="0" tabsequence=220 border="0" color="33554432" x="2510" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=codretair visible="1" edit.limit=5 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="1" tabsequence=230 border="0" color="33554432" x="2629" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=baseimpair visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="1" tabsequence=240 border="0" color="33554432" x="2747" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=porcentajeair visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="1" tabsequence=250 border="0" color="33554432" x="2866" y="4" height="56" width="96" format="[General]" html.valueishtml="0"  name=valretair visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=260 border="0" color="33554432" x="480" y="4" height="56" width="105" format="[general]" html.valueishtml="0"  name=numcomprob visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
