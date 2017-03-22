@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_recrago_producto.srd
+$PBExportComments$Recargops a productos de una empresa
+release 5;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=85 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=it_codigo dbname="in_recargo.it_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=em_codigo dbname="in_recargo.em_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=su_codigo dbname="in_recargo.su_codigo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=re_fecha dbname="in_recargo.re_fecha" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=re_valor dbname="in_recargo.re_valor" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=estado dbname="in_recargo.estado" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_recargo~" ) COLUMN(NAME=~"in_recargo.it_codigo~") COLUMN(NAME=~"in_recargo.em_codigo~") COLUMN(NAME=~"in_recargo.su_codigo~") COLUMN(NAME=~"in_recargo.re_fecha~") COLUMN(NAME=~"in_recargo.re_valor~") COLUMN(NAME=~"in_recargo.estado~")WHERE(    EXP1 =~"~~~"IN_RECARGO~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_RECARGO~~~".~~~"IT_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":item~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"item~" TYPE = string) " update="IN_RECARGO" updatewhere=1 updatekeyinplace=yes arguments=(("empresa", string),("item", string)) )
+text(band=header alignment="2" text="Fecha"border="0" color="128" x="1546" y="8" height="57" width="138"  name=re_fecha_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="Sucursal"border="0" color="128" x="627" y="8" height="57" width="197"  name=su_codigo_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="Valor recargo"border="0" color="128" x="1098" y="8" height="57" width="307"  name=re_valor_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+line(band=header x1="412" y1="76" x2="1829" y2="76" pen.style="0" pen.width="10" pen.color="128"  background.mode="2" background.color="12632256" )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="1450" y="8" height="57" width="330" format="[general]"  name=re_fecha  tag="Fecha en la que modifica el recargo" edit.name="DD/MM/YYYY" editmask.mask="DD/MM/YYYY" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=10 border="5" color="0" x="417" y="8" height="57" width="613" format="[general]"  name=su_codigo  tag="Seleccione la sucursal a en la que se recarga el precio" dddw.name=d_dddw_sucursal dddw.displaycolumn=su_nombre dddw.datacolumn=su_codigo dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.nilisnull=yes dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="1" tabsequence=30 border="5" color="0" x="1084" y="8" height="57" width="330" format="#,##0"  name=re_valor  tag="Valor que se recarga el precio del producto" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
