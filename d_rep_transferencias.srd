@@ -1,0 +1,81 @@
+HA$PBExportHeader$d_rep_transferencias.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=120 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=in_transfer_su_codenv dbname="in_transfer.su_codenv" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_bo_codenv dbname="in_transfer.bo_codenv" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_su_codigo dbname="in_transfer.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_bo_codigo dbname="in_transfer.bo_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_tf_ticket dbname="in_transfer.tf_ticket" )
+ column=(type=char(20) updatewhereclause=yes name=in_transfer_tf_numero dbname="in_transfer.tf_numero" )
+ column=(type=datetime updatewhereclause=yes name=in_transfer_tf_fecha dbname="in_transfer.tf_fecha" )
+ column=(type=datetime updatewhereclause=yes name=in_transfer_tf_hora dbname="in_transfer.tf_hora" )
+ column=(type=char(1) updatewhereclause=yes name=in_transfer_tf_aceptada dbname="in_transfer.tf_aceptada" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_dettrans_df_cantid dbname="in_dettrans.df_cantid" )
+ column=(type=decimal(4) updatewhereclause=yes name=in_dettrans_df_costo dbname="in_dettrans.df_costo" )
+ column=(type=char(20) updatewhereclause=yes name=in_item_it_codant dbname="in_item.it_codant" )
+ column=(type=char(50) updatewhereclause=yes name=in_item_it_nombre dbname="in_item.it_nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_dettrans~" )  TABLE(NAME=~"in_item~" )  TABLE(NAME=~"in_transfer~" ) COLUMN(NAME=~"in_transfer.su_codenv~") COLUMN(NAME=~"in_transfer.bo_codenv~") COLUMN(NAME=~"in_transfer.su_codigo~") COLUMN(NAME=~"in_transfer.bo_codigo~") COLUMN(NAME=~"in_transfer.tf_ticket~") COLUMN(NAME=~"in_transfer.tf_numero~") COLUMN(NAME=~"in_transfer.tf_fecha~") COLUMN(NAME=~"in_transfer.tf_hora~") COLUMN(NAME=~"in_transfer.tf_aceptada~") COLUMN(NAME=~"in_dettrans.df_cantid~") COLUMN(NAME=~"in_dettrans.df_costo~") COLUMN(NAME=~"in_item.it_codant~") COLUMN(NAME=~"in_item.it_nombre~")    JOIN (LEFT=~"in_transfer.em_codigo~"    OP =~"=~"RIGHT=~"in_dettrans.em_codigo~" )    JOIN (LEFT=~"in_transfer.su_codenv~"    OP =~"=~"RIGHT=~"in_dettrans.su_codenv~" )    JOIN (LEFT=~"in_transfer.bo_codenv~"    OP =~"=~"RIGHT=~"in_dettrans.bo_codenv~" )    JOIN (LEFT=~"in_transfer.su_codigo~"    OP =~"=~"RIGHT=~"in_dettrans.su_codigo~" )    JOIN (LEFT=~"in_transfer.bo_codigo~"    OP =~"=~"RIGHT=~"in_dettrans.bo_codigo~" )    JOIN (LEFT=~"in_transfer.tf_ticket~"    OP =~"=~"RIGHT=~"in_dettrans.tf_ticket~" )    JOIN (LEFT=~"in_item.it_codigo~"    OP =~"=~"RIGHT=~"in_dettrans.it_codigo~" )WHERE(    EXP1 =~"( ( ~~~"IN_TRANSFER~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~"1 )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( TRUNC(~~~"IN_TRANSFER~~~".~~~"TF_FECHA~~~")~"   OP =~"between~"    EXP2 =~"'01-JAN-08' and '31-JAN-08' ) )~" ) ) " )
+text(band=header alignment="2" text="In Transfer
+Su Codenv" border="0" color="33554432" x="5" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_su_codenv_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Bo Codenv" border="0" color="33554432" x="489" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_bo_codenv_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Su Codigo" border="0" color="33554432" x="974" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_su_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Bo Codigo" border="0" color="33554432" x="1458" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_bo_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_su_codenv visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="489" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_bo_codenv visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="974" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_su_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1458" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_bo_codigo visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Tf Ticket" border="0" color="33554432" x="1970" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_tf_ticket_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Tf Numero" border="0" color="33554432" x="2455" y="4" height="112" width="480" html.valueishtml="0"  name=in_transfer_tf_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Tf Fecha" border="0" color="33554432" x="2939" y="4" height="112" width="503" html.valueishtml="0"  name=in_transfer_tf_fecha_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Tf Hora" border="0" color="33554432" x="3447" y="4" height="112" width="503" html.valueishtml="0"  name=in_transfer_tf_hora_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Transfer
+Tf Aceptada" border="0" color="33554432" x="3959" y="4" height="112" width="270" html.valueishtml="0"  name=in_transfer_tf_aceptada_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Dettrans
+Df Cantid" border="0" color="33554432" x="4238" y="4" height="112" width="274" html.valueishtml="0"  name=in_dettrans_df_cantid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Dettrans
+Df Costo" border="0" color="33554432" x="4517" y="4" height="112" width="274" html.valueishtml="0"  name=in_dettrans_df_costo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Numero" border="0" color="33554432" x="4795" y="4" height="112" width="480" html.valueishtml="0"  name=in_movim_mv_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Ve Numero" border="0" color="33554432" x="5280" y="4" height="112" width="274" html.valueishtml="0"  name=in_movim_ve_numero_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Costprom" border="0" color="33554432" x="5559" y="4" height="112" width="288" html.valueishtml="0"  name=in_movim_mv_costprom_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Costtrans" border="0" color="33554432" x="5851" y="4" height="112" width="293" html.valueishtml="0"  name=in_movim_mv_costtrans_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Movim
+Mv Costo" border="0" color="33554432" x="6149" y="4" height="112" width="274" html.valueishtml="0"  name=in_movim_mv_costo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Item
+It Codant" border="0" color="33554432" x="6427" y="4" height="112" width="480" html.valueishtml="0"  name=in_item_it_codant_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="In Item
+It Nombre" border="0" color="33554432" x="6912" y="4" height="112" width="1166" html.valueishtml="0"  name=in_item_it_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1970" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_tf_ticket visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="2455" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_transfer_tf_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="2939" y="4" height="68" width="503" format="[shortdate] [time]" html.valueishtml="0"  name=in_transfer_tf_fecha visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="3447" y="4" height="68" width="503" format="[shortdate] [time]" html.valueishtml="0"  name=in_transfer_tf_hora visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="3959" y="4" height="68" width="46" format="[general]" html.valueishtml="0"  name=in_transfer_tf_aceptada visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="4238" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_dettrans_df_cantid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="33554432" x="4517" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_dettrans_df_costo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="6427" y="4" height="68" width="480" format="[general]" html.valueishtml="0"  name=in_item_it_codant visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="6912" y="4" height="68" width="1166" format="[general]" html.valueishtml="0"  name=in_item_it_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

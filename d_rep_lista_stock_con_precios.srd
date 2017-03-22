@@ -1,0 +1,103 @@
+HA$PBExportHeader$d_rep_lista_stock_con_precios.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=472 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=nombre_item dbname="in_item.it_nombre" )
+ column=(type=decimal(2) updatewhereclause=yes name=in_item_it_prefab dbname="in_item.it_prefab" )
+ column=(type=decimal(3) updatewhereclause=yes name=stockxbodega dbname="in_itebod.ib_stock" )
+ column=(type=char(20) updatewhereclause=yes name=codigo_item dbname="in_item.it_codant" )
+ column=(type=decimal(3) updatewhereclause=yes name=stockxsucursal dbname="in_itesucur.it_stock" )
+ column=(type=char(20) updatewhereclause=yes name=clase dbname="in_item.cl_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=nombre_clase dbname="in_clase.cl_descri" )
+ column=(type=char(50) updatewhereclause=yes name=pr_empre_em_nombre dbname="pr_empre.em_nombre" )
+ column=(type=char(50) updatewhereclause=yes name=pr_sucur_su_nombre dbname="pr_sucur.su_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=bo_codigo dbname="in_bode.bo_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=in_bode_bo_nombre dbname="in_bode.bo_nombre" )
+ column=(type=char(20) updatewhereclause=yes name=fb_codigo dbname="in_fabricante.fb_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=in_fabricante_fb_nombre dbname="in_fabricante.fb_nombre" )
+ retrieve="  SELECT ~"IN_ITEM~".~"IT_NOMBRE~", 
+         ~"IN_ITEM~".~"IT_PREFAB~",
+         ~"IN_ITEBOD~".~"IB_STOCK~",   
+         ~"IN_ITEM~".~"IT_CODANT~",   
+         ~"IN_ITESUCUR~".~"IT_STOCK~",
+         ~"IN_ITEM~".~"CL_CODIGO~",   
+         ~"IN_CLASE_B~".~"CL_DESCRI~",   
+         ~"PR_EMPRE~".~"EM_NOMBRE~",   
+         ~"PR_SUCUR~".~"SU_NOMBRE~",  
+         ~"IN_BODE~".~"BO_CODIGO~",    
+         ~"IN_BODE~".~"BO_NOMBRE~",   
+         ~"IN_FABRICANTE~".~"FB_CODIGO~",   
+         ~"IN_FABRICANTE~".~"FB_NOMBRE~"  
+    FROM ~"IN_ITEBOD~",   
+         ~"IN_ITEM~",   
+         ~"IN_ITESUCUR~",   
+         ~"IN_CLASE~" ~"IN_CLASE_A~",   
+         ~"IN_CLASE~" ~"IN_CLASE_B~",   
+         ~"PR_EMPRE~",   
+         ~"PR_SUCUR~",   
+         ~"IN_BODE~",   
+         ~"IN_FABRICANTE~"  
+   WHERE ( ~"IN_ITEM~".~"IT_CODIGO~" = ~"IN_ITEBOD~".~"IT_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"EM_CODIGO~" = ~"IN_ITESUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEBOD~".~"IT_CODIGO~" = ~"IN_ITESUCUR~".~"IT_CODIGO~" ) and  
+         ( ~"IN_ITESUCUR~".~"IT_CODIGO~" = ~"IN_ITEM~".~"IT_CODIGO~" ) and  
+         ( ~"IN_ITEBOD~".~"EM_CODIGO~" = ~"IN_ITESUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEBOD~".~"SU_CODIGO~" = ~"IN_ITESUCUR~".~"SU_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"CL_CODIGO~" = ~"IN_CLASE_A~".~"CL_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"EM_CODIGO~" = ~"IN_CLASE_A~".~"EM_CODIGO~" ) and  
+         ( ~"IN_CLASE_A~".~"EM_CODIGO~" = ~"IN_CLASE_B~".~"EM_CODIGO~" ) and  
+         ( ~"IN_CLASE_A~".~"CL_CODPAD~" = ~"IN_CLASE_B~".~"CL_CODIGO~" ) and  
+         ( ~"PR_EMPRE~".~"EM_CODIGO~" = ~"IN_ITESUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"EM_CODIGO~" = ~"IN_ITESUCUR~".~"EM_CODIGO~" ) and  
+         ( ~"PR_SUCUR~".~"SU_CODIGO~" = ~"IN_ITESUCUR~".~"SU_CODIGO~" ) and  
+         ( ~"IN_BODE~".~"EM_CODIGO~" = ~"IN_ITEBOD~".~"EM_CODIGO~" ) and  
+         ( ~"IN_BODE~".~"SU_CODIGO~" = ~"IN_ITEBOD~".~"SU_CODIGO~" ) and  
+         ( ~"IN_BODE~".~"BO_CODIGO~" = ~"IN_ITEBOD~".~"BO_CODIGO~" ) and  
+         ( ~"PR_EMPRE~".~"EM_CODIGO~" = ~"IN_FABRICANTE~".~"EM_CODIGO~" ) and  
+         ( ~"IN_ITEM~".~"FB_CODIGO~" = ~"IN_FABRICANTE~".~"FB_CODIGO~" ) and  
+         ( ( ~"IN_ITEBOD~".~"EM_CODIGO~" = :empresa ) AND  
+         ( ~"IN_ITEBOD~".~"SU_CODIGO~" = :sucursal ) AND  
+         ( ~"IN_ITEBOD~".~"BO_CODIGO~" = :bodega ) AND  
+         ( ~"IN_ITEM~".~"IT_KIT~" <> 'S' ) )    
+
+" filter=" stockxbodega > 0"arguments=(("empresa", string),("sucursal", string),("bodega", string))  sort="left(clase,2) A codigo_item A " )
+group(level=1 header.height=0 trailer.height=0 by=("left(clase,2)" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="C$$HEX1$$f300$$ENDHEX$$digo" border="0" color="0" x="5" y="396" height="56" width="407" html.valueishtml="0"  name=in_itebod_it_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Producto" border="0" color="0" x="416" y="396" height="56" width="1637" html.valueishtml="0"  name=in_item_it_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Reporte de Stocks de Productos" border="0" color="0" x="9" y="268" height="80" width="1152" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=11 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="180" height="76" width="1152" format="[general]" html.valueishtml="0"  name=in_bode_bo_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=9 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="96" height="72" width="1152" format="[general]" html.valueishtml="0"  name=pr_sucur_su_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=8 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="12" height="72" width="1152" format="[general]" html.valueishtml="0"  name=pr_empre_em_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'P$$HEX1$$e100$$ENDHEX$$gina ' + page() + ' de ' + pageCount()"border="0" color="0" x="1966" y="88" height="68" width="599" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="'Fecha de impresi$$HEX1$$f300$$ENDHEX$$n: '+string(today(),'dd/mm/yyyy hh:mm')"border="0" color="0" x="1659" y="12" height="64" width="905" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=7 alignment="0" tabsequence=32766 border="0" color="0" x="494" y="8" height="56" width="1152" format="[general]" html.valueishtml="0"  name=nombre_clase visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Departamento:" border="0" color="0" x="0" y="8" height="56" width="370" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header.1 alignment="0" expression="left( clase ,2)"border="0" color="0" x="393" y="8" height="56" width="78" format="[GENERAL]" html.valueishtml="0"  name=cc_coddepart visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="60" width="407" format="[general]" html.valueishtml="0"  name=codigo_item visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="434" y="4" height="60" width="1614" format="[general]" html.valueishtml="0"  name=nombre_item visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=0 border="0" color="0" x="2565" y="4" height="60" width="334" html.valueishtml="0"  name=in_item_it_prefab visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" in_item_it_prefab *1.12"border="0" color="0" x="2912" y="8" height="56" width="283" format="#,##0.00" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="( in_item_it_prefab *1.12)*0.95"border="0" color="0" x="3218" y="8" height="56" width="229" format="#,##0.00" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="PVP" border="0" color="0" x="2715" y="392" height="56" width="101" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="PVP + IVA" border="0" color="0" x="2926" y="392" height="56" width="242" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="0" y1="380" x2="3429" y2="380"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header x1="0" y1="468" x2="3429" y2="468"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="EFECTIVO" border="0" color="0" x="3205" y="392" height="56" width="238" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="2075" y="4" height="60" width="224" format="[general]" html.valueishtml="0"  name=stockxsucursal visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="2327" y="4" height="60" width="224" format="[general]" html.valueishtml="0"  name=stockxbodega visible="0" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sucursal" border="0" color="0" x="2075" y="396" height="56" width="224" html.valueishtml="0"  name=in_itebod_ib_stock_t visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Bodega" border="0" color="0" x="2327" y="396" height="56" width="224" html.valueishtml="0"  name=t_1 visible="0"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 
