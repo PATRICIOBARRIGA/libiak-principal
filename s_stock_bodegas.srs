@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_stock_bodegas.srs
+global type s_stock_bodegas from structure
+	string		bodega[]
+	decimal {3}	stock[]
+	integer		numero_bodegas
+end type
+

@@ -1,0 +1,15 @@
+HA$PBExportHeader$s_mov_credito.srs
+global type s_mov_credito from structure
+	string		pvcodigo
+	string		facprov
+	decimal { 2 }		total_factura
+	decimal { 0 }		conumero
+	string		eccodigo
+	string		corucsuc
+	datetime		cofecha
+	string		mp_codigo
+	decimal { 2 }		neto
+	decimal { 2 }		transporte
+	string		fpcodigo
+end type
+

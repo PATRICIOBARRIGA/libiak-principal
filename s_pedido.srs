@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_pedido.srs
+global type s_pedido from structure
+	string		codant
+	long		cantidad
+end type
+

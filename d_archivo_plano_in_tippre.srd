@@ -1,0 +1,37 @@
+HA$PBExportHeader$d_archivo_plano_in_tippre.srd
+$PBExportComments$si.
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=td_codigo dbname="in_tippre.td_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=em_codigo dbname="in_tippre.em_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=td_descri dbname="in_tippre.td_descri" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=td_desc1 dbname="in_tippre.td_desc1" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=td_desc2 dbname="in_tippre.td_desc2" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=td_desc3 dbname="in_tippre.td_desc3" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=td_vigente dbname="in_tippre.td_vigente" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=td_modulo dbname="in_tippre.td_modulo" )
+ retrieve="  SELECT ~"IN_TIPPRE~".~"TD_CODIGO~",   
+         ~"IN_TIPPRE~".~"EM_CODIGO~",   
+         ~"IN_TIPPRE~".~"TD_DESCRI~",   
+         ~"IN_TIPPRE~".~"TD_DESC1~",   
+         ~"IN_TIPPRE~".~"TD_DESC2~",   
+         ~"IN_TIPPRE~".~"TD_DESC3~",   
+         ~"IN_TIPPRE~".~"TD_VIGENTE~",   
+         ~"IN_TIPPRE~".~"TD_MODULO~"  
+    FROM ~"IN_TIPPRE~"  
+   WHERE ~"IN_TIPPRE~".~"EM_CODIGO~" = :empresa   
+            
+" update="IN_TIPPRE" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string)) )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="5" y="4" height="56" width="576" format="[general]"  name=td_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=40 border="0" color="0" x="2569" y="4" height="56" width="334" format="[general]"  name=td_desc1 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=50 border="0" color="0" x="2907" y="4" height="56" width="329" format="[general]"  name=td_desc2 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=60 border="0" color="0" x="3241" y="4" height="56" width="329" format="[general]"  name=td_desc3 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="0" color="0" x="3575" y="4" height="56" width="55" format="[general]"  name=td_vigente edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="0" color="0" x="3863" y="4" height="56" width="169" format="[general]"  name=td_modulo edit.limit=5 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="585" y="4" height="56" width="576" format="[general]"  name=em_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="1166" y="4" height="56" width="1399" format="[general]"  name=td_descri edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

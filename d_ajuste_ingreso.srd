@@ -1,0 +1,43 @@
+HA$PBExportHeader$d_ajuste_ingreso.srd
+$PBExportComments$si.
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes key=yes name=in_ajuste_em_codigo dbname="in_ajuste.em_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_ajuste_su_codigo dbname="in_ajuste.su_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_ajuste_bo_codigo dbname="in_ajuste.bo_codigo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_ajuste_aj_numero dbname="in_ajuste.aj_numero" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_ajuste_tm_codigo dbname="in_ajuste.tm_codigo" )
+ column=(type=char(1) updatewhereclause=yes key=yes name=in_ajuste_tm_ioe dbname="in_ajuste.tm_ioe" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_ajuste_da_secuen dbname="in_ajuste.da_secuen" )
+ column=(type=decimal(3) updatewhereclause=yes name=in_ajuste_da_cantidad dbname="in_ajuste.da_cantidad" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=in_ajuste_it_codigo dbname="in_ajuste.it_codigo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=in_ajuste_da_estado dbname="in_ajuste.da_estado" )
+ retrieve="select d.em_codigo,d.su_codigo,d.bo_codigo,d.aj_numero,d.tm_codigo,d.tm_ioe,d.da_secuen,d.da_cantidad,d.it_codigo,d.da_estado
+from in_cabajus c,in_ajuste d
+where c.em_codigo = d.em_codigo
+and c.su_codigo = d.su_codigo
+and c.bo_codigo = d.bo_codigo
+and c.aj_numero = d.aj_numero
+and c.tm_codigo = d.tm_codigo
+and c.tm_ioe = d.tm_ioe
+and d.em_codigo = :empresa
+and d.su_codigo = :sucursal
+and d.bo_codigo = :seccion
+and d.tm_codigo = 3
+and d.tm_ioe = 'I'
+and c.aj_estado = 'N'
+and d.da_estado = 'S'
+" update="in_ajuste" updatewhere=1 updatekeyinplace=yes arguments=(("empresa", string),("sucursal", string),("seccion", string))  sort="number(in_ajuste_aj_numero) A " )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="68" width="375" format="[general]" html.valueishtml="0"  name=in_ajuste_aj_numero visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="398" y="4" height="68" width="274" format="[general]" html.valueishtml="0"  name=in_ajuste_da_cantidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="690" y="4" height="68" width="343" format="[general]" html.valueishtml="0"  name=in_ajuste_it_codigo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="1047" y="4" height="68" width="59" format="[general]" html.valueishtml="0"  name=in_ajuste_da_estado visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="1129" y="4" height="68" width="160" format="[general]" html.valueishtml="0"  name=in_ajuste_da_secuen visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

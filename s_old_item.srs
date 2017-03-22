@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_old_item.srs
+global type s_old_item from structure
+	string		codant
+	decimal {3}	cantid
+end type
+

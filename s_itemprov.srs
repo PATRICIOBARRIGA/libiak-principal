@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_itemprov.srs
+global type s_itemprov from structure
+	string		it_codigo
+	string		co_facpro
+end type
+

@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_kit.srs
+global type s_kit from structure
+	string		codigo
+	decimal {0}	cantidad
+end type
+

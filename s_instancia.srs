@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_instancia.srs
+global type s_instancia from structure
+	string		instancia
+	string		usuario
+	string		clave
+end type
+

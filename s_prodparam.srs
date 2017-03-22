@@ -1,0 +1,20 @@
+HA$PBExportHeader$s_prodparam.srs
+$PBExportComments$Parametros para la busqueda de productos
+global type s_prodparam from structure
+	window		ventana
+	datawindow		datawindow
+	integer		fila
+	boolean		corregir
+	string		columna
+	string		campo
+	string		codant
+	string		nombre
+	decimal { 2 }		precio
+	string		cod_base
+	string		formula
+	string		motor
+	string		chasis
+	string		anio
+	string		medida
+end type
+
