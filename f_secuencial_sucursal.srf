@@ -1,0 +1,73 @@
+HA$PBExportHeader$f_secuencial_sucursal.srf
+$PBExportComments$Obtiene secuenciales de PR_PARAM de acuerdo a la Empresa y al tipo de tabla o modulo
+global type f_secuencial_sucursal from function_object
+end type
+
+forward prototypes
+global function long f_secuencial_sucursal (string as_empresa, string as_sucursal, string as_modulo)
+end prototypes
+
+global function long f_secuencial_sucursal (string as_empresa, string as_sucursal, string as_modulo);String  ls_sec
+Long  ll_sec
+
+SELECT "PR_NUMSUC"."PS_VALOR"  
+INTO :ll_sec  
+FROM "PR_NUMSUC"  
+WHERE ("PR_NUMSUC"."EM_CODIGO" = :as_empresa ) AND  
+("PR_NUMSUC"."SU_CODIGO" = :as_sucursal) AND
+("PR_NUMSUC"."PR_NOMBRE" = :as_modulo )  
+FOR UPDATE OF "PR_NUMSUC"."PS_VALOR";
+
+IF SQLCA.SQLCODE < 0 &
+THEN
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al determinar el Secuencial del Comprobante" +SQLCA.SQLERRTEXT )
+Rollback;
+Return -1
+END IF 
+
+//ll_sec  =  long(ls_sec)
+//ll_sec++
+//ls_sec  =  String(ll_sec)
+
+UPDATE  "PR_NUMSUC"
+SET  "PR_NUMSUC"."PS_VALOR"   = :ll_sec + 1
+WHERE ( "PR_NUMSUC"."EM_CODIGO" = :as_empresa ) AND  
+("PR_NUMSUC"."SU_CODIGO" = :as_sucursal) AND
+("PR_NUMSUC"."PR_NOMBRE" = :as_modulo )  ;
+
+IF SQLCA.SQLCODE < 0 &
+THEN
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Actualizar el Secuencial del Comprobante" +SQLCA.SQLERRTEXT )
+Rollback;
+Return -1
+END IF 
+  
+Return ll_sec
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+end function
+

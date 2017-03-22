@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_saldo_inicial_subctas_x_suc.srf
+$PBExportComments$PB.Vale
+global type f_saldo_inicial_subctas_x_suc from function_object
+end type
+
+forward prototypes
+global function decimal f_saldo_inicial_subctas_x_suc (string empresa, string sucursal, string cta_ini, string as_cencos, date f_ini)
+end prototypes
+
+global function decimal f_saldo_inicial_subctas_x_suc (string empresa, string sucursal, string cta_ini, string as_cencos, date f_ini);Decimal  lc_saldo_inicial
+String     ls_plcodigo
+
+SELECT "CO_DETCOM"."PL_CODIGO",
+sum(decode("CO_DETCOM"."DT_SIGNO",'D',"CO_DETCOM"."DT_VALOR",'C',"CO_DETCOM"."DT_VALOR"*-1))
+INTO   :ls_plcodigo,:lc_saldo_inicial
+FROM "CO_CABCOM",   
+         "CO_DETCOM"  
+WHERE ( "CO_DETCOM"."EM_CODIGO" = "CO_CABCOM"."EM_CODIGO" ) and  
+( "CO_DETCOM"."SU_CODIGO" = "CO_CABCOM"."SU_CODIGO" ) and  
+( "CO_DETCOM"."TI_CODIGO" = "CO_CABCOM"."TI_CODIGO" ) and  
+( "CO_DETCOM"."CP_NUMERO" = "CO_CABCOM"."CP_NUMERO" ) and  
+( ( "CO_DETCOM"."EM_CODIGO" = :empresa ) AND  
+( "CO_DETCOM"."SU_CODIGO" = :sucursal ) AND  
+( "CO_DETCOM"."PL_CODIGO" = :cta_ini ) AND
+( NVL("CO_DETCOM"."CS_CODIGO",'nulo') = :as_cencos ) AND
+(NVL("CO_CABCOM"."CP_ANULADO",'N')<>'S')AND
+( "CO_CABCOM"."CP_FECHA" < :f_ini ) )    
+GROUP BY  "CO_DETCOM"."PL_CODIGO","CO_DETCOM"."CS_CODIGO";
+
+Return lc_saldo_inicial
+
+
+
+
+
+
+
+
+end function
+

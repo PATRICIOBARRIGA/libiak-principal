@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_saldo_valorado_fecha.srf
+global type f_saldo_valorado_fecha from function_object
+end type
+
+forward prototypes
+global function decimal f_saldo_valorado_fecha (string as_empresa, string as_sucursal, string as_cliente, date ad_fecha_corte)
+end prototypes
+
+global function decimal f_saldo_valorado_fecha (string as_empresa, string as_sucursal, string as_cliente, date ad_fecha_corte);string ls_tt_ioe,ls_feccorte
+decimal ld_saldo_inicial,ld_valor
+
+ls_feccorte= string(ad_fecha_corte,'dd/mm/yyyy')
+ DECLARE C1 CURSOR FOR  
+  SELECT "CC_MOVIM"."MT_VALOR",   
+         "CC_MOVIM"."TT_IOE"
+    FROM "CC_MOVIM"  
+   WHERE "CC_MOVIM"."EM_CODIGO" = :as_empresa 
+     AND "CC_MOVIM"."SU_CODIGO" = :as_sucursal
+	  AND  (trunc("CC_MOVIM"."MT_FECHA") < TO_DATE(:ls_feccorte,'dd/mm/yyyy'))
+     AND  "CC_MOVIM"."CE_CODIGO" = :as_cliente ;
+ 
+open c1;
+    do 
+      fetch c1 into :ld_valor,:ls_tt_ioe;
+        if sqlca.sqlcode <> 0 then exit
+		  if ls_tt_ioe = 'C' then
+           ld_saldo_inicial = ld_saldo_inicial - ld_valor
+		  else
+           ld_saldo_inicial = ld_saldo_inicial + ld_valor
+        end if	  
+   loop while TRUE
+close c1;
+
+
+return  ld_saldo_inicial
+
+end function
+

@@ -1,0 +1,44 @@
+HA$PBExportHeader$f_rubro_iess.srf
+global type f_rubro_iess from function_object
+end type
+
+forward prototypes
+global function integer f_rubro_iess (string as_epcodigo, string as_periodo, string as_numrol, decimal ac_iess)
+end prototypes
+
+global function integer f_rubro_iess (string as_epcodigo, string as_periodo, string as_numrol, decimal ac_iess);Decimal{2} lc_ingresos,lc_egresos,lc_ingresos_para_aporte,lc_aporte_iess
+
+
+select round(SUM(y.lq_total),2)
+into :lc_ingresos_para_aporte
+from   no_cabrol  x,  no_rolpago y, no_rubro z
+where  x. ep_codigo = y.ep_codigo
+and    x.rr_codigo = y.rr_codigo
+and    z.ru_codigo = y.ru_codigo
+and    x.rr_tipo = 'R'
+and    to_char(x.rr_fecha,'MM-YYYY') = :as_periodo 
+and    x.ep_codigo = :as_epcodigo
+and    z.ru_sigla like 'I%' ;
+
+lc_aporte_iess = round( lc_ingresos_para_aporte *ac_iess,2)
+UPDATE NO_ROLPAGO
+SET LQ_TOTAL = :lc_aporte_iess
+WHERE  EP_CODIGO = :as_epcodigo
+AND RR_CODIGO = :as_numrol
+AND  RU_CODIGO = '18';
+
+if sqlca.sqlcode < 0 then
+messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al actualizar el aporte al iess..."+sqlca.sqlerrtext)
+rollback;
+return	 -1	
+end if
+
+return 1
+
+
+
+
+
+
+end function
+

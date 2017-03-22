@@ -1,0 +1,277 @@
+HA$PBExportHeader$f_valida_rucic.srf
+global type f_valida_rucic from function_object
+end type
+
+forward prototypes
+global function integer f_valida_ruc (string as_rucic)
+global function integer f_valida_rucic (string as_rucic)
+end prototypes
+
+global function integer f_valida_ruc (string as_rucic);Long       ll_len
+Integer    i,li_producto,li_residuo,li_sumprod
+Integer    li_coef[],li_rucic[]
+String     ls_tipo,ls_ruc,ls_codprov,ls_verifica
+
+
+
+
+ll_len  = len(as_rucic)
+
+CHOOSE CASE ll_len
+CASE 10	/*Valida C$$HEX1$$e900$$ENDHEX$$dula*/		
+ 		
+		for i = 1 to 9
+		li_rucic[i] = integer(mid(as_rucic,i,1))
+		next				
+		ls_codprov = mid(as_rucic,1,2)
+		
+		if ls_codprov >= '01' and ls_codprov <= '22' Then 
+			ls_ruc = ls_ruc + ls_codprov
+			ls_verifica = mid(as_rucic,3,1)
+			
+			choose case ls_verifica
+				case '0','1','2','3','4','5'
+				ls_ruc = ls_ruc + ls_verifica + mid(as_rucic,4,6)
+				li_coef[] = {2,1,2,1,2,1,2,1,2}
+				for i = 1 to 9
+					 li_producto = li_coef[i] * li_rucic[i]
+					 if li_producto > 9 then
+						 li_producto = li_producto - 9
+					 end if
+					 li_sumprod = li_sumprod + li_producto
+				next
+				li_residuo = mod(li_sumprod,10) 
+				li_residuo = 10 - li_residuo
+				If li_residuo = 0 Then
+					ls_ruc = ls_ruc + '0'
+				else
+					ls_ruc = ls_ruc + string(li_residuo)
+				end if								
+			end choose
+		end if			
+		if ls_ruc <> as_rucic Then 
+			 beep(1)
+			 messagebox("Error","N$$HEX1$$fa00$$ENDHEX$$mero de C$$HEX1$$e900$$ENDHEX$$dula mal ingresado o no es correcto...verifique",stopsign!)
+			 return -1
+		End if	
+
+	
+CASE 13	 /*Validaci$$HEX1$$f300$$ENDHEX$$n de RUC*/	
+			
+				
+			/*Almacenar el Ruc*/
+			for i = 1 to 13
+			li_rucic[i] = integer(mid(as_rucic,i,1))
+			next		
+				
+			
+			/*Inicia algoritmo*/
+			ls_tipo = mid(as_rucic,3,1)
+			choose case ls_tipo
+								case '9' 		//Sociedades Privadas
+									ls_ruc = ls_ruc + ls_tipo + mid(as_rucic,4,6)
+									li_coef[] = {4,3,2,7,6,5,4,3,2}
+									for i = 1 to 9
+									 li_producto = li_producto + (li_coef[i] * li_rucic[i])
+									next
+									li_residuo = mod(li_producto,11) 
+									li_residuo = 11 - li_residuo						
+									If li_residuo = 0 Then
+										ls_ruc = ls_ruc + '0001'
+									else
+										ls_ruc = ls_ruc + string(li_residuo)+'001'
+									end if
+								case '6' 		//Sociedades P$$HEX1$$fa00$$ENDHEX$$blicas
+									ls_ruc = ls_ruc + ls_tipo + mid(as_rucic,4,8)
+									li_coef[] = {3,2,7,6,5,4,3,2}
+									for i = 1 to 8
+									 li_producto = li_producto + (li_coef[i] * li_rucic[i])
+									next
+									li_residuo = mod(li_producto,11) 
+									li_residuo = 11 - li_residuo
+									If li_residuo = 0 Then
+										ls_ruc = ls_ruc + '00001'
+									else
+										ls_ruc = ls_ruc + string(li_residuo)+'0001'
+									end if						
+									
+								case '0','1','2','3','4','5' //Personas Naturales
+									 
+									ls_ruc = ls_ruc + ls_tipo + mid(as_rucic,4,6)
+									li_coef[] = {2,1,2,1,2,1,2,1,2}
+									for i = 1 to 9
+									 li_producto = li_coef[i] * li_rucic[i]
+									 if li_producto > 9 then
+										li_producto = li_producto - 9
+									 end if
+									 li_sumprod = li_sumprod + li_producto
+									next
+									li_residuo = mod(li_sumprod,10) 
+									li_residuo = 10 - li_residuo
+									If li_residuo = 0 Then
+										ls_ruc = ls_ruc + '0001'
+									else
+										ls_ruc = ls_ruc + string(li_residuo)+'001'
+									end if												
+			end choose
+			if ls_ruc <> as_rucic then 
+	  	   beep(1)
+		   messagebox("Error","N$$HEX1$$fa00$$ENDHEX$$mero de RUC mal ingresado o no es correcto...verifique",stopsign!)
+	      return - 1
+			end if
+CASE ELSE		
+
+	beep(1)
+	messagebox("Error","N$$HEX1$$fa00$$ENDHEX$$mero de d$$HEX1$$ed00$$ENDHEX$$gitos no corresponde a un RUC ni a C$$HEX1$$e900$$ENDHEX$$dula...verifique",stopsign!)
+	return - 1
+
+END CHOOSE
+
+return 1
+end function
+
+global function integer f_valida_rucic (string as_rucic);Long       ll_len
+Integer    i,li_producto,li_residuo,li_sumprod,li_verificador
+Integer    li_coef[],li_rucic[]
+String     ls_tipo,ls_ruc,ls_codprov,ls_verifica,ls_numero
+
+
+
+ll_len = len(as_rucic)
+if match(as_rucic,'^[0-9]+$') = false then
+	if ll_len = 10 then
+		ll_len --
+	end if
+	if ll_len = 13 then
+		ll_len --
+	end if
+end if
+
+CHOOSE CASE ll_len
+CASE 10	/*Valida C$$HEX1$$e900$$ENDHEX$$dula*/		
+ 		
+		for i = 1 to 10
+			li_rucic[i] = integer(mid(as_rucic,i,1))
+		next				
+		ls_codprov = mid(as_rucic,1,2)
+
+		select count(po_codigo)
+		into :ll_len
+		from pr_prov
+		where pa_codigo = 593
+		and po_codigo = :ls_codprov;
+		if sqlca.sqlcode <> 0 then
+			return - 1
+		end if
+
+		if ll_len > 0 then
+			ls_ruc = ls_ruc + ls_codprov
+			ls_verifica = mid(as_rucic,3,1)
+			
+			choose case ls_verifica
+				case '0','1','2','3','4','5'
+				ls_ruc = ls_ruc + ls_verifica + mid(as_rucic,4,6)
+				li_coef[] = {2,1,2,1,2,1,2,1,2}
+				for i = 1 to 9
+					 li_producto = li_coef[i] * integer(li_rucic[i])
+					 if li_producto > 9 then
+						 li_producto = li_producto - 9
+					 end if
+					 li_sumprod = li_sumprod + li_producto
+				next
+				li_residuo = mod(li_sumprod,10) 
+				li_verificador = 10 - li_residuo
+				If li_residuo = 0 Then
+					ls_ruc = ls_ruc + '0'
+				else
+					ls_ruc = ls_ruc + string(li_verificador)
+				end if								
+			end choose
+		end if			
+		if ls_ruc <> as_rucic Then 
+			 return -1
+		End if	
+	
+CASE 13	 /*Validaci$$HEX1$$f300$$ENDHEX$$n de RUC*/	
+			
+				
+			/*Almacenar el Ruc*/
+			for i = 1 to 13
+			li_rucic[i] = integer(mid(as_rucic,i,1))
+			next		
+
+		   ls_codprov = mid(as_rucic,1,2)				
+
+			select count(po_codigo)
+			into :ll_len
+			from pr_prov
+			where pa_codigo = 593
+			and po_codigo = :ls_codprov;
+			if sqlca.sqlcode <> 0 then
+				return - 1
+			end if
+			
+		   if ll_len > 0 Then 
+			  ls_ruc = ls_ruc + ls_codprov
+		     /*Inicia algoritmo*/
+			  ls_tipo = mid(as_rucic,3,1)
+			  choose case ls_tipo
+								case '9' 		//Sociedades Privadas
+									ls_ruc = ls_ruc + ls_tipo + mid(as_rucic,4,6)
+									li_coef[] = {4,3,2,7,6,5,4,3,2}
+									for i = 1 to 9
+									 li_producto = li_producto + (li_coef[i] * li_rucic[i])
+									next
+									li_residuo = mod(li_producto,11) 
+									li_verificador = 11 - li_residuo						
+									If li_residuo = 0 Then
+										ls_ruc = ls_ruc + '0001'
+									else
+										ls_ruc = ls_ruc + string(li_verificador)+'001'
+									end if
+								case '6' 		//Sociedades P$$HEX1$$fa00$$ENDHEX$$blicas
+									ls_ruc = ls_ruc + ls_tipo + mid(as_rucic,4,5)
+									li_coef[] = {3,2,7,6,5,4,3,2}
+									for i = 1 to 8
+									 li_producto = li_producto + (li_coef[i] * li_rucic[i])
+									next
+									li_residuo = mod(li_producto,11) 
+									li_verificador = 11 - li_residuo
+									If li_residuo = 0 Then
+										ls_ruc = ls_ruc + '00001'
+									else
+										ls_ruc = ls_ruc + string(li_verificador)+'0001'
+									end if						
+									
+								case '0','1','2','3','4','5' //Personas Naturales
+									 
+									ls_ruc = ls_ruc + ls_tipo + mid(as_rucic,4,6)
+									li_coef[] = {2,1,2,1,2,1,2,1,2}
+									for i = 1 to 9
+									 li_producto = li_coef[i] * li_rucic[i]
+									 if li_producto > 9 then
+										li_producto = li_producto - 9
+									 end if
+									 li_sumprod = li_sumprod + li_producto
+									next
+									li_residuo = mod(li_sumprod,10) 
+									li_verificador = 10 - li_residuo
+									If li_residuo = 0 Then
+										ls_ruc = ls_ruc + '0001'
+									else
+										ls_ruc = ls_ruc + string(li_verificador)+'001'
+									end if												
+			  end choose
+		 end if
+		 if ls_ruc <> as_rucic then 
+	      return - 1
+		 end if
+CASE ELSE		
+
+	return - 1
+
+END CHOOSE
+
+return 1
+end function
+

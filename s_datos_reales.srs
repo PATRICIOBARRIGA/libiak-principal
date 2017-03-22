@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_datos_reales.srs
+global type s_datos_reales from structure
+	string		codigo
+	decimal {0}	cantidad
+end type
+

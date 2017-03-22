@@ -1,0 +1,110 @@
+HA$PBExportHeader$f_salini_bancos.srf
+global type f_salini_bancos from function_object
+end type
+
+forward prototypes
+global function decimal f_salini_bancos (string as_empresa, string as_sucursal)
+global function decimal f_salini_bancos (string as_cuenta, date ad_fini, date ad_ffin)
+end prototypes
+
+global function decimal f_salini_bancos (string as_empresa, string as_sucursal);Decimal lc_ingreso,lc_egreso,lc_salini
+//String ls_cuenta
+//
+//select y.pl_codigo,sum(decode(y.di_signo,'D',y.di_valor,0)) - sum(decode(y.di_signo,'C',y.di_valor,0))
+//into :ls_cuenta,:lc_ingreso
+//from cb_ingreso x, cb_deting y
+//where x.em_codigo = y.em_codigo
+//and x.su_codigo = y.su_codigo
+//and x.ig_numero = y.ig_numero
+//and x.em_codigo = :as_empresa
+//and x.su_codigo = :as_sucursal
+//and trunc(x.ig_fecha) between ad_fini and ad_ffin
+//and y.pl_codigo = as_plcodigo
+//group by y.pl_codigo,y.di_signo;
+//
+//if sqlca.sqlcode < 0 &
+//then
+//Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al determinar el valor del ingreso")
+//rollback;
+//return -1
+//end if
+//
+//
+//select y.pl_codigo,sum(decode(y.dg_signo,'D',y.dg_valor,0)) - sum(decode(y.dg_signo,'C',y.dg_valor,0))
+//into :ls_cuenta,:lc_egreso
+//from cb_egreso x, cb_detegr y
+//where x.em_codigo = y.em_codigo
+//and x.su_codigo = y.su_codigo
+//and x.eg_numero = y.eg_numero
+//and x.em_codigo = :as_empresa
+//and x.su_codigo = :as_sucursal
+//and trunc(x.eg_fecha) between ad_fini and ad_ffin
+//and y.pl_codigo = as_plcodigo
+//group by y.pl_codigo,y.dg_signo;
+//if sqlca.sqlcode < 0 &
+//then
+//Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al determinar el valor del egreso")
+//rollback;
+//return -1
+//End if
+//
+//
+//lc_salini = lc_ingreso - lc_egreso
+return lc_salini
+//
+//
+//
+end function
+
+global function decimal f_salini_bancos (string as_cuenta, date ad_fini, date ad_ffin);/******************************************************************/
+/* Calcula el saldo inicial de una cuenta bancaria                */
+/* El saldo inicial esta dado por el saldo  del periodo anterior  */
+/* al que se esta consultando mas el saldo desde el               */
+/* '1-enero' del periodo actual hasta la fecha inicial de la      */
+/* consulta del reporte                                           */
+/******************************************************************/
+
+Decimal lc_ingreso,lc_egreso,lc_salini,lc_saldoanterior
+String  ls_cuenta
+Date    ld_periodo 
+Integer li_year
+
+/* Determinar el periodo anterior */
+li_year = year(ad_fini)
+//ld_periodo = date('01-jan-'+String(li_year))
+ad_fini = relativedate(ad_fini,-1)
+
+/* Sumar los ingresos del periodo actual */
+SELECT  SUM(NVL("CB_INGRESO"."IG_VALTOT",0)),"CB_INGRESO"."CN_CODIGO"   
+INTO  :lc_ingreso,:ls_cuenta
+FROM "CB_INGRESO"   
+WHERE "CB_INGRESO"."EM_CODIGO" = :str_appgeninfo.empresa
+AND "CB_INGRESO"."CN_CODIGO" = :as_cuenta 
+AND ( NVL("CB_INGRESO"."IG_ANULADO",'N') <>'S' )
+AND trunc("CB_INGRESO"."IG_FECHA") <= :ad_fini
+GROUP BY "CB_INGRESO"."CN_CODIGO";  
+
+/* Sumar los egresos del periodo actual */
+
+SELECT SUM(NVL("CB_EGRESO"."EG_VALOR",0)),"CB_EGRESO"."CN_CODIGO"
+INTO:lc_egreso,:ls_cuenta
+FROM "CB_EGRESO"
+WHERE "CB_EGRESO"."EM_CODIGO" = :str_appgeninfo.empresa
+AND "CB_EGRESO"."CN_CODIGO" = :as_cuenta
+AND ( NVL("CB_EGRESO"."EG_ANULADO",'N') <>'S' )
+AND TRUNC("CB_EGRESO"."EG_FECEGR") <= :ad_fini 
+GROUP BY "CB_EGRESO"."CN_CODIGO";
+
+/* Determinar el saldo del periodo anterior */
+SELECT NVL("CB_CTAINS"."CN_SALINI",0)
+INTO  :lc_saldoanterior
+FROM "CB_CTAINS"
+WHERE "CB_CTAINS"."EM_CODIGO" = :str_appgeninfo.empresa
+AND "CB_CTAINS"."CN_CODIGO"= :as_cuenta; 
+
+lc_salini = ((lc_saldoanterior + lc_ingreso) - lc_egreso)
+return lc_salini
+
+
+end function
+

@@ -1,0 +1,15 @@
+HA$PBExportHeader$f_valida_fechatransac.srf
+global type f_valida_fechatransac from function_object
+end type
+
+forward prototypes
+global function integer f_valida_fechatransac (date ad_fectrans)
+end prototypes
+
+global function integer f_valida_fechatransac (date ad_fectrans);If  ad_fectrans <= date(gdt_mescerrado) then
+return -1
+else
+ return 1
+end if
+end function
+

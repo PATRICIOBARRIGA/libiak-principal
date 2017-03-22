@@ -1,0 +1,24 @@
+HA$PBExportHeader$f_ultimo_costprom.srf
+global type f_ultimo_costprom from function_object
+end type
+
+forward prototypes
+global function decimal f_ultimo_costprom (string as_pepa, date ad_finperiodo)
+end prototypes
+
+global function decimal f_ultimo_costprom (string as_pepa, date ad_finperiodo);/*Encuentra el ultimo costo promedio*/
+Decimal{4} lc_costprom
+
+SELECT nvl(cost,0)
+into :lc_costprom
+FROM (SELECT rownum MV_FECHA,mv_fecha fecha, NVL(MV_COSTPROM,0) cost ,VE_NUMERO venumero,SU_CODIGO suc ,BO_CODIGO bod,TM_CODIGO
+		 FROM IN_MOVIM
+	     WHERE EM_CODIGO = :str_appgeninfo.empresa
+  	     AND IT_CODIGO = :as_pepa
+	     AND TRUNC(MV_FECHA)<= :ad_finperiodo
+	     ORDER BY fecha DESC)
+WHERE rownum = 1;
+
+return lc_costprom
+end function
+

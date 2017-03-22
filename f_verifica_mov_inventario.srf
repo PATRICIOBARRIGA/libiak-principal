@@ -1,0 +1,39 @@
+HA$PBExportHeader$f_verifica_mov_inventario.srf
+global type f_verifica_mov_inventario from function_object
+end type
+
+forward prototypes
+global function decimal f_verifica_mov_inventario (string as_factura, string as_estado, string as_item, string as_tipo_movim, string as_signo)
+end prototypes
+
+global function decimal f_verifica_mov_inventario (string as_factura, string as_estado, string as_item, string as_tipo_movim, string as_signo);decimal  ld_cantidad
+
+if not isnull(as_estado) then
+  select mv_cantid
+    into :ld_cantidad
+    from in_movim
+   where em_codigo = :str_appgeninfo.empresa
+     and su_codigo = :str_appgeninfo.sucursal
+	  and bo_codigo = :str_appgeninfo.seccion
+     and tm_codigo = :as_tipo_movim
+	  and tm_ioe    = :as_signo
+	  and it_codigo = :as_item
+	  and ve_numero = :as_factura
+	  and es_codigo = :as_estado;
+else
+  select mv_cantid
+    into :ld_cantidad
+    from in_movim
+   where em_codigo = :str_appgeninfo.empresa
+     and su_codigo = :str_appgeninfo.sucursal
+	  and bo_codigo = :str_appgeninfo.seccion
+     and tm_codigo = :as_tipo_movim
+	  and tm_ioe    = :as_signo
+	  and it_codigo = :as_item
+	  and ve_numero = :as_factura
+	  and es_codigo is null;
+end if
+	
+return ld_cantidad
+end function
+

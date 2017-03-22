@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_cliparam.srs
+global type s_cliparam from structure
+	long		fila
+	window		ventana
+	datawindow		datawindow
+end type
+

@@ -1,0 +1,44 @@
+HA$PBExportHeader$f_tintes.srf
+global type f_tintes from function_object
+end type
+
+forward prototypes
+global function integer f_tintes (string as_codbase, string as_formula, string as_presentacion, double ad_cantidad_x_preparar, ref datawindow adw_tintes)
+end prototypes
+
+global function integer f_tintes (string as_codbase, string as_formula, string as_presentacion, double ad_cantidad_x_preparar, ref datawindow adw_tintes);long i, ll_fil
+dec{4} lc_preciobase,lc_presentacion
+
+//La formulaci$$HEX1$$f300$$ENDHEX$$n de los tintes en IN_FORMULAS esta dado para la presentaci$$HEX1$$f300$$ENDHEX$$n de GALON
+ll_fil = adw_tintes.retrieve(str_appgeninfo.empresa,as_formula)
+
+choose case as_presentacion
+	case 'CANECA','3'
+		lc_presentacion = 5
+	case 'GALON','6'
+		lc_presentacion = 1
+	case 'LITRO','7' 
+		lc_presentacion = 1/4
+	case 'OCTAVO','8'
+		lc_presentacion = 1/8
+end choose
+
+
+SELECT IT_PREFAB
+INTO :lc_preciobase
+FROM IN_ITEM
+WHERE IT_CODIGO = :as_codbase;
+
+if ll_fil = 0 then 
+	Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","No existen definidos tintes para est$$HEX2$$e1002000$$ENDHEX$$f$$HEX1$$f300$$ENDHEX$$rmula '"+as_formula+"'...Por favor verifique...!!!")
+	return -1
+end if
+
+for i = 1 to ll_fil
+	adw_tintes.object.cant_preparar[i] = ad_cantidad_x_preparar
+	adw_tintes.object.precio_base[i] =  lc_preciobase*ad_cantidad_x_preparar
+	adw_tintes.object.presentacion[i] = lc_presentacion
+next
+return ll_fil
+end function
+

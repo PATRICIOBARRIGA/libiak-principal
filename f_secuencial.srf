@@ -1,0 +1,68 @@
+HA$PBExportHeader$f_secuencial.srf
+$PBExportComments$Obtiene secuenciales de PR_PARAM de acuerdo a la Empresa y al tipo de tabla o modulo
+global type f_secuencial from function_object
+end type
+
+forward prototypes
+global function long f_secuencial (string as_empresa, string as_modulo)
+end prototypes
+
+global function long f_secuencial (string as_empresa, string as_modulo);Long ll_sec
+  
+  SELECT "PR_PARAM"."PR_VALOR"  
+  INTO :ll_sec  
+  FROM "PR_PARAM"  
+  WHERE ( "PR_PARAM"."EM_CODIGO" = :as_empresa ) AND  
+         ( "PR_PARAM"."PR_NOMBRE" = :as_modulo )  
+  FOR UPDATE OF PR_VALOR ;
+	
+ IF SQLCA.SQLCODE < 0 &
+ THEN
+ Rollback; 
+ Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al determinar el Secuencial del Comprobante" +SQLCA.SQLERRTEXT )
+ Return -1
+ END IF 
+ 
+// ll_sec
+ 
+ UPDATE "PR_PARAM"
+ SET "PR_PARAM"."PR_VALOR"  = :ll_sec  + 1
+ WHERE ( "PR_PARAM"."EM_CODIGO" = :as_empresa ) AND  
+         ( "PR_PARAM"."PR_NOMBRE" = :as_modulo )  ;
+
+ IF SQLCA.SQLCODE < 0 &
+ THEN
+ Rollback; 
+ Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Actualizar el Secuencial del Comprobante" +SQLCA.SQLERRTEXT )
+ Return -1
+ END IF 
+ 
+ Return ll_sec;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+end function
+

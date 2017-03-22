@@ -1,0 +1,250 @@
+HA$PBExportHeader$f_toma_fisica.srf
+$PBExportComments$si.
+global type f_toma_fisica from function_object
+end type
+
+forward prototypes
+global function integer f_toma_fisica (string as_numero[], string as_epcodigo)
+end prototypes
+
+global function integer f_toma_fisica (string as_numero[], string as_epcodigo);// comentado li_signo de la diferencia y adicionardo el
+// microhelp para saber en que item se encuentra 				P.F. 06/11/2001
+// cambio de los tipos de movimientos 3 por 12 y 4 por 13   P.F. 07/11/2001
+
+// Incremento de costos de los movs. 12 y 13 al inventario(kardek) para costear E.V. 22/06/2003
+
+string    ls_bodega,ls_numero_ingreso,ls_numero_egreso,ls_atomo,ls_item,ls_codigo1,ls_kit
+decimal ld_stock_sistema,lc_stock_fisico,ld_cantid,ld_stock_kit,ld_diferencia,lc_stock,lc_costo
+integer  li_secuencia_ingreso,li_secuencia_egreso,li_contador_atomos,li_signo,k
+long     ll_num_movim,ll_reg
+String ls_tickets
+DataStore   lds_stock,&
+lds_stock_kit,&
+lds_item
+
+
+/*Para tomar los items*/
+lds_item = Create datastore
+lds_item.dataobject = "d_items" 
+lds_item.SetTransObject(SQLCA)	 
+lds_item.Retrieve(str_appgeninfo.empresa)
+
+/*Para determinar el stock del item que se registro en la toma fisica*/
+lds_stock = Create datastore
+lds_stock.dataobject = "d_stock_tomafisica" 
+lds_stock.SetTransObject(SQLCA)	 
+
+
+declare c2 cursor for
+select it_codigo1,nvl(ri_cantid,0)
+from in_relitem
+where em_codigo = :str_appgeninfo.empresa
+and it_codigo = :ls_atomo
+and tr_codigo = '1';
+
+ls_numero_ingreso = string(f_dame_sig_numero('NUM_AJUS'))
+ls_numero_egreso = string(f_dame_sig_numero('NUM_AJUS'))
+
+// ajuste de ingreso
+insert into in_cabajus(su_codigo,bo_codigo,aj_numero,tm_codigo,
+tm_ioe,ep_codigo,aj_fecha,em_codigo,aj_observ)
+values(:str_appgeninfo.sucursal,:str_appgeninfo.seccion,:ls_numero_ingreso,
+'12','I',:as_epcodigo,sysdate,:str_appgeninfo.empresa,'AJUSTE DE ING. POR TOMA FISICA');
+If sqlca.sqlcode < 0 &
+Then
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Insertar el Ajuste de ingreso" +sqlca.sqlerrtext)
+Rollback;
+Return -1
+End if
+
+// ajuste de egreso
+insert into in_cabajus(su_codigo,bo_codigo,aj_numero,tm_codigo,
+tm_ioe,ep_codigo,aj_fecha,em_codigo,aj_observ)
+values(:str_appgeninfo.sucursal,:str_appgeninfo.seccion,:ls_numero_egreso,
+'13','E',:as_epcodigo,sysdate,:str_appgeninfo.empresa,'AJUSTE DE EGR. POR TOMA FISICA');
+If sqlca.sqlcode < 0 &
+Then
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Insertar el Ajuste de Egreso" +sqlca.sqlerrtext)
+Rollback;
+Return -1
+End if
+
+k = 1
+ld_stock_sistema = 0
+lc_stock_fisico = 0
+
+/**/
+DO WHILE k <= lds_item.RowCount() 
+     ld_diferencia = 0
+     ld_stock_sistema = 0
+	lc_stock_fisico = 0
+	lc_costo = 0
+	ls_item = lds_item.GetItemString(k,"it_codigo")
+
+	
+	ls_kit    = lds_item.GetItemString(k,"it_kit")
+	lc_costo = lds_item.GetItemDecimal(k,"it_costo")	
+	w_marco.setmicrohelp("Procesando toma f$$HEX1$$ed00$$ENDHEX$$sica item "+ string(k) +" de "+ string(lds_item.RowCount()))
+	
+	select NVL(ib_stock,0)
+	into :ld_stock_sistema
+	from in_itebod
+	where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and bo_codigo = :str_appgeninfo.seccion
+	and it_codigo = :ls_item;
+	
+	/*Tomar Stock de la toma fisica*/ 
+	ll_reg = lds_stock.Retrieve(str_appgeninfo.empresa,str_appgeninfo.sucursal,str_appgeninfo.seccion,ls_item,as_numero )
+     if ll_reg > 0 then
+	lc_stock_fisico = lds_stock.GetItemDecimal(1,1)
+     end if
+	
+	if isnull(lc_stock_fisico) then lc_stock_fisico = 0
+	
+	select count(1)
+	into :li_contador_atomos
+	from in_relitem
+	where em_codigo = :str_appgeninfo.empresa
+	and it_codigo = :ls_item
+	and tr_codigo = '1';
+	
+	If li_contador_atomos > 0&
+	Then //al menos es parte de un kit
+	
+			ls_atomo = ls_item
+			lc_stock = 0
+			ld_stock_kit = 0
+			//lc_stock_fisico = 0
+
+			OPEN c2;
+			FETCH c2 INTO :ls_codigo1,:ld_cantid;			 
+			DO WHILE sqlca.sqlcode = 0
+					
+					lc_stock = 0 
+					//Busca en las tomas si existe digitado cada uno de los kit
+					lds_stock.Retrieve(str_appgeninfo.empresa,str_appgeninfo.sucursal,str_appgeninfo.seccion,ls_codigo1,as_numero)
+					
+					if lds_stock.rowcount() > 0 then
+					lc_stock       = lds_stock.GetItemDecimal(1,1)
+					end if
+					
+					if isnull(lc_stock) then lc_stock = 0
+					
+					ld_stock_kit  = lc_stock*ld_cantid	 
+					lc_stock_fisico = lc_stock_fisico + ld_stock_kit;
+					
+					FETCH c2 INTO :ls_codigo1,:ld_cantid;				
+			LOOP 
+			CLOSE c2;
+	End if
+	
+	If   ld_stock_sistema < lc_stock_fisico &
+	Then //se trata de un ingreso
+		//	 li_signo = 1
+		ld_diferencia = lc_stock_fisico - ld_stock_sistema
+		If ls_kit <> 'S' then
+			insert into in_ajuste(aj_numero,tm_codigo,tm_ioe,it_codigo,da_cantidad,da_secuen,su_codigo,em_codigo,bo_codigo)
+			values(:ls_numero_ingreso,'12','I',:ls_item,:ld_diferencia,:li_secuencia_ingreso,:str_appgeninfo.sucursal,:str_appgeninfo.empresa,:str_appgeninfo.seccion);
+			If sqlca.sqlcode < 0 &
+			Then
+			Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Insertar el Ajuste" +sqlca.sqlerrtext)
+			Rollback;
+			Return -1
+			End if
+			
+			li_secuencia_ingreso = li_secuencia_ingreso + 1
+			ll_num_movim = f_dame_sig_numero('NUM_MINV')
+			insert into in_movim(tm_codigo,tm_ioe,it_codigo,em_codigo,su_codigo,bo_codigo,mv_numero,mv_cantid,mv_costo,	mv_fecha,mv_observ,mv_usado,ve_numero,es_codigo)
+			values('12','I',:ls_item,:str_appgeninfo.empresa,:str_appgeninfo.sucursal,:str_appgeninfo.seccion,:ll_num_movim,:ld_diferencia,:lc_costo,sysdate,'Ajuste de ingreso por Toma F$$HEX1$$ed00$$ENDHEX$$sica No. '||:ls_numero_ingreso,'N',:ls_numero_ingreso,null);
+			
+			If sqlca.sqlcode < 0 &
+			Then
+			Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Insertar el Movimiento" +sqlca.sqlerrtext)
+			Rollback;
+			Return -1
+			End if
+		End if			  
+		
+		update in_itesucur
+		set it_stock   = it_stock + :ld_diferencia, 
+		it_stkdis  = it_stkdis + :ld_diferencia,
+		it_stkreal = it_stkreal + :ld_diferencia
+		where em_codigo = :str_appgeninfo.empresa
+		and su_codigo = :str_appgeninfo.sucursal
+		and it_codigo = :ls_item;
+		If sqlca.sqlcode < 0 &
+		Then
+		Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Actualizar Stock en Sucursal " +sqlca.sqlerrtext)
+		Rollback;
+		Return -1
+		End if
+	
+	Elseif ld_stock_sistema > lc_stock_fisico then
+		// li_signo = -1
+		ld_diferencia = ld_stock_sistema - lc_stock_fisico
+		
+		If ls_kit <> 'S'&
+		Then	 
+			insert into in_ajuste(aj_numero,tm_codigo,tm_ioe,it_codigo,da_cantidad,da_secuen,su_codigo,em_codigo,	bo_codigo)
+			values(:ls_numero_egreso,'13','E',:ls_item,:ld_diferencia,:li_secuencia_egreso,:str_appgeninfo.sucursal,:str_appgeninfo.empresa,:str_appgeninfo.seccion);
+			
+			If sqlca.sqlcode < 0 &
+			Then
+			Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Insertar el Ajuste de Egreso" +sqlca.sqlerrtext)
+			Rollback;
+			Return -1
+			End if
+			
+			li_secuencia_egreso = li_secuencia_egreso + 1;
+			ll_num_movim = f_dame_sig_numero('NUM_MINV')
+			insert into in_movim(tm_codigo,tm_ioe,it_codigo,em_codigo,su_codigo,bo_codigo,mv_numero,mv_cantid,mv_costo,	mv_fecha,mv_observ,mv_usado,ve_numero,es_codigo)
+			values('13','E',:ls_item,:str_appgeninfo.empresa,:str_appgeninfo.sucursal,:str_appgeninfo.seccion,:ll_num_movim,:ld_diferencia,:lc_costo,sysdate,'Ajuste de egreso por Toma F$$HEX1$$ed00$$ENDHEX$$sica No. '||:ls_numero_egreso,'N',:ls_numero_egreso,null);
+			If sqlca.sqlcode < 0 &
+			Then
+			Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Insertar el Movimiento" +sqlca.sqlerrtext)
+			Rollback;
+			Return -1
+			End if
+		End if		  
+			
+		
+		update in_itesucur
+		set it_stock   = it_stock - :ld_diferencia,
+		it_stkdis  = it_stkdis - :ld_diferencia,
+		it_stkreal = it_stkreal - :ld_diferencia
+		where em_codigo = :str_appgeninfo.empresa
+		and su_codigo = :str_appgeninfo.sucursal
+		and it_codigo = :ls_item;
+		If sqlca.sqlcode < 0 &
+		Then
+		Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Actualizar Stock en Sucursal " +sqlca.sqlerrtext)
+		Rollback;
+		Return -1
+		End if
+		
+	End if
+	
+	update in_itebod
+	set ib_stock = :lc_stock_fisico
+	where em_codigo = :str_appgeninfo.empresa
+	and su_codigo = :str_appgeninfo.sucursal
+	and bo_codigo = :str_appgeninfo.seccion
+	and it_codigo = :ls_item;
+	If sqlca.sqlcode < 0 &
+	Then
+	Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Problemas al Actualizar Stock en bodega" +sqlca.sqlerrtext)
+	Rollback;
+	Return -1
+	End if
+	k++
+LOOP
+
+messagebox("",'Proceso Terminado revise las diferencias en los ajustes '+ls_numero_ingreso+' y '+ls_numero_egreso )
+commit;
+destroy lds_stock;
+destroy lds_item;
+return(1)
+
+end function
+

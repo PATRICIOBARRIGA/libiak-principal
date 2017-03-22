@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_dato_real_prep.srs
+global type s_dato_real_prep from structure
+	string		codigo
+	decimal { 0 }		cantidad
+	string		preparado
+end type
+

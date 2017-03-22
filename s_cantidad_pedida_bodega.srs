@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_cantidad_pedida_bodega.srs
+global type s_cantidad_pedida_bodega from structure
+	string		codigo
+	integer		cantidad_pedido
+end type
+

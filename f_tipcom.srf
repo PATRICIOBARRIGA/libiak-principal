@@ -1,0 +1,20 @@
+HA$PBExportHeader$f_tipcom.srf
+$PBExportComments$PB.
+global type f_tipcom from function_object
+end type
+
+forward prototypes
+global function string f_tipcom (string empresa, string as_ticodigo)
+end prototypes
+
+global function string f_tipcom (string empresa, string as_ticodigo);String ls_sigla
+SELECT TI_SIGLA
+INTO :ls_sigla
+FROM   CO_TIPCOM
+WHERE EM_CODIGO = :empresa
+AND      TI_CODIGO = :as_ticodigo;
+
+RETURN ls_sigla
+
+end function
+

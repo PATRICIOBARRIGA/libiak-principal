@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_secuencial_transfer.srf
+global type f_secuencial_transfer from function_object
+end type
+
+forward prototypes
+global function integer f_secu_transfer (integer em_codigo)
+global function integer f_secuencial_transfer ()
+end prototypes
+
+global function integer f_secu_transfer (integer em_codigo);INSERT INTO PR_NUMTRANS(
+SELECT :str_appgeninfo.empresa, X.SU_CODIGO, X.BO_CODIGO, Y.SU_CODIGO, Y.BO_CODIGO, '1', '1', NULL
+FROM IN_BODE X, IN_BODE Y
+WHERE X.EM_CODIGO = Y.EM_CODIGO
+AND X.BO_CODIGO <> Y.BO_CODIGO
+MINUS
+SELECT :str_appgeninfo.empresa, SU_CODENV, BO_CODENV, SU_CODIGO, BO_CODIGO, '1', '1', NULL
+FROM PR_NUMTRANS);
+
+if sqlca.sqlcode <> 0 Then
+	messagebox("Error","Problemas al ejecutar la funcion f_secu_transfer")
+	rollback;
+	return - 1
+End if
+return 1
+end function
+
+global function integer f_secuencial_transfer (); If Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Se va a generar una secuencia de transferencias para las nuevas secciones y sucursales"+ &
+                        "...Est$$HEX2$$e1002000$$ENDHEX$$seguro de realizar la transacci$$HEX1$$f300$$ENDHEX$$n...?",Question!,YesNo!) = 2 then
+	return -1
+end if
+
+
+SetPointer(Hourglass!)
+INSERT INTO PR_NUMTRANS(
+SELECT :str_appgeninfo.empresa, X.SU_CODIGO, X.BO_CODIGO, Y.SU_CODIGO, Y.BO_CODIGO, '1', '1', NULL
+FROM IN_BODE X, IN_BODE Y
+WHERE X.EM_CODIGO = Y.EM_CODIGO
+AND X.BO_CODIGO <> Y.BO_CODIGO
+AND X.SU_CODIGO NOT IN (90,100)
+AND Y.SU_CODIGO NOT IN (90,100)
+MINUS
+SELECT :str_appgeninfo.empresa, SU_CODENV, BO_CODENV, SU_CODIGO, BO_CODIGO, '1', '1', NULL
+FROM PR_NUMTRANS);
+
+if sqlca.sqlcode <> 0 Then
+	messagebox("Error","Problemas al ejecutar la funcion f_secuencial_transfer")
+	rollback;
+	return - 1
+End if
+commit;
+SetPointer(Arrow!)
+Messagebox("Atenci$$HEX1$$f300$$ENDHEX$$n","Listo...Proceso terminado...!!!")
+return 1
+end function
+

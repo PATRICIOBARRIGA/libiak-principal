@@ -1,0 +1,5 @@
+HA$PBExportHeader$s_facturas.srs
+global type s_facturas from structure
+	long		ve_numero
+end type
+
