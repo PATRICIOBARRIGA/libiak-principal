@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddw_ciudad.srd
+$PBExportComments$si.
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=69 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=pa_codigo dbname="pr_ciudad.pa_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cu_codigo dbname="pr_ciudad.cu_codigo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cu_nombre dbname="pr_ciudad.cu_nombre" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"pr_ciudad~" ) COLUMN(NAME=~"pr_ciudad.pa_codigo~") COLUMN(NAME=~"pr_ciudad.cu_codigo~") COLUMN(NAME=~"pr_ciudad.cu_nombre~")WHERE(    EXP1 =~"~~~"PR_CIUDAD~~~".~~~"PA_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":pais~" ) ) ARG(NAME = ~"pais~" TYPE = string) " update="PR_CIUDAD" updatewhere=1 updatekeyinplace=no arguments=(("pais", string))  sort="cu_nombre A " )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="10" y="8" height="57" width="887" format="[general]"  name=cu_nombre edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

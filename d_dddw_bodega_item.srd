@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_dddw_bodega_item.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=bo_codigo dbname="in_bode.bo_codigo" )
+ column=(type=char(99) updatewhereclause=yes name=ccc_bodega dbname="cc_bodega" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"in_bode~" )  TABLE(NAME=~"in_itebod~" ) COLUMN(NAME=~"in_bode.bo_codigo~") COMPUTE(NAME=~"~~~"IN_BODE~~~".~~~"BO_NOMBRE~~~"|| ' STOCK:  '||~~~"IN_ITEBOD~~~".~~~"IB_STOCK~~~" ~~~"cc_bodega~~~"~")    JOIN (LEFT=~"in_itebod.em_codigo~"    OP =~"=~"RIGHT=~"in_bode.em_codigo~" )    JOIN (LEFT=~"in_itebod.su_codigo~"    OP =~"=~"RIGHT=~"in_bode.su_codigo~" )    JOIN (LEFT=~"in_itebod.bo_codigo~"    OP =~"=~"RIGHT=~"in_bode.bo_codigo~" )WHERE(    EXP1 =~"~~~"IN_BODE~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_BODE~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_ITEBOD~~~".~~~"IT_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":item~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"IN_ITEBOD~~~".~~~"IB_STOCK~~~"~"   OP =~">~"    EXP2 =~"0~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal~" TYPE = string)  ARG(NAME = ~"item~" TYPE = string) " arguments=(("empresa", string),("sucursal", string),("item", string)) )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="14" y="4" height="61" width="1166"  name=ccc_bodega  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

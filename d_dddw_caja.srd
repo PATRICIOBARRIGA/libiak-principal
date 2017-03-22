@@ -1,0 +1,16 @@
+HA$PBExportHeader$d_dddw_caja.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes name=cj_caja dbname="fa_caja.cj_caja" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=cj_nombre dbname="fa_caja.cj_nombre" )
+ column=(type=char(72) updatewhereclause=yes name=cj_nombre dbname="compute_0003" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"fa_caja~" ) COLUMN(NAME=~"fa_caja.cj_caja~") COLUMN(NAME=~"fa_caja.cj_nombre~") COMPUTE(NAME=~"~~~"FA_CAJA~~~".~~~"CJ_CAJA~~~"||'  '||~~~"FA_CAJA~~~".~~~"CJ_NOMBRE~~~"~")WHERE(    EXP1 =~"~~~"FA_CAJA~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"FA_CAJA~~~".~~~"SU_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":sucursal~" ) ) ARG(NAME = ~"empresa~" TYPE = string)  ARG(NAME = ~"sucursal~" TYPE = string) " arguments=(("empresa", string),("sucursal", string))  sort="cj_nombre A " )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="9" y="4" height="56" width="873" html.valueishtml="0"  name=cj_nombre visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_dddw_clase_cliente.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=65 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes key=yes name=ca_codigo dbname="fa_clacli.ca_codigo" )
+ column=(type=char(50) updatewhereclause=yes name=ca_descri dbname="fa_clacli.ca_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"fa_clacli~" ) COLUMN(NAME=~"fa_clacli.ca_codigo~") COLUMN(NAME=~"fa_clacli.ca_descri~")WHERE(    EXP1 =~"~~~"FA_CLACLI~~~".~~~"EM_CODIGO~~~"~"   OP =~"=~"    EXP2 =~":empresa~" ) ) ARG(NAME = ~"empresa~" TYPE = string) " update="FA_CLACLI" updatewhere=1 updatekeyinplace=no arguments=(("empresa", string))  sort="ca_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="23" y="4" height="57" width="1436" format="[general]"  name=ca_descri edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

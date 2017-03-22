@@ -1,0 +1,13 @@
+HA$PBExportHeader$d_dddw_cargo.srd
+$PBExportComments$Lista de cargos de los empleados
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cr_codigo dbname="no_cargo.cr_codigo" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=cr_descri dbname="no_cargo.cr_descri" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"no_cargo~" ) COLUMN(NAME=~"no_cargo.cr_codigo~") COLUMN(NAME=~"no_cargo.cr_descri~")) " update="NO_CARGO" updatewhere=1 updatekeyinplace=yes  sort="cr_descri A " )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="0" x="14" y="4" height="56" width="1111" format="[general]"  name=cr_descri edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
