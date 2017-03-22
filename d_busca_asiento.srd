@@ -1,0 +1,22 @@
+HA$PBExportHeader$d_busca_asiento.srd
+$PBExportComments$Si.
+release 7;
+datawindow(units=0 timer_interval=0 color=81324524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=12 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=176 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=cpnumero dbname="cpnumero" )
+ column=(type=char(1) updatewhereclause=yes name=tipo dbname="tipo" initial="B" values="Filtrar	F/Buscar	B/" )
+ column=(type=datetime updatewhereclause=yes name=cpfecha dbname="cpfecha" )
+ column=(type=char(10) updatewhereclause=yes name=ticodigo dbname="ticodigo" )
+ )
+column(band=detail id=1 alignment="1" tabsequence=20 border="5" color="0" x="283" y="96" height="56" width="320" format="[general]"  name=cpnumero edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="2" tabsequence=30 border="5" color="0" x="1070" y="12" height="56" width="279" format="dd/mm/yyyy"  name=cpfecha edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="5" color="0" x="1065" y="96" height="56" width="718" format="[general]"  name=ticodigo dddw.name=dddw_tipo_comprobante dddw.displaycolumn=ti_descri dddw.datacolumn=ti_codigo dddw.percentwidth=150 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="N$$HEX1$$fa00$$ENDHEX$$mero:" border="0" color="0" x="32" y="92" height="56" width="215"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="0" x="27" y="8" height="60" width="526" format="[general]"  name=tipo radiobuttons.columns=2 radiobuttons.scale=yes radiobuttons.threed=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="1" text="Fecha:" border="0" color="0" x="882" y="8" height="56" width="160"  name=t_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+text(band=detail alignment="0" text="Tipo:" border="0" color="0" x="882" y="96" height="56" width="133"  name=t_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="81324524" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

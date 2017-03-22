@@ -1,0 +1,53 @@
+HA$PBExportHeader$d_asiento_egresos.srd
+$PBExportComments$Si. Vale
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=268 color="536870912" )
+summary(height=96 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=pl_codigo dbname="cb_detegr.pl_codigo" )
+ column=(type=char(20) updatewhereclause=yes name=cs_codigo dbname="cb_detegr.cs_codigo" )
+ column=(type=char(1) updatewhereclause=yes name=signo dbname="cb_detegr.dg_signo" )
+ column=(type=number updatewhereclause=yes name=cc_valor dbname="cc_valor" )
+ column=(type=datetime updatewhereclause=yes name=cc_fecha dbname="cc_fecha" )
+ retrieve="SELECT ~"CB_DETEGR~".~"PL_CODIGO~",
+   	 ~"CB_DETEGR~".~"CS_CODIGO~",
+       ~"CB_DETEGR~".~"DG_SIGNO~",   
+         sum(~"CB_DETEGR~".~"DG_VALOR~") cc_valor,
+         trunc(~"CB_EGRESO~".~"EG_FECEGR~") cc_fecha
+    FROM ~"CB_DETEGR~",   
+         ~"CB_EGRESO~"  
+   WHERE ( ~"CB_EGRESO~".~"EM_CODIGO~" = ~"CB_DETEGR~".~"EM_CODIGO~" ) and  
+         ( ~"CB_EGRESO~".~"SU_CODIGO~" = ~"CB_DETEGR~".~"SU_CODIGO~" ) and  
+         ( ~"CB_EGRESO~".~"EG_NUMERO~" = ~"CB_DETEGR~".~"EG_NUMERO~" ) and  
+         ( ( trunc(~"CB_EGRESO~".~"EG_FECEGR~" ) = :FECHA ) AND  
+         ( ~"CB_EGRESO~".~"EM_CODIGO~" = :EMPRESA ) AND  
+         (NVL( ~"CB_EGRESO~".~"EG_CONTAB~",'N')<>'S' ) AND
+         (NVL(~"CB_EGRESO~".~"EG_ANULADO~",'N')<>'S') AND  
+         (NVL( ~"CB_EGRESO~".~"EG_ND~",'N' )= :TIPO))   
+GROUP BY ~"CB_DETEGR~".~"PL_CODIGO~",
+			~"CB_DETEGR~".~"CS_CODIGO~",   
+         ~"CB_DETEGR~".~"DG_SIGNO~",
+			trunc(~"CB_EGRESO~".~"EG_FECEGR~")" arguments=(("FECHA", date),("EMPRESA", string),("TIPO", string)) )
+text(band=header alignment="0" text="Egresos del d$$HEX1$$ed00$$ENDHEX$$a:" border="0" color="0" x="41" y="92" height="56" width="421"  name=t_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="EGRESOS DIARIOS" border="0" color="0" x="41" y="20" height="56" width="768"  name=t_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="110" y1="256" x2="1865" y2="256"  name=l_2 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Cuenta" border="0" color="0" x="114" y="188" height="56" width="430"  name=cb_deting_pl_codigo_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Signo" border="0" color="0" x="951" y="188" height="56" width="261"  name=cb_deting_di_signo_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="D$$HEX1$$e900$$ENDHEX$$bito" border="0" color="0" x="1303" y="188" height="56" width="229"  name=compute_0003_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Cr$$HEX1$$e900$$ENDHEX$$dito" border="0" color="0" x="1669" y="188" height="56" width="192"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Centro Costo" border="0" color="0" x="558" y="188" height="56" width="338"  name=t_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="0" x="9" y="4" height="60" width="78" format="[GENERAL]"  name=compute_5  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="2162" y="8" height="56" width="210" format="[general]"  name=cc_valor visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="2395" y="8" height="56" width="137" format="[shortdate] [time]"  name=cc_fecha visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="101" y="4" height="64" width="430" format="[general]"  name=pl_codigo edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="549" y="4" height="56" width="389" format="[general]"  name=cs_codigo dddw.name=dddw_centro_costos dddw.displaycolumn=cs_descri dddw.datacolumn=cs_codigo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="951" y="4" height="64" width="55" format="[general]"  name=signo edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="if(signo = 'D', cc_valor , 0 ) "border="0" color="0~tif(  compute_2 <> 0 ,rgb(255,255,255),rgb(0,0,0))" x="1216" y="4" height="64" width="302" format="#,##0.00"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" if(signo = 'C', cc_valor , 0 ) "border="0" color="0~tif(compute_1 <> 0,rgb(255,255,255),rgb(0,0,0))" x="1559" y="4" height="64" width="302" format="#,##0.00"  name=compute_2  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(if(signo = 'D', cc_valor , 0 ) for all) "border="0" color="0" x="1221" y="28" height="64" width="293" format="#,##0.00"  name=compute_3  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(if(signo = 'C', cc_valor , 0 ) for all) "border="0" color="0" x="1563" y="28" height="64" width="302" format="#,##0.00"  name=compute_4  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1243" y1="4" x2="1865" y2="4"  name=l_1 pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
